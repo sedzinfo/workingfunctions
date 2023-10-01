@@ -25,6 +25,4 @@ usethis::create_github_token()
 
 credentials::set_github_pat()
 
-#now remotes::install_github() will work
-
 remotes::install_github("sedzinfo/workingfunctions/workingfunctions")
