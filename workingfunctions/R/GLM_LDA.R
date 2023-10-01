@@ -1,0 +1,60 @@
+##########################################################################################
+# LDA
+##########################################################################################
+#' @title Report for MASS::lda
+#' @param model object from MASS::lda
+#' @param file output filename
+#' @param w width of pdf file
+#' @param h height of pdf file
+#' @param base_size base font size
+#' @param title plot title
+#' @importFrom stats get_all_vars
+#' @importFrom openxlsx createWorkbook saveWorkbook
+#' @keywords ML
+#' @export
+#' @examples
+#' model<-MASS::lda(case~.,data=infert)
+#' report_lda(model=model)
+#' report_lda(model=model,file="lda")
+#' model<-MASS::lda(Species~.,data=iris)
+#' report_lda(model=model,file="lda")
+report_lda<-function(model,file=NULL,w=10,h=10,base_size=10,title="") {
+  prior_counts<-data.frame(prior=model$prior,counts=model$counts,mean=model$means)
+  terms<-model$terms
+  scaling<-model$scaling
+  model_description<-data.frame(Observations=model$N,SDV=model$svd)
+  call=data.frame(call=stringr::str_replace_all(toString(deparse(model$call)),stringr::fixed(" "),""))
+  result<-list(prior_counts=prior_counts,means=model$means,coeficients=scaling,terms=terms,model_description=model_description,call=call)
+  predicted<-predict(model)
+  observed<-stats::get_all_vars(model$call,model.frame(model))[,1]
+  cmatrix<-confusion_matrix_percent(observed=observed,predicted=predicted$class)
+  if(!is.null(file)) {
+    filename<-paste0(file,".xlsx")
+    if (file.exists(filename)) file.remove(filename)
+    wb<-openxlsx::createWorkbook()
+    excel_critical_value(result$coeficients,workbook=wb,sheet="Coefficients",numFmt="#0.00")
+    excel_confusion_matrix(cmatrix,wb)
+    excel_critical_value(result$prior_counts,workbook=wb,sheet="Priors and Counts",numFmt="#0.00")
+    excel_critical_value(result$means,workbook=wb,sheet="Means",numFmt="#0.00")
+    excel_critical_value(result$model_description,workbook=wb,sheet="Descriptives",numFmt="#0.00")
+    excel_critical_value(result$call,workbook=wb,sheet="Call",numFmt="#0.00")
+    openxlsx::saveWorkbook(wb,invisible(paste0(filename)),TRUE)
+  }
+}
+##########################################################################################
+# NOTES
+##########################################################################################
+# plot(model)
+##########################################################################################
+# NOTES
+##########################################################################################
+# model$prior
+# model$counts
+# model$means
+# model$scaling
+# model$lev
+# model$svd
+# model$N
+# model$call
+# model$terms
+# model$xlevels

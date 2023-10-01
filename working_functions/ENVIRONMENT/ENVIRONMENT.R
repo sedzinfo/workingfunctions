@@ -1,13 +1,13 @@
 ##########################################################################################
 # DIRECTORIES
 ##########################################################################################
-setwd("/opt/repo")
+setwd("/opt/repositories/workingfunctions/")
 rm(list=ls(all=TRUE))
 lapply(paste0('package:',names(sessionInfo()$otherPkgs)),detach,character.only=TRUE,unload=TRUE)
 graphics.off()
 cat("\014")
 # .rs.restartR()
-library(psycholatefunctions)
+library(workingfunctions)
 environment_options()
 ##########################################################################################
 # SOURCE
@@ -16,7 +16,7 @@ r_files<-setdiff(list.files("working_functions",full.names=TRUE),list.dirs("work
 r_irr_files<-setdiff(list.files("working_functions/IRR",full.names=TRUE),list.dirs("working_functions/IRR",recursive=FALSE))
 for (i in r_files)
   source(i)
-source("/opt/repo/working_functions/ENVIRONMENT/ENVIRONMENT_GENERATE_PACKAGE.R")
+source("/opt/repositories/workingfunctions/working_functions/ENVIRONMENT/ENVIRONMENT_GENERATE_PACKAGE.R")
 ##########################################################################################
 # 
 ##########################################################################################

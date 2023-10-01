@@ -9,12 +9,13 @@ setwd("/opt/repo")
 # sudo ln -s /mnt/WD500/repositories/pystatistics/ pyrepo
 # sudo ln -s /mnt/WDRED_REMOTE/repositories/ipip_crombach/ ipip_crombach
 # sudo ln -s /home/dimitrios/Dropbox\ \(Psycholate\)/dimitrios/working/ rworking
+# sudo ln -s /mnt/WD6/repositories/ repositories
 ##########################################################################################
 # CREATE REFERENCE MANUAL
 ##########################################################################################
-# R CMD check psycholatefunctions
-# R CMD Rd2pdf psycholatefunctions
-# R CMD build psycholatefunctions
+# R CMD check workingfunctions
+# R CMD Rd2pdf workingfunctions
+# R CMD build workingfunctions
 ##########################################################################################
 # PACKAGES
 ##########################################################################################
