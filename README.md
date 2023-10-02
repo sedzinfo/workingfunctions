@@ -26,3 +26,4 @@ usethis::create_github_token()
 credentials::set_github_pat()
 
 remotes::install_github("sedzinfo/workingfunctions/workingfunctions")
+
