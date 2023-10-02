@@ -9,6 +9,7 @@ cat("\014")
 # .rs.restartR()
 library(workingfunctions)
 environment_options()
+rstudioapi::getSourceEditorContext()$path
 ##########################################################################################
 # SOURCE
 ##########################################################################################
