@@ -10,15 +10,16 @@ library(roxygen2)
 ##########################################################################################
 # FUNCTIONS PACKAGE
 ##########################################################################################
-source("/opt/repositories/workingfunctions/working_functions/ENVIRONMENT/ENVIRONMENT_DATA.R")
-setwd("/opt/repositories/workingfunctions/")
-setwd("C:\Users\User\Documents\GitHub\workingfunctions\")
-
+working_directory<-"/opt/repositories/workingfunctions/"
+working_directory<-"C:/Users/User/Documents/GitHub/workingfunctions/"
+# source(paste0(working_directory,"ENVIRONMENT/ENVIRONMENT_DATA.R"))
+setwd(working_directory)
 # usethis::create_package("workingfunctions")
 setwd("workingfunctions")
 # dir.create(file.path("data"),showWarnings=FALSE)
-filestocopy<-setdiff(list.files("/opt/repositories/workingfunctions/working_functions",full.names=TRUE),list.dirs("/opt/repositories/workingfunctions/working_functions",recursive=FALSE))
-file.copy(from=filestocopy,to="/opt/repositories/workingfunctions/workingfunctions/R",recursive=TRUE,copy.mode=TRUE)
+filestocopy<-setdiff(list.files(paste0(working_directory,"/working_functions"),full.names=TRUE),
+                     list.dirs(paste0(working_directory,"/working_functions"),recursive=FALSE))
+file.copy(from=filestocopy,to=paste0(working_directory,"/workingfunctions/R"),recursive=TRUE,copy.mode=TRUE)
 document()
 setwd("..")
 # install("workingfunctions")

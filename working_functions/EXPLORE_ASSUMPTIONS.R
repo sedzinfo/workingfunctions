@@ -86,7 +86,7 @@ plot_normality_diagnostics<-function(df,breaks=NULL,title="",file=NULL,w=10,h=10
 #' plot_outlier(df=df,method="mean",title="random vector")
 #' plot_outlier(df=df,method="median")
 #' plot_outlier(df=df,method="boxplot")
-#' plot_multiplot(plotlist=plot_outlier(df=mtcars,method="mean"),cols=4)
+#' plot_multiplot(plotlist=plot_outlier(df=mtcars[,2:5],method="mean"),cols=2)
 plot_outlier<-function(df,method="mean",title="",base_size=10) {
   obs<-Outlier<-NULL
   plot<-list()
@@ -171,7 +171,7 @@ plot_outlier<-function(df,method="mean",title="",base_size=10) {
 #' vector<-generate_missing(rnorm(1000))
 #' df<-generate_missing(mtcars[,1:2])
 #' plot_histogram(df=vector)
-#' plot_histogram(df=df,xlims=c(0,10))
+#' plot_histogram(df=df,xlims=c(0,50))
 #' plot_histogram(df=df)
 #' plot_multiplot(plotlist=plot_histogram(df=mtcars),cols=4)
 plot_histogram<-function(df,bins=30,title="",base_size=10,xlims=NULL,fill="gray25",color="gray50",ylab="Count") {
@@ -179,8 +179,9 @@ plot_histogram<-function(df,bins=30,title="",base_size=10,xlims=NULL,fill="gray2
   plot<-list()
   df<-data.frame(df,id=1:nrow(data.frame(df)),check.names=FALSE)
   df<-df[,sapply(df,is.numeric)]
-  if(length(names(df))==2)
+  if(length(names(df))==2) {
     names(df)[1]<-""
+  }
   pb<-txtProgressBar(min=0,max=length(df)-1,style=3)
   for (i in 1:(length(df)-1)) {
     setTxtProgressBar(pb,i)

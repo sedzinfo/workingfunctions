@@ -11,7 +11,8 @@ plot_histogram(
   base_size = 10,
   xlims = NULL,
   fill = "gray25",
-  color = "gray50"
+  color = "gray50",
+  ylab = "Count"
 )
 }
 \arguments{
@@ -28,6 +29,8 @@ plot_histogram(
 \item{fill}{color of bar}
 
 \item{color}{color of bar outline}
+
+\item{ylab}{y label}
 }
 \description{
 Histograms with density function
@@ -39,7 +42,7 @@ uses ggplot
 vector<-generate_missing(rnorm(1000))
 df<-generate_missing(mtcars[,1:2])
 plot_histogram(df=vector)
-plot_histogram(df=df,xlims=c(0,10))
+plot_histogram(df=df,xlims=c(0,50))
 plot_histogram(df=df)
 plot_multiplot(plotlist=plot_histogram(df=mtcars),cols=4)
 }

@@ -27,7 +27,7 @@ plot_outlier(df=vector,method="boxplot")
 plot_outlier(df=df,method="mean",title="random vector")
 plot_outlier(df=df,method="median")
 plot_outlier(df=df,method="boxplot")
-plot_multiplot(plotlist=plot_outlier(df=mtcars,method="mean"),cols=4)
+plot_multiplot(plotlist=plot_outlier(df=mtcars[,2:5],method="mean"),cols=2)
 }
 \author{
 unknown
