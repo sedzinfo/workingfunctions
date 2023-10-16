@@ -12,6 +12,8 @@ library(roxygen2)
 ##########################################################################################
 source("/opt/repositories/workingfunctions/working_functions/ENVIRONMENT/ENVIRONMENT_DATA.R")
 setwd("/opt/repositories/workingfunctions/")
+setwd("C:\Users\User\Documents\GitHub\workingfunctions\")
+
 # usethis::create_package("workingfunctions")
 setwd("workingfunctions")
 # dir.create(file.path("data"),showWarnings=FALSE)
