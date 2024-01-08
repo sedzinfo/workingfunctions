@@ -7,6 +7,7 @@
 report_alpha(
   df,
   key = NULL,
+  questions = NULL,
   reverse = NULL,
   mini = NULL,
   maxi = NULL,
@@ -17,7 +18,9 @@ report_alpha(
 \arguments{
 \item{df}{dataframe}
 
-\item{key}{index of trait names and items constituring a trait}
+\item{key}{index of trait names and items constituting a trait}
+
+\item{questions}{trait names and items constituting a trait}
 
 \item{reverse}{index of trait names and index for reversal}
 

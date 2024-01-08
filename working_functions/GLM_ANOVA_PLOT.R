@@ -91,7 +91,7 @@ plot_oneway<-function(df,dv,iv,base_size=20,type="se",order_factor=TRUE,title=""
   }
   
   pb<-txtProgressBar(min=0,max=nrow(combinations),style=3)
-  
+  # 
   if(parralel) {
     cl<-parallel::makeCluster(parallel::detectCores())
     doSNOW::registerDoSNOW(cl)

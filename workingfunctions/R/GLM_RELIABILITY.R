@@ -184,7 +184,8 @@ mean_sd_alpha<-function(df,divisor=NULL) {
 #' @title Estimate alpha for several dimensions and export results to xlsx
 #' @description Uses an arbitrary input
 #' @param df dataframe
-#' @param key index of trait names and items constituring a trait
+#' @param key index of trait names and items constituting a trait
+#' @param questions trait names and items constituting a trait
 #' @param reverse index of trait names and index for reversal
 #' @param mini minimum rating in scale if NULL reversal will be performed using the empirical minimum
 #' @param maxi maximum rating in scale if NULL reversal will be performed using the empirical maximum
@@ -205,7 +206,7 @@ mean_sd_alpha<-function(df,divisor=NULL) {
 #' report_alpha(df=df,key=key,cumulative=TRUE,n.iter=1)
 #' report_alpha(df=df,key=key,reverse=reverse,check.keys=FALSE,n.iter=2)
 #' report_alpha(df=df,key=key,check.keys=FALSE,n.iter=2,file="alpha")
-report_alpha<-function(df,key=NULL,reverse=NULL,mini=NULL,maxi=NULL,file=NULL,...) {
+report_alpha<-function(df,key=NULL,questions=NULL,reverse=NULL,mini=NULL,maxi=NULL,file=NULL,...) {
   comment<-list(raw_alpha=toString(c("Crombach's alpha",
                                      "\n\nalpha based on covariances",
                                      "\n\nLambda 3=(n)/(n-1)(1-tr(Vx)/(Vx) = (n)/(n-1)(Vx-tr(Vx)/Vx=alpha",
@@ -298,9 +299,13 @@ report_alpha<-function(df,key=NULL,reverse=NULL,mini=NULL,maxi=NULL,file=NULL,..
     result_total<-plyr::rbind.fill(result_total,result_total_df)
     if(!is.null(result$boot.ci))
       result_boot<-plyr::rbind.fill(result_boot,result_boot_df)
+    if(is.null(questions))
+      question<-row.names(result$alpha.drop)
+    else
+      question<-questions[[sc]]
     result_item_statistics<-plyr::rbind.fill(result_item_statistics,
                                              data.frame(dimension=sc,
-                                                        question=row.names(result$alpha.drop),
+                                                        question=question,
                                                         raw_alpha=as.numeric(result$total[1]),
                                                         result$item.stats,
                                                         result$response.freq,
@@ -308,7 +313,7 @@ report_alpha<-function(df,key=NULL,reverse=NULL,mini=NULL,maxi=NULL,file=NULL,..
                                                         check.names=FALSE))
     result_dropped<-plyr::rbind.fill(result_dropped,
                                      data.frame(dimension=sc,
-                                                question=row.names(result$alpha.drop),
+                                                question=question,
                                                 scale_alpha=as.numeric(result$total[1]),
                                                 result$alpha.drop,
                                                 stringsAsFactors=FALSE,

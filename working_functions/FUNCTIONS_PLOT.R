@@ -174,3 +174,6 @@ report_pdf<-function(...,plotlist=NULL,file=NULL,title=NULL,w=10,h=10,print_plot
     purrr::walk(plotlist,function(p) { print(p) })
   }
 }
+
+
+
