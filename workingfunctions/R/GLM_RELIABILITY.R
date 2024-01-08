@@ -302,7 +302,7 @@ report_alpha<-function(df,key=NULL,questions=NULL,reverse=NULL,mini=NULL,maxi=NU
     if(is.null(questions))
       question<-row.names(result$alpha.drop)
     else
-      question<-questions[[sc]]
+      question<-paste(row.names(result$alpha.drop),questions[[sc]])
     result_item_statistics<-plyr::rbind.fill(result_item_statistics,
                                              data.frame(dimension=sc,
                                                         question=question,

@@ -7,6 +7,9 @@
 # R CMD build workingfunctions --resave-data
 library(devtools)
 library(roxygen2)
+rm(list=ls(all=TRUE))
+graphics.off()
+cat("\014")
 ##########################################################################################
 # FUNCTIONS PACKAGE
 ##########################################################################################
@@ -23,5 +26,5 @@ file.copy(from=filestocopy,to=paste0(working_directory,"/workingfunctions/R"),re
 document()
 setwd("..")
 # install("workingfunctions")
-setwd("/opt/repositories/workingfunctions/")
+setwd(working_directory)
 
