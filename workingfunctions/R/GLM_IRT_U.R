@@ -65,6 +65,10 @@ compute_unidimensional_theta<-function(a,b=0,g=0,i=1,d=1.702,theta=0) {
 #' u<-c(1,0,1,1,0,0,0,1,1,0,1,0)
 #' # SHOULD RETURN 0.0860506282671103
 #' compute_unidimensional_ability(a=a,b=b,u=u,d=1.7,g=NULL)
+#' a<-rep(1,8)
+#' b<-c(-0.54,0.18,0.21,1.26,1.73,-0.87,1.72,2.67)
+#' u<-c(1,1,1,1,1,1,1,1)
+#' compute_unidimensional_ability(a=a,b=b,u=u,d=1.7,g=NULL)
 compute_unidimensional_ability<-function(a,b,g=NULL,d=1.702,u,lim_theta=c(-6,6)) {
   temp_theta<-0
   computations<-data.frame()

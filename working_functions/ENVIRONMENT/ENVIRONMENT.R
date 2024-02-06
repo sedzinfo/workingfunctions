@@ -40,7 +40,7 @@ sessionInfo()
 getLoadedDLLs()
 installed.packages()
 options(java.parameters="-Xmx8192m")
-Sys.getlocale(category= "LC_ALL")
+Sys.getlocale(category="LC_ALL")
 #Postscript Encoding Files
 dir(file.path(system.file(package="grDevices"),"enc"))
 # List the functions in a particular package

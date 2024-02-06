@@ -95,7 +95,7 @@ increase_index<-function(blocks,items){
 #' generate_comparisons_matrix(4)
 #' generate_comparisons_matrix(5)
 #' generate_comparisons_matrix(6)
-generate_comparisons_matrix<-function(items){
+generate_comparisons_matrix<-function(items) {
   comparisons<-generate_unique_comparisons_index(items)
   result<-matrix(nrow=nrow(comparisons),ncol=items)
   result[is.na(result)]<-0
@@ -467,7 +467,7 @@ compute_scores_parallel<-function(mydata,...) {
   pb<-txtProgressBar(max=nrow(mydata),style=3)
   progress<-function(n) setTxtProgressBar(pb,n)
   opts<-list(progress=progress)
-  ability<-foreach(i=1:nrow(mydata),.combine="c",.packages="psycholatefunctions",.options.snow=opts) %dopar% {
+  ability<-foreach(i=1:nrow(mydata),.combine="c",.packages="workingfunctions",.options.snow=opts) %dopar% {
     compute_ability(as.numeric(mydata[i,]),...)$ability_map
   }
   close(pb)
@@ -519,3 +519,6 @@ get_mplus_thu_3t<-function(model) {
   result<-list(names_model=names_model,psi=psi,gamma=gamma,l1=l1,l2=l2,l3=l3,d1=d1,d2=d2,d3=d3,g1=g1,g2=g2,g3=g3,psi1=psi1,psi2=psi2,psi3=psi3)
   return(result)
 }
+
+
+
