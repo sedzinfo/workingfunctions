@@ -184,31 +184,35 @@ plot_interaction<-function(df,dv,iv,base_size=20,type="se",order_factor=TRUE,tit
       interactions_plot<-interactions_plot+
         scale_color_discrete(breaks=c(levels(tempdata[,factors[2]])),name=factors[2])+
         geom_line()+
-        geom_point()+
+        geom_point(size=5)+
         #theme(legend.title=element_blank())+
         theme_bw(base_size=base_size)+
         guides(color=guide_legend(ncol=1))+
-        labs(y=string_aes(cors),
-             x=str_wrap(string_aes(factors[1]),width=25),
+        labs(y=stringr::str_wrap(string_aes(cors),width=25),
+             x=stringr::str_wrap(string_aes(factors[1]),width=25),
              title=title,
              caption=note,
-             color=str_wrap(string_aes(tempdata[,factors[2]]),width=25))+
+             color=stringr::str_wrap(string_aes(tempdata[,factors[2]]),width=25))+
         scale_x_discrete(labels=scales::wrap_format(100))+
         coord_flip()
       if(type=="se")
-        interactions_plot<-interactions_plot+geom_errorbar(aes(ymin=tempdata[,cors]-se,ymax=tempdata[,cors]+se),width=.1,position=position_dodge(0.1))+
+        interactions_plot<-interactions_plot+
+        geom_errorbar(aes(ymin=tempdata[,cors]-se,ymax=tempdata[,cors]+se),width=.1,position=position_dodge(0.1))+
         labs(caption=paste("Bars are standard errors",note))
       if(type=="ci")
-        interactions_plot<-interactions_plot+geom_errorbar(aes(ymin=tempdata[,cors]-ci,ymax=tempdata[,cors]+ci),width=.1,position=position_dodge(0.1))+
+        interactions_plot<-interactions_plot+
+        geom_errorbar(aes(ymin=tempdata[,cors]-ci,ymax=tempdata[,cors]+ci),width=.1,position=position_dodge(0.1))+
         labs(caption=paste("Bars are confidence intervals",note))
       if(type=="sd")
-        interactions_plot<-interactions_plot+geom_errorbar(aes(ymin=tempdata[,cors]-sd,ymax=tempdata[,cors]+sd),width=.1,position=position_dodge(0.1))+
+        interactions_plot<-interactions_plot+
+        geom_errorbar(aes(ymin=tempdata[,cors]-sd,ymax=tempdata[,cors]+sd),width=.1,position=position_dodge(0.1))+
         labs(caption=paste("Bars are standard deviations",note))
       if(type=="") {}
       minaxis<-ggplot_build(interactions_plot)$layout$panel_scales_y[[1]]$range$range[[1]]
       if(is.null(minaxis)) {}
       else
-        interactions_plot<-interactions_plot+annotate("text",x=tempdata_cases[,factors[1]],y=minaxis,label=paste("N:",tempdata_cases$N),alpha=.5,size=base_size/10*2,hjust=0,vjust=2)
+        interactions_plot<-interactions_plot+
+        annotate("text",x=tempdata_cases[,factors[1]],y=minaxis,label=paste("N:",tempdata_cases$N),alpha=.5,size=base_size/10*2,hjust=0,vjust=2)
       ggpubr::as_ggplot(gridExtra::arrangeGrob(interactions_plot))
     }
   }
@@ -237,10 +241,12 @@ plot_interaction<-function(df,dv,iv,base_size=20,type="se",order_factor=TRUE,tit
     doSNOW::registerDoSNOW(cl)
     progress<-function(n) setTxtProgressBar(pb,n)
     opts<-list(progress=progress)
-    plot_data<-foreach(i=1:nrow(combinations),.final=function(x) setNames(x,row.names(combinations)),.packages=c("workingfunctions"),.options.snow=opts) %dopar% {
+    plot_data<-foreach(i=1:nrow(combinations),.final=function(x) setNames(x,row.names(combinations)),
+                       .packages=c("workingfunctions"),.options.snow=opts) %dopar% {
       output_data(i)
     }
-    plots<-foreach(i=1:length(plot_data),.final=function(x) setNames(x,row.names(combinations)),.packages=c("workingfunctions","stringr"),.options.snow=opts) %dopar% {
+    plots<-foreach(i=1:length(plot_data),.final=function(x) setNames(x,row.names(combinations)),
+                   .packages=c("workingfunctions","stringr"),.options.snow=opts) %dopar% {
       output_plot(i)
     }
     close(pb)

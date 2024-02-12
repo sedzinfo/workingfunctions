@@ -25,6 +25,6 @@ filestocopy<-setdiff(list.files(paste0(working_directory,"/working_functions"),f
 file.copy(from=filestocopy,to=paste0(working_directory,"/workingfunctions/R"),recursive=TRUE,copy.mode=TRUE)
 document()
 setwd("..")
-# install("workingfunctions")
+install("workingfunctions")
 setwd(working_directory)
 
