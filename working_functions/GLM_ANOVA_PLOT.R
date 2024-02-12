@@ -187,6 +187,7 @@ plot_interaction<-function(df,dv,iv,base_size=20,type="se",order_factor=TRUE,tit
         geom_point()+
         #theme(legend.title=element_blank())+
         theme_bw(base_size=base_size)+
+        guides(color=guide_legend(ncol=1))+
         labs(y=string_aes(cors),
              x=str_wrap(string_aes(factors[1]),width=25),
              title=title,
