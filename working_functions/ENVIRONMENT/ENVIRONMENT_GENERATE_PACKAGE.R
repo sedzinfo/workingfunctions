@@ -13,6 +13,7 @@ cat("\014")
 ##########################################################################################
 # FUNCTIONS PACKAGE
 ##########################################################################################
+working_directory<-"/home/dimitrios/repositories/workingfunctions/"
 working_directory<-"/opt/repositories/workingfunctions/"
 working_directory<-"C:/Users/User/Documents/GitHub/workingfunctions/"
 # source(paste0(working_directory,"ENVIRONMENT/ENVIRONMENT_DATA.R"))

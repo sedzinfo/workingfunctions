@@ -108,7 +108,7 @@ plot_scatterplot<-function(df,method=lm,formula=y~x,base_size=10,coord_equal=FAL
     doSNOW::registerDoSNOW(cl)
     progress<-function(n) setTxtProgressBar(pb,n)
     opts<-list(progress=progress)
-    scatterplots<-foreach(i=1:nrow(combinations),.final=function(x) setNames(x,row.names(combinations)),.packages=c("psycholatefunctions"),.options.snow=opts) %dopar% {
+    scatterplots<-foreach(i=1:nrow(combinations),.final=function(x) setNames(x,row.names(combinations)),.packages=c("workingfunctions"),.options.snow=opts) %dopar% {
       pdf(NULL)
       output_plot(i) 
     }

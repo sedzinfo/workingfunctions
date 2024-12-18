@@ -29,7 +29,7 @@ packages<-c(packages1,environment,glm,factor,irt,machine_learning,graphics,strin
 packages[duplicated(packages)]
 installed_packages<-data.frame(installed.packages(),stringsAsFactors=FALSE)
 missing_packages<-setdiff(packages,installed_packages$Package)
-install.packages(missing_packages,Ncpus=20)
+install.packages(missing_packages,Ncpus=1)
 
 session.information<-sessionInfo()
 names.base.packages<-sort(session.information$basePkgs)
