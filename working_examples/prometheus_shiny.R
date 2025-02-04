@@ -13,7 +13,7 @@ ui<-fluidPage(
                  choices=c("temperature","humidity","pressure","lux","proximity",
                              "NH3","reducing","oxidising",
                              "PM1","PM10","PM25","up"),selected="temperature"),
-      dateRangeInput("date_range","Date Range",start="2023-06-01",end=Sys.time()),
+      dateRangeInput("date_range","Date Range",start="2024-01-01",end=Sys.time()),
       actionButton("submit_button","Submit")),
     mainPanel(
       plotlyOutput("plot")
@@ -22,7 +22,7 @@ ui<-fluidPage(
 )
 
 server<-function(input,output) {
-  prometheus_url<-"http://pip1.crabdance.com:1505/api/v1/query_range"
+  prometheus_url<-"http://pip1.crabdance.com:1507/api/v1/query_range"
   observeEvent(input$submit_button,{
     query_expression<-input$query_expression
     start_time<-format(input$date_range[1],"%Y-%m-%dT%H:%M:%SZ")

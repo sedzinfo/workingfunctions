@@ -218,3 +218,12 @@ saveHTML({
 ani.height=480,ani.width=480,title="Visual Illusions: Lilac Chaser",
 description=c("Stare at the center cross for a few (say 30) seconds to experience the phenomena of the illusion."))
 ani.options(oopt)
+
+
+
+
+
+
+
+
+

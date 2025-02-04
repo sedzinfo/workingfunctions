@@ -5,7 +5,7 @@ library(xts)
 library(zoo)
 library(plotly)
 
-prometheus_url<-"http://pip1.crabdance.com:1505/api/v1/query_range"
+prometheus_url<-"http://pip1.crabdance.com:1507/api/v1/query_range"
 query_expression<-"humidity"
 
 start_time<-"2023-06-01T00:00:00Z"
