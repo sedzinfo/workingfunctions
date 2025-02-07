@@ -21,7 +21,7 @@ ggplot(out,aes(long,lat,group=group))+
 ##########################################################################################
 # https://github.com/jbkunst/jbkunst.github.io/blob/master/_posts/2016-06-23-case-study-animation-and-others-vizs.md
 library(highcharter)
-library(psycholatefunctions)
+library(workingfunctions)
 df_nasa<-read.csv("https://data.giss.nasa.gov/gistemp/tabledata_v4/GLB.Ts+dSST.csv",header=TRUE,stringsAsFactors=FALSE,na.strings="***",skip=1)
 dfm<-df_nasa<-df_nasa[,c("Year","Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec")]
 dfma<-data.frame(Year=df_nasa$Year,
