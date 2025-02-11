@@ -1,0 +1,60 @@
+---
+title: "GLM LINEAR REGRESSION"
+author: "Dimitrios Zacharatos"
+date: "`r Sys.Date()`"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{GLM_LINEAR_REGRESSION}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+  
+<style> 
+body { max-width: 95%; margin: 0 auto; padding: 0; } 
+.container { width: 100%; max-width: none; } 
+/* Example for wider tables */ 
+table { width: 80%; table-layout: fixed; } 
+th, td { padding: 8px; text-align: left; } 
+</style>
+  
+This shows the output of linear regression functions from workingfunctions.  
+Installation instructions of working functions can be found here https://github.com/sedzinfo/workingfunctions
+  
+```{r setup}
+library(workingfunctions)
+options(width=1000)
+options(future.show.progress = FALSE)
+```
+
+# Plot Scatterplot
+```{r, plot_scatterplot,fig.width=8,fig.height=8,message=FALSE,warning=FALSE,results='hide'}
+result<-plot_scatterplot(df=mtcars,title="",coord_equal=TRUE,base_size=10)
+plot_scatterplot(df=mtcars[,1:2],base_size=10,coord_equal=TRUE,all_orders=FALSE)
+plot_scatterplot(df=mtcars[,1:2],base_size=10,coord_equal=FALSE,all_orders=FALSE)
+plot_scatterplot(df=mtcars,base_size=10,coord_equal=TRUE,all_orders=FALSE,
+                 combinations=data.frame(x=c("mpg","mpg","mpg"),
+                                         y=c("cyl","hp","mpg")))
+plot_scatterplot(df=mtcars,base_size=10,coord_equal=TRUE,all_orders=TRUE,
+                 combinations=data.frame(x=c("mpg"),y=c("cyl")))
+x<-rnorm(1000)
+y<-x+rnorm(x,sd=.1)
+plot_scatterplot(df=data.frame(x,y),title="Random Simulation",coord_equal=TRUE)
+df<-data.frame(matrix(-.999,ncol=2,nrow=2))
+correlation_martix<-as.matrix(df)
+diag(correlation_martix)<-1
+df<-generate_correlation_matrix(correlation_martix,nrows=1000)
+plot_scatterplot(df,title="Simulation of -.999 Correlation",coord_equal=TRUE,base_size=10)
+```
+
+```{r, plot_multiplot,fig.width=20,fig.height=20}
+plot_multiplot(plotlist=result[1:12],cols=4)
+```
+
+```{r, report_regression,fig.width=8,fig.height=8}
+form<-formula(mpg~qsec)
+regressionmodel<-lm(form,data=mtcars)
+multipleregressionmodel<-lm(mpg~qsec*hp*wt*drat,data=mtcars)
+res<-report_regression(model=regressionmodel,plot_diagnostics=TRUE)
+res<-report_regression(model=multipleregressionmodel)
+res
+```

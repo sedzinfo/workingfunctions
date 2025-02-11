@@ -1,5 +1,5 @@
 ---
-title: "GLM_EFA"
+title: "EFA"
 author: "Dimitrios Zacharatos"
 date: "`r Sys.Date()`"
 output: rmarkdown::html_vignette
