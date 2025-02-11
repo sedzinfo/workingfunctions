@@ -10,12 +10,15 @@ vignette: >
 ---
 
 <style> 
-body { max-width: 100%; margin: 0 auto; padding: 0; } 
+body { max-width: 95%; margin: 0 auto; padding: 0; } 
 .container { width: 100%; max-width: none; } 
 /* Example for wider tables */ 
-table { width: 100%; table-layout: fixed; } 
+table { width: 80%; table-layout: fixed; } 
 th, td { padding: 8px; text-align: left; } 
 </style>
+
+# Introduction
+This shows the output of report_ttests and report_wtests functions from workingfunctions.
 
 ```{r setup, include = FALSE}
 library(workingfunctions)
@@ -24,27 +27,74 @@ options(width = 1000)
 
 # T TEST
 ```{r, report_ttests}
-report_ttests(df=mtcars,dv=2,iv=9)
-report_ttests(df=mtcars,dv=2,iv=9:10)
-report_ttests(df=mtcars,dv=2:3,iv=9)
-report_ttests(df=mtcars,dv=2:3,iv=9:10,alternative="two.sided")
-report_ttests(df=mtcars,dv=2:7,iv=9:10,alternative="less")
-report_ttests(df=mtcars,dv=2:7,iv=9:10,alternative="greater")
-# report_ttests(df=mtcars,dv=2:7,iv=9:10,paired=FALSE)
-# report_ttests(df=mtcars,dv=2:7,iv=9:10,paired=TRUE)
-report_ttests(df=mtcars,dv=1:7,iv=8:10,var.equal=TRUE)
+report_ttests(df=mtcars,dv=2,iv=9,alternative="two.sided")
+report_ttests(df=mtcars,dv=2,iv=9:10,alternative="less")
+report_ttests(df=mtcars,dv=2:3,iv=9,alternative="greater")
+report_ttests(df=mtcars,dv=2:3,iv=9:10)
 ```
+
+## EXPLANATION of COLUMNS
+
+DV                  "dependent variable"  
+IV                  "independent variable"  
+level1              "level 1"  
+level2              "level 2"  
+n1                  "sample size for level 1"  
+n2                  "sample size for level 2"  
+t                   "t statistic"  
+df                  "degrees of freedom for t statistic"  
+p                   "p value"  
+CI_l                "confidence interval lower bound"  
+CI_u                "confidence interval upper bound"  
+alternative         "alternative hypothesis"  
+method              ""  
+mean1               "mean for level 1"  
+mean2               "mean for level 2"  
+sd1                 "standard deviation for level 1"  
+sd2                 "standard deviation for level 2"  
+sd_pooled           "pooled standard deviation\n\ncombined standard deviation of both levels"  
+d                   "measure of effect size\n\ncohen's d\n\nVery small\t0.01\t\tSawilowsky (2009)\nSmall\t\t0.20\t\tCohen (1988)\nMedium\t\t0.50\t\tCohen (1988)\nLarge\t\t0.80\t\tCohen (1988)\nVery large\t\t1.20\t\tSawilowsky (2009)\nHuge\t\t12.0\t\t1Sawilowsky (2009)"  
+r                   "measure of effect size\n\ncorrelation effect size"  
+k_squared.bartlett. "bartlett test for homogeneity of variances\n\n"  
+df.bartlett.        "bartlett test for homogeneity of variances\n\n"  
+p.bartlett.         "bartlett test for homogeneity of variances\n\nsignificant values indicate heteroscedasticity"  
+bonferroni_p        "bonferroni adjusted critical value for a=0.05"  
+significant         "if TRUE result is significant after bonferroni adjustment"  
 
 # WILCOXON TEST
 ```{r, report_wtests}
-report_wtests(df=mtcars,dv=2,iv=9)
-report_wtests(df=mtcars,dv=2,iv=9:10)
-report_wtests(df=mtcars,dv=2:3,iv=9)
-report_wtests(df=mtcars,dv=2:3,iv=9:10,alternative="two.sided")
-report_wtests(df=mtcars,dv=2:7,iv=9:10,alternative="less")
-report_wtests(df=mtcars,dv=2:7,iv=9:10,alternative="greater")
-# report_wtests(df=mtcars,dv=2:7,iv=9:10,paired=FALSE)
-# report_wtests(df=mtcars,dv=2:7,iv=9:10,paired=TRUE)
-report_wtests(df=mtcars,dv=1:7,iv=8:10,var.equal=TRUE)
-report_wtests(df=mtcars,dv=1:7,iv=8:10,var.equal=TRUE,file="wilcoxontest")
+report_wtests(df=mtcars,dv=2,iv=9,alternative="two.sided",exact=FALSE)
+report_wtests(df=mtcars,dv=2,iv=9:10,alternative="less",exact=FALSE)
+report_wtests(df=mtcars,dv=2:3,iv=9,alternative="greater",exact=FALSE)
+report_wtests(df=mtcars,dv=2:3,iv=9:10,exact=FALSE)
 ```
+
+
+## EXPLANATION of COLUMNS
+
+DV                  "dependent variable"  
+IV                  "independent variable"  
+level1              "level 1"  
+level2              "level 2"  
+n1                  "sample size for level 1"  
+n2                  "sample size for level 2"  
+W                   "wilcoxon statistic"  
+df                  "degrees of freedom for t statistic"  
+p                   "p value"  
+CI_l                "confidence interval lower bound"  
+CI_u                "confidence interval upper bound"  
+alternative         "alternative hypothesis"  
+method              ""  
+mean1               "mean for level 1"  
+mean2               "mean for level 2"  
+sd1                 "standard deviation for level 1"  
+sd2                 "standard deviation for level 2"  
+sd_pooled           "pooled standard deviation\n\ncombined standard deviation of both levels"  
+d                   "measure of effect size\n\ncohen's d\n\nVery small\t0.01\t\tSawilowsky (2009)\nSmall\t\t0.20\t\tCohen (1988)\nMedium\t\t0.50\t\tCohen (1988)\nLarge\t\t0.80\t\tCohen (1988)\nVery large\t\t1.20\t\tSawilowsky (2009)\nHuge\t\t12.0\t\t1Sawilowsky (2009)"  
+r                   "measure of effect size\n\ncorrelation effect size"  
+k_squared.bartlett. "bartlett test for homogeneity of variances\n\n"  
+df.bartlett.        "bartlett test for homogeneity of variances\n\n"  
+p.bartlett.         "bartlett test for homogeneity of variances\n\nsignificant values indicate heteroscedasticity"  
+bonferroni_p        "bonferroni adjusted critical value for a=0.05"  
+significant         "if TRUE result is significant after bonferroni adjustment"  
+
