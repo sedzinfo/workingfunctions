@@ -34,7 +34,7 @@ report_ttests(df=mtcars,dv=2:3,iv=9,alternative="greater")
 report_ttests(df=mtcars,dv=2:3,iv=9:10)
 ```
 
-## EXPLANATION of COLUMNS
+## COLUMNS
 | Column   | Description                                                                 |
 |----------|-----------------------------------------------------------------------------|
 |DV                  |"dependent variable"  |
@@ -71,9 +71,7 @@ report_wtests(df=mtcars,dv=2:3,iv=9,alternative="greater",exact=FALSE)
 report_wtests(df=mtcars,dv=2:3,iv=9:10,exact=FALSE)
 ```
 
-
-## EXPLANATION of COLUMNS
-
+## COLUMNS
 | Column   | Description                                                                 |
 |----------|-----------------------------------------------------------------------------|
 |DV                  |"dependent variable"  |

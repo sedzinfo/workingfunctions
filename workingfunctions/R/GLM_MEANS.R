@@ -9,13 +9,12 @@
 #' @keywords ANOVA
 #' @export
 #' @examples
-#' report_ttests(df=mtcars,dv=2,iv=9)
 #' report_ttests(df=mtcars,dv=2,iv=9:10)
 #' report_ttests(df=mtcars,dv=2:3,iv=9)
 #' report_ttests(df=mtcars,dv=2:3,iv=9:10,alternative="two.sided")
 #' report_ttests(df=mtcars,dv=2:7,iv=9:10,alternative="less")
 #' report_ttests(df=mtcars,dv=2:7,iv=9:10,alternative="greater")
-#' report_ttests(df=mtcars,dv=2:7,iv=9:10,paired=FALSE)
+#' #report_ttests(df=mtcars,dv=2:7,iv=9:10,paired=FALSE)
 #' #report_ttests(df=mtcars,dv=2:7,iv=9:10,paired=TRUE)
 #' report_ttests(df=mtcars,dv=1:7,iv=8:10,var.equal=TRUE)
 #' report_ttests(df=mtcars,dv=1:7,iv=8:10,var.equal=TRUE,file="ttest")
@@ -54,11 +53,11 @@ report_ttests<-function(df,dv,iv,file=NULL,...) {
   names(combinations)<-c("iv","dv")
   row.names(combinations)<-paste0(combinations$iv,"_",combinations$dv)
   combinations<-change_data_type(combinations,type="character")
-  pb<-txtProgressBar(min=0,max=length(iv)*length(dv),style=3)
+  # pb<-txtProgressBar(min=0,max=length(iv)*length(dv),style=3)
   for(i in 1:nrow(combinations)) {
     independent<-combinations$iv[i]
     dependent<-combinations$dv[i]
-    setTxtProgressBar(pb,i)
+    # setTxtProgressBar(pb,i)
     tempdata<-df[complete.cases(df[,c(dependent,independent)]),]
     tempdata[,independent]<-factor(tempdata[,independent])
     combinations_levels<-data.frame(t(utils::combn(unique(as.character(tempdata[,independent])),2)),stringsAsindependent=FALSE)
@@ -106,7 +105,7 @@ report_ttests<-function(df,dv,iv,file=NULL,...) {
       df_ttest<-plyr::rbind.fill(df_ttest,ttest_r)
     }
   }
-  close(pb)
+  # close(pb)
   adjustment<-compute_adjustment(0.05,nrow(df_ttest))
   df_ttest$bonferroni_p<-adjustment$bonferroni
   df_ttest$significant<-as.character(adjustment$bonferroni>df_ttest$p)
@@ -135,7 +134,6 @@ report_ttests<-function(df,dv,iv,file=NULL,...) {
 #' report_wtests(df=mtcars,dv=1:7,iv=8:10,var.equal=TRUE)
 #' report_wtests(df=mtcars,dv=1:7,iv=8:10,var.equal=TRUE,file="wilcoxontest")
 report_wtests<-function(df,dv,iv,file=NULL,...) {
-  
   comment<-list(DV="dependent variable",
                 IV="independent variable",
                 level1="level 1",
@@ -169,11 +167,11 @@ report_wtests<-function(df,dv,iv,file=NULL,...) {
   names(combinations)<-c("iv","dv")
   row.names(combinations)<-paste0(combinations$iv,"_",combinations$dv)
   combinations<-change_data_type(combinations,type="character")
-  pb<-txtProgressBar(min=0,max=length(iv)*length(dv),style=3)
+  # pb<-txtProgressBar(min=0,max=length(iv)*length(dv),style=3)
   for(i in 1:nrow(combinations)) {
     independent<-combinations$iv[i]
     dependent<-combinations$dv[i]
-    setTxtProgressBar(pb,i)
+    # setTxtProgressBar(pb,i)
     tempdata<-df[complete.cases(df[,c(dependent,independent)]),]
     tempdata[,independent]<-factor(tempdata[,independent])
     combinations_levels<-data.frame(t(utils::combn(unique(as.character(tempdata[,independent])),2)),stringsAsindependent=FALSE)
@@ -220,7 +218,7 @@ report_wtests<-function(df,dv,iv,file=NULL,...) {
       df_wtest<-plyr::rbind.fill(df_wtest,wtest_r)
     }
   }
-  close(pb)
+  # close(pb)
   adjustment<-compute_adjustment(0.05,nrow(df_wtest))
   df_wtest$bonferroni_p<-adjustment$bonferroni
   df_wtest$significant<-as.character(adjustment$bonferroni>df_wtest$p)
