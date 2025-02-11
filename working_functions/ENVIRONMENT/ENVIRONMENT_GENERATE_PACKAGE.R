@@ -1,7 +1,6 @@
 ##########################################################################################
 # DIRECTORIES
 ##########################################################################################
-# setwd("F:/Dropbox (Psycholate)/dimitrios/working")
 # R CMD check workingfunctions
 # R CMD Rd2pdf workingfunctions
 # R CMD build workingfunctions --resave-data
@@ -13,9 +12,8 @@ cat("\014")
 ##########################################################################################
 # FUNCTIONS PACKAGE
 ##########################################################################################
-working_directory<-"/home/dimitrios/repositories/workingfunctions/"
-working_directory<-"/opt/repositories/workingfunctions/"
-working_directory<-"C:/Users/User/Documents/GitHub/workingfunctions/"
+directory<-paste0(dirname(rstudioapi::getActiveDocumentContext()$path),"/")
+working_directory<-gsub("working_functions/ENVIRONMENT/","",directory)
 # source(paste0(working_directory,"ENVIRONMENT/ENVIRONMENT_DATA.R"))
 setwd(working_directory)
 # usethis::create_package("workingfunctions")
