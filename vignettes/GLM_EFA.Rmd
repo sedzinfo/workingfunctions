@@ -1,0 +1,96 @@
+---
+title: "GLM_EFA"
+author: "Dimitrios Zacharatos"
+date: "`r Sys.Date()`"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{GLM_EFA}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+  
+  <style> 
+  body { max-width: 95%; margin: 0 auto; padding: 0; } 
+  .container { width: 100%; max-width: none; } 
+  /* Example for wider tables */ 
+  table { width: 80%; table-layout: fixed; } 
+  th, td { padding: 8px; text-align: left; } 
+  </style>
+  
+  This shows the output of several EFA functions from workingfunctions.  
+  Installation instructions of workingfunctions can be found here https://github.com/sedzinfo/workingfunctions
+  
+```{r setup}
+library(workingfunctions)
+options(width=1000)
+```
+
+# Plot Loadings
+```{r, plot_loadings,fig.width=10,fig.height=5}
+model<-psych::fa(mtcars,nfactors=2,rotate="oblimin",fm="pa",oblique.scores=TRUE)
+plot_loadings(model=model,matrix_type="structure")
+plot_loadings(model=model,matrix_type="pattern")
+cm<-matrix(c(1,.8,.8,.1,.1,.1,
+             .8,1,.8,.1,.1,.1,
+             .8,.8,1,.1,.1,.1,
+             .1,.1,.1,1,.8,.8,
+             .1,.1,.1,.8,1,.8,
+             .1,.1,.1,.8,.8,1),
+           ncol=6,nrow=6)
+df1<-generate_correlation_matrix(cm,nrows=10000)
+model1<-psych::fa(df1,nfactors=2,rotate="oblimin",fm="pa",oblique.scores=TRUE)
+plot_loadings(model=model1,matrix_type="pattern",base_size=10)
+cm<-matrix(c(1,.1,.1,.1,.1,.1,
+             .1,1,.1,.1,.1,.1,
+             .1,.1,1,.1,.1,.1,
+             .1,.1,.1,1,.8,.8,
+             .1,.1,.1,.8,1,.8,
+             .1,.1,.1,.8,.8,1),
+           ncol=6,nrow=6)
+df1<-generate_correlation_matrix(cm,nrows=10000)
+model2<-psych::fa(df1,nfactors=2,rotate="oblimin",fm="pa",oblique.scores=TRUE)
+plot_loadings(model=model2,matrix_type="pattern",base_size=10)
+cm<-matrix(c(1,.01,.01,.01,.01,.01,
+             .01,1,.01,.01,.01,.01,
+             .01,.01,1,.01,.01,.01,
+             .01,.01,.01,1,.01,.01,
+             .01,.01,.01,.01,1,.01,
+             .01,.01,.01,.01,.01,1),
+           ncol=6,nrow=6)
+df1<-generate_correlation_matrix(cm,nrows=10000)
+model3<-psych::fa(df1,nfactors=2,rotate="oblimin",fm="pa",oblique.scores=TRUE)
+plot_loadings(model=model3,matrix_type="pattern",base_size=10)
+```
+
+
+# Plot Scree
+```{r, plot_scree,fig.width=10,fig.height=5}
+plot_scree(df=mtcars,title="",base_size=15)
+```
+
+# Model Loadings
+```{r, model_loadings,fig.width=20,fig.height=10}
+model<-psych::fa(mtcars,nfactors=2,rotate="oblimin",fm="pa",oblique.scores=TRUE)
+model_loadings(model=model,cut=NULL,matrix_type="pattern")
+model_loadings(model=model,cut=0.4,matrix_type="structure")
+model_loadings(model=model,cut=0.4,matrix_type="all",sort=FALSE)
+```
+
+# Compute Residual
+```{r, compute_residual,fig.width=10,fig.height=5}
+model<-psych::fa(mtcars,nfactors=2,rotate="oblimin",fm="pa",oblique.scores=TRUE)
+compute_residual_stats(model)
+```
+
+
+# Report EFA
+```{r, report_efa,fig.width=10,fig.height=5}
+model<-psych::fa(mtcars,nfactors=2,rotate="oblimin",fm="minres",oblique.scores=TRUE)
+report_efa(model=model,df=mtcars)
+```
+
+
+
+
+
+

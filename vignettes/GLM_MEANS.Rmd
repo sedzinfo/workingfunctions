@@ -17,11 +17,10 @@ table { width: 80%; table-layout: fixed; }
 th, td { padding: 8px; text-align: left; } 
 </style>
 
-# Introduction
 This shows the output of report_ttests and report_wtests functions from workingfunctions.  
 Installation instructions of working functions can be found here https://github.com/sedzinfo/workingfunctions
 
-```{r setup, include = FALSE}
+```{r setup}
 library(workingfunctions)
 options(width=1000)
 ```
