@@ -1,0 +1,11 @@
+/* Increase the width of the page content */
+body {
+  max-width: 100% !important;
+  margin: 0 auto;
+  padding: 0;
+}
+
+.container {
+  width: 100%;
+  max-width: none;
+}

@@ -1,0 +1,50 @@
+---
+title: "GLM MEANS"
+author: "Dimitrios Zacharatos"
+date: "`r Sys.Date()`"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{GLM MEANS}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+<style> 
+body { max-width: 100%; margin: 0 auto; padding: 0; } 
+.container { width: 100%; max-width: none; } 
+/* Example for wider tables */ 
+table { width: 100%; table-layout: fixed; } 
+th, td { padding: 8px; text-align: left; } 
+</style>
+
+```{r setup, include = FALSE}
+library(workingfunctions)
+options(width = 1000)
+```
+
+# T TEST
+```{r, report_ttests}
+report_ttests(df=mtcars,dv=2,iv=9)
+report_ttests(df=mtcars,dv=2,iv=9:10)
+report_ttests(df=mtcars,dv=2:3,iv=9)
+report_ttests(df=mtcars,dv=2:3,iv=9:10,alternative="two.sided")
+report_ttests(df=mtcars,dv=2:7,iv=9:10,alternative="less")
+report_ttests(df=mtcars,dv=2:7,iv=9:10,alternative="greater")
+# report_ttests(df=mtcars,dv=2:7,iv=9:10,paired=FALSE)
+# report_ttests(df=mtcars,dv=2:7,iv=9:10,paired=TRUE)
+report_ttests(df=mtcars,dv=1:7,iv=8:10,var.equal=TRUE)
+```
+
+# WILCOXON TEST
+```{r, report_wtests}
+report_wtests(df=mtcars,dv=2,iv=9)
+report_wtests(df=mtcars,dv=2,iv=9:10)
+report_wtests(df=mtcars,dv=2:3,iv=9)
+report_wtests(df=mtcars,dv=2:3,iv=9:10,alternative="two.sided")
+report_wtests(df=mtcars,dv=2:7,iv=9:10,alternative="less")
+report_wtests(df=mtcars,dv=2:7,iv=9:10,alternative="greater")
+# report_wtests(df=mtcars,dv=2:7,iv=9:10,paired=FALSE)
+# report_wtests(df=mtcars,dv=2:7,iv=9:10,paired=TRUE)
+report_wtests(df=mtcars,dv=1:7,iv=8:10,var.equal=TRUE)
+report_wtests(df=mtcars,dv=1:7,iv=8:10,var.equal=TRUE,file="wilcoxontest")
+```
