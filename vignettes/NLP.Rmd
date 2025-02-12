@@ -1,0 +1,89 @@
+---
+title: "NLP"
+author: "Dimitrios Zacharatos"
+date: "`r Sys.Date()`"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{NLP}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+<style> 
+body { max-width: 95%; margin: 0 auto; padding: 0; } 
+.container { width: 100%; max-width: none; } 
+/* Example for wider tables */ 
+table { width: 80%; table-layout: fixed; } 
+th, td { padding: 8px; text-align: left; } 
+</style>
+
+This shows the output of several functions that may be used in NLP from workingfunctions.  
+Installation instructions of workingfunctions can be found here https://github.com/sedzinfo/workingfunctions
+
+```{r setup, include=FALSE}
+library(workingfunctions)
+knitr::opts_chunk$set(echo=TRUE)
+options(width=1000)
+options(future.show.progress = FALSE)
+```
+
+## Clear text
+```{r clear_text}
+text1<-"word_one word_two word_three"
+text2<-"word_three word_four word_six"
+text3<-"All the Lorem Ipsum generators on the Internet tend to repeat predefined chunks as necessary, making this the first true generator on the Internet."
+text4<-"It uses a dictionary of over 200 Latin words, combined with a handful of model sentence structures, to generate Lorem Ipsum which looks reasonable."
+text5<-"The generated Lorem Ipsum is therefore always free from repetition, injected humour, or non-characteristic words etc."
+text<-c(text1,text2,text3,text4,text5)
+clear_text(text)
+```
+
+## Remove stopwords
+```{r remove_stopwords}
+text1<-"word_one word_two word_three"
+text2<-"word_three word_four word_six"
+text3<-"All the Lorem Ipsum generators on the Internet tend to repeat predefined chunks as necessary, making this the first true generator on the Internet."
+text4<-"It uses a dictionary of over 200 Latin words, combined with a handful of model sentence structures, to generate Lorem Ipsum which looks reasonable."
+text5<-"The generated Lorem Ipsum is therefore always free from repetition, injected humour, or non-characteristic words etc."
+stopwords<-stopwords::stopwords("english")
+text<-c(text1,text2,text3,text4,text5)
+clear_stopwords(text,stopwords=stopwords)
+```
+
+## Part of Speech tagging
+```{r part_of_speech_tagging}
+text1<-"word_one word_two word_three"
+text2<-"word_three word_four word_six"
+text3<-"All the Lorem Ipsum generators on the Internet tend to repeat predefined chunks as necessary, making this the first true generator on the Internet."
+text4<-"It uses a dictionary of over 200 Latin words, combined with a handful of model sentence structures, to generate Lorem Ipsum which looks reasonable."
+text5<-"The generated Lorem Ipsum is therefore always free from repetition, injected humour, or non-characteristic words etc."
+text<-c(text1,text2,text3,text4,text5)
+tag_pos(text)
+```
+
+## Text Similarity
+```{r text_similarity}
+text1<-"word_one word_two word_three"
+text2<-"word_three word_four word_six"
+text3<-"All the Lorem Ipsum generators on the Internet tend to repeat predefined chunks as necessary, making this the first true generator on the Internet."
+text4<-"It uses a dictionary of over 200 Latin words, combined with a handful of #' model sentence structures, to generate Lorem Ipsum which looks reasonable."
+text5<-"The generated Lorem Ipsum is therefore always free from repetition, injected humour, or non-characteristic words etc."
+text<-c(text1,text2,text3,text4,text5)
+text<-unlist(strsplit(text,split=" "))
+text1<-unlist(strsplit(text1,split=" "))
+text2<-unlist(strsplit(text2,split=" "))
+text3<-unlist(strsplit(text3,split=" "))
+text4<-unlist(strsplit(text4,split=" "))
+text5<-unlist(strsplit(text5,split=" "))
+text_similarity(text1,text1)
+text_similarity(text1,text2)
+text_similarity(text1,text3)
+text_similarity(text1,text4)
+```
+
+## Text Statistics
+```{r text_statistics}
+text<-"There are many variations of passages of Lorem Ipsum available, but the majority have suffered alteration in some form, by injected humour, or randomised words which don't look even slightly believable."
+stat_word_char(text)
+```
+

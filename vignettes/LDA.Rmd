@@ -1,0 +1,35 @@
+---
+title: "LDA"
+author: "Dimitrios Zacharatos"
+date: "`r Sys.Date()`"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{LDA}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+<style> 
+body { max-width: 95%; margin: 0 auto; padding: 0; } 
+.container { width: 100%; max-width: none; } 
+/* Example for wider tables */ 
+table { width: 80%; table-layout: fixed; } 
+th, td { padding: 8px; text-align: left; } 
+</style>
+
+This shows the output of LDA function from workingfunctions. 
+Installation instructions of workingfunctions can be found here https://github.com/sedzinfo/workingfunctions
+
+```{r setup, include=FALSE}
+library(workingfunctions)
+knitr::opts_chunk$set(echo=TRUE)
+options(width=1000)
+options(future.show.progress = FALSE)
+```
+
+## Report LDA
+```{r clear_text}
+model<-MASS::lda(case~.,data=infert)
+result<-report_lda(model=model)
+result
+```

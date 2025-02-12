@@ -9,16 +9,16 @@ vignette: >
   %\VignetteEncoding{UTF-8}
 ---
   
-  <style> 
-  body { max-width: 95%; margin: 0 auto; padding: 0; } 
-  .container { width: 100%; max-width: none; } 
-  /* Example for wider tables */ 
-  table { width: 80%; table-layout: fixed; } 
-  th, td { padding: 8px; text-align: left; } 
-  </style>
+<style> 
+body { max-width: 95%; margin: 0 auto; padding: 0; } 
+.container { width: 100%; max-width: none; } 
+/* Example for wider tables */ 
+table { width: 80%; table-layout: fixed; } 
+th, td { padding: 8px; text-align: left; } 
+</style>
   
-  This shows the output of several EFA functions from workingfunctions.  
-  Installation instructions of workingfunctions can be found here https://github.com/sedzinfo/workingfunctions
+This shows the output of several EFA functions from workingfunctions.  
+Installation instructions of workingfunctions can be found here https://github.com/sedzinfo/workingfunctions
   
 ```{r setup}
 library(workingfunctions)
