@@ -19,13 +19,13 @@
 report_hlr<-function(df,corlist,factorlist,predictor,random_effect,file=NULL,sheet="report") {
   fbaseline<-fpredictor<-frandom_intercept<-frandom_slope<-anova<-NULL
   anova_comparisons<-data.frame()
-  pb<-txtProgressBar(min=0,max=length(corlist),style=3)
+  # pb<-txtProgressBar(min=0,max=length(corlist),style=3)
   counter=0
   for (i in corlist) {
     temp<-df[,c(i,factorlist,which(predictor==(names(df))))]
     temp<-temp[complete.cases(temp),]
     counter=counter+1
-    setTxtProgressBar(pb,counter)
+    # setTxtProgressBar(pb,counter)
     dv<-names(df)[i]
     fbaseline<-formula(paste(dv,"~1"))
     fpredictor<-formula(paste(dv,"~",predictor))
@@ -49,6 +49,7 @@ report_hlr<-function(df,corlist,factorlist,predictor,random_effect,file=NULL,she
     }
     anova_comparisons<-plyr::rbind.fill(anova_comparisons,data.frame(dv=dv,model=row.names(aor),aor))
   }
+  # close(pb)
   report_dataframe(anova_comparisons,sheet=sheet,file=file,type="critical_value",critical=list(p.value="<0.05"))
   return(anova_comparisons)
 }

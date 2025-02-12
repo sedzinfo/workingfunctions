@@ -1,0 +1,145 @@
+---
+title: "FUNCTIONS TRAIN TEST"
+author: "Dimitrios Zacharatos"
+date: "`r Sys.Date()`"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{FUNCTIONS_TRAIN_TEST}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+<style> 
+body { max-width: 95%; margin: 0 auto; padding: 0; } 
+.container { width: 100%; max-width: none; } 
+/* Example for wider tables */ 
+table { width: 80%; table-layout: fixed; } 
+th, td { padding: 8px; text-align: left; } 
+/* Styling for input code */
+pre { 
+  background-color: #f4f4f4; /* Light gray background for input */
+  border-left: 5px solid #007ACC; /* Blue border */
+  padding: 10px;
+}
+
+/* Styling for output */
+pre.r-output {
+  background-color: #e8f5e9; /* Light green background for output */
+  border-left: 5px solid #388E3C; /* Green border */
+  padding: 10px;
+}
+</style>
+
+This shows the output of useful functions for training and testing from workingfunctions.  
+Installation instructions for workingfunctions can be found [here](https://github.com/sedzinfo/workingfunctions)
+
+```{r setup, include=FALSE}
+library(workingfunctions)
+knitr::opts_chunk$set(echo=TRUE)
+options(width=1000)
+options(future.show.progress=FALSE)
+# Custom hook for output styling
+hook_output <- function(x, options) {
+  paste0('<pre class="r-output">', knitr::knit_print(x), '</pre>')
+}
+knitr::knit_hooks$set(output = hook_output)
+
+```
+
+## Plot ROC Curve
+```{r plot_roc,fig.width=8,fig.height=8,echo=TRUE,message=FALSE,warning=FALSE,results='hide',dev='png',fig.retina=2}
+observed<-round(abs(rnorm(100,m=0,sd=.5)))
+predicted<-abs(rnorm(100,m=0,sd=.5))
+plot_roc(observed=observed,predicted=predicted)
+df1<-data.frame(matrix(.999,ncol=2,nrow=2))
+correlation_martix<-as.matrix(df1)
+diag(correlation_martix)<-1
+df1<-generate_correlation_matrix(correlation_martix,nrows=1000)
+df1$X1<-ifelse(abs(df1$X1)<1,0,1)
+df1$X2<-abs(df1$X2)
+df1$X2<-(df1$X2-min(df1$X2))/(max(df1$X2)-min(df1$X2))
+plot_roc(observed=round(abs(df1$X1),0),predicted=abs(df1$X2))
+```
+
+## Plot Confusion Matrix
+```{r plot_confusion,fig.width=8,fig.height=8,dev='png',fig.retina=2}
+plot_confusion(observed=c(1,2,3,1,2,3),predicted=c(1,2,3,1,2,3))
+observed<-c(rep("male",10),rep("female",10),"male","male")
+predicted<-c(rep("male",10),rep("female",10),"female","female")
+plot_confusion(observed=observed,predicted=predicted)
+```
+
+## Plot Separability
+```{r plot_separability,fig.width=8,fig.height=8,dev='png',fig.retina=2}
+df1<-data.frame(matrix(.999,ncol=2,nrow=2))
+correlation_martix<-as.matrix(df1)
+diag(correlation_martix)<-1
+df1<-generate_correlation_matrix(correlation_martix,nrows=1000)
+df1$X1<-ifelse(abs(df1$X1)<1,0,1)
+df1$X2<-abs(df1$X2)
+df1$X2<-(df1$X2-min(df1$X2))/(max(df1$X2)-min(df1$X2))
+plot_separability(observed=round(abs(df1$X1),0),predicted=abs(df1$X2))
+```
+
+## Plot Confusion Matrix Performance
+```{r plot_confusion_performance,fig.width=9,fig.height=8,dev='png',fig.retina=2}
+df<-data.frame(matrix(.999,ncol=2,nrow=2))
+correlation_martix<-as.matrix(df)
+diag(correlation_martix)<-1
+df<-generate_correlation_matrix(correlation_martix,nrows=1000)
+df$X1<-ifelse(abs(df$X1)<1,0,1)
+df$X2<-abs(df$X2)
+df$X2<-(df$X2-min(df$X2))/(max(df$X2)-min(df$X2))
+result_confusion_performance(observed=round(abs(df$X1),0),
+                             predicted=abs(df$X2),
+                             step=.01)
+result_confusion_performance(observed=c(1,2,3,1,2,3),predicted=abs(rnorm(6,0,sd=.1)))
+```
+
+## KFOLD
+```{r kfold}
+infert_formula<-as.formula(factor(case)~age+parity+education+spontaneous+induced)
+result<-k_fold(infert,k=10,model_formula=infert_formula)
+model_formula<-as.formula(mpg~cyl+disp+hp+drat+wt+qsec+vs+am+gear+carb)
+result<-k_fold(mtcars,k=2,model_formula=model_formula)
+result
+```
+
+## KSAMPLE
+```{r ksample}
+infert_formula<-as.formula(factor(case)~age+parity+education+spontaneous+induced)
+result<-k_sample(df=infert,k=10,model_formula=infert_formula)
+model_formula<-as.formula(mpg~cyl+disp+hp+drat+wt+qsec+vs+am+gear+carb)
+result<-k_sample(df=mtcars,k=10,model_formula=model_formula)
+result
+```
+
+## Scaling
+```{r scaling}
+recode_scale_dummy(infert)
+```
+
+## Confusion Matrix for Classification
+```{r confusion_classification}
+confusion(observed=c(1,2,3,4,5,10),predicted=c(1,2,3,4,5,11))
+confusion(observed=c(1,2,2,2,2),predicted=c(1,1,2,2,2))
+```
+
+## Proportion Accutate
+```{r proportion_accurate}
+proportion_accurate(observed=c(1,2,3,4,5,10),predicted=c(1,2,3,4,5,11))
+```
+
+## Confusion Matrix Percent
+```{r confusion_percent}
+observed<-factor(round(rnorm(10000,m=10,sd=1)))
+predicted<-factor(round(rnorm(10000,m=10,sd=1)))
+confusion_matrix_percent(observed,predicted)
+```
+
+
+
+
+
+
+

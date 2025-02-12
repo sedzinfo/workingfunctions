@@ -1,0 +1,34 @@
+---
+title: "HLR"
+author: "Dimitrios Zacharatos"
+date: "`r Sys.Date()`"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{HLR}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+<style> 
+body { max-width: 95%; margin: 0 auto; padding: 0; } 
+.container { width: 100%; max-width: none; } 
+/* Example for wider tables */ 
+table { width: 80%; table-layout: fixed; } 
+th, td { padding: 8px; text-align: left; } 
+</style>
+
+This shows the output of HLR function from workingfunctions.  
+Installation instructions of workingfunctions can be found here https://github.com/sedzinfo/workingfunctions
+
+```{r setup, include=FALSE}
+library(workingfunctions)
+knitr::opts_chunk$set(echo=TRUE)
+options(width=1000)
+options(future.show.progress=FALSE)
+```
+
+## Report HLR
+```{r clear_text}
+result<-report_hlr(df=infert,corlist=8,factorlist=1,predictor="case",random_effect="case")
+result
+```
