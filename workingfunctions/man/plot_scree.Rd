@@ -20,6 +20,5 @@ Scree plot displaying the Kaiser and Jolife criteria for factor extraction
 }
 \examples{
 plot_scree(df=mtcars,title="",base_size=15)
-scree(mtcars)
 }
 \keyword{EFA}

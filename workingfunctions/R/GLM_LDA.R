@@ -14,20 +14,20 @@
 #' @export
 #' @examples
 #' model<-MASS::lda(case~.,data=infert)
-#' report_lda(model=model)
-#' report_lda(model=model,file="lda")
+#' result<-report_lda(model=model)
+#' result<-report_lda(model=model,file="lda")
 #' model<-MASS::lda(Species~.,data=iris)
-#' report_lda(model=model,file="lda")
+#' result<-report_lda(model=model,file="lda")
 report_lda<-function(model,file=NULL,w=10,h=10,base_size=10,title="") {
   prior_counts<-data.frame(prior=model$prior,counts=model$counts,mean=model$means)
   terms<-model$terms
   scaling<-model$scaling
   model_description<-data.frame(Observations=model$N,SDV=model$svd)
-  call=data.frame(call=stringr::str_replace_all(toString(deparse(model$call)),stringr::fixed(" "),""))
-  result<-list(prior_counts=prior_counts,means=model$means,coeficients=scaling,terms=terms,model_description=model_description,call=call)
+  call<-data.frame(call=stringr::str_replace_all(toString(deparse(model$call)),stringr::fixed(" "),""))
   predicted<-predict(model)
   observed<-stats::get_all_vars(model$call,model.frame(model))[,1]
   cmatrix<-confusion_matrix_percent(observed=observed,predicted=predicted$class)
+  result<-list(prior_counts=prior_counts,means=model$means,coeficients=scaling,terms=terms,model_description=model_description,cmatrix=cmatrix,call=call)
   if(!is.null(file)) {
     filename<-paste0(file,".xlsx")
     if (file.exists(filename)) file.remove(filename)
@@ -40,6 +40,7 @@ report_lda<-function(model,file=NULL,w=10,h=10,base_size=10,title="") {
     excel_critical_value(result$call,workbook=wb,sheet="Call",numFmt="#0.00")
     openxlsx::saveWorkbook(wb,invisible(paste0(filename)),TRUE)
   }
+  return(result)
 }
 ##########################################################################################
 # NOTES

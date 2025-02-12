@@ -24,9 +24,9 @@ Report for MASS::lda
 }
 \examples{
 model<-MASS::lda(case~.,data=infert)
-report_lda(model=model)
-report_lda(model=model,file="lda")
+result<-report_lda(model=model)
+result<-report_lda(model=model,file="lda")
 model<-MASS::lda(Species~.,data=iris)
-report_lda(model=model,file="lda")
+result<-report_lda(model=model,file="lda")
 }
 \keyword{ML}

@@ -39,9 +39,10 @@ clear_text<-function(text) {
 #' model sentence structures, to generate Lorem Ipsum which looks reasonable."
 #' text5<-"The generated Lorem Ipsum is therefore always free from repetition, 
 #' injected humour, or non-characteristic words etc."
+#' stopwords<-stopwords::stopwords("english")
 #' text<-c(text1,text2,text3,text4,text5)
-#' clear_stopwords(text)
-clear_stopwords<-function(text,stopwords=unique(c(tm::stopwords("SMART"),corpus::stopwords_en))) {
+#' clear_stopwords(text,stopwords=stopwords)
+clear_stopwords<-function(text,stopwords=stopwords::stopwords("english")) {
   stopwords_regex=paste(stopwords,collapse='\\b|\\b')
   stopwords_regex=paste0('\\b',stopwords_regex,'\\b')
   text<-stringr::str_replace_all(text,stopwords_regex,'')
@@ -128,34 +129,34 @@ text_similarity<-function(text1,text2) {
   df<-data.frame(tversky,intersect,intersect_weight,setdiff1,setdiff2,lengtht1,lengtht2)
   return(df)
 }
-#' ##########################################################################################
-#' # STATISTICS FOR CHARACTERS AND WORDS
-#' ##########################################################################################
-#' #' @title Text similarity measures
-#' #' @param text character vector
-#' #' @importFrom future.apply future_sapply
-#' #' @importFrom future plan availableCores multiprocess
-#' #' @importFrom stats sd
-#' #' @importFrom spelling spell_check_text
-#' #' @keywords NLP
-#' #' @export
-#' #' @examples
-#' #' text<-"There are many variations of passages of Lorem Ipsum available, 
-#' #' but the majority have suffered alteration in some form, by injected humour, 
-#' #' or randomised words which don't look even slightly believable."
-#' #' stat_word_char(text)
-#' stat_word_char<-function(text) {
-#'   future::plan(future::multiprocess,gc=TRUE,.cleanup=TRUE,workers=future::availableCores("mc.cores"))
-#'   text<-clear_text(text)
-#'   data<-strsplit(text," ")
-#'   words<-future.apply::future_sapply(data,length)
-#'   mean_char<-future.apply::future_sapply(data,function(x) mean(nchar(x)[!nchar(x)==0]))
-#'   sd_char<-future.apply::future_sapply(data,function(x) stats::sd(nchar(x)[!nchar(x)==0]))
-#'   max_char<-future.apply::future_sapply(data,function(x) max(nchar(x)[!nchar(x)==0]))
-#'   min_char<-future.apply::future_sapply(data,function(x) min(nchar(x)[!nchar(x)==0]))
-#'   spell_error<-future.apply::future_sapply(data,function(x)
-#'     nrow(spelling::spell_check_text(x,ignore=character(),lang="en_US")))
-#'   result<-data.frame(words,mean_char,sd_char,max_char,min_char,spell_error)
-#'   return(result)
-#' }
+##########################################################################################
+# STATISTICS FOR CHARACTERS AND WORDS
+##########################################################################################
+#' @title Text similarity measures
+#' @param text character vector
+#' @importFrom future.apply future_sapply
+#' @importFrom future plan availableCores multiprocess
+#' @importFrom stats sd
+#' @importFrom spelling spell_check_text
+#' @keywords NLP
+#' @export
+#' @examples
+#' text<-"There are many variations of passages of Lorem Ipsum available,
+#' but the majority have suffered alteration in some form, by injected humour,
+#' or randomised words which don't look even slightly believable."
+#' stat_word_char(text)
+stat_word_char<-function(text) {
+  # future::plan(future::multiprocess,gc=TRUE,.cleanup=TRUE,workers=future::availableCores("mc.cores"))
+  text<-clear_text(text)
+  data<-strsplit(text," ")
+  words<-future.apply::future_sapply(data,length)
+  mean_char<-future.apply::future_sapply(data,function(x) mean(nchar(x)[!nchar(x)==0]))
+  sd_char<-future.apply::future_sapply(data,function(x) stats::sd(nchar(x)[!nchar(x)==0]))
+  max_char<-future.apply::future_sapply(data,function(x) max(nchar(x)[!nchar(x)==0]))
+  min_char<-future.apply::future_sapply(data,function(x) min(nchar(x)[!nchar(x)==0]))
+  spell_error<-future.apply::future_sapply(data,function(x)
+    nrow(spelling::spell_check_text(x,ignore=character(),lang="en_US")))
+  result<-data.frame(words,mean_char,sd_char,max_char,min_char,spell_error)
+  return(result)
+}
 

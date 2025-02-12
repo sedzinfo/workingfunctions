@@ -4,10 +4,7 @@
 \alias{clear_stopwords}
 \title{Remove stopwods}
 \usage{
-clear_stopwords(
-  text,
-  stopwords = unique(c(tm::stopwords("SMART"), corpus::stopwords_en))
-)
+clear_stopwords(text, stopwords = stopwords::stopwords("english"))
 }
 \arguments{
 \item{text}{character vector}
@@ -26,7 +23,8 @@ text4<-"It uses a dictionary of over 200 Latin words, combined with a handful of
 model sentence structures, to generate Lorem Ipsum which looks reasonable."
 text5<-"The generated Lorem Ipsum is therefore always free from repetition, 
 injected humour, or non-characteristic words etc."
+stopwords<-stopwords::stopwords("english")
 text<-c(text1,text2,text3,text4,text5)
-clear_stopwords(text)
+clear_stopwords(text,stopwords=stopwords)
 }
 \keyword{NLP}
