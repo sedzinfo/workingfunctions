@@ -33,6 +33,6 @@ report_hlr(
 Report HLR
 }
 \examples{
-# report_hlr(df=infert,corlist=8,factorlist=1,
-#           predictor="case",random_effect="case")
+report_hlr(df=infert,corlist=8,factorlist=1,
+           predictor="case",random_effect="case")
 }

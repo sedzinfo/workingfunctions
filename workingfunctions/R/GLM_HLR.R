@@ -14,8 +14,8 @@
 #' @importFrom plyr rbind.fill
 #' @export
 #' @examples
-#' # report_hlr(df=infert,corlist=8,factorlist=1,
-#' #           predictor="case",random_effect="case")
+#' report_hlr(df=infert,corlist=8,factorlist=1,
+#'            predictor="case",random_effect="case")
 report_hlr<-function(df,corlist,factorlist,predictor,random_effect,file=NULL,sheet="report") {
   fbaseline<-fpredictor<-frandom_intercept<-frandom_slope<-anova<-NULL
   anova_comparisons<-data.frame()
@@ -27,10 +27,10 @@ report_hlr<-function(df,corlist,factorlist,predictor,random_effect,file=NULL,she
     counter=counter+1
     setTxtProgressBar(pb,counter)
     dv<-names(df)[i]
-    fbaseline<<-formula(paste(dv,"~1"))
-    fpredictor<<-formula(paste(dv,"~",predictor))
-    frandom_intercept<<-formula(paste("~1|",random_effect))
-    frandom_slope<<-formula(paste("~",predictor,"|",random_effect))
+    fbaseline<-formula(paste(dv,"~1"))
+    fpredictor<-formula(paste(dv,"~",predictor))
+    frandom_intercept<-formula(paste("~1|",random_effect))
+    frandom_slope<-formula(paste("~",predictor,"|",random_effect))
     
     base<-nlme::gls(formula(fbaseline),method="ML",data=temp)
     random_intercept<-nlme::lme(fixed=formula(fbaseline),random=frandom_intercept,data=temp,method="ML")
@@ -49,6 +49,6 @@ report_hlr<-function(df,corlist,factorlist,predictor,random_effect,file=NULL,she
     }
     anova_comparisons<-plyr::rbind.fill(anova_comparisons,data.frame(dv=dv,model=row.names(aor),aor))
   }
-  report_dataframe(anova_comparisons,sheet=sheet,file=file,critical_collumn=which(names(anova_comparisons)=="p.value"))
+  report_dataframe(anova_comparisons,sheet=sheet,file=file,type="critical_value",critical=list(p.value="<0.05"))
   return(anova_comparisons)
 }
