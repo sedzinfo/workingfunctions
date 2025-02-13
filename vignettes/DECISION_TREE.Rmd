@@ -1,0 +1,164 @@
+---
+title: "Regression and Classification Trees"
+author: "Dimitrios Zacharatos"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{RPART}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+<style>
+body { max-width: 95%; margin: 0 auto; padding: 0; } 
+.container { width: 100%; max-width: none; } 
+/* Example for wider tables */ 
+table { width: 80%; table-layout: fixed; } 
+th, td { padding: 8px; text-align: left; } 
+/* Styling for input code */
+pre { 
+  background-color: #f4f4f4; /* Light gray background for input */
+  border-left: 5px solid #007ACC; /* Blue border */
+  padding: 10px;
+  font-size: 20px !important;
+}
+/* Styling for output */
+pre.r-output {
+  background-color: #e8f5e9; /* Light green background for output */
+  border-left: 5px solid #388E3C; /* Green border */
+  padding: 10px;
+  font-size: 15px !important;
+}
+</style>
+
+```{r options,echo=FALSE,warning=FALSE,message=FALSE}
+options(future.show.progress=FALSE)
+options(width=1000)
+knitr::opts_chunk$set(echo=TRUE)
+hook_output<-function(x, options) {
+  paste0('<pre class="r-output">',knitr::knit_print(x),'</pre>')
+}
+knitr::knit_hooks$set(output=hook_output)
+```
+
+```{r load,include=FALSE}
+library(workingfunctions)
+```
+
+## Description
+This shows the output of PART RPART functions from workingfunctions.  
+Installation instructions for workingfunctions can be found [here](https://github.com/sedzinfo/workingfunctions)
+These functions are not installed by default they are in /workingfunctions/working_functions/OTHER/ML_TREE_RPART.R
+
+```{r create_models,include=FALSE}
+infert_formula<-as.formula(factor(case)~age+parity+education+spontaneous+induced)
+boston_formula<-as.formula(c("medv~",paste(names(MASS::Boston)[1:13],collapse="+")))
+
+print(infert_formula)
+print(boston_formula)
+
+#kfolding
+train_test_classification<-workingfunctions::k_fold(df=infert,model_formula=infert_formula)
+train_test_regression<-workingfunctions::k_fold(df=MASS::Boston,model_formula=boston_formula)
+
+#rpart models
+rtree_classification<-rpart::rpart(infert_formula,train_test_classification$f$train$f1,model=TRUE,x=TRUE,y=TRUE)
+rtree_regression<-rpart::rpart(boston_formula,train_test_regression$f$train$f1,model=TRUE,x=TRUE,y=TRUE)
+
+```
+
+## Rpart Classification
+```{r rpart_classification,fig.width=8,fig.height=8,echo=TRUE,dev='png',fig.retina=2}
+result<-data.frame(rtree_classification$cptable)
+result$nsplit<-factor(result$nsplit+1)
+minimun_size<-as.numeric(as.character(result[which.min(result[,"xerror"]),"nsplit"]))
+initial_model<-rtree_classification
+model<-rpart::prune(rtree_classification,cp=rtree_classification$cptable[which.min(rtree_classification$cptable[,"xerror"]),"CP"])
+
+importance<-model$variable.importance
+importance<-data.frame(names=names(importance),importance=importance)
+importance$names<-factor(importance$names,levels=rev(as.character(importance$names)))
+plot_importance<-ggplot(importance,aes(x=names,y=importance))+
+  geom_bar(stat='identity')+
+  labs(title="Importance Plot",y="Relative Influence",x="Predictor")+
+  theme_bw(base_size=10)+
+  scale_x_discrete(limits=rev(levels(names)))+
+  coord_flip()
+plot_importance
+rtree_classification
+rpart::plotcp(model)
+rpart::rsq.rpart(model)
+error<-data.frame(model$cptable)
+error$nsplit<-factor(error$nsplit+1)
+tree_size<-error[which.min(error[,"xerror"]),"nsplit"]
+error<-reshape2::melt(error,id.vars="nsplit")
+names(error)<-c("Split","Metric","value")
+plot_prune<-ggplot(error,aes(x=Split,y=value,color=Metric))+
+  geom_line(aes(group=Metric))+
+  geom_point()+
+  labs(title=paste("Error Plot","Suggested Size:",tree_size),y="Metric value",x="Size of Tree")+
+  theme_bw(base_size=10)
+plot_prune
+rpart.plot::rpart.plot(model,type=1)
+frame<-data.frame(model$frame)
+cp<-data.frame(model$cptable)
+parameters<-data.frame(parameters=unlist(model$control))
+splits<-data.frame(name=row.names(model$splits),model$splits,row.names=NULL)
+importance<-data.frame(importance=model$variable.importance)
+ordered<-data.frame(ordered=model$ordered)
+data<-data.frame(y=model$y,x=model$x,model=model$model)
+call<-data.frame(call=call_to_string(model))
+result<-list(frame=frame,cp=cp,parameters=parameters,splits=splits,importance=importance,ordered=ordered,call=call)
+
+print(result)
+
+```
+
+## Rpart Regression
+```{r rpart_regression,fig.width=8,fig.height=8,echo=TRUE,dev='png',fig.retina=2}
+result<-data.frame(rtree_regression$cptable)
+result$nsplit<-factor(result$nsplit+1)
+minimun_size<-as.numeric(as.character(result[which.min(result[,"xerror"]),"nsplit"]))
+initial_model<-rtree_regression
+model<-rpart::prune(rtree_regression,cp=rtree_regression$cptable[which.min(rtree_regression$cptable[,"xerror"]),"CP"])
+
+importance<-model$variable.importance
+importance<-data.frame(names=names(importance),importance=importance)
+importance$names<-factor(importance$names,levels=rev(as.character(importance$names)))
+plot_importance<-ggplot(importance,aes(x=names,y=importance))+
+  geom_bar(stat='identity')+
+  labs(title="Importance Plot",y="Relative Influence",x="Predictor")+
+  theme_bw(base_size=10)+
+  scale_x_discrete(limits=rev(levels(names)))+
+  coord_flip()
+plot_importance
+
+rtree_regression
+
+rpart::plotcp(model)
+rpart::rsq.rpart(model)
+error<-data.frame(model$cptable)
+error$nsplit<-factor(error$nsplit+1)
+tree_size<-error[which.min(error[,"xerror"]),"nsplit"]
+error<-reshape2::melt(error,id.vars="nsplit")
+names(error)<-c("Split","Metric","value")
+plot_prune<-ggplot(error,aes(x=Split,y=value,color=Metric))+
+  geom_line(aes(group=Metric))+
+  geom_point()+
+  labs(title=paste("Error Plot","Suggested Size:",tree_size),y="Metric value",x="Size of Tree")+
+  theme_bw(base_size=10)
+plot_prune
+rpart.plot::rpart.plot(model,type=1)
+frame<-data.frame(model$frame)
+cp<-data.frame(model$cptable)
+parameters<-data.frame(parameters=unlist(model$control))
+splits<-data.frame(name=row.names(model$splits),model$splits,row.names=NULL)
+importance<-data.frame(importance=model$variable.importance)
+ordered<-data.frame(ordered=model$ordered)
+data<-data.frame(y=model$y,x=model$x,model=model$model)
+call<-data.frame(call=call_to_string(model))
+result<-list(frame=frame,cp=cp,parameters=parameters,splits=splits,importance=importance,ordered=ordered,call=call)
+
+print(result)
+
+```
+

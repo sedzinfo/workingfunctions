@@ -12,7 +12,7 @@
 
 <meta name="author" content="Dimitrios Zacharatos" />
 
-<meta name="date" content="2025-02-12" />
+<meta name="date" content="2025-02-13" />
 
 <title>LDA</title>
 
@@ -340,11 +340,22 @@ code > span.er { color: #a61717; background-color: #e3d2d2; }
 
 <h1 class="title toc-ignore">LDA</h1>
 <h4 class="author">Dimitrios Zacharatos</h4>
-<h4 class="date">2025-02-12</h4>
+<h4 class="date">2025-02-13</h4>
 
 
 
-<style> body { max-width: 95%; margin: 0 auto; padding: 0; } .container { width: 100%; max-width: none; }  table { width: 80%; table-layout: fixed; } th, td { padding: 8px; text-align: left; } </style>
+<style> body { max-width: 95%; margin: 0 auto; padding: 0; } .container { width: 100%; max-width: none; }  table { width: 80%; table-layout: fixed; } th, td { padding: 8px; text-align: left; } 
+pre { background-color: #f4f4f4; 
+border-left: 5px solid #007ACC; 
+padding: 10px;
+}
+
+pre.r-output {
+background-color: #e8f5e9; 
+border-left: 5px solid #388E3C; 
+padding: 10px;
+}
+</style>
 <p>This shows the output of LDA function from workingfunctions.<br />
 Installation instructions of workingfunctions can be found here <a href="https://github.com/sedzinfo/workingfunctions" class="uri">https://github.com/sedzinfo/workingfunctions</a></p>
 <div id="report-lda" class="section level2">
@@ -352,7 +363,7 @@ Installation instructions of workingfunctions can be found here <a href="https:/
 <div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" tabindex="-1"></a>model<span class="ot">&lt;-</span>MASS<span class="sc">::</span><span class="fu">lda</span>(case<span class="sc">~</span>.,<span class="at">data=</span>infert)</span>
 <span id="cb1-2"><a href="#cb1-2" tabindex="-1"></a>result<span class="ot">&lt;-</span><span class="fu">report_lda</span>(<span class="at">model=</span>model)</span>
 <span id="cb1-3"><a href="#cb1-3" tabindex="-1"></a>result</span></code></pre></div>
-<pre><code>## $prior_counts
+<pre class="r-output">## $prior_counts
 ##       prior counts mean.education6.11yrs mean.education12..yrs mean.age mean.parity mean.induced mean.spontaneous mean.stratum mean.pooled.stratum
 ## 0 0.6653226    165             0.4848485             0.4666667 31.49091    2.084848    0.5636364        0.3878788     41.80606            33.52121
 ## 1 0.3346774     83             0.4819277             0.4698795 31.53012    2.108434    0.5903614        0.9518072     42.00000            33.69880
@@ -398,7 +409,7 @@ Installation instructions of workingfunctions can be found here <a href="https:/
 ## attr(,&quot;response&quot;)
 ## [1] 1
 ## attr(,&quot;.Environment&quot;)
-## &lt;environment: R_GlobalEnv&gt;
+## <environment: R_GlobalEnv>
 ## attr(,&quot;predvars&quot;)
 ## list(case, education, age, parity, induced, spontaneous, stratum, 
 ##     pooled.stratum)
@@ -420,7 +431,8 @@ Installation instructions of workingfunctions can be found here <a href="https:/
 ## 
 ## $call
 ##                              call
-## 1 lda(formula=case~.,data=infert)</code></pre>
+## 1 lda(formula=case~.,data=infert)
+</pre>
 </div>
 
 

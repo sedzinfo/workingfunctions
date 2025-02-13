@@ -12,7 +12,6 @@
 
 <meta name="author" content="Dimitrios Zacharatos" />
 
-<meta name="date" content="2025-02-13" />
 
 <title>GLM ANOVA</title>
 
@@ -340,11 +339,11 @@ code > span.er { color: #a61717; background-color: #e3d2d2; }
 
 <h1 class="title toc-ignore">GLM ANOVA</h1>
 <h4 class="author">Dimitrios Zacharatos</h4>
-<h4 class="date">2025-02-13</h4>
 
 
 
-<style> body { max-width: 95%; margin: 0 auto; padding: 0; } .container { width: 100%; max-width: none; }  table { width: 80%; table-layout: fixed; } th, td { padding: 8px; text-align: left; } 
+<style>
+body { max-width: 95%; margin: 0 auto; padding: 0; } .container { width: 100%; max-width: none; }  table { width: 80%; table-layout: fixed; } th, td { padding: 8px; text-align: left; } 
 pre { background-color: #f4f4f4; 
 border-left: 5px solid #007ACC; 
 padding: 10px;
@@ -356,9 +355,12 @@ border-left: 5px solid #388E3C;
 padding: 10px;
 }
 </style>
+<div id="description" class="section level2">
+<h2>Description</h2>
 <p>This shows the output of several ANOVA related functions from
 workingfunctions.<br />
-Installation instructions of workingfunctions can be found here <a href="https://github.com/sedzinfo/workingfunctions" class="uri">https://github.com/sedzinfo/workingfunctions</a></p>
+Installation instructions for workingfunctions can be found <a href="https://github.com/sedzinfo/workingfunctions">here</a></p>
+</div>
 <div id="kruskall-wallis-test" class="section level2">
 <h2>KRUSKALL WALLIS TEST</h2>
 <div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" tabindex="-1"></a>form<span class="ot">&lt;-</span><span class="fu">formula</span>(qsec<span class="sc">~</span>cyl)</span>
@@ -371,13 +373,13 @@ Installation instructions of workingfunctions can be found here <a href="https:/
 </pre>
 <div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" tabindex="-1"></a>rcompanion<span class="sc">::</span><span class="fu">epsilonSquared</span>(<span class="at">x=</span>mtcars<span class="sc">$</span>qsec,<span class="at">g=</span>mtcars<span class="sc">$</span>cyl,<span class="at">group=</span><span class="st">&quot;row&quot;</span>,<span class="at">ci=</span><span class="cn">TRUE</span>,<span class="at">conf=</span><span class="fl">0.95</span>,<span class="at">type=</span><span class="st">&quot;perc&quot;</span>,<span class="at">R=</span><span class="dv">1000</span>,<span class="at">digits=</span><span class="dv">3</span>)</span></code></pre></div>
 <pre class="r-output">##   epsilon.squared lower.ci upper.ci
-## 1           0.328     0.11    0.632
+## 1           0.328   0.0818    0.645
 </pre>
 <div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" tabindex="-1"></a>rstatix<span class="sc">::</span><span class="fu">kruskal_effsize</span>(mtcars,form,<span class="at">ci=</span><span class="cn">TRUE</span>,<span class="at">conf.level=</span><span class="fl">0.95</span>,<span class="at">ci.type=</span><span class="st">&quot;perc&quot;</span>,<span class="at">nboot=</span><span class="dv">100</span>)</span></code></pre></div>
 <pre class="r-output">## # A tibble: 1 × 7
 ##   .y.       n effsize conf.low conf.high method  magnitude
 ## * <chr> <int>   <dbl>    <dbl>     <dbl> <chr>   <ord>    
-## 1 qsec     32   0.281     0.04      0.63 eta2[H] large
+## 1 qsec     32   0.281     0.05      0.63 eta2[H] large
 </pre>
 <div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" tabindex="-1"></a><span class="fu">compute_kruskal_wallis_test</span>(<span class="at">formula=</span>form,<span class="at">df=</span>mtcars)</span></code></pre></div>
 <pre class="r-output">##      formula                       method     etasq epsilonsq        H df           p

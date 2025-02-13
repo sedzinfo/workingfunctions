@@ -9,7 +9,7 @@ vignette: >
   %\VignetteEncoding{UTF-8}
 ---
 
-<style> 
+<style>
 body { max-width: 95%; margin: 0 auto; padding: 0; } 
 .container { width: 100%; max-width: none; } 
 /* Example for wider tables */ 
@@ -20,31 +20,34 @@ pre {
   background-color: #f4f4f4; /* Light gray background for input */
   border-left: 5px solid #007ACC; /* Blue border */
   padding: 10px;
+  font-size: 20px !important;
 }
-
 /* Styling for output */
 pre.r-output {
   background-color: #e8f5e9; /* Light green background for output */
   border-left: 5px solid #388E3C; /* Green border */
   padding: 10px;
+  font-size: 15px !important;
 }
 </style>
 
+```{r options,echo=FALSE,warning=FALSE,message=FALSE}
+options(future.show.progress=FALSE)
+options(width=1000)
+knitr::opts_chunk$set(echo=TRUE)
+hook_output<-function(x, options) {
+  paste0('<pre class="r-output">',knitr::knit_print(x),'</pre>')
+}
+knitr::knit_hooks$set(output=hook_output)
+```
+
+```{r load,include=FALSE}
+library(workingfunctions)
+```
+
+## Description
 This shows the output of useful functions for training and testing from workingfunctions.  
 Installation instructions for workingfunctions can be found [here](https://github.com/sedzinfo/workingfunctions)
-
-```{r setup, include=FALSE}
-library(workingfunctions)
-knitr::opts_chunk$set(echo=TRUE)
-options(width=1000)
-options(future.show.progress=FALSE)
-# Custom hook for output styling
-hook_output <- function(x, options) {
-  paste0('<pre class="r-output">', knitr::knit_print(x), '</pre>')
-}
-knitr::knit_hooks$set(output = hook_output)
-
-```
 
 ## Plot ROC Curve
 ```{r plot_roc,fig.width=8,fig.height=8,echo=TRUE,message=FALSE,warning=FALSE,results='hide',dev='png',fig.retina=2}
