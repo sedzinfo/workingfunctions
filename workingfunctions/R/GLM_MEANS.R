@@ -14,8 +14,6 @@
 #' report_ttests(df=mtcars,dv=2:3,iv=9:10,alternative="two.sided")
 #' report_ttests(df=mtcars,dv=2:7,iv=9:10,alternative="less")
 #' report_ttests(df=mtcars,dv=2:7,iv=9:10,alternative="greater")
-#' #report_ttests(df=mtcars,dv=2:7,iv=9:10,paired=FALSE)
-#' #report_ttests(df=mtcars,dv=2:7,iv=9:10,paired=TRUE)
 #' report_ttests(df=mtcars,dv=1:7,iv=8:10,var.equal=TRUE)
 #' report_ttests(df=mtcars,dv=1:7,iv=8:10,var.equal=TRUE,file="ttest")
 report_ttests<-function(df,dv,iv,file=NULL,...) {
@@ -129,8 +127,6 @@ report_ttests<-function(df,dv,iv,file=NULL,...) {
 #' report_wtests(df=mtcars,dv=2:3,iv=9:10,alternative="two.sided")
 #' report_wtests(df=mtcars,dv=2:7,iv=9:10,alternative="less")
 #' report_wtests(df=mtcars,dv=2:7,iv=9:10,alternative="greater")
-#' report_wtests(df=mtcars,dv=2:7,iv=9:10,paired=FALSE)
-#' #report_wtests(df=mtcars,dv=2:7,iv=9:10,paired=TRUE)
 #' report_wtests(df=mtcars,dv=1:7,iv=8:10,var.equal=TRUE)
 #' report_wtests(df=mtcars,dv=1:7,iv=8:10,var.equal=TRUE,file="wilcoxontest")
 report_wtests<-function(df,dv,iv,file=NULL,...) {

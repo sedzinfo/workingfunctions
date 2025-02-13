@@ -339,7 +339,7 @@ report_normality_tests<-function(df,file=NULL) {
       names(result_francia)<-c("variable","n","statistic","p","method","data.name","instruction")
       names(result_jarque)<-c("variable","n","statistic","df","p","method","data.name","instruction")
       names(result_lillie)<-c("variable","n","statistic","p","method","data.name","instruction")
-      names(result_kolmogorov)<-c("variable","n","statistic","p","alternative", "method","data.name","instruction")
+      names(result_kolmogorov)<-c("variable","n","statistic","p","alternative", "method","data.name","exact","instruction")
       names(result_pearson)<-c("variable","n","statistic","p","method","data.name","n.classes","df","instruction")
       
       result<-plyr::rbind.fill(result_shapiro,
