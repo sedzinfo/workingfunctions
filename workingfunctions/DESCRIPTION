@@ -3,7 +3,7 @@ Title: Statistical reporting and visualization for common methods
 Version: 0.1
 Authors@R: person("Dimitrios", "Zacharatos", email = "sedzinfo@gmail.com", role = c("aut", "cre"))
 Description: Statistical reporting and visualization for common methodology used in psychology. Functions to minimize code and automate procedures using common R packages.
-Depends: R (>= 3.5), ggplot2
+Depends: R (>= 3.5), ggplot2, tcR
 Imports: MASS, future, future.apply, gtable, gtools, irr, openxlsx, pROC, plyr, psych, reshape2, stringr, xgboost, DescTools, Rmisc, ggfortify, ggrepel, car, dplyr, lmerTest, sjstats, doSNOW, foreach, ggpubr, gridExtra, scales, pwr, mirt, nlme, MplusAutomation, NLP, openNLP, tm, spelling, catR, lavaan, ggExtra, QuantPsyc, semPlot, R.utils, purrr, emmeans, ez
 License: GPL
 Encoding: UTF-8

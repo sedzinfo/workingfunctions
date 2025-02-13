@@ -435,45 +435,45 @@ compute_scores<-function(mydata,...) {
 ##########################################################################################
 # COMPUTE ICC THURSTONIAN
 ##########################################################################################
-#' @title Compute subject ability for thurstonian models
-#' @description Computes person ability for binary thurstonian coded items for a single dimension
-#' @param mydata dataframe
-#' @param ... arguments passed to compute_ability
-#' @import foreach
-#' @import doSNOW
-#' @importFrom parallel detectCores
-#' @importFrom parallel stopCluster
-#' @keywords IRT Thurstonian
-#' @export
-#' @examples
-#' gamma<-c(0.556,-1.253,-1.729,0.618,0.937,0.295,-0.672,-1.127,-0.446,0.632,1.147,0.498)
-#' psi<-c(2.172,1.883,2.055,1.869,2.231,2.100,1.762,1.803,1.565,1.892,1.794,1.686)
-#' lambda<-c(1.082,1.082,-1.297,-1.297,0.802,0.802,1.083,1.083)
-#' gamma<-gamma[response_dimension(c(1:12),3,c(1,2))]
-#' psi<-psi[response_dimension(c(1:12),3,c(1,2))]
-#' eta<-seq(-6,6,by=0.1)
-#' map<-compute_map(eta=eta,mean=0,sd=1)
-#' response_df<-data.frame(matrix(nrow=0,ncol=8))
-#' response_df[1,]<-c(0,0,0,0,0,0,0,0)
-#' response_df[2,]<-c(1,1,1,1,1,1,1,1)
-#' response_df[3,]<-c(1,0,1,0,1,0,1,0)
-#' response_df[4,]<-c(0,1,0,1,0,1,0,1)
-#' compute_scores(response_df,eta,gamma,lambda,psi,map=map,plot=FALSE)
-#' compute_scores_parallel(response_df,eta,gamma,lambda,psi,map=map,plot=FALSE)
-compute_scores_parallel<-function(mydata,...) {
-  i<-NULL
-  cl<-parallel::makeCluster(parallel::detectCores())
-  doSNOW::registerDoSNOW(cl)
-  pb<-txtProgressBar(max=nrow(mydata),style=3)
-  progress<-function(n) setTxtProgressBar(pb,n)
-  opts<-list(progress=progress)
-  ability<-foreach(i=1:nrow(mydata),.combine="c",.packages="workingfunctions",.options.snow=opts) %dopar% {
-    compute_ability(as.numeric(mydata[i,]),...)$ability_map
-  }
-  close(pb)
-  parallel::stopCluster(cl)
-  return(ability)
-}
+# #' @title Compute subject ability for thurstonian models
+# #' @description Computes person ability for binary thurstonian coded items for a single dimension
+# #' @param mydata dataframe
+# #' @param ... arguments passed to compute_ability
+# #' @import foreach
+# #' @import doSNOW
+# #' @importFrom parallel detectCores
+# #' @importFrom parallel stopCluster
+# #' @keywords IRT Thurstonian
+# #' @export
+# #' @examples
+# #' gamma<-c(0.556,-1.253,-1.729,0.618,0.937,0.295,-0.672,-1.127,-0.446,0.632,1.147,0.498)
+# #' psi<-c(2.172,1.883,2.055,1.869,2.231,2.100,1.762,1.803,1.565,1.892,1.794,1.686)
+# #' lambda<-c(1.082,1.082,-1.297,-1.297,0.802,0.802,1.083,1.083)
+# #' gamma<-gamma[response_dimension(c(1:12),3,c(1,2))]
+# #' psi<-psi[response_dimension(c(1:12),3,c(1,2))]
+# #' eta<-seq(-6,6,by=0.1)
+# #' map<-compute_map(eta=eta,mean=0,sd=1)
+# #' response_df<-data.frame(matrix(nrow=0,ncol=8))
+# #' response_df[1,]<-c(0,0,0,0,0,0,0,0)
+# #' response_df[2,]<-c(1,1,1,1,1,1,1,1)
+# #' response_df[3,]<-c(1,0,1,0,1,0,1,0)
+# #' response_df[4,]<-c(0,1,0,1,0,1,0,1)
+# #' compute_scores(response_df,eta,gamma,lambda,psi,map=map,plot=FALSE)
+# #' compute_scores_parallel(response_df,eta,gamma,lambda,psi,map=map,plot=FALSE)
+# compute_scores_parallel<-function(mydata,...) {
+#   i<-NULL
+#   cl<-parallel::makeCluster(parallel::detectCores())
+#   doSNOW::registerDoSNOW(cl)
+#   pb<-txtProgressBar(max=nrow(mydata),style=3)
+#   progress<-function(n) setTxtProgressBar(pb,n)
+#   opts<-list(progress=progress)
+#   ability<-foreach(i=1:nrow(mydata),.combine="c",.packages="workingfunctions",.options.snow=opts) %dopar% {
+#     compute_ability(as.numeric(mydata[i,]),...)$ability_map
+#   }
+#   close(pb)
+#   parallel::stopCluster(cl)
+#   return(ability)
+# }
 ##########################################################################################
 # COMPUTE MAP
 ##########################################################################################

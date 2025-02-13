@@ -1,35 +1,36 @@
-##########################################################################################
+#########################################################################################
 # TREE PLOT
-##########################################################################################
-# #' @title Plot trees for xgboost::xgb.train
-# #' @param model object from xgboost::xgb.train
-# #' @param train Train dataset
-# #' @param file output filename
-# #' @keywords ML
-# #' @export
-# #' @examples
-# #' infert_formula<-as.formula(factor(case)~education+spontaneous+induced)
-# #' boston_formula<-as.formula(c("medv~",paste(names(MASS::Boston)[1:13],collapse="+")))
-# #' train_test_classification<-psycholatefunctions::k_fold(df=infert,model_formula=infert_formula)
-# #' train_test_regression<-psycholatefunctions::k_fold(df=MASS::Boston,model_formula=boston_formula)
-# #' xgb_classification<-xgboost::xgb.train(data=train_test_classification$xgb$f1$train,
-# #'                                        watchlist=train_test_classification$xgb$f1$watchlist,
-# #'                                        eta=.1,
-# #'                                        nthread=8,
-# #'                                        nround=20,
-# #'                                        objective="binary:logistic")
-# #' xgb_regression<-xgboost::xgb.train(data=train_test_regression$xgb$f1$train,
-# #'                                    watchlist=train_test_regression$xgb$f1$watchlist,
-# #'                                    eta=.3,
-# #'                                    nthread=8,
-# #'                                    nround=20)
-# #' xgb.plot.multi.trees(model = xgb_classification, features_keep = 2)
-# #' plot_trees_xgboost(xgb_classification,train_test_classification$xgb$f1,file="Classification")
-# #' plot_trees_xgboost(xgb_regression,train_test_regression$xbg$f1,file="Regression")
-# plot_trees_xgboost<-function(model,train,file="xgboost") {
-#   xgboost_trees<-xgboost::xgb.plot.multi.trees(model=model,feature_names=colnames(train),features_keep=10)
-#   htmlwidgets::saveWidget(xgboost_trees,invisible(paste0(toString(getwd()),"/",file,".html")),selfcontained=TRUE)
-# }
+#########################################################################################
+#' @title Plot trees for xgboost::xgb.train
+#' @param model object from xgboost::xgb.train
+#' @param train Train dataset
+#' @param file output filename
+#' @importFrom xgboost xgb.plot.multi.trees
+#' @keywords ML
+#' @export
+#' @examples
+#' infert_formula<-as.formula(factor(case)~education+spontaneous+induced)
+#' boston_formula<-as.formula(c("medv~",paste(names(MASS::Boston)[1:13],collapse="+")))
+#' train_test_classification<-workingfunctions::k_fold(df=infert,model_formula=infert_formula)
+#' train_test_regression<-workingfunctions::k_fold(df=MASS::Boston,model_formula=boston_formula)
+#' xgb_classification<-xgboost::xgb.train(data=train_test_classification$xgb$f1$train,
+#'                                        watchlist=train_test_classification$xgb$f1$watchlist,
+#'                                        eta=.1,
+#'                                        nthread=8,
+#'                                        nround=20,
+#'                                        objective="binary:logistic")
+#' xgb_regression<-xgboost::xgb.train(data=train_test_regression$xgb$f1$train,
+#'                                    watchlist=train_test_regression$xgb$f1$watchlist,
+#'                                    eta=.3,
+#'                                    nthread=8,
+#'                                    nround=20)
+#' xgboost::xgb.plot.multi.trees(model = xgb_classification, features_keep = 2)
+#' plot_trees_xgboost(model=xgb_classification,train=train_test_classification$xgb$f1,file="Classification")
+#' plot_trees_xgboost(model=xgb_regression,train=train_test_regression$xbg$f1,file="Regression")
+plot_trees_xgboost<-function(model,train,file="xgboost") {
+  xgboost_trees<-xgboost::xgb.plot.multi.trees(model=model,feature_names=colnames(train),features_keep=10,fill=TRUE,use.names=FALSE)
+  htmlwidgets::saveWidget(xgboost_trees,invisible(paste0(toString(getwd()),"/",file,".html")),selfcontained=TRUE)
+}
 ##########################################################################################
 # XGBOOST
 ##########################################################################################
