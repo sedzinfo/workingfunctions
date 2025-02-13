@@ -1,5 +1,5 @@
 ##########################################################################################
-# DECISIONTREE
+# DECISION TREE
 ##########################################################################################
 #' @title Report for rpart::rpart
 #' @param model objectfromrpart::rpart
@@ -60,12 +60,15 @@ report_rtree<-function(model,file="rpart_rtree",w=10,h=10,base_size=10,fast=TRUE
   plot_importance
   plot_prune
   dev.off()
-  rpart::plotcp(model)
-  rpart::rsq.rpart(model)
+  
+  par(mfrow=c(2,2))
+  print(rpart::plotcp(model))
+  print(rpart::rsq.rpart(model))
   par(mfrow=c(1,1))
-  rpart.plot::rpart.plot(model,type=1)
-  plot_importance
-  plot_prune
+  print(rpart.plot::rpart.plot(model,type=1))
+  print(plot_importance)
+  print(plot_prune)
+  
   frame<-data.frame(model$frame)
   cp<-data.frame(model$cptable)
   parameters<-data.frame(parameters=unlist(model$control))

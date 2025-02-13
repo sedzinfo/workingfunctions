@@ -345,6 +345,16 @@ report_efa<-function(model,df,file=NULL,w=10,h=5,cut=0,base_size=10,scores=FALSE
                              # data.frame(type="Phi",model$Phi),
                              data.frame(type="variance accounted",row.names(model$Vaccounted),model$Vaccounted))
   model_call<-data.frame(call=call_to_string(model))
+  
+  result<-list(correlations=correlations,npobs=model$np.obs,residual_stats=residual_stats,determinant_test=determinant_test,bartlett_test=bartlett_test,kmo_test=kmo_test)
+  if(length(model$values)>0) {
+    result[["loadings"]]<-loadings
+    result[["instruction_loading_critical_values"]]<-instruction_loading_critical_values
+    result[["weights"]]<-model$weights
+  }
+  if(scores) {
+    result[["scores"]]<-model$scores
+  }
   if(!is.null(file)) {
     if(file.exists(filename)) file.remove(filename)
     wb<-openxlsx::createWorkbook()
@@ -368,6 +378,7 @@ report_efa<-function(model,df,file=NULL,w=10,h=5,cut=0,base_size=10,scores=FALSE
     excel_matrix(model_call,wb,sheet="call")
     openxlsx::saveWorkbook(wb,filename)
   }
+  return(result)
 }
 ##########################################################################################
 # LOADINGS PLOT STACKED WRAPPED
