@@ -24,6 +24,7 @@ filestocopy<-setdiff(list.files(paste0(working_directory,"/working_functions"),f
 file.copy(from=filestocopy,to=paste0(working_directory,"/workingfunctions/R"),recursive=TRUE,copy.mode=TRUE)
 document()
 setwd("..")
+remove.packages("workingfunctions")
 install("workingfunctions")
-setwd(working_directory)
+library(workingfunctions)
 
