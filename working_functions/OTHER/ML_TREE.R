@@ -14,11 +14,11 @@
 #' @examples
 #' infert_formula<-as.formula(factor(case)~age+parity+education+spontaneous+induced)
 #' boston_formula<-as.formula(c("medv~",paste(names(MASS::Boston)[1:13],collapse="+")))
-#' train_test_classification<-psycholatefunctions::k_fold(df=infert,model_formula=infert_formula)
-#' train_test_regression<-psycholatefunctions::k_fold(df=MASS::Boston,model_formula=boston_formula)
-#' train_test_classification<-psycholatefunctions::k_fold(df=infert,
+#' train_test_classification<-workingfunctions::k_fold(df=infert,model_formula=infert_formula)
+#' train_test_regression<-workingfunctions::k_fold(df=MASS::Boston,model_formula=boston_formula)
+#' train_test_classification<-workingfunctions::k_fold(df=infert,
 #'                                                        model_formula=infert_formula)
-#' train_test_regression<-psycholatefunctions::k_fold(df=MASS::Boston,
+#' train_test_regression<-workingfunctions::k_fold(df=MASS::Boston,
 #'                                                    model_formula=boston_formula)
 #' tree_classification<-tree::tree(infert_formula,
 #'                                 train_test_classification$f$train$f1,

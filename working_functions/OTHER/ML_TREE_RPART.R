@@ -1,20 +1,20 @@
 ##########################################################################################
-#DECISIONTREE
+# DECISIONTREE
 ##########################################################################################
-#'@titleReportforrpart::rpart
-#'@parammodelobjectfromrpart::rpart
-#'@paramfilefilenameofoutput
-#'@paramwwidthofpdffile
-#'@paramhheightofpdffile
-#'@parambase_sizebasefontsize
-#'@paramfastifTRUEtrainandtestrawdatasetsanderrorvaluesarenotsavedinoutput
-#'@keywordsML
-#'@export
-#'@examples
+#' @title Report for rpart::rpart
+#' @param model objectfromrpart::rpart
+#' @param file filenameofoutput
+#' @param w width of pdffile
+#' @param h height of pdffile
+#' @param base_size base font size
+#' @param fast if TRUE trainand test raw datasets and error values are not saved in output
+#' @keywordsML
+#' @export
+#' @examples
 #' infert_formula<-as.formula(factor(case)~age+parity+education+spontaneous+induced)
 #' boston_formula<-as.formula(c("medv~",paste(names(MASS::Boston)[1:13],collapse="+")))
-#' train_test_classification<-psycholatefunctions::k_fold(df=infert,model_formula=infert_formula)
-#' train_test_regression<-psycholatefunctions::k_fold(df=MASS::Boston,model_formula=boston_formula)
+#' train_test_classification<-workingfunctions::k_fold(df=infert,model_formula=infert_formula)
+#' train_test_regression<-workingfunctions::k_fold(df=MASS::Boston,model_formula=boston_formula)
 #' rtree_classification<-rpart::rpart(infert_formula,train_test_classification$f$train$f1,model=TRUE,x=TRUE,y=TRUE)
 #' rtree_regression<-rpart::rpart(boston_formula,train_test_regression$f$train$f1,model=TRUE,x=TRUE,y=TRUE)
 #' report_rtree(model=rtree_classification,file="Classification")
@@ -60,6 +60,12 @@ report_rtree<-function(model,file="rpart_rtree",w=10,h=10,base_size=10,fast=TRUE
   plot_importance
   plot_prune
   dev.off()
+  rpart::plotcp(model)
+  rpart::rsq.rpart(model)
+  par(mfrow=c(1,1))
+  rpart.plot::rpart.plot(model,type=1)
+  plot_importance
+  plot_prune
   frame<-data.frame(model$frame)
   cp<-data.frame(model$cptable)
   parameters<-data.frame(parameters=unlist(model$control))
@@ -87,44 +93,43 @@ report_rtree<-function(model,file="rpart_rtree",w=10,h=10,base_size=10,fast=TRUE
     excel_critical_value(result$call,wb,"Call",numFmt="#0.00")
     openxlsx::saveWorkbook(wb=wb,file=filename,overwrite=TRUE)
   }
+  return(result)
 }
 ##########################################################################################
-#NOTES
+# NOTES
 ##########################################################################################
-#rtree_classification$frame
-#rtree_classification$where
-#rtree_classification$call
-#rtree_classification$terms
-#rtree_classification$cptable
-#rtree_classification$method
-#rtree_classification$parms$prior
-#rtree_classification$parms$loss
-#rtree_classification$parms$split
-#rtree_classification$control
-#rtree_classification$functions
-#rtree_classification$numresp
-#rtree_classification$splits
-#rtree_classification$csplit
-#rtree_classification$variable.importance
-#rtree_classification$y
-#rtree_regression$x
-#rtree_regression$model
-#rtree_classification$ordered
-
-#rtree_regression$frame
-#rtree_regression$where
-#rtree_regression$call
-#rtree_regression$terms
-#rtree_regression$cptable
-#rtree_regression$method
-
-#rtree_regression$parms
-#rtree_regression$control
-#rtree_regression$functions
-#rtree_regression$numresp
-#rtree_regression$splits
-#rtree_regression$variable.importance
-#rtree_regression$y
-#rtree_regression$x
-#rtree_regression$model
-#rtree_regression$ordered
+# rtree_classification$frame
+# rtree_classification$where
+# rtree_classification$call
+# rtree_classification$terms
+# rtree_classification$cptable
+# rtree_classification$method
+# rtree_classification$parms$prior
+# rtree_classification$parms$loss
+# rtree_classification$parms$split
+# rtree_classification$control
+# rtree_classification$functions
+# rtree_classification$numresp
+# rtree_classification$splits
+# rtree_classification$csplit
+# rtree_classification$variable.importance
+# rtree_classification$y
+# rtree_regression$x
+# rtree_regression$model
+# rtree_classification$ordered
+# rtree_regression$frame
+# rtree_regression$where
+# rtree_regression$call
+# rtree_regression$terms
+# rtree_regression$cptable
+# rtree_regression$method
+# rtree_regression$parms
+# rtree_regression$control
+# rtree_regression$functions
+# rtree_regression$numresp
+# rtree_regression$splits
+# rtree_regression$variable.importance
+# rtree_regression$y
+# rtree_regression$x
+# rtree_regression$model
+# rtree_regression$ordered

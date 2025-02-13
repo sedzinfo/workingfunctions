@@ -13,8 +13,8 @@
 #' @examples
 #' infert_formula<-as.formula(factor(case)~age+parity+education+spontaneous+induced)
 #' boston_formula<-as.formula(c("medv~",paste(names(MASS::Boston)[1:13],collapse="+")))
-#' train_test_classification<-psycholatefunctions::k_fold(df=infert,model_formula=infert_formula)
-#' train_test_regression<-psycholatefunctions::k_fold(df=MASS::Boston,model_formula=boston_formula)
+#' train_test_classification<-workingfunctions::k_fold(df=infert,model_formula=infert_formula)
+#' train_test_regression<-workingfunctions::k_fold(df=MASS::Boston,model_formula=boston_formula)
 #' svm_tune_classification<-e1071::tune(e1071::svm,
 #'                                      infert_formula,
 #'                                      data=train_test_classification$f$train$f1,
@@ -24,10 +24,8 @@
 #' report_svm(model=svm_classification,
 #'            validation_data=train_test_classification$f$test$f1,
 #'            file="Classification")
-svm_classification$
 report_svm<-function(model,validation_data,file="support_vector_machine",w=10,h=10,base_size=10) {
   require(e1071)
-  
   variable_names<-all.vars(formula(model$call))
   observed<-validation_data[,variable_names[1]]
   predicted<-predict(model,newdata=validation_data)
@@ -43,6 +41,7 @@ report_svm<-function(model,validation_data,file="support_vector_machine",w=10,h=
     excel_confusion_matrix(confusion_matrix,wb)
     openxlsx::saveWorkbook(wb=wb,file=filename,overwrite=TRUE)
   }
+  return(result)
 }
 ##########################################################################################
 # NOTES
@@ -82,3 +81,9 @@ report_svm<-function(model,validation_data,file="support_vector_machine",w=10,h=
 # svm_classification$decision.values
 # svm_classification$residuals
 # svm_classification$terms
+
+
+
+
+
+

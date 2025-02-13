@@ -180,11 +180,11 @@ simulate_cfa_fit<-function(model_sim=NULL,model=NULL,df=NULL,minnobs=50,maxnobs=
   pb<-txtProgressBar(min=0,max=length(sequence),style=3)
   progress<-function(n) setTxtProgressBar(pb,n)
   opts<-list(progress=progress)
-  sim_results<-foreach(nobs=sequence,.combine=rbind,.packages=c("psycholatefunctions","lavaan"),.options.snow=opts) %dopar% {
+  sim_results<-foreach(nobs=sequence,.combine=rbind,.packages=c("workingfunctions","lavaan"),.options.snow=opts) %dopar% {
     if(!is.null(model_sim))
       sim<-lavaan::simulateData(model=model_sim,model.type="cfa",return.type="data.frame",sample.nobs=nobs,orthogonal=TRUE)
     if(!is.null(df))
-      sim<-psycholatefunctions::simulate_correlation_from_sample(df,nrows=nobs)
+      sim<-workingfunctions::simulate_correlation_from_sample(df,nrows=nobs)
     fit<-lavaan::cfa(model,data=sim)
     fit_indices<-data.frame(FIT=lavaan::inspect(fit,"fit"))
     data.frame(data.frame(observations=nobs,data.frame(t(fit_indices))),row.names=NULL)

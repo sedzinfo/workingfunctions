@@ -1,333 +1,333 @@
 #############################################################################################################################################################################################################
-#,rule=""HR
+#HR
 #############################################################################################################################################################################################################
-#',rule=""TITLE
-#',rule=""DESCRIPTION
-#',rule=""@param
-#',rule=""@keywords,rule=""HRV
-#',rule=""@export
-#',rule=""@examples
-#',rule=""
-HR<-function(mydata),rule=""{
-,rule="",rule=""hr<-c(0)
-,rule="",rule=""n.beats<-length(mydata)
-,rule="",rule=""hr[2:n.beats]<-60/diff(mydata)
-,rule="",rule=""hr[1]<-hr[2]
-,rule="",rule=""return(hr)
+#'TITLE
+#'DESCRIPTION
+#'@param
+#'@keywordsHRV
+#'@export
+#'@examples
+#'
+HR<-function(mydata){
+  hr<-c(0)
+  n.beats<-length(mydata)
+  hr[2:n.beats]<-60/diff(mydata)
+  hr[1]<-hr[2]
+  return(hr)
 }
 #############################################################################################################################################################################################################
-#,rule=""RR
+#RR
 #############################################################################################################################################################################################################
-#',rule=""TITLE
-#',rule=""DESCRIPTION
-#',rule=""@param
-#',rule=""@keywords,rule=""HRV
-#',rule=""@export
-#',rule=""@examples
-#',rule=""
-RR<-function(mydata),rule=""{
-,rule="",rule=""rr=c(0)
-,rule="",rule=""n.beats<-length(mydata)
-,rule="",rule=""rr[2:n.beats]<-1000*diff(mydata)
-,rule="",rule=""rr[1]<-rr[2]
-,rule="",rule=""return(rr)
+#'TITLE
+#'DESCRIPTION
+#'@param
+#'@keywordsHRV
+#'@export
+#'@examples
+#'
+RR<-function(mydata){
+  rr=c(0)
+  n.beats<-length(mydata)
+  rr[2:n.beats]<-1000*diff(mydata)
+  rr[1]<-rr[2]
+  return(rr)
 }
 #############################################################################################################################################################################################################
-#,rule=""
+#
 #############################################################################################################################################################################################################
-#',rule=""TITLE
-#',rule=""DESCRIPTION
-#',rule=""@param
-#',rule=""@keywords,rule=""HRV
-#',rule=""@export
-#',rule=""@examples
-#',rule=""
-build.hr.rr<-function(mydata),rule=""{
-,rule="",rule=""hr<-HR(mydata)
-,rule="",rule=""rr<-RR(mydata)
-,rule="",rule=""time<-mydata
-,rule="",rule=""beat<-data.frame("heart.rate"=hr,"r.r.interval"=rr,"Time"=time)
-,rule="",rule=""cat("Beats",nrow(beat))
-,rule="",rule=""return(beat)
+#'TITLE
+#'DESCRIPTION
+#'@param
+#'@keywordsHRV
+#'@export
+#'@examples
+#'
+build.hr.rr<-function(mydata){
+  hr<-HR(mydata)
+  rr<-RR(mydata)
+  time<-mydata
+  beat<-data.frame("heart.rate"=hr,"r.r.interval"=rr,"Time"=time)
+  cat("Beats",nrow(beat))
+  return(beat)
 }
 #############################################################################################################################################################################################################
-#,rule=""FILTER
+#FILTER
 #############################################################################################################################################################################################################
-#',rule=""TITLE
-#',rule=""DESCRIPTION
-#',rule=""@param
-#',rule=""@keywords,rule=""HRV
-#',rule=""@export
-#',rule=""@examples
-#',rule=""
-hrv.filter<-function(mydata,long=50,last=13,minbpm=25,maxbpm=200,mini=NULL,maxi=NULL,fixed=NULL),rule=""{
-,rule="",rule=""ulast=last
-,rule="",rule=""umean=1.5*ulast
-,rule="",rule=""hr=HR(mydata)
-,rule="",rule=""beat=mydata
-,rule="",rule=""rr=RR(mydata)
-,rule="",rule=""index=2
-,rule="",rule=""while,rule=""(index<length(hr)),rule=""{
-,rule="",rule="",rule="",rule=""v=hr[max(index-long,1):index-1]
-,rule="",rule="",rule="",rule=""M=sum(v)/length(v)
-,rule="",rule="",rule="",rule=""if,rule=""((100*abs((hr[index]-hr[index-1])/hr[index-1])<ulast|100*abs((hr[index]-hr[index+1])/hr[index+1])<ulast|100*abs((hr[index]-M)/M)<umean)&hr[index]>=minbpm&hr[index]<=maxbpm),rule=""{
-,rule="",rule="",rule="",rule="",rule="",rule=""index=index+1
-,rule="",rule="",rule="",rule="",rule="",rule=""tmp=10+stats::sd(hr[max(index-long,1):index-1])
-,rule="",rule="",rule="",rule="",rule="",rule=""if,rule=""(tmp<12),rule=""{,rule=""tmp=12,rule=""}
-,rule="",rule="",rule="",rule="",rule="",rule=""if,rule=""(tmp>20),rule=""{,rule=""tmp=20,rule=""}
-,rule="",rule="",rule="",rule="",rule="",rule=""ulast=tmp
-,rule="",rule="",rule="",rule="",rule="",rule=""umean=1.5*tmp
-,rule="",rule="",rule="",rule=""}
-,rule="",rule="",rule="",rule=""else,rule=""{
-,rule="",rule="",rule="",rule="",rule="",rule=""hr=hr[-index]
-,rule="",rule="",rule="",rule="",rule="",rule=""beat=beat[-index]
-,rule="",rule="",rule="",rule="",rule="",rule=""rr=rr[-index]
-,rule="",rule="",rule="",rule=""}
-,rule="",rule=""}
-,rule="",rule=""beat=data.frame(Time=beat,niHR=hr,RR=rr)
-,rule="",rule=""cat("Beats",nrow(beat))
-,rule="",rule=""return(beat$Time)
+#'TITLE
+#'DESCRIPTION
+#'@param
+#'@keywordsHRV
+#'@export
+#'@examples
+#'
+hrv.filter<-function(mydata,long=50,last=13,minbpm=25,maxbpm=200,mini=NULL,maxi=NULL,fixed=NULL){
+  ulast=last
+  umean=1.5*ulast
+  hr=HR(mydata)
+  beat=mydata
+  rr=RR(mydata)
+  index=2
+  while(index<length(hr)){
+    v=hr[max(index-long,1):index-1]
+    M=sum(v)/length(v)
+    if((100*abs((hr[index]-hr[index-1])/hr[index-1])<ulast|100*abs((hr[index]-hr[index+1])/hr[index+1])<ulast|100*abs((hr[index]-M)/M)<umean)&hr[index]>=minbpm&hr[index]<=maxbpm){
+      index=index+1
+      tmp=10+stats::sd(hr[max(index-long,1):index-1])
+      if(tmp<12){tmp=12}
+      if(tmp>20){tmp=20}
+      ulast=tmp
+      umean=1.5*tmp
+    }
+    else{
+      hr=hr[-index]
+      beat=beat[-index]
+      rr=rr[-index]
+    }
+  }
+  beat=data.frame(Time=beat,niHR=hr,RR=rr)
+  cat("Beats",nrow(beat))
+  return(beat$Time)
 }
 #############################################################################################################################################################################################################
-#,rule=""
+#
 #############################################################################################################################################################################################################
-#',rule=""TITLE
-#',rule=""DESCRIPTION
-#',rule=""@param
-#',rule=""@keywords,rule=""HRV
-#',rule=""@export
-#',rule=""@examples
-#',rule=""
-hrv.filter.data.frame<-function(mydata,long=50,last=13,minbpm=25,maxbpm=200,mini=NULL,maxi=NULL,fixed=NULL),rule=""{
-,rule="",rule=""ulast=last
-,rule="",rule=""umean=1.5*ulast
-,rule="",rule=""hr=mydata$heart.rate
-,rule="",rule=""beat=mydata$Time
-,rule="",rule=""rr=mydata$r.r.interval
-,rule="",rule=""index=2
-,rule="",rule=""while,rule=""(index<length(hr)),rule=""{
-,rule="",rule="",rule="",rule=""v=hr[max(index-long,1):index-1]
-,rule="",rule="",rule="",rule=""M=sum(v)/length(v)
-,rule="",rule="",rule="",rule=""if,rule=""((100*abs((hr[index]-hr[index-1])/hr[index-1])<ulast|100*abs((hr[index]-hr[index+1])/hr[index+1])<ulast|100*abs((hr[index]-M)/M)<umean)&hr[index]>=minbpm&hr[index]<=maxbpm),rule=""{
-,rule="",rule="",rule="",rule="",rule="",rule=""index=index+1
-,rule="",rule="",rule="",rule="",rule="",rule=""tmp=10+stats::sd(hr[max(index-long,1):index-1])
-,rule="",rule="",rule="",rule="",rule="",rule=""if,rule=""(tmp<12),rule=""{,rule=""tmp=12,rule=""}
-,rule="",rule="",rule="",rule="",rule="",rule=""if,rule=""(tmp>20),rule=""{,rule=""tmp=20,rule=""}
-,rule="",rule="",rule="",rule="",rule="",rule=""ulast=tmp
-,rule="",rule="",rule="",rule="",rule="",rule=""umean=1.5*tmp
-,rule="",rule="",rule="",rule=""}
-,rule="",rule="",rule="",rule=""else,rule=""{
-,rule="",rule="",rule="",rule="",rule="",rule=""hr=hr[-index]
-,rule="",rule="",rule="",rule="",rule="",rule=""beat=beat[-index]
-,rule="",rule="",rule="",rule="",rule="",rule=""rr=rr[-index]
-,rule="",rule="",rule="",rule=""}
-,rule="",rule=""}
-,rule="",rule=""beat=data.frame(Time=beat,niHR=hr,RR=rr)
-,rule="",rule=""cat("Beats",nrow(beat))
-,rule="",rule=""return(beat)
+#'TITLE
+#'DESCRIPTION
+#'@param
+#'@keywordsHRV
+#'@export
+#'@examples
+#'
+hrv.filter.data.frame<-function(mydata,long=50,last=13,minbpm=25,maxbpm=200,mini=NULL,maxi=NULL,fixed=NULL){
+  ulast=last
+  umean=1.5*ulast
+  hr=mydata$heart.rate
+  beat=mydata$Time
+  rr=mydata$r.r.interval
+  index=2
+  while(index<length(hr)){
+    v=hr[max(index-long,1):index-1]
+    M=sum(v)/length(v)
+    if((100*abs((hr[index]-hr[index-1])/hr[index-1])<ulast|100*abs((hr[index]-hr[index+1])/hr[index+1])<ulast|100*abs((hr[index]-M)/M)<umean)&hr[index]>=minbpm&hr[index]<=maxbpm){
+      index=index+1
+      tmp=10+stats::sd(hr[max(index-long,1):index-1])
+      if(tmp<12){tmp=12}
+      if(tmp>20){tmp=20}
+      ulast=tmp
+      umean=1.5*tmp
+    }
+    else{
+      hr=hr[-index]
+      beat=beat[-index]
+      rr=rr[-index]
+    }
+  }
+  beat=data.frame(Time=beat,niHR=hr,RR=rr)
+  cat("Beats",nrow(beat))
+  return(beat)
 }
 #############################################################################################################################################################################################################
-#,rule=""INTERPOLATE
+#INTERPOLATE
 #############################################################################################################################################################################################################
-#',rule=""TITLE
-#',rule=""DESCRIPTION
-#',rule=""@param
-#',rule=""@keywords,rule=""HRV
-#',rule=""@export
-#',rule=""@examples
-#',rule=""
-hrv.interpolate<-function,rule=""(mydata,freqhr=4,method="linear"),rule=""{
-,rule="",rule=""first=head(mydata,1)
-,rule="",rule=""last=tail(mydata,1)
-,rule="",rule=""npoints=as.integer((last-first)*freqhr+1)
-,rule="",rule=""cat("Number,rule=""of,rule=""beats:",length(HR(mydata)),"\nNumber,rule=""of,rule=""points:",npoints,"\n")
-,rule="",rule=""if,rule=""(method=="linear")
-,rule="",rule="",rule="",rule=""fun=approxfun(mydata,HR(mydata),method="linear",ties="ordered")
-,rule="",rule=""else,rule=""fun=splinefun(mydata,HR(mydata),method="monoH.FC",ties="ordered")
-,rule="",rule=""vectorxint=seq(first,last,1/freqhr)
-,rule="",rule=""interpolated.hr=fun(vectorxint)
-,rule="",rule=""limit=30
-,rule="",rule=""begindex=which(diff(mydata)>limit)
-,rule="",rule=""beg=mydata[begindex]
-,rule="",rule=""end=mydata[begindex+1]
-,rule="",rule=""if,rule=""(length(begindex)>0),rule=""{,rule=""for,rule=""(i,rule=""in,rule=""1:length(beg)),rule=""{interpolated.hr[vectorxint>beg[i],rule=""&,rule=""vectorxint<end[i]]=0;,rule=""cat("Warning:,rule=""interval,rule=""without,rule=""beats,rule=""detected\n")}}
-,rule="",rule=""return(interpolated.hr)
+#'TITLE
+#'DESCRIPTION
+#'@param
+#'@keywordsHRV
+#'@export
+#'@examples
+#'
+hrv.interpolate<-function(mydata,freqhr=4,method="linear"){
+  first=head(mydata,1)
+  last=tail(mydata,1)
+  npoints=as.integer((last-first)*freqhr+1)
+  cat("Numberofbeats:",length(HR(mydata)),"\nNumberofpoints:",npoints,"\n")
+  if(method=="linear")
+    fun=approxfun(mydata,HR(mydata),method="linear",ties="ordered")
+  elsefun=splinefun(mydata,HR(mydata),method="monoH.FC",ties="ordered")
+  vectorxint=seq(first,last,1/freqhr)
+  interpolated.hr=fun(vectorxint)
+  limit=30
+  begindex=which(diff(mydata)>limit)
+  beg=mydata[begindex]
+  end=mydata[begindex+1]
+  if(length(begindex)>0){for(i in 1:length(beg)){interpolated.hr[vectorxint>beg[i]&vectorxint<end[i]]=0;cat("Warning:intervalwithoutbeatsdetected\n")}}
+  return(interpolated.hr)
 }
 #############################################################################################################################################################################################################
-#,rule=""FOURRIER
+#FOURRIER
 #############################################################################################################################################################################################################
-#',rule=""TITLE
-#',rule=""DESCRIPTION
-#',rule=""@param
-#',rule=""@keywords,rule=""HRV
-#',rule=""@export
-#',rule=""@examples
-#',rule=""
-signal<-function,rule=""(interpolated.hr,freqhr=4,size=100,shift=10,sizesp=NULL,scale="linear",ULFmin=0,ULFmax=0.03,VLFmin=0.03,VLFmax=0.05,LFmin=0.05,LFmax=0.15,HFmin=0.15,HFmax=0.4,bandtolerance=0.1,relative=FALSE),rule=""{
-,rule="",rule=""FreqAnalysis<-list()
-,rule="",rule=""signal=1000/(interpolated.hr/60)
-,rule="",rule=""signalLen=length(signal)
-,rule="",rule=""shiftsamples=shift*freqhr
-,rule="",rule=""sizesamples=floor(size*freqhr)
-,rule="",rule=""if,rule=""(is.null(sizesp)),rule=""{,rule=""sizesp=2^ceiling(log2(sizesamples)),rule=""}
-,rule="",rule=""if,rule=""(sizesp<=sizesamples),rule=""{,rule=""lenZeroPadding=0,rule=""}
-,rule="",rule=""else,rule=""{,rule=""lenZeroPadding=sizesp-sizesamples,rule=""}
-,rule="",rule=""hamming=0.54-0.46*cos(2*pi*(0:(sizesamples-1))/(sizesamples-1))
-,rule="",rule=""hammingfactor=1.586
-,rule="",rule=""nw=1;,rule=""begnw=1
-,rule="",rule=""repeat,rule=""{,rule=""begnw=begnw+shiftsamples
-,rule="",rule=""if,rule=""((begnw+sizesamples-1)>=signalLen),rule=""{,rule=""break,rule=""}
-,rule="",rule=""nw=nw+1,rule=""}
-,rule="",rule=""cat("Windowing,rule=""signal",nw,"windows,rule=""\n")
-,rule="",rule=""freqs=seq(from=0,to=freqhr/2,length.out=(sizesamples+lenZeroPadding)/2)
-,rule="",rule=""power<-function(spec_arg,freq_arg,fmin,fmax),rule=""{
-,rule="",rule="",rule="",rule=""band=spec_arg[freq_arg>=fmin,rule=""&,rule=""freq_arg<fmax]
-,rule="",rule="",rule="",rule=""powerinband=hammingfactor*sum(band)/(2*length(spec_arg)^2)
-,rule="",rule="",rule="",rule=""return(powerinband)
-,rule="",rule=""}
-,rule="",rule=""for,rule=""(i,rule=""in,rule=""1:nw),rule=""{
-,rule="",rule="",rule="",rule=""beg=1+(shiftsamples*(i-1))
-,rule="",rule="",rule="",rule=""window=signal[beg:(beg+sizesamples-1)]
-,rule="",rule="",rule="",rule=""window=window-mean(window)
-,rule="",rule="",rule="",rule=""window=window*hamming
-,rule="",rule="",rule="",rule=""window=c(window,rep(0,len=lenZeroPadding))
-,rule="",rule="",rule="",rule=""spec_tmp=Mod(fft(window))^2
-,rule="",rule="",rule="",rule=""spec=spec_tmp[1:(length(spec_tmp)/2)]
-,rule="",rule="",rule="",rule=""FreqAnalysis$HRV[i]=power(spec,freqs,0,0.5*freqhr)
-,rule="",rule="",rule="",rule=""FreqAnalysis$ULF[i]=power(spec,freqs,ULFmin,ULFmax)
-,rule="",rule="",rule="",rule=""FreqAnalysis$VLF[i]=power(spec,freqs,VLFmin,VLFmax)
-,rule="",rule="",rule="",rule=""FreqAnalysis$LF[i]=power(spec,freqs,LFmin,LFmax)
-,rule="",rule="",rule="",rule=""FreqAnalysis$HF[i]=power(spec,freqs,HFmin,HFmax)
-,rule="",rule="",rule="",rule=""FreqAnalysis$LFHF[i]=FreqAnalysis$LF[i]/FreqAnalysis$HF[i]
-,rule="",rule=""}
-,rule="",rule=""FreqAnalysis$size=size
-,rule="",rule=""FreqAnalysis$shift=shift
-,rule="",rule=""FreqAnalysis$sizesp=sizesp
-,rule="",rule=""return(FreqAnalysis)
+#'TITLE
+#'DESCRIPTION
+#'@param
+#'@keywordsHRV
+#'@export
+#'@examples
+#'
+signal<-function(interpolated.hr,freqhr=4,size=100,shift=10,sizesp=NULL,scale="linear",ULFmin=0,ULFmax=0.03,VLFmin=0.03,VLFmax=0.05,LFmin=0.05,LFmax=0.15,HFmin=0.15,HFmax=0.4,bandtolerance=0.1,relative=FALSE){
+  FreqAnalysis<-list()
+  signal=1000/(interpolated.hr/60)
+  signalLen=length(signal)
+  shiftsamples=shift*freqhr
+  sizesamples=floor(size*freqhr)
+  if(is.null(sizesp)){sizesp=2^ceiling(log2(sizesamples))}
+  if(sizesp<=sizesamples){lenZeroPadding=0}
+  else{lenZeroPadding=sizesp-sizesamples}
+  hamming=0.54-0.46*cos(2*pi*(0:(sizesamples-1))/(sizesamples-1))
+  hammingfactor=1.586
+  nw=1;begnw=1
+  repeat{begnw=begnw+shiftsamples
+  if((begnw+sizesamples-1)>=signalLen){break}
+  nw=nw+1}
+  cat("Windowingsignal",nw,"windows\n")
+  freqs=seq(from=0,to=freqhr/2,length.out=(sizesamples+lenZeroPadding)/2)
+  power<-function(spec_arg,freq_arg,fmin,fmax){
+    band=spec_arg[freq_arg>=fmin&freq_arg<fmax]
+    powerinband=hammingfactor*sum(band)/(2*length(spec_arg)^2)
+    return(powerinband)
+  }
+  for(iin1:nw){
+    beg=1+(shiftsamples*(i-1))
+    window=signal[beg:(beg+sizesamples-1)]
+    window=window-mean(window)
+    window=window*hamming
+    window=c(window,rep(0,len=lenZeroPadding))
+    spec_tmp=Mod(fft(window))^2
+    spec=spec_tmp[1:(length(spec_tmp)/2)]
+    FreqAnalysis$HRV[i]=power(spec,freqs,0,0.5*freqhr)
+    FreqAnalysis$ULF[i]=power(spec,freqs,ULFmin,ULFmax)
+    FreqAnalysis$VLF[i]=power(spec,freqs,VLFmin,VLFmax)
+    FreqAnalysis$LF[i]=power(spec,freqs,LFmin,LFmax)
+    FreqAnalysis$HF[i]=power(spec,freqs,HFmin,HFmax)
+    FreqAnalysis$LFHF[i]=FreqAnalysis$LF[i]/FreqAnalysis$HF[i]
+  }
+  FreqAnalysis$size=size
+  FreqAnalysis$shift=shift
+  FreqAnalysis$sizesp=sizesp
+  return(FreqAnalysis)
 }
 #############################################################################################################################################################################################################
-#,rule=""TIME,rule=""DOMAIN
+#TIMEDOMAIN
 #############################################################################################################################################################################################################
-#',rule=""TITLE
-#',rule=""DESCRIPTION
-#',rule=""@param
-#',rule=""@keywords,rule=""HRV
-#',rule=""@export
-#',rule=""@examples
-#',rule=""
-time.domain<-function,rule=""(mydata,size=100,numofbins=NULL,interval=7.8125),rule=""{
-,rule="",rule=""rr<-RR(mydata)
-,rule="",rule=""hr<-HR(mydata)
-,rule="",rule=""minRR=min(rr)
-,rule="",rule=""maxRR=max(rr)
-,rule="",rule=""if,rule=""(!is.null(numofbins)),rule=""{
-,rule="",rule="",rule="",rule=""interval=(maxRR-minRR)/(numofbins-2)
-,rule="",rule="",rule="",rule=""vecthist=seq(minRR-interval/2,maxRR+interval/2,len=numofbins)
-,rule="",rule=""},rule=""else,rule=""{
-,rule="",rule="",rule="",rule=""medRR=(minRR+maxRR)/2
-,rule="",rule="",rule="",rule=""lowhist=medRR-interval*ceiling((medRR-minRR)/interval)
-,rule="",rule="",rule="",rule=""longhist=ceiling((maxRR-lowhist)/interval)+1
-,rule="",rule="",rule="",rule=""vecthist=seq(from=lowhist,by=interval,length.out=longhist)
-,rule="",rule=""}
-,rule="",rule=""SDNN=stats::sd(rr,na.rm=TRUE)
-,rule="",rule=""WindowMin=head(mydata,n=1)
-,rule="",rule=""WindowMax=WindowMin+size
-,rule="",rule=""Windowindex=1
-,rule="",rule=""RRWindowMean=c(0)
-,rule="",rule=""RRWindowSD=c(0)
-,rule="",rule=""while,rule=""(WindowMax<tail(mydata,1)),rule=""{
-,rule="",rule="",rule="",rule=""RRWindow=rr[mydata>=WindowMin&mydata<WindowMax]
-,rule="",rule="",rule="",rule=""if,rule=""(length(RRWindow)==0),rule=""{
-,rule="",rule="",rule="",rule="",rule="",rule=""RRWindowMean[Windowindex]=NA
-,rule="",rule="",rule="",rule="",rule="",rule=""RRWindowSD[Windowindex]=NA
-,rule="",rule="",rule="",rule=""}
-,rule="",rule="",rule="",rule=""RRWindowMean[Windowindex]=mean(RRWindow)
-,rule="",rule="",rule="",rule=""RRWindowSD[Windowindex]=stats::sd(RRWindow)
-,rule="",rule="",rule="",rule=""WindowMin=WindowMin+size
-,rule="",rule="",rule="",rule=""WindowMax=WindowMax+size
-,rule="",rule="",rule="",rule=""Windowindex=Windowindex+1
-,rule="",rule=""}
-,rule="",rule=""numberOfWindows=Windowindex-1
-,rule="",rule=""if,rule=""(numberOfWindows,rule=""<=,rule=""1),rule=""{,rule=""print("There,rule=""is,rule=""no,rule=""window,rule=""or,rule=""just,rule=""one,rule=""window.,rule=""Cannot,rule=""compute,rule=""the,rule=""standard,rule=""deviation!!,rule=""Returning,rule=""NA,rule=""in,rule=""SDANN\n"),rule=""}
-,rule="",rule=""SDANN=stats::sd(RRWindowMean)
-,rule="",rule=""SDNNIDX=mean(RRWindowSD)
-,rule="",rule=""NRRs=length(rr)
-,rule="",rule=""RRDiffs=diff(rr)
-,rule="",rule=""RRDiffs50=RRDiffs[abs(RRDiffs)>50]
-,rule="",rule=""pNN50=100*length(RRDiffs50)/length(RRDiffs)
-,rule="",rule=""SDSD=stats::sd(RRDiffs)
-,rule="",rule=""rMSSD=sqrt(mean(RRDiffs^2))
-,rule="",rule=""RRQuant=stats::quantile(RRDiffs)
-,rule="",rule=""IRRR=RRQuant[[4]]-RRQuant[[2]]
-,rule="",rule=""MADRR=stats::median(abs(RRDiffs))
-,rule="",rule=""h=hist(rr,breaks=vecthist,plot=FALSE)
-,rule="",rule=""area=length(rr)*interval
-,rule="",rule=""maxhist=max(h$counts)
-,rule="",rule=""TINN=area/maxhist
-,rule="",rule=""HRVi=length(rr)/maxhist
-,rule="",rule=""res<-data.frame("RRWindowMean"=RRWindowMean,"RRWindowSD"=RRWindowSD,"bin_width_in_histogram_msec"=interval,"window_size_sec"=size,"windows"=numberOfWindows,
-,rule="",rule="",rule="",rule="",rule="",rule="",rule="",rule="",rule="",rule="",rule="",rule="",rule="",rule="",rule="",rule="",rule="",rule="""SDNN_msec"=SDNN,"SDANN_msec"=SDANN,"SDNNIDX_msec"=SDNNIDX,"pNN50_msec_percent"=pNN50,"SDSD_msec"=SDSD,"r-MSSD_msec"=rMSSD,"IRRR_msec"=IRRR,"MADRR_msec"=MADRR,"TINN_msec"=TINN,"HRV_index"=HRVi)
-,rule="",rule=""return(res)
+#'TITLE
+#'DESCRIPTION
+#'@param
+#'@keywordsHRV
+#'@export
+#'@examples
+#'
+time.domain<-function(mydata,size=100,numofbins=NULL,interval=7.8125){
+  rr<-RR(mydata)
+  hr<-HR(mydata)
+  minRR=min(rr)
+  maxRR=max(rr)
+  if(!is.null(numofbins)){
+    interval=(maxRR-minRR)/(numofbins-2)
+    vecthist=seq(minRR-interval/2,maxRR+interval/2,len=numofbins)
+  }else{
+    medRR=(minRR+maxRR)/2
+    lowhist=medRR-interval*ceiling((medRR-minRR)/interval)
+    longhist=ceiling((maxRR-lowhist)/interval)+1
+    vecthist=seq(from=lowhist,by=interval,length.out=longhist)
+  }
+  SDNN=stats::sd(rr,na.rm=TRUE)
+  WindowMin=head(mydata,n=1)
+  WindowMax=WindowMin+size
+  Windowindex=1
+  RRWindowMean=c(0)
+  RRWindowSD=c(0)
+  while(WindowMax<tail(mydata,1)){
+    RRWindow=rr[mydata>=WindowMin&mydata<WindowMax]
+    if(length(RRWindow)==0){
+      RRWindowMean[Windowindex]=NA
+      RRWindowSD[Windowindex]=NA
+    }
+    RRWindowMean[Windowindex]=mean(RRWindow)
+    RRWindowSD[Windowindex]=stats::sd(RRWindow)
+    WindowMin=WindowMin+size
+    WindowMax=WindowMax+size
+    Windowindex=Windowindex+1
+  }
+  numberOfWindows=Windowindex-1
+  if(numberOfWindows<=1){print("Thereisnowindoworjustonewindow.Cannotcomputethestandarddeviation!!ReturningNAinSDANN\n")}
+  SDANN=stats::sd(RRWindowMean)
+  SDNNIDX=mean(RRWindowSD)
+  NRRs=length(rr)
+  RRDiffs=diff(rr)
+  RRDiffs50=RRDiffs[abs(RRDiffs)>50]
+  pNN50=100*length(RRDiffs50)/length(RRDiffs)
+  SDSD=stats::sd(RRDiffs)
+  rMSSD=sqrt(mean(RRDiffs^2))
+  RRQuant=stats::quantile(RRDiffs)
+  IRRR=RRQuant[[4]]-RRQuant[[2]]
+  MADRR=stats::median(abs(RRDiffs))
+  h=hist(rr,breaks=vecthist,plot=FALSE)
+  area=length(rr)*interval
+  maxhist=max(h$counts)
+  TINN=area/maxhist
+  HRVi=length(rr)/maxhist
+  res<-data.frame("RRWindowMean"=RRWindowMean,"RRWindowSD"=RRWindowSD,"bin_width_in_histogram_msec"=interval,"window_size_sec"=size,"windows"=numberOfWindows,
+                  "SDNN_msec"=SDNN,"SDANN_msec"=SDANN,"SDNNIDX_msec"=SDNNIDX,"pNN50_msec_percent"=pNN50,"SDSD_msec"=SDSD,"r-MSSD_msec"=rMSSD,"IRRR_msec"=IRRR,"MADRR_msec"=MADRR,"TINN_msec"=TINN,"HRV_index"=HRVi)
+  return(res)
 }
 #############################################################################################################################################################################################################
-#,rule=""
+#
 #############################################################################################################################################################################################################
-#',rule=""TITLE
-#',rule=""DESCRIPTION
-#',rule=""@param
-#',rule=""@keywords,rule=""HRV
-#',rule=""@export
-#',rule=""@examples
-#',rule=""
-time.domain.data.frame<-function,rule=""(mydata,size=100,numofbins=NULL,interval=1,verbose=NULL),rule=""{
-,rule="",rule=""minRR=min(mydata$r.r.interval)
-,rule="",rule=""maxRR=max(mydata$r.r.interval)
-,rule="",rule=""if,rule=""(!is.null(numofbins)),rule=""{
-,rule="",rule="",rule="",rule=""interval=(maxRR-minRR)/(numofbins-2)
-,rule="",rule="",rule="",rule=""vecthist=seq(minRR-interval/2,maxRR+interval/2,len=numofbins)
-,rule="",rule=""}
-,rule="",rule=""else,rule=""{
-,rule="",rule="",rule="",rule=""medRR=(minRR+maxRR)/2
-,rule="",rule="",rule="",rule=""lowhist=medRR-interval*ceiling((medRR-minRR)/interval)
-,rule="",rule="",rule="",rule=""longhist=ceiling((maxRR-lowhist)/interval)+1
-,rule="",rule="",rule="",rule=""vecthist=seq(from=lowhist,by=interval,length.out=longhist)
-,rule="",rule=""}
-,rule="",rule=""SDNN=stats::sd(mydata$r.r.interval)
-,rule="",rule=""WindowMin=head(mydata$Time,n=1)
-,rule="",rule=""WindowMax=WindowMin+size
-,rule="",rule=""Windowindex=1
-,rule="",rule=""RRWindowMean=c(0)
-,rule="",rule=""RRWindowSD=c(0)
-,rule="",rule=""while,rule=""(WindowMax<tail(mydata$Time,1)),rule=""{
-,rule="",rule="",rule="",rule=""RRWindow=mydata$r.r.interval[mydata$Time>=WindowMin&mydata$Time<WindowMax]
-,rule="",rule="",rule="",rule=""if,rule=""(length(RRWindow)==0),rule=""{
-,rule="",rule="",rule="",rule="",rule="",rule=""RRWindowMean[Windowindex]=NA
-,rule="",rule="",rule="",rule="",rule="",rule=""RRWindowSD[Windowindex]=NA
-,rule="",rule="",rule="",rule=""}
-,rule="",rule="",rule="",rule=""RRWindowMean[Windowindex]=mean(RRWindow)
-,rule="",rule="",rule="",rule=""RRWindowSD[Windowindex]=stats::sd(RRWindow)
-,rule="",rule="",rule="",rule=""WindowMin=WindowMin+size
-,rule="",rule="",rule="",rule=""WindowMax=WindowMax+size
-,rule="",rule="",rule="",rule=""Windowindex=Windowindex+1
-,rule="",rule=""}
-,rule="",rule=""numberOfWindows=Windowindex-1
-,rule="",rule=""SDANN=stats::sd(RRWindowMean)
-,rule="",rule=""SDNNIDX=mean(RRWindowSD)
-,rule="",rule=""NRRs=length(mydata$r.r.interval)
-,rule="",rule=""RRDiffs=diff(mydata$r.r.interval)
-,rule="",rule=""RRDiffs50=RRDiffs[abs(RRDiffs),rule="">,rule=""50]
-,rule="",rule=""pNN50=100*length(RRDiffs50)/length(RRDiffs)
-,rule="",rule=""SDSD=stats::sd(RRDiffs)
-,rule="",rule=""rMSSD=sqrt(mean(RRDiffs^2))
-,rule="",rule=""RRQuant=stats::quantile(RRDiffs)
-,rule="",rule=""IRRR=RRQuant[[4]]-RRQuant[[2]]
-,rule="",rule=""MADRR=stats::median(abs(RRDiffs))
-,rule="",rule=""h=hist(mydata$r.r.interval,breaks=vecthist,plot=FALSE)
-,rule="",rule=""area=length(mydata$r.r.interval)*interval
-,rule="",rule=""maxhist=max(h$counts)
-,rule="",rule=""TINN=area/maxhist
-,rule="",rule=""HRVi=length(mydata$r.r.interval)/maxhist
-,rule="",rule=""res<-data.frame("RRWindowMean"=RRWindowMean,"RRWindowSD"=RRWindowSD,"bin_width_in_histogram_msec"=interval,"window_size_sec"=size,"windows"=numberOfWindows,
-,rule="",rule="",rule="",rule="",rule="",rule="",rule="",rule="",rule="",rule="",rule="",rule="",rule="",rule="",rule="",rule="",rule="",rule="""SDNN_msec"=SDNN,"SDANN_msec"=SDANN,"SDNNIDX_msec"=SDNNIDX,"pNN50_msec_percent"=pNN50,"SDSD_msec"=SDSD,"r-MSSD_msec"=rMSSD,"IRRR_msec"=IRRR,"MADRR_msec"=MADRR,"TINN_msec"=TINN,"HRV_index"=HRVi)
-,rule="",rule=""return(res)
+#'TITLE
+#'DESCRIPTION
+#'@param
+#'@keywordsHRV
+#'@export
+#'@examples
+#'
+time.domain.data.frame<-function(mydata,size=100,numofbins=NULL,interval=1,verbose=NULL){
+  minRR=min(mydata$r.r.interval)
+  maxRR=max(mydata$r.r.interval)
+  if(!is.null(numofbins)){
+    interval=(maxRR-minRR)/(numofbins-2)
+    vecthist=seq(minRR-interval/2,maxRR+interval/2,len=numofbins)
+  }
+  else{
+    medRR=(minRR+maxRR)/2
+    lowhist=medRR-interval*ceiling((medRR-minRR)/interval)
+    longhist=ceiling((maxRR-lowhist)/interval)+1
+    vecthist=seq(from=lowhist,by=interval,length.out=longhist)
+  }
+  SDNN=stats::sd(mydata$r.r.interval)
+  WindowMin=head(mydata$Time,n=1)
+  WindowMax=WindowMin+size
+  Windowindex=1
+  RRWindowMean=c(0)
+  RRWindowSD=c(0)
+  while(WindowMax<tail(mydata$Time,1)){
+    RRWindow=mydata$r.r.interval[mydata$Time>=WindowMin&mydata$Time<WindowMax]
+    if(length(RRWindow)==0){
+      RRWindowMean[Windowindex]=NA
+      RRWindowSD[Windowindex]=NA
+    }
+    RRWindowMean[Windowindex]=mean(RRWindow)
+    RRWindowSD[Windowindex]=stats::sd(RRWindow)
+    WindowMin=WindowMin+size
+    WindowMax=WindowMax+size
+    Windowindex=Windowindex+1
+  }
+  numberOfWindows=Windowindex-1
+  SDANN=stats::sd(RRWindowMean)
+  SDNNIDX=mean(RRWindowSD)
+  NRRs=length(mydata$r.r.interval)
+  RRDiffs=diff(mydata$r.r.interval)
+  RRDiffs50=RRDiffs[abs(RRDiffs)>50]
+  pNN50=100*length(RRDiffs50)/length(RRDiffs)
+  SDSD=stats::sd(RRDiffs)
+  rMSSD=sqrt(mean(RRDiffs^2))
+  RRQuant=stats::quantile(RRDiffs)
+  IRRR=RRQuant[[4]]-RRQuant[[2]]
+  MADRR=stats::median(abs(RRDiffs))
+  h=hist(mydata$r.r.interval,breaks=vecthist,plot=FALSE)
+  area=length(mydata$r.r.interval)*interval
+  maxhist=max(h$counts)
+  TINN=area/maxhist
+  HRVi=length(mydata$r.r.interval)/maxhist
+  res<-data.frame("RRWindowMean"=RRWindowMean,"RRWindowSD"=RRWindowSD,"bin_width_in_histogram_msec"=interval,"window_size_sec"=size,"windows"=numberOfWindows,
+                  "SDNN_msec"=SDNN,"SDANN_msec"=SDANN,"SDNNIDX_msec"=SDNNIDX,"pNN50_msec_percent"=pNN50,"SDSD_msec"=SDSD,"r-MSSD_msec"=rMSSD,"IRRR_msec"=IRRR,"MADRR_msec"=MADRR,"TINN_msec"=TINN,"HRV_index"=HRVi)
+  return(res)
 }
