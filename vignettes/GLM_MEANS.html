@@ -12,7 +12,6 @@
 
 <meta name="author" content="Dimitrios Zacharatos" />
 
-<meta name="date" content="2025-02-11" />
 
 <title>GLM_MEANS</title>
 
@@ -340,34 +339,47 @@ code > span.er { color: #a61717; background-color: #e3d2d2; }
 
 <h1 class="title toc-ignore">GLM_MEANS</h1>
 <h4 class="author">Dimitrios Zacharatos</h4>
-<h4 class="date">2025-02-11</h4>
 
 
 
-<style> body { max-width: 95%; margin: 0 auto; padding: 0; } .container { width: 100%; max-width: none; }  table { width: 80%; table-layout: fixed; } th, td { padding: 8px; text-align: left; } </style>
+<style> body { max-width: 95%; margin: 0 auto; padding: 0; } .container { width: 100%; max-width: none; }  table { width: 80%; table-layout: fixed; } th, td { padding: 8px; text-align: left; } 
+pre { background-color: #f4f4f4; 
+border-left: 5px solid #007ACC; 
+padding: 10px;
+}
+
+pre.r-output {
+background-color: #e8f5e9; 
+border-left: 5px solid #388E3C; 
+padding: 10px;
+}
+</style>
 <p>This shows the output of report_ttests and report_wtests functions
 from workingfunctions.<br />
-Installation instructions of working functions can be found here <a href="https://github.com/sedzinfo/workingfunctions" class="uri">https://github.com/sedzinfo/workingfunctions</a></p>
+Installation instructions for workingfunctions can be found <a href="https://github.com/sedzinfo/workingfunctions">here</a></p>
+<p>These functions perform t tests and wilcoxon tests for all possible
+combinations of levels of the independent variables.</p>
 <div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" tabindex="-1"></a><span class="fu">library</span>(workingfunctions)</span></code></pre></div>
-<pre><code>## Loading required package: ggplot2</code></pre>
-<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" tabindex="-1"></a><span class="fu">options</span>(<span class="at">width=</span><span class="dv">1000</span>)</span></code></pre></div>
 <div id="t-test" class="section level1">
 <h1>T TEST</h1>
-<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" tabindex="-1"></a><span class="fu">report_ttests</span>(<span class="at">df=</span>mtcars,<span class="at">dv=</span><span class="dv">2</span>,<span class="at">iv=</span><span class="dv">9</span>,<span class="at">alternative=</span><span class="st">&quot;two.sided&quot;</span>)</span></code></pre></div>
-<pre><code>##   DV  IV level1 level2 n1 n2        t       df           p      CI_l     CI_u alternative                  method    mean1    mean2    sd1      sd2 sd_pooled        d         r k_squared[bartlett] df[bartlett] p[bartlett] bonferroni_p significant
-## 1 am cyl      1      0 13 19 3.354114 25.85363 0.002464713 0.7238488 3.017042   two.sided Welch Two Sample t-test 5.076923 6.947368 1.5525 1.544657  1.548583 1.207843 0.2256135        0.0003570702            1   0.9849238         0.05        TRUE</code></pre>
-<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" tabindex="-1"></a><span class="fu">report_ttests</span>(<span class="at">df=</span>mtcars,<span class="at">dv=</span><span class="dv">2</span>,<span class="at">iv=</span><span class="dv">9</span><span class="sc">:</span><span class="dv">10</span>,<span class="at">alternative=</span><span class="st">&quot;less&quot;</span>)</span></code></pre></div>
-<pre><code>##     DV  IV level1 level2 n1 n2         t        df         p CI_l      CI_u alternative                  method    mean1    mean2       sd1      sd2 sd_pooled         d         r k_squared[bartlett] df[bartlett] p[bartlett] bonferroni_p significant
+<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" tabindex="-1"></a><span class="fu">report_ttests</span>(<span class="at">df=</span>mtcars,<span class="at">dv=</span><span class="dv">2</span>,<span class="at">iv=</span><span class="dv">9</span>,<span class="at">alternative=</span><span class="st">&quot;two.sided&quot;</span>)</span></code></pre></div>
+<pre class="r-output">##   DV  IV level1 level2 n1 n2        t       df           p      CI_l     CI_u alternative                  method    mean1    mean2    sd1      sd2 sd_pooled        d         r k_squared[bartlett] df[bartlett] p[bartlett] bonferroni_p significant
+## 1 am cyl      1      0 13 19 3.354114 25.85363 0.002464713 0.7238488 3.017042   two.sided Welch Two Sample t-test 5.076923 6.947368 1.5525 1.544657  1.548583 1.207843 0.2256135        0.0003570702            1   0.9849238         0.05        TRUE
+</pre>
+<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" tabindex="-1"></a><span class="fu">report_ttests</span>(<span class="at">df=</span>mtcars,<span class="at">dv=</span><span class="dv">2</span>,<span class="at">iv=</span><span class="dv">9</span><span class="sc">:</span><span class="dv">10</span>,<span class="at">alternative=</span><span class="st">&quot;less&quot;</span>)</span></code></pre></div>
+<pre class="r-output">##     DV  IV level1 level2 n1 n2         t        df         p CI_l      CI_u alternative                  method    mean1    mean2       sd1      sd2 sd_pooled         d         r k_squared[bartlett] df[bartlett] p[bartlett] bonferroni_p significant
 ## 1   am cyl      1      0 13 19  3.354114 25.853626 0.9987676 -Inf 2.8217942        less Welch Two Sample t-test 5.076923 6.947368 1.5525001 1.544657  1.548583 1.2078428 0.2256135        0.0003570702            1  0.98492383       0.0125       FALSE
 ## 2 gear cyl      4      3 12 15  6.697562 24.949414 0.9999997 -Inf 3.5141654        less Welch Two Sample t-test 4.666667 7.466667 0.9847319 1.187234  1.090693 2.5671761 0.3879564        0.4055912099            1  0.52421576       0.0125       FALSE
 ## 3 gear cyl      4      5 12  5 -1.420686  4.830969 0.1083043 -Inf 0.5725326        less Welch Two Sample t-test 4.666667 6.000000 0.9847319 2.000000  1.576340 0.8458411 0.1493757        3.1370062422            1  0.07653417       0.0125       FALSE
-## 4 gear cyl      3      5 15  5  1.551209  4.975258 0.9090817 -Inf 3.3739877        less Welch Two Sample t-test 7.466667 6.000000 1.1872337 2.000000  1.644616 0.8917988 0.1432578        1.8299381997            1  0.17613485       0.0125       FALSE</code></pre>
-<div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" tabindex="-1"></a><span class="fu">report_ttests</span>(<span class="at">df=</span>mtcars,<span class="at">dv=</span><span class="dv">2</span><span class="sc">:</span><span class="dv">3</span>,<span class="at">iv=</span><span class="dv">9</span>,<span class="at">alternative=</span><span class="st">&quot;greater&quot;</span>)</span></code></pre></div>
-<pre><code>##   DV   IV level1 level2 n1 n2        t       df            p       CI_l CI_u alternative                  method      mean1      mean2      sd1        sd2 sd_pooled        d         r k_squared[bartlett] df[bartlett] p[bartlett] bonferroni_p significant
+## 4 gear cyl      3      5 15  5  1.551209  4.975258 0.9090817 -Inf 3.3739877        less Welch Two Sample t-test 7.466667 6.000000 1.1872337 2.000000  1.644616 0.8917988 0.1432578        1.8299381997            1  0.17613485       0.0125       FALSE
+</pre>
+<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" tabindex="-1"></a><span class="fu">report_ttests</span>(<span class="at">df=</span>mtcars,<span class="at">dv=</span><span class="dv">2</span><span class="sc">:</span><span class="dv">3</span>,<span class="at">iv=</span><span class="dv">9</span>,<span class="at">alternative=</span><span class="st">&quot;greater&quot;</span>)</span></code></pre></div>
+<pre class="r-output">##   DV   IV level1 level2 n1 n2        t       df            p       CI_l CI_u alternative                  method      mean1      mean2      sd1        sd2 sd_pooled        d         r k_squared[bartlett] df[bartlett] p[bartlett] bonferroni_p significant
 ## 1 am  cyl      1      0 13 19 3.354114 25.85363 0.0012323563  0.9190965  Inf     greater Welch Two Sample t-test   5.076923   6.947368  1.55250   1.544657  1.548583 1.207843 0.2256135        0.0003570702            1   0.9849238        0.025        TRUE
-## 2 am disp      1      0 13 19 4.197727 29.25845 0.0001150206 87.4252922  Inf     greater Welch Two Sample t-test 143.530769 290.378947 87.20399 110.171647 99.353730 1.478034 0.2628184        0.7310694242            1   0.3925368        0.025        TRUE</code></pre>
-<div class="sourceCode" id="cb10"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" tabindex="-1"></a><span class="fu">report_ttests</span>(<span class="at">df=</span>mtcars,<span class="at">dv=</span><span class="dv">2</span><span class="sc">:</span><span class="dv">3</span>,<span class="at">iv=</span><span class="dv">9</span><span class="sc">:</span><span class="dv">10</span>)</span></code></pre></div>
-<pre><code>##     DV   IV level1 level2 n1 n2         t        df            p         CI_l       CI_u alternative                  method      mean1      mean2        sd1        sd2  sd_pooled         d         r k_squared[bartlett] df[bartlett] p[bartlett] bonferroni_p significant
+## 2 am disp      1      0 13 19 4.197727 29.25845 0.0001150206 87.4252922  Inf     greater Welch Two Sample t-test 143.530769 290.378947 87.20399 110.171647 99.353730 1.478034 0.2628184        0.7310694242            1   0.3925368        0.025        TRUE
+</pre>
+<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" tabindex="-1"></a><span class="fu">report_ttests</span>(<span class="at">df=</span>mtcars,<span class="at">dv=</span><span class="dv">2</span><span class="sc">:</span><span class="dv">3</span>,<span class="at">iv=</span><span class="dv">9</span><span class="sc">:</span><span class="dv">10</span>)</span></code></pre></div>
+<pre class="r-output">##     DV   IV level1 level2 n1 n2         t        df            p         CI_l       CI_u alternative                  method      mean1      mean2        sd1        sd2  sd_pooled         d         r k_squared[bartlett] df[bartlett] p[bartlett] bonferroni_p significant
 ## 1   am  cyl      1      0 13 19  3.354114 25.853626 2.464713e-03    0.7238488   3.017042   two.sided Welch Two Sample t-test   5.076923   6.947368  1.5525001   1.544657   1.548583 1.2078428 0.2256135        0.0003570702            1 0.984923831      0.00625        TRUE
 ## 2 gear  cyl      4      3 12 15  6.697562 24.949414 5.156534e-07    1.9388954   3.661105   two.sided Welch Two Sample t-test   4.666667   7.466667  0.9847319   1.187234   1.090693 2.5671761 0.3879564        0.4055912099            1 0.524215758      0.00625        TRUE
 ## 3 gear  cyl      4      5 12  5 -1.420686  4.830969 2.166087e-01   -3.7714714   1.104805   two.sided Welch Two Sample t-test   4.666667   6.000000  0.9847319   2.000000   1.576340 0.8458411 0.1493757        3.1370062422            1 0.076534169      0.00625       FALSE
@@ -375,9 +387,10 @@ Installation instructions of working functions can be found here <a href="https:
 ## 5   am disp      1      0 13 19  4.197727 29.258453 2.300413e-04   75.3277866 218.368570   two.sided Welch Two Sample t-test 143.530769 290.378947 87.2039887 110.171647  99.353730 1.4780339 0.2628184        0.7310694242            1 0.392536766      0.00625        TRUE
 ## 6 gear disp      4      3 12 15  7.544741 19.415582 3.444460e-07  146.9710826 259.595584   two.sided Welch Two Sample t-test 123.016667 326.300000 38.9092612  94.852735  72.494731 2.8041118 0.4091138        7.8911260518            1 0.004967793      0.00625        TRUE
 ## 7 gear disp      4      5 12  5 -1.503387  4.383729 2.010450e-01 -221.2857108  62.359044   two.sided Welch Two Sample t-test 123.016667 202.480000 38.9092612 115.490636  86.174293 0.9221234 0.1606825        7.4981392967            1 0.006176277      0.00625       FALSE
-## 8 gear disp      3      5 15  5  2.166149  5.915543 7.409838e-02  -16.5342802 264.174280   two.sided Welch Two Sample t-test 326.300000 202.480000 94.8527355 115.490636 105.676697 1.1716869 0.1801204        0.2374158111            1 0.626078814      0.00625       FALSE</code></pre>
-<div id="columns" class="section level2">
-<h2>COLUMNS</h2>
+## 8 gear disp      3      5 15  5  2.166149  5.915543 7.409838e-02  -16.5342802 264.174280   two.sided Welch Two Sample t-test 326.300000 202.480000 94.8527355 115.490636 105.676697 1.1716869 0.1801204        0.2374158111            1 0.626078814      0.00625       FALSE
+</pre>
+<div id="explanation-of-columns" class="section level2">
+<h2>Explanation of columns</h2>
 <table>
 <colgroup>
 <col width="11%" />
@@ -392,107 +405,129 @@ Installation instructions of working functions can be found here <a href="https:
 <tbody>
 <tr class="odd">
 <td>DV</td>
-<td>“dependent variable”</td>
+<td>dependent variable</td>
 </tr>
 <tr class="even">
 <td>IV</td>
-<td></td>
+<td>independent variable</td>
 </tr>
 <tr class="odd">
 <td>level1</td>
-<td></td>
+<td>level 1</td>
 </tr>
 <tr class="even">
 <td>level2</td>
-<td></td>
+<td>level 2</td>
 </tr>
 <tr class="odd">
 <td>n1</td>
-<td></td>
+<td>sample size for level 1</td>
 </tr>
 <tr class="even">
 <td>n2</td>
-<td></td>
+<td>sample size for level 2</td>
 </tr>
 <tr class="odd">
 <td>t</td>
-<td></td>
+<td>t statistic</td>
 </tr>
 <tr class="even">
 <td>df</td>
-<td></td>
+<td>degrees of freedom for t statistic</td>
 </tr>
 <tr class="odd">
 <td>p</td>
-<td></td>
+<td>p value</td>
 </tr>
 <tr class="even">
 <td>CI_l</td>
-<td></td>
+<td>confidence interval lower bound</td>
 </tr>
 <tr class="odd">
 <td>CI_u</td>
-<td></td>
+<td>confidence interval upper bound</td>
 </tr>
 <tr class="even">
 <td>alternative</td>
-<td></td>
+<td>alternative hypothesis</td>
 </tr>
 <tr class="odd">
 <td>method</td>
-<td></td>
+<td>name of method should be displayed here</td>
 </tr>
 <tr class="even">
 <td>mean1</td>
-<td></td>
+<td>mean for level 1</td>
 </tr>
 <tr class="odd">
 <td>mean2</td>
-<td></td>
+<td>mean for level 2</td>
 </tr>
 <tr class="even">
 <td>sd1</td>
-<td></td>
+<td>standard deviation for level 1</td>
 </tr>
 <tr class="odd">
 <td>sd2</td>
-<td></td>
+<td>standard deviation for level 2</td>
 </tr>
 <tr class="even">
 <td>sd_pooled</td>
-<td>“pooled standard deviation combined standard deviation of both
-levels”</td>
+<td>pooled standard deviation combined standard deviation of both
+levels</td>
 </tr>
 <tr class="odd">
 <td>d</td>
-<td>“measure of effect size cohen’s d Very small 0.01 Sawilowsky (2009)
-Small 0.20 Cohen (1988) Medium 0.50 Cohen (1988) Large 0.80 Cohen (1988)
-Very large 1.20 Sawilowsky (2009) Huge 12.0 Sawilowsky (2009)”</td>
+<td>measure of effect size cohen’s d</td>
+</tr>
+<tr class="even">
+<td>d</td>
+<td>Very small 0.01 Sawilowsky (2009)</td>
+</tr>
+<tr class="odd">
+<td>d</td>
+<td>Small 0.20 Cohen (1988)</td>
+</tr>
+<tr class="even">
+<td>d</td>
+<td>Medium 0.50 Cohen (1988)</td>
+</tr>
+<tr class="odd">
+<td>d</td>
+<td>Large 0.80 Cohen (1988)</td>
+</tr>
+<tr class="even">
+<td>d</td>
+<td>Very large 1.20 Sawilowsky (2009)</td>
+</tr>
+<tr class="odd">
+<td>d</td>
+<td>Huge 12.0 Sawilowsky (2009)</td>
 </tr>
 <tr class="even">
 <td>r</td>
-<td>“measure of effect size correlation effect size”</td>
+<td>measure of effect size correlation effect size</td>
 </tr>
 <tr class="odd">
-<td>k_squared.bartlett.</td>
-<td>“bartlett test for homogeneity of variances”</td>
+<td>k_squared bartlett</td>
+<td>bartlett test for homogeneity of variances</td>
 </tr>
 <tr class="even">
-<td>df.bartlett.</td>
-<td>“bartlett test for homogeneity of variances”</td>
+<td>df bartlett</td>
+<td>bartlett test for homogeneity of variances</td>
 </tr>
 <tr class="odd">
-<td>p.bartlett.</td>
-<td>“bartlett test for homogeneity of variances significant values
-indicate heteroscedasticity”</td>
+<td>p bartlett</td>
+<td>bartlett test for homogeneity of variances significant values
+indicate heteroscedasticity</td>
 </tr>
 <tr class="even">
 <td>bonferroni_p</td>
-<td>“bonferroni adjusted critical value for a=0.05”</td>
+<td>bonferroni adjusted critical value for a=0.05</td>
 </tr>
 <tr class="odd">
 <td>significant</td>
-<td>“if TRUE result is significant after bonferroni adjustment”</td>
+<td>if TRUE result is significant after bonferroni adjustment</td>
 </tr>
 </tbody>
 </table>
@@ -500,21 +535,24 @@ indicate heteroscedasticity”</td>
 </div>
 <div id="wilcoxon-test" class="section level1">
 <h1>WILCOXON TEST</h1>
-<div class="sourceCode" id="cb12"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" tabindex="-1"></a><span class="fu">report_wtests</span>(<span class="at">df=</span>mtcars,<span class="at">dv=</span><span class="dv">2</span>,<span class="at">iv=</span><span class="dv">9</span>,<span class="at">alternative=</span><span class="st">&quot;two.sided&quot;</span>,<span class="at">exact=</span><span class="cn">FALSE</span>)</span></code></pre></div>
-<pre><code>##   DV  IV level1 level2 n1 n2   W           p         CI_l     CI_u alternative                                            method    mean1    mean2    sd1      sd2 sd_pooled        d         r k_squared[bartlett] df[bartlett] p[bartlett] bonferroni_p significant
-## 1 am cyl      1      0 13 19 194 0.003899814 3.897088e-05 3.999901   two.sided Wilcoxon rank sum test with continuity correction 5.076923 6.947368 1.5525 1.544657  1.548583 1.207843 0.5138491        0.0003570702            1   0.9849238         0.05        TRUE</code></pre>
-<div class="sourceCode" id="cb14"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" tabindex="-1"></a><span class="fu">report_wtests</span>(<span class="at">df=</span>mtcars,<span class="at">dv=</span><span class="dv">2</span>,<span class="at">iv=</span><span class="dv">9</span><span class="sc">:</span><span class="dv">10</span>,<span class="at">alternative=</span><span class="st">&quot;less&quot;</span>,<span class="at">exact=</span><span class="cn">FALSE</span>)</span></code></pre></div>
-<pre><code>##     DV  IV level1 level2 n1 n2   W         p CI_l         CI_u alternative                                            method    mean1    mean2       sd1      sd2 sd_pooled         d         r k_squared[bartlett] df[bartlett] p[bartlett] bonferroni_p significant
+<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" tabindex="-1"></a><span class="fu">report_wtests</span>(<span class="at">df=</span>mtcars,<span class="at">dv=</span><span class="dv">2</span>,<span class="at">iv=</span><span class="dv">9</span>,<span class="at">alternative=</span><span class="st">&quot;two.sided&quot;</span>,<span class="at">exact=</span><span class="cn">FALSE</span>)</span></code></pre></div>
+<pre class="r-output">##   DV  IV level1 level2 n1 n2   W           p         CI_l     CI_u alternative                                            method    mean1    mean2    sd1      sd2 sd_pooled        d         r k_squared[bartlett] df[bartlett] p[bartlett] bonferroni_p significant
+## 1 am cyl      1      0 13 19 194 0.003899814 3.897088e-05 3.999901   two.sided Wilcoxon rank sum test with continuity correction 5.076923 6.947368 1.5525 1.544657  1.548583 1.207843 0.5138491        0.0003570702            1   0.9849238         0.05        TRUE
+</pre>
+<div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" tabindex="-1"></a><span class="fu">report_wtests</span>(<span class="at">df=</span>mtcars,<span class="at">dv=</span><span class="dv">2</span>,<span class="at">iv=</span><span class="dv">9</span><span class="sc">:</span><span class="dv">10</span>,<span class="at">alternative=</span><span class="st">&quot;less&quot;</span>,<span class="at">exact=</span><span class="cn">FALSE</span>)</span></code></pre></div>
+<pre class="r-output">##     DV  IV level1 level2 n1 n2   W         p CI_l         CI_u alternative                                            method    mean1    mean2       sd1      sd2 sd_pooled         d         r k_squared[bartlett] df[bartlett] p[bartlett] bonferroni_p significant
 ## 1   am cyl      1      0 13 19 194 0.9982909 -Inf 3.999925e+00        less Wilcoxon rank sum test with continuity correction 5.076923 6.947368 1.5525001 1.544657  1.548583 1.2078428 0.5138491        0.0003570702            1  0.98492383       0.0125       FALSE
 ## 2 gear cyl      4      3 12 15 168 0.9999809 -Inf 4.000000e+00        less Wilcoxon rank sum test with continuity correction 4.666667 7.466667 0.9847319 1.187234  1.090693 2.5671761 0.7873784        0.4055912099            1  0.52421576       0.0125       FALSE
 ## 3 gear cyl      4      5 12  5  18 0.0838558 -Inf 4.778578e-05        less Wilcoxon rank sum test with continuity correction 4.666667 6.000000 0.9847319 2.000000  1.576340 0.8458411 0.3491486        3.1370062422            1  0.07653417       0.0125       FALSE
-## 4 gear cyl      3      5 15  5  54 0.9669595 -Inf 3.999940e+00        less Wilcoxon rank sum test with continuity correction 7.466667 6.000000 1.1872337 2.000000  1.644616 0.8917988 0.3988738        1.8299381997            1  0.17613485       0.0125       FALSE</code></pre>
-<div class="sourceCode" id="cb16"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" tabindex="-1"></a><span class="fu">report_wtests</span>(<span class="at">df=</span>mtcars,<span class="at">dv=</span><span class="dv">2</span><span class="sc">:</span><span class="dv">3</span>,<span class="at">iv=</span><span class="dv">9</span>,<span class="at">alternative=</span><span class="st">&quot;greater&quot;</span>,<span class="at">exact=</span><span class="cn">FALSE</span>)</span></code></pre></div>
-<pre><code>##   DV   IV level1 level2 n1 n2   W            p         CI_l CI_u alternative                                            method      mean1      mean2      sd1        sd2 sd_pooled        d         r k_squared[bartlett] df[bartlett] p[bartlett] bonferroni_p significant
+## 4 gear cyl      3      5 15  5  54 0.9669595 -Inf 3.999940e+00        less Wilcoxon rank sum test with continuity correction 7.466667 6.000000 1.1872337 2.000000  1.644616 0.8917988 0.3988738        1.8299381997            1  0.17613485       0.0125       FALSE
+</pre>
+<div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" tabindex="-1"></a><span class="fu">report_wtests</span>(<span class="at">df=</span>mtcars,<span class="at">dv=</span><span class="dv">2</span><span class="sc">:</span><span class="dv">3</span>,<span class="at">iv=</span><span class="dv">9</span>,<span class="at">alternative=</span><span class="st">&quot;greater&quot;</span>,<span class="at">exact=</span><span class="cn">FALSE</span>)</span></code></pre></div>
+<pre class="r-output">##   DV   IV level1 level2 n1 n2   W            p         CI_l CI_u alternative                                            method      mean1      mean2      sd1        sd2 sd_pooled        d         r k_squared[bartlett] df[bartlett] p[bartlett] bonferroni_p significant
 ## 1 am  cyl      1      0 13 19 194 0.0019499068 3.050384e-05  Inf     greater Wilcoxon rank sum test with continuity correction   5.076923   6.947368  1.55250   1.544657  1.548583 1.207843 0.5138491        0.0003570702            1   0.9849238        0.025        TRUE
-## 2 am disp      1      0 13 19 214 0.0002746725 7.999994e+01  Inf     greater Wilcoxon rank sum test with continuity correction 143.530769 290.378947 87.20399 110.171647 99.353730 1.478034 0.6142392        0.7310694242            1   0.3925368        0.025        TRUE</code></pre>
-<div class="sourceCode" id="cb18"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" tabindex="-1"></a><span class="fu">report_wtests</span>(<span class="at">df=</span>mtcars,<span class="at">dv=</span><span class="dv">2</span><span class="sc">:</span><span class="dv">3</span>,<span class="at">iv=</span><span class="dv">9</span><span class="sc">:</span><span class="dv">10</span>,<span class="at">exact=</span><span class="cn">FALSE</span>)</span></code></pre></div>
-<pre><code>##     DV   IV level1 level2 n1 n2   W            p          CI_l         CI_u alternative                                            method      mean1      mean2        sd1        sd2  sd_pooled         d         r k_squared[bartlett] df[bartlett] p[bartlett] bonferroni_p significant
+## 2 am disp      1      0 13 19 214 0.0002746725 7.999994e+01  Inf     greater Wilcoxon rank sum test with continuity correction 143.530769 290.378947 87.20399 110.171647 99.353730 1.478034 0.6142392        0.7310694242            1   0.3925368        0.025        TRUE
+</pre>
+<div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" tabindex="-1"></a><span class="fu">report_wtests</span>(<span class="at">df=</span>mtcars,<span class="at">dv=</span><span class="dv">2</span><span class="sc">:</span><span class="dv">3</span>,<span class="at">iv=</span><span class="dv">9</span><span class="sc">:</span><span class="dv">10</span>,<span class="at">exact=</span><span class="cn">FALSE</span>)</span></code></pre></div>
+<pre class="r-output">##     DV   IV level1 level2 n1 n2   W            p          CI_l         CI_u alternative                                            method      mean1      mean2        sd1        sd2  sd_pooled         d         r k_squared[bartlett] df[bartlett] p[bartlett] bonferroni_p significant
 ## 1   am  cyl      1      0 13 19 194 3.899814e-03  3.897088e-05 3.999901e+00   two.sided Wilcoxon rank sum test with continuity correction   5.076923   6.947368  1.5525001   1.544657   1.548583 1.2078428 0.5138491        0.0003570702            1 0.984923831      0.00625        TRUE
 ## 2 gear  cyl      4      3 12 15 168 4.800948e-05  1.999985e+00 4.000000e+00   two.sided Wilcoxon rank sum test with continuity correction   4.666667   7.466667  0.9847319   1.187234   1.090693 2.5671761 0.7873784        0.4055912099            1 0.524215758      0.00625        TRUE
 ## 3 gear  cyl      4      5 12  5  18 1.677116e-01 -3.999908e+00 7.658468e-06   two.sided Wilcoxon rank sum test with continuity correction   4.666667   6.000000  0.9847319   2.000000   1.576340 0.8458411 0.3491486        3.1370062422            1 0.076534169      0.00625       FALSE
@@ -522,9 +560,10 @@ indicate heteroscedasticity”</td>
 ## 5   am disp      1      0 13 19 214 5.493451e-04  6.500003e+01 2.297000e+02   two.sided Wilcoxon rank sum test with continuity correction 143.530769 290.378947 87.2039887 110.171647  99.353730 1.4780339 0.6142392        0.7310694242            1 0.392536766      0.00625        TRUE
 ## 6 gear disp      4      3 12 15 173 5.580164e-05  1.460000e+02 2.743000e+02   two.sided Wilcoxon rank sum test with continuity correction 123.016667 326.300000 38.9092612  94.852735  72.494731 2.8041118 0.7802541        7.8911260518            1 0.004967793      0.00625        TRUE
 ## 7 gear disp      4      5 12  5  20 3.160455e-01 -2.102000e+02 2.639999e+01   two.sided Wilcoxon rank sum test with continuity correction 123.016667 202.480000 38.9092612 115.490636  86.174293 0.9221234 0.2559689        7.4981392967            1 0.006176277      0.00625       FALSE
-## 8 gear disp      3      5 15  5  58 8.028516e-02 -2.489994e+01 2.549000e+02   two.sided Wilcoxon rank sum test with continuity correction 326.300000 202.480000 94.8527355 115.490636 105.676697 1.1716869 0.4008733        0.2374158111            1 0.626078814      0.00625       FALSE</code></pre>
-<div id="columns-1" class="section level2">
-<h2>COLUMNS</h2>
+## 8 gear disp      3      5 15  5  58 8.028516e-02 -2.489994e+01 2.549000e+02   two.sided Wilcoxon rank sum test with continuity correction 326.300000 202.480000 94.8527355 115.490636 105.676697 1.1716869 0.4008733        0.2374158111            1 0.626078814      0.00625       FALSE
+</pre>
+<div id="explanation-of-columns-1" class="section level2">
+<h2>Explanation of columns</h2>
 <table>
 <colgroup>
 <col width="11%" />
@@ -539,107 +578,129 @@ indicate heteroscedasticity”</td>
 <tbody>
 <tr class="odd">
 <td>DV</td>
-<td>“dependent variable”</td>
+<td>dependent variable</td>
 </tr>
 <tr class="even">
 <td>IV</td>
-<td>“independent variable”</td>
+<td>independent variable</td>
 </tr>
 <tr class="odd">
 <td>level1</td>
-<td>“level 1”</td>
+<td>level 1</td>
 </tr>
 <tr class="even">
 <td>level2</td>
-<td>“level 2”</td>
+<td>level 2</td>
 </tr>
 <tr class="odd">
 <td>n1</td>
-<td>“sample size for level 1”</td>
+<td>sample size for level 1</td>
 </tr>
 <tr class="even">
 <td>n2</td>
-<td>“sample size for level 2”</td>
+<td>sample size for level 2</td>
 </tr>
 <tr class="odd">
 <td>W</td>
-<td>“wilcoxon statistic”</td>
+<td>wilcoxon statistic</td>
 </tr>
 <tr class="even">
 <td>df</td>
-<td>“degrees of freedom for t statistic”</td>
+<td>degrees of freedom for t statistic</td>
 </tr>
 <tr class="odd">
 <td>p</td>
-<td>“p value”</td>
+<td>p value</td>
 </tr>
 <tr class="even">
 <td>CI_l</td>
-<td>“confidence interval lower bound”</td>
+<td>confidence interval lower bound</td>
 </tr>
 <tr class="odd">
 <td>CI_u</td>
-<td>“confidence interval upper bound”</td>
+<td>confidence interval upper bound</td>
 </tr>
 <tr class="even">
 <td>alternative</td>
-<td>“alternative hypothesis”</td>
+<td>alternative hypothesis</td>
 </tr>
 <tr class="odd">
 <td>method</td>
-<td>“”</td>
+<td>name of method should be displayed here</td>
 </tr>
 <tr class="even">
 <td>mean1</td>
-<td>“mean for level 1”</td>
+<td>mean for level 1</td>
 </tr>
 <tr class="odd">
 <td>mean2</td>
-<td>“mean for level 2”</td>
+<td>mean for level 2</td>
 </tr>
 <tr class="even">
 <td>sd1</td>
-<td>“standard deviation for level 1”</td>
+<td>standard deviation for level 1</td>
 </tr>
 <tr class="odd">
 <td>sd2</td>
-<td>“standard deviation for level 2”</td>
+<td>standard deviation for level 2</td>
 </tr>
 <tr class="even">
 <td>sd_pooled</td>
-<td>“pooled standard deviation combined standard deviation of both
-levels”</td>
+<td>pooled standard deviation combined standard deviation of both
+levels</td>
 </tr>
 <tr class="odd">
 <td>d</td>
-<td>“measure of effect size cohen’s d Very small 0.01 Sawilowsky (2009)
-Small 0.20 Cohen (1988) Medium 0.50 Cohen (1988) Large 0.80 Cohen (1988)
-Very large 1.20 Sawilowsky (2009) Huge 12.0 Sawilowsky (2009)”</td>
+<td>measure of effect size cohen’s d</td>
+</tr>
+<tr class="even">
+<td>d</td>
+<td>Very small 0.01 Sawilowsky (2009)</td>
+</tr>
+<tr class="odd">
+<td>d</td>
+<td>Small 0.20 Cohen (1988)</td>
+</tr>
+<tr class="even">
+<td>d</td>
+<td>Medium 0.50 Cohen (1988)</td>
+</tr>
+<tr class="odd">
+<td>d</td>
+<td>Large 0.80 Cohen (1988)</td>
+</tr>
+<tr class="even">
+<td>d</td>
+<td>Very large 1.20 Sawilowsky (2009)</td>
+</tr>
+<tr class="odd">
+<td>d</td>
+<td>Huge 12.0 Sawilowsky (2009)</td>
 </tr>
 <tr class="even">
 <td>r</td>
-<td>“measure of effect size correlation effect size”</td>
+<td>measure of effect size correlation effect size</td>
 </tr>
 <tr class="odd">
-<td>k_squared.bartlett.</td>
-<td>“bartlett test for homogeneity of variances”</td>
+<td>k_squared bartlett</td>
+<td>bartlett test for homogeneity of variances</td>
 </tr>
 <tr class="even">
-<td>df.bartlett.</td>
-<td>“bartlett test for homogeneity of variances”</td>
+<td>df bartlett</td>
+<td>bartlett test for homogeneity of variances</td>
 </tr>
 <tr class="odd">
-<td>p.bartlett.</td>
-<td>“bartlett test for homogeneity of variances significant values
-indicate heteroscedasticity”</td>
+<td>p bartlett</td>
+<td>bartlett test for homogeneity of variances significant values
+indicate heteroscedasticity</td>
 </tr>
 <tr class="even">
 <td>bonferroni_p</td>
-<td>“bonferroni adjusted critical value for a=0.05”</td>
+<td>bonferroni adjusted critical value for a=0.05</td>
 </tr>
 <tr class="odd">
 <td>significant</td>
-<td>“if TRUE result is significant after bonferroni adjustment”</td>
+<td>if TRUE result is significant after bonferroni adjustment</td>
 </tr>
 </tbody>
 </table>

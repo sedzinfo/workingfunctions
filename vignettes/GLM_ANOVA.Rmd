@@ -15,16 +15,37 @@ body { max-width: 95%; margin: 0 auto; padding: 0; }
 /* Example for wider tables */ 
 table { width: 80%; table-layout: fixed; } 
 th, td { padding: 8px; text-align: left; } 
+/* Styling for input code */
+pre { 
+  background-color: #f4f4f4; /* Light gray background for input */
+  border-left: 5px solid #007ACC; /* Blue border */
+  padding: 10px;
+}
+
+/* Styling for output */
+pre.r-output {
+  background-color: #e8f5e9; /* Light green background for output */
+  border-left: 5px solid #388E3C; /* Green border */
+  padding: 10px;
+}
 </style>
 
 This shows the output of several ANOVA related functions from workingfunctions.  
 Installation instructions of workingfunctions can be found here https://github.com/sedzinfo/workingfunctions
 
-```{r setup, include=FALSE}
-library(workingfunctions)
-knitr::opts_chunk$set(echo=TRUE)
+
+```{r options,echo=FALSE,warning=FALSE,message=FALSE}
 options(width=1000)
+hook_output <- function(x, options) {
+  paste0('<pre class="r-output">', knitr::knit_print(x), '</pre>')
+}
+knitr::knit_hooks$set(output = hook_output)
+knitr::opts_chunk$set(echo=TRUE)
 options(future.show.progress = FALSE)
+```
+
+```{r load, include=FALSE}
+library(workingfunctions)
 ```
 
 ## KRUSKALL WALLIS TEST
@@ -49,7 +70,7 @@ lsr::etaSquared(aov(form,data=mtcars),type=3,anova=TRUE)
 sjstats::anova_stats(model,digits=22)
 ```
 
-## Report One Way ANOVA
+## Report One Way ANOVA with effect size power and post hocs
 ```{r report_one-way,echo=TRUE,message=FALSE,warning=FALSE,results='hide'}
 result0<-report_oneway(df=mtcars,dv=2:4,iv=9:10,plot_diagnostics=FALSE,plot_means=FALSE)
 result1<-report_oneway(df=mtcars,dv=2:4,iv=9:10,plot_diagnostics=TRUE,plot_means=TRUE)
@@ -60,7 +81,7 @@ result0
 result1
 ```
 
-## Report Factorial ANOVA
+## Report Factorial ANOVA with effect size power and post hocs
 ```{r report_factorial,echo=TRUE,warning=FALSE}
 set.seed(12345)
 df<-data.frame(id=rep(seq(1,80),each=81,1),

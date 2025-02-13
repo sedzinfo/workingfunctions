@@ -1,7 +1,6 @@
 ---
 title: "GLM_MEANS"
 author: "Dimitrios Zacharatos"
-date: "`r Sys.Date()`"
 output: rmarkdown::html_vignette
 vignette: >
   %\VignetteIndexEntry{GLM_MEANS}
@@ -15,14 +14,36 @@ body { max-width: 95%; margin: 0 auto; padding: 0; }
 /* Example for wider tables */ 
 table { width: 80%; table-layout: fixed; } 
 th, td { padding: 8px; text-align: left; } 
+/* Styling for input code */
+pre { 
+  background-color: #f4f4f4; /* Light gray background for input */
+  border-left: 5px solid #007ACC; /* Blue border */
+  padding: 10px;
+}
+
+/* Styling for output */
+pre.r-output {
+  background-color: #e8f5e9; /* Light green background for output */
+  border-left: 5px solid #388E3C; /* Green border */
+  padding: 10px;
+}
 </style>
 
 This shows the output of report_ttests and report_wtests functions from workingfunctions.  
-Installation instructions of working functions can be found here https://github.com/sedzinfo/workingfunctions
+Installation instructions for workingfunctions can be found [here](https://github.com/sedzinfo/workingfunctions)
 
-```{r setup}
-library(workingfunctions)
+These functions perform t tests and wilcoxon tests for all possible combinations of levels of the independent variables.
+
+```{r options,echo=FALSE,warning=FALSE,message=FALSE}
 options(width=1000)
+hook_output <- function(x, options) {
+  paste0('<pre class="r-output">', knitr::knit_print(x), '</pre>')
+}
+knitr::knit_hooks$set(output = hook_output)
+```
+
+```{r load,warning=FALSE,message=FALSE}
+library(workingfunctions)
 ```
 
 # T TEST
@@ -33,34 +54,40 @@ report_ttests(df=mtcars,dv=2:3,iv=9,alternative="greater")
 report_ttests(df=mtcars,dv=2:3,iv=9:10)
 ```
 
-## COLUMNS
+## Explanation of columns
 | Column   | Description                                                                 |
 |----------|-----------------------------------------------------------------------------|
-|DV                  |"dependent variable"  |
-|IV |                |"independent variable"  |
-|level1|             |"level 1"  |
-|level2|             |"level 2"  |
-|n1|                 | "sample size for level 1"  |
-|n2|                 |  "sample size for level 2"  |
-|t|                  | "t statistic"  |
-|df|                 | "degrees of freedom for t statistic"  |
-|p|                  |"p value"  |
-|CI_l|               |"confidence interval lower bound"  |
-|CI_u|               |"confidence interval upper bound"  |
-|alternative|        |"alternative hypothesis"  |
-|method|             |""  |
-|mean1|              |"mean for level 1"  |
-|mean2|              |"mean for level 2"  |
-|sd1|                |"standard deviation for level 1"  |
-|sd2|                |"standard deviation for level 2"  |
-|sd_pooled           |"pooled standard deviation combined standard deviation of both levels"  |
-|d                   |"measure of effect size cohen's d Very small 0.01  Sawilowsky (2009) Small 0.20 Cohen (1988) Medium 0.50 Cohen (1988) Large 0.80 Cohen (1988) Very large 1.20 Sawilowsky (2009) Huge 12.0 Sawilowsky (2009)"  |
-|r                   |  "measure of effect size correlation effect size"  |
-|k_squared.bartlett. |"bartlett test for homogeneity of variances "  |
-|df.bartlett.        |"bartlett test for homogeneity of variances "  |
-|p.bartlett.         |"bartlett test for homogeneity of variances significant values indicate heteroscedasticity"  |
-|bonferroni_p        |"bonferroni adjusted critical value for a=0.05"  |
-|significant         |"if TRUE result is significant after bonferroni adjustment"  |
+|DV                  |dependent variable|
+|IV                  |independent variable|
+|level1              |level 1|
+|level2              |level 2|
+|n1                  |sample size for level 1|
+|n2                  |sample size for level 2|
+|t                   |t statistic|
+|df                  |degrees of freedom for t statistic|
+|p                   |p value|
+|CI_l                |confidence interval lower bound|
+|CI_u                |confidence interval upper bound|
+|alternative         |alternative hypothesis|
+|method              |name of method should be displayed here|
+|mean1               |mean for level 1|
+|mean2               |mean for level 2|
+|sd1                 |standard deviation for level 1|
+|sd2                 |standard deviation for level 2|
+|sd_pooled           |pooled standard deviation combined standard deviation of both levels|
+|d                   |measure of effect size cohen's d|
+|d                   |Very small 0.01 Sawilowsky (2009)|
+|d                   |Small 0.20 Cohen (1988)|
+|d                   |Medium 0.50 Cohen (1988)|
+|d                   |Large 0.80 Cohen (1988)|
+|d                   |Very large 1.20 Sawilowsky (2009)|
+|d                   |Huge 12.0 Sawilowsky (2009)|
+|r                   |measure of effect size correlation effect size|
+|k_squared bartlett  |bartlett test for homogeneity of variances|
+|df bartlett         |bartlett test for homogeneity of variances|
+|p bartlett          |bartlett test for homogeneity of variances significant values indicate heteroscedasticity|
+|bonferroni_p        |bonferroni adjusted critical value for a=0.05|
+|significant         |if TRUE result is significant after bonferroni adjustment|
 
 # WILCOXON TEST
 ```{r, report_wtests}
@@ -70,31 +97,37 @@ report_wtests(df=mtcars,dv=2:3,iv=9,alternative="greater",exact=FALSE)
 report_wtests(df=mtcars,dv=2:3,iv=9:10,exact=FALSE)
 ```
 
-## COLUMNS
+## Explanation of columns
 | Column   | Description                                                                 |
 |----------|-----------------------------------------------------------------------------|
-|DV                  |"dependent variable"  |
-|IV                  |"independent variable"  |
-|level1              |"level 1"  |
-|level2              |"level 2"  |
-|n1                  |"sample size for level 1"  |
-|n2                  |"sample size for level 2"  |
-|W                   |"wilcoxon statistic"  |
-|df                  |"degrees of freedom for t statistic"  |
-|p                   |"p value"  |
-|CI_l                |"confidence interval lower bound"  |
-|CI_u                |"confidence interval upper bound"  |
-|alternative         |"alternative hypothesis"  |
-|method              |""  |
-|mean1               |"mean for level 1"  |
-|mean2               |"mean for level 2"  |
-|sd1                 |"standard deviation for level 1"  |
-|sd2                 |"standard deviation for level 2"  |
-|sd_pooled           |"pooled standard deviation combined standard deviation of both levels"  |
-|d                   |"measure of effect size cohen's d Very small 0.01 Sawilowsky (2009) Small 0.20 Cohen (1988) Medium 0.50 Cohen (1988) Large 0.80 Cohen (1988) Very large 1.20 Sawilowsky (2009) Huge  12.0  Sawilowsky (2009)"  |
-|r                   |"measure of effect size correlation effect size"  |
-|k_squared.bartlett. |"bartlett test for homogeneity of variances "  |
-|df.bartlett.        |"bartlett test for homogeneity of variances "  |
-|p.bartlett.         |"bartlett test for homogeneity of variances significant values indicate heteroscedasticity"  |
-|bonferroni_p        |"bonferroni adjusted critical value for a=0.05"  |
-|significant         |"if TRUE result is significant after bonferroni adjustment"  |
+|DV                  |dependent variable|
+|IV                  |independent variable|
+|level1              |level 1|
+|level2              |level 2|
+|n1                  |sample size for level 1|
+|n2                  |sample size for level 2|
+|W                   |wilcoxon statistic|
+|df                  |degrees of freedom for t statistic|
+|p                   |p value|
+|CI_l                |confidence interval lower bound|
+|CI_u                |confidence interval upper bound|
+|alternative         |alternative hypothesis|
+|method              |name of method should be displayed here|
+|mean1               |mean for level 1|
+|mean2               |mean for level 2|
+|sd1                 |standard deviation for level 1|
+|sd2                 |standard deviation for level 2|
+|sd_pooled           |pooled standard deviation combined standard deviation of both levels|
+|d                   |measure of effect size cohen's d|
+|d                   |Very small 0.01 Sawilowsky (2009)|
+|d                   |Small 0.20 Cohen (1988)|
+|d                   |Medium 0.50 Cohen (1988)|
+|d                   |Large 0.80 Cohen (1988)|
+|d                   |Very large 1.20 Sawilowsky (2009)|
+|d                   |Huge 12.0 Sawilowsky (2009)|
+|r                   |measure of effect size correlation effect size|
+|k_squared bartlett  |bartlett test for homogeneity of variances|
+|df bartlett         |bartlett test for homogeneity of variances|
+|p bartlett          |bartlett test for homogeneity of variances significant values indicate heteroscedasticity|
+|bonferroni_p        |bonferroni adjusted critical value for a=0.05|
+|significant         |if TRUE result is significant after bonferroni adjustment|

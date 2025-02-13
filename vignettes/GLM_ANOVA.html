@@ -12,7 +12,7 @@
 
 <meta name="author" content="Dimitrios Zacharatos" />
 
-<meta name="date" content="2025-02-12" />
+<meta name="date" content="2025-02-13" />
 
 <title>GLM ANOVA</title>
 
@@ -340,11 +340,22 @@ code > span.er { color: #a61717; background-color: #e3d2d2; }
 
 <h1 class="title toc-ignore">GLM ANOVA</h1>
 <h4 class="author">Dimitrios Zacharatos</h4>
-<h4 class="date">2025-02-12</h4>
+<h4 class="date">2025-02-13</h4>
 
 
 
-<style> body { max-width: 95%; margin: 0 auto; padding: 0; } .container { width: 100%; max-width: none; }  table { width: 80%; table-layout: fixed; } th, td { padding: 8px; text-align: left; } </style>
+<style> body { max-width: 95%; margin: 0 auto; padding: 0; } .container { width: 100%; max-width: none; }  table { width: 80%; table-layout: fixed; } th, td { padding: 8px; text-align: left; } 
+pre { background-color: #f4f4f4; 
+border-left: 5px solid #007ACC; 
+padding: 10px;
+}
+
+pre.r-output {
+background-color: #e8f5e9; 
+border-left: 5px solid #388E3C; 
+padding: 10px;
+}
+</style>
 <p>This shows the output of several ANOVA related functions from
 workingfunctions.<br />
 Installation instructions of workingfunctions can be found here <a href="https://github.com/sedzinfo/workingfunctions" class="uri">https://github.com/sedzinfo/workingfunctions</a></p>
@@ -352,69 +363,80 @@ Installation instructions of workingfunctions can be found here <a href="https:/
 <h2>KRUSKALL WALLIS TEST</h2>
 <div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" tabindex="-1"></a>form<span class="ot">&lt;-</span><span class="fu">formula</span>(qsec<span class="sc">~</span>cyl)</span>
 <span id="cb1-2"><a href="#cb1-2" tabindex="-1"></a><span class="fu">kruskal.test</span>(<span class="at">formula=</span>form,<span class="at">data=</span>mtcars)</span></code></pre></div>
-<pre><code>## 
+<pre class="r-output">## 
 ##  Kruskal-Wallis rank sum test
 ## 
 ## data:  qsec by cyl
-## Kruskal-Wallis chi-squared = 10.155, df = 2, p-value = 0.006235</code></pre>
-<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" tabindex="-1"></a>rcompanion<span class="sc">::</span><span class="fu">epsilonSquared</span>(<span class="at">x=</span>mtcars<span class="sc">$</span>qsec,<span class="at">g=</span>mtcars<span class="sc">$</span>cyl,<span class="at">group=</span><span class="st">&quot;row&quot;</span>,<span class="at">ci=</span><span class="cn">TRUE</span>,<span class="at">conf=</span><span class="fl">0.95</span>,<span class="at">type=</span><span class="st">&quot;perc&quot;</span>,<span class="at">R=</span><span class="dv">1000</span>,<span class="at">digits=</span><span class="dv">3</span>)</span></code></pre></div>
-<pre><code>##   epsilon.squared lower.ci upper.ci
-## 1           0.328    0.102    0.648</code></pre>
-<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" tabindex="-1"></a>rstatix<span class="sc">::</span><span class="fu">kruskal_effsize</span>(mtcars,form,<span class="at">ci=</span><span class="cn">TRUE</span>,<span class="at">conf.level=</span><span class="fl">0.95</span>,<span class="at">ci.type=</span><span class="st">&quot;perc&quot;</span>,<span class="at">nboot=</span><span class="dv">100</span>)</span></code></pre></div>
-<pre><code>## # A tibble: 1 × 7
+## Kruskal-Wallis chi-squared = 10.155, df = 2, p-value = 0.006235
+</pre>
+<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" tabindex="-1"></a>rcompanion<span class="sc">::</span><span class="fu">epsilonSquared</span>(<span class="at">x=</span>mtcars<span class="sc">$</span>qsec,<span class="at">g=</span>mtcars<span class="sc">$</span>cyl,<span class="at">group=</span><span class="st">&quot;row&quot;</span>,<span class="at">ci=</span><span class="cn">TRUE</span>,<span class="at">conf=</span><span class="fl">0.95</span>,<span class="at">type=</span><span class="st">&quot;perc&quot;</span>,<span class="at">R=</span><span class="dv">1000</span>,<span class="at">digits=</span><span class="dv">3</span>)</span></code></pre></div>
+<pre class="r-output">##   epsilon.squared lower.ci upper.ci
+## 1           0.328     0.11    0.632
+</pre>
+<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" tabindex="-1"></a>rstatix<span class="sc">::</span><span class="fu">kruskal_effsize</span>(mtcars,form,<span class="at">ci=</span><span class="cn">TRUE</span>,<span class="at">conf.level=</span><span class="fl">0.95</span>,<span class="at">ci.type=</span><span class="st">&quot;perc&quot;</span>,<span class="at">nboot=</span><span class="dv">100</span>)</span></code></pre></div>
+<pre class="r-output">## # A tibble: 1 × 7
 ##   .y.       n effsize conf.low conf.high method  magnitude
-## * &lt;chr&gt; &lt;int&gt;   &lt;dbl&gt;    &lt;dbl&gt;     &lt;dbl&gt; &lt;chr&gt;   &lt;ord&gt;    
-## 1 qsec     32   0.281     0.02      0.66 eta2[H] large</code></pre>
-<div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" tabindex="-1"></a><span class="fu">compute_kruskal_wallis_test</span>(<span class="at">formula=</span>form,<span class="at">df=</span>mtcars)</span></code></pre></div>
-<pre><code>##      formula                       method     etasq epsilonsq        H df           p
-## 1 qsec ~ cyl Kruskal-Wallis rank sum test 0.2812123 0.3275857 10.15516  2 0.006234986</code></pre>
+## * <chr> <int>   <dbl>    <dbl>     <dbl> <chr>   <ord>    
+## 1 qsec     32   0.281     0.04      0.63 eta2[H] large
+</pre>
+<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" tabindex="-1"></a><span class="fu">compute_kruskal_wallis_test</span>(<span class="at">formula=</span>form,<span class="at">df=</span>mtcars)</span></code></pre></div>
+<pre class="r-output">##      formula                       method     etasq epsilonsq        H df           p
+## 1 qsec ~ cyl Kruskal-Wallis rank sum test 0.2812123 0.3275857 10.15516  2 0.006234986
+</pre>
 </div>
 <div id="one-way-test-with-ss-ms-effect-size-and-power" class="section level2">
 <h2>ONE WAY test with SS MS effect size and power</h2>
-<div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" tabindex="-1"></a>form<span class="ot">&lt;-</span><span class="fu">formula</span>(qsec<span class="sc">~</span>cyl)</span>
-<span id="cb9-2"><a href="#cb9-2" tabindex="-1"></a><span class="fu">compute_one_way_test</span>(<span class="at">formula=</span>form,<span class="at">df=</span>mtcars,<span class="at">var.equal=</span><span class="cn">TRUE</span>)</span></code></pre></div>
-<pre><code>##      formula                    method ss_effect ss_error ms_effect ms_error     etasq partial.etasq   omegasq partial.omegasq  cohens.f     power statistic df_effect df_error           p
-## 1 qsec ~ cyl Assuming homoscedasticity  34.60575  64.3824  17.30288 2.220083 0.3495949     0.3495949 0.2980547       0.2980547 0.7331462 0.9890471  7.793798         2       29 0.001955091</code></pre>
-<div class="sourceCode" id="cb11"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" tabindex="-1"></a><span class="fu">compute_one_way_test</span>(<span class="at">formula=</span>form,<span class="at">df=</span>mtcars,<span class="at">var.equal=</span><span class="cn">FALSE</span>)</span></code></pre></div>
-<pre><code>##      formula                      method ss_effect ss_error ms_effect ms_error     etasq partial.etasq   omegasq partial.omegasq cohens.f     power statistic df_effect df_error           p
-## 1 qsec ~ cyl Assuming heteroscedasticity  32.28002  29.4274  16.14001 2.094919 0.5231141     0.5231141 0.4402688       0.2952895 1.047348 0.9324028  7.704359         2 14.04703 0.005512376</code></pre>
-<div class="sourceCode" id="cb13"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" tabindex="-1"></a><span class="fu">oneway.test</span>(<span class="at">formula=</span>form,<span class="at">data=</span>mtcars,<span class="at">var.equal=</span><span class="cn">TRUE</span>)</span></code></pre></div>
-<pre><code>## 
+<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" tabindex="-1"></a>form<span class="ot">&lt;-</span><span class="fu">formula</span>(qsec<span class="sc">~</span>cyl)</span>
+<span id="cb5-2"><a href="#cb5-2" tabindex="-1"></a><span class="fu">compute_one_way_test</span>(<span class="at">formula=</span>form,<span class="at">df=</span>mtcars,<span class="at">var.equal=</span><span class="cn">TRUE</span>)</span></code></pre></div>
+<pre class="r-output">##      formula                    method ss_effect ss_error ms_effect ms_error     etasq partial.etasq   omegasq partial.omegasq  cohens.f     power statistic df_effect df_error           p
+## 1 qsec ~ cyl Assuming homoscedasticity  34.60575  64.3824  17.30288 2.220083 0.3495949     0.3495949 0.2980547       0.2980547 0.7331462 0.9890471  7.793798         2       29 0.001955091
+</pre>
+<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" tabindex="-1"></a><span class="fu">compute_one_way_test</span>(<span class="at">formula=</span>form,<span class="at">df=</span>mtcars,<span class="at">var.equal=</span><span class="cn">FALSE</span>)</span></code></pre></div>
+<pre class="r-output">##      formula                      method ss_effect ss_error ms_effect ms_error     etasq partial.etasq   omegasq partial.omegasq cohens.f     power statistic df_effect df_error           p
+## 1 qsec ~ cyl Assuming heteroscedasticity  32.28002  29.4274  16.14001 2.094919 0.5231141     0.5231141 0.4402688       0.2952895 1.047348 0.9324028  7.704359         2 14.04703 0.005512376
+</pre>
+<div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" tabindex="-1"></a><span class="fu">oneway.test</span>(<span class="at">formula=</span>form,<span class="at">data=</span>mtcars,<span class="at">var.equal=</span><span class="cn">TRUE</span>)</span></code></pre></div>
+<pre class="r-output">## 
 ##  One-way analysis of means
 ## 
 ## data:  qsec and cyl
-## F = 7.7938, num df = 2, denom df = 29, p-value = 0.001955</code></pre>
-<div class="sourceCode" id="cb15"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" tabindex="-1"></a><span class="fu">oneway.test</span>(<span class="at">formula=</span>form,<span class="at">data=</span>mtcars,<span class="at">var.equal=</span><span class="cn">FALSE</span>)</span></code></pre></div>
-<pre><code>## 
+## F = 7.7938, num df = 2, denom df = 29, p-value = 0.001955
+</pre>
+<div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" tabindex="-1"></a><span class="fu">oneway.test</span>(<span class="at">formula=</span>form,<span class="at">data=</span>mtcars,<span class="at">var.equal=</span><span class="cn">FALSE</span>)</span></code></pre></div>
+<pre class="r-output">## 
 ##  One-way analysis of means (not assuming equal variances)
 ## 
 ## data:  qsec and cyl
-## F = 7.7044, num df = 2.000, denom df = 14.047, p-value = 0.005512</code></pre>
-<div class="sourceCode" id="cb17"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" tabindex="-1"></a>car<span class="sc">::</span><span class="fu">Anova</span>(<span class="fu">aov</span>(form,<span class="at">data=</span>mtcars),<span class="at">type=</span><span class="dv">2</span>)</span></code></pre></div>
-<pre><code>## Anova Table (Type II tests)
+## F = 7.7044, num df = 2.000, denom df = 14.047, p-value = 0.005512
+</pre>
+<div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" tabindex="-1"></a>car<span class="sc">::</span><span class="fu">Anova</span>(<span class="fu">aov</span>(form,<span class="at">data=</span>mtcars),<span class="at">type=</span><span class="dv">2</span>)</span></code></pre></div>
+<pre class="r-output">## Anova Table (Type II tests)
 ## 
 ## Response: qsec
 ##           Sum Sq Df F value    Pr(&gt;F)    
 ## cyl       34.603  1  16.123 0.0003661 ***
 ## Residuals 64.385 30                      
 ## ---
-## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1</code></pre>
-<div class="sourceCode" id="cb19"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" tabindex="-1"></a>model<span class="ot">&lt;-</span><span class="fu">lm</span>(form,<span class="at">data=</span>mtcars)</span>
-<span id="cb19-2"><a href="#cb19-2" tabindex="-1"></a>lsr<span class="sc">::</span><span class="fu">etaSquared</span>(<span class="fu">aov</span>(form,<span class="at">data=</span>mtcars),<span class="at">type=</span><span class="dv">3</span>,<span class="at">anova=</span><span class="cn">TRUE</span>)</span></code></pre></div>
-<pre><code>##              eta.sq eta.sq.part       SS df        MS        F            p
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+</pre>
+<div class="sourceCode" id="cb10"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" tabindex="-1"></a>model<span class="ot">&lt;-</span><span class="fu">lm</span>(form,<span class="at">data=</span>mtcars)</span>
+<span id="cb10-2"><a href="#cb10-2" tabindex="-1"></a>lsr<span class="sc">::</span><span class="fu">etaSquared</span>(<span class="fu">aov</span>(form,<span class="at">data=</span>mtcars),<span class="at">type=</span><span class="dv">3</span>,<span class="at">anova=</span><span class="cn">TRUE</span>)</span></code></pre></div>
+<pre class="r-output">##              eta.sq eta.sq.part       SS df        MS        F            p
 ## cyl       0.3495672   0.3495672 34.60301  1 34.603009 16.12313 0.0003660533
-## Residuals 0.6504328          NA 64.38514 30  2.146171       NA           NA</code></pre>
-<div class="sourceCode" id="cb21"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1" tabindex="-1"></a>sjstats<span class="sc">::</span><span class="fu">anova_stats</span>(model,<span class="at">digits=</span><span class="dv">22</span>)</span></code></pre></div>
-<pre><code>## etasq | partial.etasq | omegasq | partial.omegasq | epsilonsq | cohens.f |      term |  sumsq | df | meansq | statistic | p.value | power
+## Residuals 0.6504328          NA 64.38514 30  2.146171       NA           NA
+</pre>
+<div class="sourceCode" id="cb11"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" tabindex="-1"></a>sjstats<span class="sc">::</span><span class="fu">anova_stats</span>(model,<span class="at">digits=</span><span class="dv">22</span>)</span></code></pre></div>
+<pre class="r-output">## etasq | partial.etasq | omegasq | partial.omegasq | epsilonsq | cohens.f |      term |  sumsq | df | meansq | statistic | p.value | power
 ## -----------------------------------------------------------------------------------------------------------------------------------------
 ## 0.350 |         0.350 |   0.321 |           0.321 |     0.328 |    0.733 |       cyl | 34.603 |  1 | 34.603 |    16.123 |  &lt; .001 | 0.980
-##       |               |         |                 |           |          | Residuals | 64.385 | 30 |  2.146 |           |         |</code></pre>
+##       |               |         |                 |           |          | Residuals | 64.385 | 30 |  2.146 |           |         |
+</pre>
 </div>
-<div id="report-one-way-anova" class="section level2">
-<h2>Report One Way ANOVA</h2>
-<div class="sourceCode" id="cb23"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1" tabindex="-1"></a>result0<span class="ot">&lt;-</span><span class="fu">report_oneway</span>(<span class="at">df=</span>mtcars,<span class="at">dv=</span><span class="dv">2</span><span class="sc">:</span><span class="dv">4</span>,<span class="at">iv=</span><span class="dv">9</span><span class="sc">:</span><span class="dv">10</span>,<span class="at">plot_diagnostics=</span><span class="cn">FALSE</span>,<span class="at">plot_means=</span><span class="cn">FALSE</span>)</span>
-<span id="cb23-2"><a href="#cb23-2" tabindex="-1"></a>result1<span class="ot">&lt;-</span><span class="fu">report_oneway</span>(<span class="at">df=</span>mtcars,<span class="at">dv=</span><span class="dv">2</span><span class="sc">:</span><span class="dv">4</span>,<span class="at">iv=</span><span class="dv">9</span><span class="sc">:</span><span class="dv">10</span>,<span class="at">plot_diagnostics=</span><span class="cn">TRUE</span>,<span class="at">plot_means=</span><span class="cn">TRUE</span>)</span></code></pre></div>
-<pre><code>## $instructions
+<div id="report-one-way-anova-with-effect-size-power-and-post-hocs" class="section level2">
+<h2>Report One Way ANOVA with effect size power and post hocs</h2>
+<div class="sourceCode" id="cb12"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" tabindex="-1"></a>result0<span class="ot">&lt;-</span><span class="fu">report_oneway</span>(<span class="at">df=</span>mtcars,<span class="at">dv=</span><span class="dv">2</span><span class="sc">:</span><span class="dv">4</span>,<span class="at">iv=</span><span class="dv">9</span><span class="sc">:</span><span class="dv">10</span>,<span class="at">plot_diagnostics=</span><span class="cn">FALSE</span>,<span class="at">plot_means=</span><span class="cn">FALSE</span>)</span>
+<span id="cb12-2"><a href="#cb12-2" tabindex="-1"></a>result1<span class="ot">&lt;-</span><span class="fu">report_oneway</span>(<span class="at">df=</span>mtcars,<span class="at">dv=</span><span class="dv">2</span><span class="sc">:</span><span class="dv">4</span>,<span class="at">iv=</span><span class="dv">9</span><span class="sc">:</span><span class="dv">10</span>,<span class="at">plot_diagnostics=</span><span class="cn">TRUE</span>,<span class="at">plot_means=</span><span class="cn">TRUE</span>)</span></code></pre></div>
+<pre class="r-output">## $instructions
 ## $instructions$fisher
 ## [1] &quot;Fisher assumes heteroscedasticity&quot;
 ## 
@@ -504,8 +526,9 @@ Installation instructions of workingfunctions can be found here <a href="https:/
 ## 9  Bartlett disp   am 7.310694e-01    1   NA 0.3925367660  0.008333333       FALSE
 ## 10 Bartlett disp gear 9.151295e+00    2   NA 0.0102996280  0.008333333       FALSE
 ## 11 Bartlett   hp   am 2.820842e+00    1   NA 0.0930475533  0.008333333       FALSE
-## 12 Bartlett   hp gear 1.263581e+01    2   NA 0.0018037216  0.008333333        TRUE</code></pre>
-<pre><code>## $instructions
+## 12 Bartlett   hp gear 1.263581e+01    2   NA 0.0018037216  0.008333333        TRUE
+</pre>
+<pre class="r-output">## $instructions
 ## $instructions$fisher
 ## [1] &quot;Fisher assumes heteroscedasticity&quot;
 ## 
@@ -595,31 +618,32 @@ Installation instructions of workingfunctions can be found here <a href="https:/
 ## 9  Bartlett disp   am 7.310694e-01    1   NA 0.3925367660  0.008333333       FALSE
 ## 10 Bartlett disp gear 9.151295e+00    2   NA 0.0102996280  0.008333333       FALSE
 ## 11 Bartlett   hp   am 2.820842e+00    1   NA 0.0930475533  0.008333333       FALSE
-## 12 Bartlett   hp gear 1.263581e+01    2   NA 0.0018037216  0.008333333        TRUE</code></pre>
+## 12 Bartlett   hp gear 1.263581e+01    2   NA 0.0018037216  0.008333333        TRUE
+</pre>
 </div>
-<div id="report-factorial-anova" class="section level2">
-<h2>Report Factorial ANOVA</h2>
-<div class="sourceCode" id="cb26"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb26-1"><a href="#cb26-1" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">12345</span>)</span>
-<span id="cb26-2"><a href="#cb26-2" tabindex="-1"></a>df<span class="ot">&lt;-</span><span class="fu">data.frame</span>(<span class="at">id=</span><span class="fu">rep</span>(<span class="fu">seq</span>(<span class="dv">1</span>,<span class="dv">80</span>),<span class="at">each=</span><span class="dv">81</span>,<span class="dv">1</span>),</span>
-<span id="cb26-3"><a href="#cb26-3" tabindex="-1"></a>               <span class="at">IV1=</span><span class="fu">rep</span>(LETTERS[<span class="dv">1</span><span class="sc">:</span><span class="dv">3</span>],<span class="at">each=</span><span class="dv">1</span>,<span class="dv">2160</span>),</span>
-<span id="cb26-4"><a href="#cb26-4" tabindex="-1"></a>               <span class="at">IV2=</span><span class="fu">rep</span>(LETTERS[<span class="dv">4</span><span class="sc">:</span><span class="dv">6</span>],<span class="at">each=</span><span class="dv">3</span>,<span class="dv">720</span>),</span>
-<span id="cb26-5"><a href="#cb26-5" tabindex="-1"></a>               <span class="at">IV3=</span><span class="fu">rep</span>(LETTERS[<span class="dv">7</span><span class="sc">:</span><span class="dv">9</span>],<span class="at">each=</span><span class="dv">9</span>,<span class="dv">240</span>),</span>
-<span id="cb26-6"><a href="#cb26-6" tabindex="-1"></a>               <span class="at">IV4=</span><span class="fu">rep</span>(LETTERS[<span class="dv">10</span><span class="sc">:</span><span class="dv">12</span>],<span class="at">each=</span><span class="dv">27</span>,<span class="dv">80</span>),</span>
-<span id="cb26-7"><a href="#cb26-7" tabindex="-1"></a>               <span class="at">stringsAsFactors=</span><span class="cn">FALSE</span>)</span>
-<span id="cb26-8"><a href="#cb26-8" tabindex="-1"></a>cdf<span class="ot">&lt;-</span><span class="fu">data.frame</span>(<span class="fu">matrix</span>(.<span class="dv">01</span>,<span class="at">ncol=</span><span class="dv">4</span>,<span class="at">nrow=</span><span class="dv">4</span>))</span>
-<span id="cb26-9"><a href="#cb26-9" tabindex="-1"></a>correlation_martix<span class="ot">&lt;-</span><span class="fu">as.matrix</span>(cdf)</span>
-<span id="cb26-10"><a href="#cb26-10" tabindex="-1"></a><span class="fu">diag</span>(correlation_martix)<span class="ot">&lt;-</span><span class="dv">1</span></span>
-<span id="cb26-11"><a href="#cb26-11" tabindex="-1"></a>cdf<span class="ot">&lt;-</span><span class="fu">generate_correlation_matrix</span>(correlation_martix,<span class="at">nrows=</span><span class="fu">nrow</span>(df))<span class="sc">+</span><span class="dv">10</span></span>
-<span id="cb26-12"><a href="#cb26-12" tabindex="-1"></a><span class="fu">names</span>(cdf)<span class="ot">&lt;-</span><span class="fu">paste0</span>(<span class="st">&quot;DV&quot;</span>,<span class="dv">1</span><span class="sc">:</span><span class="dv">4</span>)</span>
-<span id="cb26-13"><a href="#cb26-13" tabindex="-1"></a>df<span class="ot">&lt;-</span><span class="fu">data.frame</span>(df,cdf)</span>
-<span id="cb26-14"><a href="#cb26-14" tabindex="-1"></a>df<span class="sc">$</span>DV2<span class="ot">&lt;-</span>df<span class="sc">$</span>DV2<span class="sc">+</span><span class="dv">10</span></span>
-<span id="cb26-15"><a href="#cb26-15" tabindex="-1"></a>df<span class="sc">$</span>DV3<span class="ot">&lt;-</span>df<span class="sc">$</span>DV3<span class="sc">+</span><span class="dv">20</span></span>
-<span id="cb26-16"><a href="#cb26-16" tabindex="-1"></a>df<span class="sc">$</span>DV4<span class="ot">&lt;-</span>df<span class="sc">$</span>DV4<span class="sc">+</span><span class="dv">30</span></span>
-<span id="cb26-17"><a href="#cb26-17" tabindex="-1"></a>df[df<span class="sc">$</span>IV1<span class="sc">%in%</span><span class="st">&quot;A&quot;</span>,]<span class="sc">$</span>DV1<span class="ot">&lt;-</span>df[df<span class="sc">$</span>IV1<span class="sc">%in%</span><span class="st">&quot;A&quot;</span>,]<span class="sc">$</span>DV1<span class="sc">+</span><span class="dv">1</span></span>
-<span id="cb26-18"><a href="#cb26-18" tabindex="-1"></a>df[df<span class="sc">$</span>IV1<span class="sc">%in%</span><span class="st">&quot;B&quot;</span>,]<span class="sc">$</span>DV1<span class="ot">&lt;-</span>df[df<span class="sc">$</span>IV1<span class="sc">%in%</span><span class="st">&quot;B&quot;</span>,]<span class="sc">$</span>DV1<span class="sc">+</span><span class="dv">2</span></span>
-<span id="cb26-19"><a href="#cb26-19" tabindex="-1"></a>df[df<span class="sc">$</span>IV1<span class="sc">%in%</span><span class="st">&quot;C&quot;</span>,]<span class="sc">$</span>DV1<span class="ot">&lt;-</span>df[df<span class="sc">$</span>IV1<span class="sc">%in%</span><span class="st">&quot;C&quot;</span>,]<span class="sc">$</span>DV1<span class="sc">+</span><span class="dv">3</span></span>
-<span id="cb26-20"><a href="#cb26-20" tabindex="-1"></a><span class="fu">cdf</span>(df)</span></code></pre></div>
-<pre><code>## $summary
+<div id="report-factorial-anova-with-effect-size-power-and-post-hocs" class="section level2">
+<h2>Report Factorial ANOVA with effect size power and post hocs</h2>
+<div class="sourceCode" id="cb13"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">12345</span>)</span>
+<span id="cb13-2"><a href="#cb13-2" tabindex="-1"></a>df<span class="ot">&lt;-</span><span class="fu">data.frame</span>(<span class="at">id=</span><span class="fu">rep</span>(<span class="fu">seq</span>(<span class="dv">1</span>,<span class="dv">80</span>),<span class="at">each=</span><span class="dv">81</span>,<span class="dv">1</span>),</span>
+<span id="cb13-3"><a href="#cb13-3" tabindex="-1"></a>               <span class="at">IV1=</span><span class="fu">rep</span>(LETTERS[<span class="dv">1</span><span class="sc">:</span><span class="dv">3</span>],<span class="at">each=</span><span class="dv">1</span>,<span class="dv">2160</span>),</span>
+<span id="cb13-4"><a href="#cb13-4" tabindex="-1"></a>               <span class="at">IV2=</span><span class="fu">rep</span>(LETTERS[<span class="dv">4</span><span class="sc">:</span><span class="dv">6</span>],<span class="at">each=</span><span class="dv">3</span>,<span class="dv">720</span>),</span>
+<span id="cb13-5"><a href="#cb13-5" tabindex="-1"></a>               <span class="at">IV3=</span><span class="fu">rep</span>(LETTERS[<span class="dv">7</span><span class="sc">:</span><span class="dv">9</span>],<span class="at">each=</span><span class="dv">9</span>,<span class="dv">240</span>),</span>
+<span id="cb13-6"><a href="#cb13-6" tabindex="-1"></a>               <span class="at">IV4=</span><span class="fu">rep</span>(LETTERS[<span class="dv">10</span><span class="sc">:</span><span class="dv">12</span>],<span class="at">each=</span><span class="dv">27</span>,<span class="dv">80</span>),</span>
+<span id="cb13-7"><a href="#cb13-7" tabindex="-1"></a>               <span class="at">stringsAsFactors=</span><span class="cn">FALSE</span>)</span>
+<span id="cb13-8"><a href="#cb13-8" tabindex="-1"></a>cdf<span class="ot">&lt;-</span><span class="fu">data.frame</span>(<span class="fu">matrix</span>(.<span class="dv">01</span>,<span class="at">ncol=</span><span class="dv">4</span>,<span class="at">nrow=</span><span class="dv">4</span>))</span>
+<span id="cb13-9"><a href="#cb13-9" tabindex="-1"></a>correlation_martix<span class="ot">&lt;-</span><span class="fu">as.matrix</span>(cdf)</span>
+<span id="cb13-10"><a href="#cb13-10" tabindex="-1"></a><span class="fu">diag</span>(correlation_martix)<span class="ot">&lt;-</span><span class="dv">1</span></span>
+<span id="cb13-11"><a href="#cb13-11" tabindex="-1"></a>cdf<span class="ot">&lt;-</span><span class="fu">generate_correlation_matrix</span>(correlation_martix,<span class="at">nrows=</span><span class="fu">nrow</span>(df))<span class="sc">+</span><span class="dv">10</span></span>
+<span id="cb13-12"><a href="#cb13-12" tabindex="-1"></a><span class="fu">names</span>(cdf)<span class="ot">&lt;-</span><span class="fu">paste0</span>(<span class="st">&quot;DV&quot;</span>,<span class="dv">1</span><span class="sc">:</span><span class="dv">4</span>)</span>
+<span id="cb13-13"><a href="#cb13-13" tabindex="-1"></a>df<span class="ot">&lt;-</span><span class="fu">data.frame</span>(df,cdf)</span>
+<span id="cb13-14"><a href="#cb13-14" tabindex="-1"></a>df<span class="sc">$</span>DV2<span class="ot">&lt;-</span>df<span class="sc">$</span>DV2<span class="sc">+</span><span class="dv">10</span></span>
+<span id="cb13-15"><a href="#cb13-15" tabindex="-1"></a>df<span class="sc">$</span>DV3<span class="ot">&lt;-</span>df<span class="sc">$</span>DV3<span class="sc">+</span><span class="dv">20</span></span>
+<span id="cb13-16"><a href="#cb13-16" tabindex="-1"></a>df<span class="sc">$</span>DV4<span class="ot">&lt;-</span>df<span class="sc">$</span>DV4<span class="sc">+</span><span class="dv">30</span></span>
+<span id="cb13-17"><a href="#cb13-17" tabindex="-1"></a>df[df<span class="sc">$</span>IV1<span class="sc">%in%</span><span class="st">&quot;A&quot;</span>,]<span class="sc">$</span>DV1<span class="ot">&lt;-</span>df[df<span class="sc">$</span>IV1<span class="sc">%in%</span><span class="st">&quot;A&quot;</span>,]<span class="sc">$</span>DV1<span class="sc">+</span><span class="dv">1</span></span>
+<span id="cb13-18"><a href="#cb13-18" tabindex="-1"></a>df[df<span class="sc">$</span>IV1<span class="sc">%in%</span><span class="st">&quot;B&quot;</span>,]<span class="sc">$</span>DV1<span class="ot">&lt;-</span>df[df<span class="sc">$</span>IV1<span class="sc">%in%</span><span class="st">&quot;B&quot;</span>,]<span class="sc">$</span>DV1<span class="sc">+</span><span class="dv">2</span></span>
+<span id="cb13-19"><a href="#cb13-19" tabindex="-1"></a>df[df<span class="sc">$</span>IV1<span class="sc">%in%</span><span class="st">&quot;C&quot;</span>,]<span class="sc">$</span>DV1<span class="ot">&lt;-</span>df[df<span class="sc">$</span>IV1<span class="sc">%in%</span><span class="st">&quot;C&quot;</span>,]<span class="sc">$</span>DV1<span class="sc">+</span><span class="dv">3</span></span>
+<span id="cb13-20"><a href="#cb13-20" tabindex="-1"></a><span class="fu">cdf</span>(df)</span></code></pre></div>
+<pre class="r-output">## $summary
 ##   COLLUMNS ROWS TOTAL EMPTY null NAN na INF   FIN FACTOR
 ## 1        9 6480 58320     0    0   0  0   0 32400      0
 ## 
@@ -633,65 +657,66 @@ Installation instructions of workingfunctions can be found here <a href="https:/
 ## 6   DV1     0    0  0   6480   0   0 6480  6480 11.98  11.99   1.3 7.51291207335776 16.2640490751635   numeric    double   numeric  FALSE
 ## 7   DV2     0    0  0   6480   0   0 6480  6480 20.01  20.02     1 16.3378832518107 23.6232526335438   numeric    double   numeric  FALSE
 ## 8   DV3     0    0  0   6480   0   0 6480  6480 30.01     30  0.98 26.1265203294059 33.1419727424988   numeric    double   numeric  FALSE
-## 9   DV4     0    0  0   6480   0   0 6480  6480    40  39.99  1.01  36.482400155701 43.7443144516511   numeric    double   numeric  FALSE</code></pre>
-<div class="sourceCode" id="cb28"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb28-1"><a href="#cb28-1" tabindex="-1"></a>r1<span class="ot">&lt;-</span><span class="fu">report_factorial_anova</span>(<span class="at">df=</span>df,</span>
-<span id="cb28-2"><a href="#cb28-2" tabindex="-1"></a>                           <span class="at">wid=</span><span class="st">&quot;id&quot;</span>,</span>
-<span id="cb28-3"><a href="#cb28-3" tabindex="-1"></a>                           <span class="at">dv=</span><span class="fu">c</span>(<span class="st">&quot;DV1&quot;</span>,<span class="st">&quot;DV2&quot;</span>),</span>
-<span id="cb28-4"><a href="#cb28-4" tabindex="-1"></a>                           <span class="at">within=</span><span class="fu">c</span>(<span class="st">&quot;IV1&quot;</span>,<span class="st">&quot;IV2&quot;</span>),</span>
-<span id="cb28-5"><a href="#cb28-5" tabindex="-1"></a>                           <span class="at">within_full=</span><span class="fu">c</span>(<span class="st">&quot;IV1&quot;</span>,<span class="st">&quot;IV2&quot;</span>),</span>
-<span id="cb28-6"><a href="#cb28-6" tabindex="-1"></a>                           <span class="at">between=</span><span class="cn">NULL</span>,</span>
-<span id="cb28-7"><a href="#cb28-7" tabindex="-1"></a>                           <span class="at">within_covariates=</span><span class="cn">NULL</span>,</span>
-<span id="cb28-8"><a href="#cb28-8" tabindex="-1"></a>                           <span class="at">between_covariates=</span><span class="cn">NULL</span>,</span>
-<span id="cb28-9"><a href="#cb28-9" tabindex="-1"></a>                           <span class="at">post_hoc=</span><span class="cn">TRUE</span>)</span></code></pre></div>
+## 9   DV4     0    0  0   6480   0   0 6480  6480    40  39.99  1.01  36.482400155701 43.7443144516511   numeric    double   numeric  FALSE
+</pre>
+<div class="sourceCode" id="cb14"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" tabindex="-1"></a>r1<span class="ot">&lt;-</span><span class="fu">report_factorial_anova</span>(<span class="at">df=</span>df,</span>
+<span id="cb14-2"><a href="#cb14-2" tabindex="-1"></a>                           <span class="at">wid=</span><span class="st">&quot;id&quot;</span>,</span>
+<span id="cb14-3"><a href="#cb14-3" tabindex="-1"></a>                           <span class="at">dv=</span><span class="fu">c</span>(<span class="st">&quot;DV1&quot;</span>,<span class="st">&quot;DV2&quot;</span>),</span>
+<span id="cb14-4"><a href="#cb14-4" tabindex="-1"></a>                           <span class="at">within=</span><span class="fu">c</span>(<span class="st">&quot;IV1&quot;</span>,<span class="st">&quot;IV2&quot;</span>),</span>
+<span id="cb14-5"><a href="#cb14-5" tabindex="-1"></a>                           <span class="at">within_full=</span><span class="fu">c</span>(<span class="st">&quot;IV1&quot;</span>,<span class="st">&quot;IV2&quot;</span>),</span>
+<span id="cb14-6"><a href="#cb14-6" tabindex="-1"></a>                           <span class="at">between=</span><span class="cn">NULL</span>,</span>
+<span id="cb14-7"><a href="#cb14-7" tabindex="-1"></a>                           <span class="at">within_covariates=</span><span class="cn">NULL</span>,</span>
+<span id="cb14-8"><a href="#cb14-8" tabindex="-1"></a>                           <span class="at">between_covariates=</span><span class="cn">NULL</span>,</span>
+<span id="cb14-9"><a href="#cb14-9" tabindex="-1"></a>                           <span class="at">post_hoc=</span><span class="cn">TRUE</span>)</span></code></pre></div>
 <pre><code>## NOTE: Results may be misleading due to involvement in interactions
 ## NOTE: Results may be misleading due to involvement in interactions
 ## NOTE: Results may be misleading due to involvement in interactions
 ## NOTE: Results may be misleading due to involvement in interactions</code></pre>
-<div class="sourceCode" id="cb30"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb30-1"><a href="#cb30-1" tabindex="-1"></a>r2<span class="ot">&lt;-</span><span class="fu">report_factorial_anova</span>(<span class="at">df=</span>df,</span>
-<span id="cb30-2"><a href="#cb30-2" tabindex="-1"></a>                           <span class="at">wid=</span><span class="st">&quot;id&quot;</span>,</span>
-<span id="cb30-3"><a href="#cb30-3" tabindex="-1"></a>                           <span class="at">dv=</span><span class="fu">c</span>(<span class="st">&quot;DV1&quot;</span>,<span class="st">&quot;DV2&quot;</span>),</span>
-<span id="cb30-4"><a href="#cb30-4" tabindex="-1"></a>                           <span class="at">within=</span><span class="cn">NULL</span>,</span>
-<span id="cb30-5"><a href="#cb30-5" tabindex="-1"></a>                           <span class="at">within_full=</span><span class="cn">NULL</span>,</span>
-<span id="cb30-6"><a href="#cb30-6" tabindex="-1"></a>                           <span class="at">between=</span><span class="fu">c</span>(<span class="st">&quot;IV1&quot;</span>,<span class="st">&quot;IV2&quot;</span>),</span>
-<span id="cb30-7"><a href="#cb30-7" tabindex="-1"></a>                           <span class="at">within_covariates=</span><span class="cn">NULL</span>,</span>
-<span id="cb30-8"><a href="#cb30-8" tabindex="-1"></a>                           <span class="at">between_covariates=</span><span class="cn">NULL</span>,</span>
-<span id="cb30-9"><a href="#cb30-9" tabindex="-1"></a>                           <span class="at">post_hoc=</span><span class="cn">TRUE</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb16"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" tabindex="-1"></a>r2<span class="ot">&lt;-</span><span class="fu">report_factorial_anova</span>(<span class="at">df=</span>df,</span>
+<span id="cb16-2"><a href="#cb16-2" tabindex="-1"></a>                           <span class="at">wid=</span><span class="st">&quot;id&quot;</span>,</span>
+<span id="cb16-3"><a href="#cb16-3" tabindex="-1"></a>                           <span class="at">dv=</span><span class="fu">c</span>(<span class="st">&quot;DV1&quot;</span>,<span class="st">&quot;DV2&quot;</span>),</span>
+<span id="cb16-4"><a href="#cb16-4" tabindex="-1"></a>                           <span class="at">within=</span><span class="cn">NULL</span>,</span>
+<span id="cb16-5"><a href="#cb16-5" tabindex="-1"></a>                           <span class="at">within_full=</span><span class="cn">NULL</span>,</span>
+<span id="cb16-6"><a href="#cb16-6" tabindex="-1"></a>                           <span class="at">between=</span><span class="fu">c</span>(<span class="st">&quot;IV1&quot;</span>,<span class="st">&quot;IV2&quot;</span>),</span>
+<span id="cb16-7"><a href="#cb16-7" tabindex="-1"></a>                           <span class="at">within_covariates=</span><span class="cn">NULL</span>,</span>
+<span id="cb16-8"><a href="#cb16-8" tabindex="-1"></a>                           <span class="at">between_covariates=</span><span class="cn">NULL</span>,</span>
+<span id="cb16-9"><a href="#cb16-9" tabindex="-1"></a>                           <span class="at">post_hoc=</span><span class="cn">TRUE</span>)</span></code></pre></div>
 <pre><code>## Coefficient covariances computed by hccm()
 ## NOTE: Results may be misleading due to involvement in interactions
 ## NOTE: Results may be misleading due to involvement in interactions</code></pre>
 <pre><code>## Coefficient covariances computed by hccm()</code></pre>
 <pre><code>## NOTE: Results may be misleading due to involvement in interactions
 ## NOTE: Results may be misleading due to involvement in interactions</code></pre>
-<div class="sourceCode" id="cb34"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb34-1"><a href="#cb34-1" tabindex="-1"></a>r3<span class="ot">&lt;-</span><span class="fu">report_factorial_anova</span>(<span class="at">df=</span>df,</span>
-<span id="cb34-2"><a href="#cb34-2" tabindex="-1"></a>                           <span class="at">wid=</span><span class="st">&quot;id&quot;</span>,</span>
-<span id="cb34-3"><a href="#cb34-3" tabindex="-1"></a>                           <span class="at">dv=</span><span class="fu">c</span>(<span class="st">&quot;DV1&quot;</span>,<span class="st">&quot;DV2&quot;</span>),</span>
-<span id="cb34-4"><a href="#cb34-4" tabindex="-1"></a>                           <span class="co"># within=c(&quot;IV3&quot;,&quot;IV4&quot;),</span></span>
-<span id="cb34-5"><a href="#cb34-5" tabindex="-1"></a>                           <span class="co"># within_full=c(&quot;IV3&quot;,&quot;IV4&quot;),</span></span>
-<span id="cb34-6"><a href="#cb34-6" tabindex="-1"></a>                           <span class="at">between=</span><span class="fu">c</span>(<span class="st">&quot;IV1&quot;</span>,<span class="st">&quot;IV2&quot;</span>),</span>
-<span id="cb34-7"><a href="#cb34-7" tabindex="-1"></a>                           <span class="at">within_covariates=</span><span class="cn">NULL</span>,</span>
-<span id="cb34-8"><a href="#cb34-8" tabindex="-1"></a>                           <span class="at">between_covariates=</span><span class="cn">NULL</span>,</span>
-<span id="cb34-9"><a href="#cb34-9" tabindex="-1"></a>                           <span class="at">post_hoc=</span><span class="cn">FALSE</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb20"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1" tabindex="-1"></a>r3<span class="ot">&lt;-</span><span class="fu">report_factorial_anova</span>(<span class="at">df=</span>df,</span>
+<span id="cb20-2"><a href="#cb20-2" tabindex="-1"></a>                           <span class="at">wid=</span><span class="st">&quot;id&quot;</span>,</span>
+<span id="cb20-3"><a href="#cb20-3" tabindex="-1"></a>                           <span class="at">dv=</span><span class="fu">c</span>(<span class="st">&quot;DV1&quot;</span>,<span class="st">&quot;DV2&quot;</span>),</span>
+<span id="cb20-4"><a href="#cb20-4" tabindex="-1"></a>                           <span class="co"># within=c(&quot;IV3&quot;,&quot;IV4&quot;),</span></span>
+<span id="cb20-5"><a href="#cb20-5" tabindex="-1"></a>                           <span class="co"># within_full=c(&quot;IV3&quot;,&quot;IV4&quot;),</span></span>
+<span id="cb20-6"><a href="#cb20-6" tabindex="-1"></a>                           <span class="at">between=</span><span class="fu">c</span>(<span class="st">&quot;IV1&quot;</span>,<span class="st">&quot;IV2&quot;</span>),</span>
+<span id="cb20-7"><a href="#cb20-7" tabindex="-1"></a>                           <span class="at">within_covariates=</span><span class="cn">NULL</span>,</span>
+<span id="cb20-8"><a href="#cb20-8" tabindex="-1"></a>                           <span class="at">between_covariates=</span><span class="cn">NULL</span>,</span>
+<span id="cb20-9"><a href="#cb20-9" tabindex="-1"></a>                           <span class="at">post_hoc=</span><span class="cn">FALSE</span>)</span></code></pre></div>
 <pre><code>## Coefficient covariances computed by hccm()
 ## NOTE: Results may be misleading due to involvement in interactions
 ## NOTE: Results may be misleading due to involvement in interactions</code></pre>
 <pre><code>## Coefficient covariances computed by hccm()</code></pre>
 <pre><code>## NOTE: Results may be misleading due to involvement in interactions
 ## NOTE: Results may be misleading due to involvement in interactions</code></pre>
-<div class="sourceCode" id="cb38"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb38-1"><a href="#cb38-1" tabindex="-1"></a>r4<span class="ot">&lt;-</span><span class="fu">report_factorial_anova</span>(<span class="at">df=</span>df,</span>
-<span id="cb38-2"><a href="#cb38-2" tabindex="-1"></a>                           <span class="at">wid=</span><span class="st">&quot;id&quot;</span>,</span>
-<span id="cb38-3"><a href="#cb38-3" tabindex="-1"></a>                           <span class="at">dv=</span><span class="fu">c</span>(<span class="st">&quot;DV1&quot;</span>,<span class="st">&quot;DV2&quot;</span>),</span>
-<span id="cb38-4"><a href="#cb38-4" tabindex="-1"></a>                           <span class="at">within=</span><span class="fu">c</span>(<span class="st">&quot;IV1&quot;</span>,<span class="st">&quot;IV2&quot;</span>),</span>
-<span id="cb38-5"><a href="#cb38-5" tabindex="-1"></a>                           <span class="at">within_full=</span><span class="fu">c</span>(<span class="st">&quot;IV1&quot;</span>,<span class="st">&quot;IV2&quot;</span>),</span>
-<span id="cb38-6"><a href="#cb38-6" tabindex="-1"></a>                           <span class="at">between=</span><span class="cn">NULL</span>,</span>
-<span id="cb38-7"><a href="#cb38-7" tabindex="-1"></a>                           <span class="at">within_covariates=</span><span class="fu">c</span>(<span class="st">&quot;DV3&quot;</span>,<span class="st">&quot;DV4&quot;</span>),</span>
-<span id="cb38-8"><a href="#cb38-8" tabindex="-1"></a>                           <span class="at">between_covariates=</span><span class="cn">NULL</span>,</span>
-<span id="cb38-9"><a href="#cb38-9" tabindex="-1"></a>                           <span class="at">post_hoc=</span><span class="cn">TRUE</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb24"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1" tabindex="-1"></a>r4<span class="ot">&lt;-</span><span class="fu">report_factorial_anova</span>(<span class="at">df=</span>df,</span>
+<span id="cb24-2"><a href="#cb24-2" tabindex="-1"></a>                           <span class="at">wid=</span><span class="st">&quot;id&quot;</span>,</span>
+<span id="cb24-3"><a href="#cb24-3" tabindex="-1"></a>                           <span class="at">dv=</span><span class="fu">c</span>(<span class="st">&quot;DV1&quot;</span>,<span class="st">&quot;DV2&quot;</span>),</span>
+<span id="cb24-4"><a href="#cb24-4" tabindex="-1"></a>                           <span class="at">within=</span><span class="fu">c</span>(<span class="st">&quot;IV1&quot;</span>,<span class="st">&quot;IV2&quot;</span>),</span>
+<span id="cb24-5"><a href="#cb24-5" tabindex="-1"></a>                           <span class="at">within_full=</span><span class="fu">c</span>(<span class="st">&quot;IV1&quot;</span>,<span class="st">&quot;IV2&quot;</span>),</span>
+<span id="cb24-6"><a href="#cb24-6" tabindex="-1"></a>                           <span class="at">between=</span><span class="cn">NULL</span>,</span>
+<span id="cb24-7"><a href="#cb24-7" tabindex="-1"></a>                           <span class="at">within_covariates=</span><span class="fu">c</span>(<span class="st">&quot;DV3&quot;</span>,<span class="st">&quot;DV4&quot;</span>),</span>
+<span id="cb24-8"><a href="#cb24-8" tabindex="-1"></a>                           <span class="at">between_covariates=</span><span class="cn">NULL</span>,</span>
+<span id="cb24-9"><a href="#cb24-9" tabindex="-1"></a>                           <span class="at">post_hoc=</span><span class="cn">TRUE</span>)</span></code></pre></div>
 <pre><code>## NOTE: Results may be misleading due to involvement in interactions
 ## NOTE: Results may be misleading due to involvement in interactions
 ## NOTE: Results may be misleading due to involvement in interactions
 ## NOTE: Results may be misleading due to involvement in interactions</code></pre>
-<div class="sourceCode" id="cb40"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb40-1"><a href="#cb40-1" tabindex="-1"></a>r1</span></code></pre></div>
-<pre><code>## $omnibus
+<div class="sourceCode" id="cb26"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb26-1"><a href="#cb26-1" tabindex="-1"></a>r1</span></code></pre></div>
+<pre class="r-output">## $omnibus
 ##    dv      Effect DFn DFd          SSn       SSd            F             p      W[M]       p[M]       GGe         p[GG]       HFe         p[HF]
 ## 1 DV1         IV1   2 158 5.006671e+02 17.930125 2.205935e+03 3.643342e-116 0.9782102 0.42350247 0.9786749 9.499976e-114 1.0032624 3.643342e-116
 ## 2 DV1         IV2   2 158 4.504472e-01 17.900158 1.987989e+00  1.403820e-01 0.9706304 0.31268097 0.9714684  1.418139e-01 0.9955929  1.406031e-01
@@ -958,9 +983,10 @@ Installation instructions of workingfunctions can be found here <a href="https:/
 ## 4 DV2 0.004         0.010   0.002           0.002     0.002    0.102     id:IV2       IV2  0.355   2  0.177     1.587   0.208 0.349
 ## 5 DV2 0.219         0.341   0.008           0.008     0.008    0.720     id:IV2 Residuals 17.658 158  0.112        NA      NA 1.000
 ## 6 DV2 0.004         0.010  -0.001          -0.001    -0.001    0.102 id:IV1:IV2   IV1:IV2  0.351   4  0.088     0.815   0.516 0.264
-## 7 DV2    NA            NA      NA              NA        NA       NA id:IV1:IV2 Residuals 34.051 316  0.108        NA      NA    NA</code></pre>
-<div class="sourceCode" id="cb42"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb42-1"><a href="#cb42-1" tabindex="-1"></a>r2</span></code></pre></div>
-<pre><code>## $omnibus
+## 7 DV2    NA            NA      NA              NA        NA       NA id:IV1:IV2 Residuals 34.051 316  0.108        NA      NA    NA
+</pre>
+<div class="sourceCode" id="cb27"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb27-1"><a href="#cb27-1" tabindex="-1"></a>r2</span></code></pre></div>
+<pre class="r-output">## $omnibus
 ##    dv      Effect DFn DFd            F         p DFn[L] DFd[L]    SSn[L]   SSd[L]      F[L]      p[L]
 ## 1 DV1 (Intercept)   1 711 9.487337e+05 0.0000000      8    711 0.2633023 28.19911 0.8298484 0.5763858
 ## 2 DV1         IV1   2 711 2.555373e+03 0.0000000      8    711 0.2633023 28.19911 0.8298484 0.5763858
@@ -1137,9 +1163,10 @@ Installation instructions of workingfunctions can be found here <a href="https:/
 ## IV1     DV2 0.004         0.004   0.001           0.001     0.001    0.063       IV1  0.311   2  0.155     1.391   0.249 0.301
 ## IV2     DV2 0.004         0.004   0.002           0.002     0.002    0.067       IV2  0.355   2  0.177     1.587   0.205 0.338
 ## IV1:IV2 DV2 0.004         0.004  -0.001          -0.001    -0.001    0.067   IV1:IV2  0.351   4  0.088     0.786   0.534 0.255
-## 1       DV2    NA            NA      NA              NA        NA       NA Residuals 79.444 711  0.112        NA      NA    NA</code></pre>
-<div class="sourceCode" id="cb44"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb44-1"><a href="#cb44-1" tabindex="-1"></a>r3</span></code></pre></div>
-<pre><code>## $omnibus
+## 1       DV2    NA            NA      NA              NA        NA       NA Residuals 79.444 711  0.112        NA      NA    NA
+</pre>
+<div class="sourceCode" id="cb28"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb28-1"><a href="#cb28-1" tabindex="-1"></a>r3</span></code></pre></div>
+<pre class="r-output">## $omnibus
 ##    dv      Effect DFn DFd            F         p DFn[L] DFd[L]    SSn[L]   SSd[L]      F[L]      p[L]
 ## 1 DV1 (Intercept)   1 711 9.487337e+05 0.0000000      8    711 0.2633023 28.19911 0.8298484 0.5763858
 ## 2 DV1         IV1   2 711 2.555373e+03 0.0000000      8    711 0.2633023 28.19911 0.8298484 0.5763858
@@ -1316,9 +1343,10 @@ Installation instructions of workingfunctions can be found here <a href="https:/
 ## IV1     DV2 0.004         0.004   0.001           0.001     0.001    0.063       IV1  0.311   2  0.155     1.391   0.249 0.301
 ## IV2     DV2 0.004         0.004   0.002           0.002     0.002    0.067       IV2  0.355   2  0.177     1.587   0.205 0.338
 ## IV1:IV2 DV2 0.004         0.004  -0.001          -0.001    -0.001    0.067   IV1:IV2  0.351   4  0.088     0.786   0.534 0.255
-## 1       DV2    NA            NA      NA              NA        NA       NA Residuals 79.444 711  0.112        NA      NA    NA</code></pre>
-<div class="sourceCode" id="cb46"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb46-1"><a href="#cb46-1" tabindex="-1"></a>r4</span></code></pre></div>
-<pre><code>## $omnibus
+## 1       DV2    NA            NA      NA              NA        NA       NA Residuals 79.444 711  0.112        NA      NA    NA
+</pre>
+<div class="sourceCode" id="cb29"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb29-1"><a href="#cb29-1" tabindex="-1"></a>r4</span></code></pre></div>
+<pre class="r-output">## $omnibus
 ##    dv      Effect DFn DFd          SSn       SSd            F             p      W[M]       p[M]       GGe         p[GG]       HFe         p[HF]
 ## 1 DV1         IV1   2 158 5.006671e+02 17.930125 2.205935e+03 3.643342e-116 0.9782102 0.42350247 0.9786749 9.499976e-114 1.0032624 3.643342e-116
 ## 2 DV1         IV2   2 158 4.504472e-01 17.900158 1.987989e+00  1.403820e-01 0.9706304 0.31268097 0.9714684  1.418139e-01 0.9955929  1.406031e-01
@@ -1585,16 +1613,17 @@ Installation instructions of workingfunctions can be found here <a href="https:/
 ## 4 DV2 0.004         0.010   0.002           0.002     0.002    0.102     id:IV2       IV2  0.355   2  0.177     1.587   0.208 0.349
 ## 5 DV2 0.219         0.341   0.008           0.008     0.008    0.720     id:IV2 Residuals 17.658 158  0.112        NA      NA 1.000
 ## 6 DV2 0.004         0.010  -0.001          -0.001    -0.001    0.102 id:IV1:IV2   IV1:IV2  0.351   4  0.088     0.815   0.516 0.264
-## 7 DV2    NA            NA      NA              NA        NA       NA id:IV1:IV2 Residuals 34.051 316  0.108        NA      NA    NA</code></pre>
+## 7 DV2    NA            NA      NA              NA        NA       NA id:IV1:IV2 Residuals 34.051 316  0.108        NA      NA    NA
+</pre>
 </div>
 <div id="manova" class="section level2">
 <h2>MANOVA</h2>
-<div class="sourceCode" id="cb48"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb48-1"><a href="#cb48-1" tabindex="-1"></a><span class="do">## Set orthogonal contrasts.</span></span>
-<span id="cb48-2"><a href="#cb48-2" tabindex="-1"></a>op<span class="ot">&lt;-</span><span class="fu">options</span>(<span class="at">contrasts=</span><span class="fu">c</span>(<span class="st">&quot;contr.helmert&quot;</span>,<span class="st">&quot;contr.poly&quot;</span>))</span>
-<span id="cb48-3"><a href="#cb48-3" tabindex="-1"></a>model_mixed<span class="ot">&lt;-</span><span class="fu">manova</span>(<span class="fu">cbind</span>(yield,foo)<span class="sc">~</span>N<span class="sc">*</span>P<span class="sc">*</span>K,<span class="fu">within</span>(npk,foo<span class="ot">&lt;-</span><span class="fu">rnorm</span>(<span class="dv">24</span>)))</span>
-<span id="cb48-4"><a href="#cb48-4" tabindex="-1"></a>model_between<span class="ot">&lt;-</span><span class="fu">manova</span>(<span class="fu">cbind</span>(<span class="fu">rnorm</span>(<span class="dv">24</span>),<span class="fu">rnorm</span>(<span class="dv">24</span>))<span class="sc">~</span><span class="fu">round</span>(<span class="fu">rnorm</span>(<span class="dv">24</span>),<span class="dv">0</span>)<span class="sc">*</span><span class="fu">round</span>(<span class="fu">rnorm</span>(<span class="dv">24</span>),<span class="dv">0</span>))</span>
-<span id="cb48-5"><a href="#cb48-5" tabindex="-1"></a><span class="fu">report_manova</span>(<span class="at">model=</span>model_mixed)</span></code></pre></div>
-<pre><code>## [1] &quot;####################################################################################################################################################################################################################################################################################################################################################################################################################################################################################################################&quot;
+<div class="sourceCode" id="cb30"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb30-1"><a href="#cb30-1" tabindex="-1"></a><span class="do">## Set orthogonal contrasts.</span></span>
+<span id="cb30-2"><a href="#cb30-2" tabindex="-1"></a>op<span class="ot">&lt;-</span><span class="fu">options</span>(<span class="at">contrasts=</span><span class="fu">c</span>(<span class="st">&quot;contr.helmert&quot;</span>,<span class="st">&quot;contr.poly&quot;</span>))</span>
+<span id="cb30-3"><a href="#cb30-3" tabindex="-1"></a>model_mixed<span class="ot">&lt;-</span><span class="fu">manova</span>(<span class="fu">cbind</span>(yield,foo)<span class="sc">~</span>N<span class="sc">*</span>P<span class="sc">*</span>K,<span class="fu">within</span>(npk,foo<span class="ot">&lt;-</span><span class="fu">rnorm</span>(<span class="dv">24</span>)))</span>
+<span id="cb30-4"><a href="#cb30-4" tabindex="-1"></a>model_between<span class="ot">&lt;-</span><span class="fu">manova</span>(<span class="fu">cbind</span>(<span class="fu">rnorm</span>(<span class="dv">24</span>),<span class="fu">rnorm</span>(<span class="dv">24</span>))<span class="sc">~</span><span class="fu">round</span>(<span class="fu">rnorm</span>(<span class="dv">24</span>),<span class="dv">0</span>)<span class="sc">*</span><span class="fu">round</span>(<span class="fu">rnorm</span>(<span class="dv">24</span>),<span class="dv">0</span>))</span>
+<span id="cb30-5"><a href="#cb30-5" tabindex="-1"></a><span class="fu">report_manova</span>(<span class="at">model=</span>model_mixed)</span></code></pre></div>
+<pre class="r-output">## [1] &quot;####################################################################################################################################################################################################################################################################################################################################################################################################################################################################################################################&quot;
 ## [1] &quot;Pillai,Wilks,Hotelling-Lawley,Roy Statistics&quot;
 ## [1] &quot;####################################################################################################################################################################################################################################################################################################################################################################################################################################################################################################################&quot;
 ##          Group Df    Statistic     approx F num Df den Df       Pr(&gt;F)             type
@@ -1649,9 +1678,10 @@ Installation instructions of workingfunctions can be found here <a href="https:/
 ## P:K          1   0.00184     0.01      2     15  0.986259    
 ## N:P:K        1   0.10123     0.84      2     15  0.449127    
 ## ---
-## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1</code></pre>
-<div class="sourceCode" id="cb50"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb50-1"><a href="#cb50-1" tabindex="-1"></a><span class="fu">report_manova</span>(<span class="at">model=</span>model_between)</span></code></pre></div>
-<pre><code>## [1] &quot;####################################################################################################################################################################################################################################################################################################################################################################################################################################################################################################################&quot;
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+</pre>
+<div class="sourceCode" id="cb31"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb31-1"><a href="#cb31-1" tabindex="-1"></a><span class="fu">report_manova</span>(<span class="at">model=</span>model_between)</span></code></pre></div>
+<pre class="r-output">## [1] &quot;####################################################################################################################################################################################################################################################################################################################################################################################################################################################################################################################&quot;
 ## [1] &quot;Pillai,Wilks,Hotelling-Lawley,Roy Statistics&quot;
 ## [1] &quot;####################################################################################################################################################################################################################################################################################################################################################################################################################################################################################################################&quot;
 ##                  Group Df  Statistic  approx F num Df den Df    Pr(&gt;F)             type
@@ -1674,86 +1704,99 @@ Installation instructions of workingfunctions can be found here <a href="https:/
 ## Type III MANOVA Tests: Pillai test statistic
 ##                     Df test stat approx F num Df den Df Pr(&gt;F)
 ## (Intercept)          1  0.067931  0.76526      2     21 0.4778
-## round(rnorm(24), 0)  1  0.012249  0.13021      2     21 0.8786</code></pre>
+## round(rnorm(24), 0)  1  0.012249  0.13021      2     21 0.8786
+</pre>
 </div>
 <div id="effect-size" class="section level2">
 <h2>Effect Size</h2>
-<div class="sourceCode" id="cb52"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb52-1"><a href="#cb52-1" tabindex="-1"></a>form<span class="ot">&lt;-</span><span class="fu">formula</span>(uptake<span class="sc">~</span>Treatment)</span>
-<span id="cb52-2"><a href="#cb52-2" tabindex="-1"></a>one_way_between<span class="ot">&lt;-</span><span class="fu">aov</span>(form,CO2)</span>
-<span id="cb52-3"><a href="#cb52-3" tabindex="-1"></a>factorial_between<span class="ot">&lt;-</span><span class="fu">aov</span>(uptake<span class="sc">~</span>Treatment<span class="sc">*</span>Type,CO2)</span>
-<span id="cb52-4"><a href="#cb52-4" tabindex="-1"></a><span class="fu">compute_aov_es</span>(<span class="at">model=</span>one_way_between,<span class="at">ss=</span><span class="st">&quot;I&quot;</span>)</span></code></pre></div>
-<pre><code>##                 call ss comparisons Df    Sum Sq  Mean Sq  F value      Pr(&gt;F)     etasq partial_etasq    omegasq partial_omegasq  epsilonsq  cohens_f
+<div class="sourceCode" id="cb32"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb32-1"><a href="#cb32-1" tabindex="-1"></a>form<span class="ot">&lt;-</span><span class="fu">formula</span>(uptake<span class="sc">~</span>Treatment)</span>
+<span id="cb32-2"><a href="#cb32-2" tabindex="-1"></a>one_way_between<span class="ot">&lt;-</span><span class="fu">aov</span>(form,CO2)</span>
+<span id="cb32-3"><a href="#cb32-3" tabindex="-1"></a>factorial_between<span class="ot">&lt;-</span><span class="fu">aov</span>(uptake<span class="sc">~</span>Treatment<span class="sc">*</span>Type,CO2)</span>
+<span id="cb32-4"><a href="#cb32-4" tabindex="-1"></a><span class="fu">compute_aov_es</span>(<span class="at">model=</span>one_way_between,<span class="at">ss=</span><span class="st">&quot;I&quot;</span>)</span></code></pre></div>
+<pre class="r-output">##                 call ss comparisons Df    Sum Sq  Mean Sq  F value      Pr(&gt;F)     etasq partial_etasq    omegasq partial_omegasq  epsilonsq  cohens_f
 ## 1 uptake ~ Treatment  I   Treatment  1  988.1144 988.1144 9.293115 0.003095733 0.1017943     0.1017943 0.08985627      0.08985627 0.09084053 0.3366462
-## 2 uptake ~ Treatment  I   Residuals 82 8718.8612 106.3276       NA          NA        NA            NA         NA              NA         NA        NA</code></pre>
-<div class="sourceCode" id="cb54"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb54-1"><a href="#cb54-1" tabindex="-1"></a>sjstats<span class="sc">::</span><span class="fu">anova_stats</span>(one_way_between,<span class="at">digits=</span><span class="dv">10</span>)</span></code></pre></div>
-<pre><code>## etasq | partial.etasq | omegasq | partial.omegasq | epsilonsq | cohens.f |      term |    sumsq | df |  meansq | statistic | p.value | power
+## 2 uptake ~ Treatment  I   Residuals 82 8718.8612 106.3276       NA          NA        NA            NA         NA              NA         NA        NA
+</pre>
+<div class="sourceCode" id="cb33"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb33-1"><a href="#cb33-1" tabindex="-1"></a>sjstats<span class="sc">::</span><span class="fu">anova_stats</span>(one_way_between,<span class="at">digits=</span><span class="dv">10</span>)</span></code></pre></div>
+<pre class="r-output">## etasq | partial.etasq | omegasq | partial.omegasq | epsilonsq | cohens.f |      term |    sumsq | df |  meansq | statistic | p.value | power
 ## --------------------------------------------------------------------------------------------------------------------------------------------
 ## 0.102 |         0.102 |   0.090 |           0.090 |     0.091 |    0.337 | Treatment |  988.114 |  1 | 988.114 |     9.293 |   0.003 | 0.862
-##       |               |         |                 |           |          | Residuals | 8718.861 | 82 | 106.328 |           |         |</code></pre>
-<div class="sourceCode" id="cb56"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb56-1"><a href="#cb56-1" tabindex="-1"></a><span class="fu">compute_aov_es</span>(<span class="at">model=</span>one_way_between,<span class="at">ss=</span><span class="st">&quot;II&quot;</span>)</span></code></pre></div>
-<pre><code>##                 call ss comparisons Df    Sum Sq  Mean Sq  F value      Pr(&gt;F)     etasq partial_etasq    omegasq partial_omegasq  epsilonsq  cohens_f
+##       |               |         |                 |           |          | Residuals | 8718.861 | 82 | 106.328 |           |         |
+</pre>
+<div class="sourceCode" id="cb34"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb34-1"><a href="#cb34-1" tabindex="-1"></a><span class="fu">compute_aov_es</span>(<span class="at">model=</span>one_way_between,<span class="at">ss=</span><span class="st">&quot;II&quot;</span>)</span></code></pre></div>
+<pre class="r-output">##                 call ss comparisons Df    Sum Sq  Mean Sq  F value      Pr(&gt;F)     etasq partial_etasq    omegasq partial_omegasq  epsilonsq  cohens_f
 ## 1 uptake ~ Treatment II   Treatment  1  988.1144 988.1144 9.293115 0.003095733 0.1017943     0.1017943 0.08985627      0.08985627 0.09084053 0.3366462
-## 2 uptake ~ Treatment II   Residuals 82 8718.8612 106.3276       NA          NA        NA            NA         NA              NA         NA        NA</code></pre>
-<div class="sourceCode" id="cb58"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb58-1"><a href="#cb58-1" tabindex="-1"></a>sjstats<span class="sc">::</span><span class="fu">anova_stats</span>(one_way_between,<span class="at">digits=</span><span class="dv">10</span>)</span></code></pre></div>
-<pre><code>## etasq | partial.etasq | omegasq | partial.omegasq | epsilonsq | cohens.f |      term |    sumsq | df |  meansq | statistic | p.value | power
+## 2 uptake ~ Treatment II   Residuals 82 8718.8612 106.3276       NA          NA        NA            NA         NA              NA         NA        NA
+</pre>
+<div class="sourceCode" id="cb35"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb35-1"><a href="#cb35-1" tabindex="-1"></a>sjstats<span class="sc">::</span><span class="fu">anova_stats</span>(one_way_between,<span class="at">digits=</span><span class="dv">10</span>)</span></code></pre></div>
+<pre class="r-output">## etasq | partial.etasq | omegasq | partial.omegasq | epsilonsq | cohens.f |      term |    sumsq | df |  meansq | statistic | p.value | power
 ## --------------------------------------------------------------------------------------------------------------------------------------------
 ## 0.102 |         0.102 |   0.090 |           0.090 |     0.091 |    0.337 | Treatment |  988.114 |  1 | 988.114 |     9.293 |   0.003 | 0.862
-##       |               |         |                 |           |          | Residuals | 8718.861 | 82 | 106.328 |           |         |</code></pre>
-<div class="sourceCode" id="cb60"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb60-1"><a href="#cb60-1" tabindex="-1"></a><span class="fu">compute_aov_es</span>(<span class="at">model=</span>one_way_between,<span class="at">ss=</span><span class="st">&quot;III&quot;</span>)</span></code></pre></div>
-<pre><code>##                 call  ss comparisons Df     Sum Sq    Mean Sq    F value       Pr(&gt;F)     etasq partial_etasq    omegasq partial_omegasq  epsilonsq  cohens_f
+##       |               |         |                 |           |          | Residuals | 8718.861 | 82 | 106.328 |           |         |
+</pre>
+<div class="sourceCode" id="cb36"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb36-1"><a href="#cb36-1" tabindex="-1"></a><span class="fu">compute_aov_es</span>(<span class="at">model=</span>one_way_between,<span class="at">ss=</span><span class="st">&quot;III&quot;</span>)</span></code></pre></div>
+<pre class="r-output">##                 call  ss comparisons Df     Sum Sq    Mean Sq    F value       Pr(&gt;F)     etasq partial_etasq    omegasq partial_omegasq  epsilonsq  cohens_f
 ## 1 uptake ~ Treatment III   Treatment  1   988.1144   988.1144   9.293115 3.095733e-03 0.1017943     0.1017943 0.08985627      0.08985627 0.09084053 0.3366462
 ## 2 uptake ~ Treatment III (Intercept)  1 62206.4144 62206.4144 585.044981 4.440975e-39        NA            NA         NA              NA         NA        NA
-## 3 uptake ~ Treatment III   Residuals 82  8718.8612   106.3276         NA           NA        NA            NA         NA              NA         NA        NA</code></pre>
-<div class="sourceCode" id="cb62"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb62-1"><a href="#cb62-1" tabindex="-1"></a>sjstats<span class="sc">::</span><span class="fu">anova_stats</span>(one_way_between,<span class="at">digits=</span><span class="dv">10</span>)</span></code></pre></div>
-<pre><code>## etasq | partial.etasq | omegasq | partial.omegasq | epsilonsq | cohens.f |      term |    sumsq | df |  meansq | statistic | p.value | power
+## 3 uptake ~ Treatment III   Residuals 82  8718.8612   106.3276         NA           NA        NA            NA         NA              NA         NA        NA
+</pre>
+<div class="sourceCode" id="cb37"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb37-1"><a href="#cb37-1" tabindex="-1"></a>sjstats<span class="sc">::</span><span class="fu">anova_stats</span>(one_way_between,<span class="at">digits=</span><span class="dv">10</span>)</span></code></pre></div>
+<pre class="r-output">## etasq | partial.etasq | omegasq | partial.omegasq | epsilonsq | cohens.f |      term |    sumsq | df |  meansq | statistic | p.value | power
 ## --------------------------------------------------------------------------------------------------------------------------------------------
 ## 0.102 |         0.102 |   0.090 |           0.090 |     0.091 |    0.337 | Treatment |  988.114 |  1 | 988.114 |     9.293 |   0.003 | 0.862
-##       |               |         |                 |           |          | Residuals | 8718.861 | 82 | 106.328 |           |         |</code></pre>
-<div class="sourceCode" id="cb64"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb64-1"><a href="#cb64-1" tabindex="-1"></a><span class="fu">compute_aov_es</span>(<span class="at">model=</span>factorial_between,<span class="at">ss=</span><span class="st">&quot;I&quot;</span>)</span></code></pre></div>
-<pre><code>##                        call ss    comparisons Df    Sum Sq    Mean Sq  F value       Pr(&gt;F)      etasq partial_etasq    omegasq partial_omegasq  epsilonsq  cohens_f
+##       |               |         |                 |           |          | Residuals | 8718.861 | 82 | 106.328 |           |         |
+</pre>
+<div class="sourceCode" id="cb38"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb38-1"><a href="#cb38-1" tabindex="-1"></a><span class="fu">compute_aov_es</span>(<span class="at">model=</span>factorial_between,<span class="at">ss=</span><span class="st">&quot;I&quot;</span>)</span></code></pre></div>
+<pre class="r-output">##                        call ss    comparisons Df    Sum Sq    Mean Sq  F value       Pr(&gt;F)      etasq partial_etasq    omegasq partial_omegasq  epsilonsq  cohens_f
 ## 1 uptake ~ Treatment * Type  I      Treatment  1  988.1144  988.11440 15.41641 1.817080e-04 0.10179426    0.16156982 0.09456686      0.14648382 0.09519128 0.4389820
 ## 2 uptake ~ Treatment * Type  I           Type  1 3365.5344 3365.53440 52.50856 2.377680e-10 0.34671298    0.39626543 0.33787899      0.38011297 0.34011000 0.8101586
 ## 3 uptake ~ Treatment * Type  I Treatment:Type  1  225.7296  225.72964  3.52180 6.421283e-02 0.02325437    0.04216624 0.01654217      0.02914641 0.01665139 0.2098154
-## 4 uptake ~ Treatment * Type  I      Residuals 80 5127.5971   64.09496       NA           NA         NA            NA         NA              NA         NA        NA</code></pre>
-<div class="sourceCode" id="cb66"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb66-1"><a href="#cb66-1" tabindex="-1"></a>sjstats<span class="sc">::</span><span class="fu">anova_stats</span>(factorial_between,<span class="at">digits=</span><span class="dv">10</span>)</span></code></pre></div>
-<pre><code>## etasq | partial.etasq | omegasq | partial.omegasq | epsilonsq | cohens.f |           term |    sumsq | df |   meansq | statistic | p.value | power
+## 4 uptake ~ Treatment * Type  I      Residuals 80 5127.5971   64.09496       NA           NA         NA            NA         NA              NA         NA        NA
+</pre>
+<div class="sourceCode" id="cb39"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb39-1"><a href="#cb39-1" tabindex="-1"></a>sjstats<span class="sc">::</span><span class="fu">anova_stats</span>(factorial_between,<span class="at">digits=</span><span class="dv">10</span>)</span></code></pre></div>
+<pre class="r-output">## etasq | partial.etasq | omegasq | partial.omegasq | epsilonsq | cohens.f |           term |    sumsq | df |   meansq | statistic | p.value | power
 ## --------------------------------------------------------------------------------------------------------------------------------------------------
 ## 0.102 |         0.162 |   0.095 |           0.146 |     0.095 |    0.439 |      Treatment |  988.114 |  1 |  988.114 |    15.416 |  &lt; .001 | 0.975
 ## 0.347 |         0.396 |   0.338 |           0.380 |     0.340 |    0.810 |           Type | 3365.534 |  1 | 3365.534 |    52.509 |  &lt; .001 | 1.000
 ## 0.023 |         0.042 |   0.017 |           0.029 |     0.017 |    0.210 | Treatment:Type |  225.730 |  1 |  225.730 |     3.522 |   0.064 | 0.467
-##       |               |         |                 |           |          |      Residuals | 5127.597 | 80 |   64.095 |           |         |</code></pre>
-<div class="sourceCode" id="cb68"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb68-1"><a href="#cb68-1" tabindex="-1"></a><span class="fu">compute_aov_es</span>(<span class="at">model=</span>factorial_between,<span class="at">ss=</span><span class="st">&quot;II&quot;</span>)</span></code></pre></div>
-<pre><code>##                        call ss    comparisons Df    Sum Sq    Mean Sq  F value       Pr(&gt;F)      etasq partial_etasq    omegasq partial_omegasq  epsilonsq  cohens_f
+##       |               |         |                 |           |          |      Residuals | 5127.597 | 80 |   64.095 |           |         |
+</pre>
+<div class="sourceCode" id="cb40"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb40-1"><a href="#cb40-1" tabindex="-1"></a><span class="fu">compute_aov_es</span>(<span class="at">model=</span>factorial_between,<span class="at">ss=</span><span class="st">&quot;II&quot;</span>)</span></code></pre></div>
+<pre class="r-output">##                        call ss    comparisons Df    Sum Sq    Mean Sq  F value       Pr(&gt;F)      etasq partial_etasq    omegasq partial_omegasq  epsilonsq  cohens_f
 ## 1 uptake ~ Treatment * Type II      Treatment  1  988.1144  988.11440 15.41641 1.817080e-04 0.10179426    0.16156982 0.09456686      0.14648382 0.09519128 0.4389820
 ## 2 uptake ~ Treatment * Type II           Type  1 3365.5344 3365.53440 52.50856 2.377680e-10 0.34671298    0.39626543 0.33787899      0.38011297 0.34011000 0.8101586
 ## 3 uptake ~ Treatment * Type II Treatment:Type  1  225.7296  225.72964  3.52180 6.421283e-02 0.02325437    0.04216624 0.01654217      0.02914641 0.01665139 0.2098154
-## 4 uptake ~ Treatment * Type II      Residuals 80 5127.5971   64.09496       NA           NA         NA            NA         NA              NA         NA        NA</code></pre>
-<div class="sourceCode" id="cb70"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb70-1"><a href="#cb70-1" tabindex="-1"></a>sjstats<span class="sc">::</span><span class="fu">anova_stats</span>(factorial_between,<span class="at">digits=</span><span class="dv">10</span>)</span></code></pre></div>
-<pre><code>## etasq | partial.etasq | omegasq | partial.omegasq | epsilonsq | cohens.f |           term |    sumsq | df |   meansq | statistic | p.value | power
+## 4 uptake ~ Treatment * Type II      Residuals 80 5127.5971   64.09496       NA           NA         NA            NA         NA              NA         NA        NA
+</pre>
+<div class="sourceCode" id="cb41"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb41-1"><a href="#cb41-1" tabindex="-1"></a>sjstats<span class="sc">::</span><span class="fu">anova_stats</span>(factorial_between,<span class="at">digits=</span><span class="dv">10</span>)</span></code></pre></div>
+<pre class="r-output">## etasq | partial.etasq | omegasq | partial.omegasq | epsilonsq | cohens.f |           term |    sumsq | df |   meansq | statistic | p.value | power
 ## --------------------------------------------------------------------------------------------------------------------------------------------------
 ## 0.102 |         0.162 |   0.095 |           0.146 |     0.095 |    0.439 |      Treatment |  988.114 |  1 |  988.114 |    15.416 |  &lt; .001 | 0.975
 ## 0.347 |         0.396 |   0.338 |           0.380 |     0.340 |    0.810 |           Type | 3365.534 |  1 | 3365.534 |    52.509 |  &lt; .001 | 1.000
 ## 0.023 |         0.042 |   0.017 |           0.029 |     0.017 |    0.210 | Treatment:Type |  225.730 |  1 |  225.730 |     3.522 |   0.064 | 0.467
-##       |               |         |                 |           |          |      Residuals | 5127.597 | 80 |   64.095 |           |         |</code></pre>
-<div class="sourceCode" id="cb72"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb72-1"><a href="#cb72-1" tabindex="-1"></a><span class="fu">compute_aov_es</span>(<span class="at">model=</span>factorial_between,<span class="at">ss=</span><span class="st">&quot;III&quot;</span>)</span></code></pre></div>
-<pre><code>##                        call  ss    comparisons Df     Sum Sq     Mean Sq   F value       Pr(&gt;F)      etasq partial_etasq    omegasq partial_omegasq  epsilonsq  cohens_f
+##       |               |         |                 |           |          |      Residuals | 5127.597 | 80 |   64.095 |           |         |
+</pre>
+<div class="sourceCode" id="cb42"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb42-1"><a href="#cb42-1" tabindex="-1"></a><span class="fu">compute_aov_es</span>(<span class="at">model=</span>factorial_between,<span class="at">ss=</span><span class="st">&quot;III&quot;</span>)</span></code></pre></div>
+<pre class="r-output">##                        call  ss    comparisons Df     Sum Sq     Mean Sq   F value       Pr(&gt;F)      etasq partial_etasq    omegasq partial_omegasq  epsilonsq  cohens_f
 ## 1 uptake ~ Treatment * Type III      Treatment  1   988.1144   988.11440  15.41641 1.817080e-04 0.10179426    0.16156982 0.09456686      0.14648382 0.09519128 0.4389820
 ## 2 uptake ~ Treatment * Type III           Type  1  3365.5344  3365.53440  52.50856 2.377680e-10 0.34671298    0.39626543 0.33787899      0.38011297 0.34011000 0.8101586
 ## 3 uptake ~ Treatment * Type III Treatment:Type  1   225.7296   225.72964   3.52180 6.421283e-02 0.02325437    0.04216624 0.01654217      0.02914641 0.01665139 0.2098154
 ## 4 uptake ~ Treatment * Type III    (Intercept)  1 62206.4144 62206.41440 970.53513 1.709930e-46         NA            NA         NA              NA         NA        NA
-## 5 uptake ~ Treatment * Type III      Residuals 80  5127.5971    64.09496        NA           NA         NA            NA         NA              NA         NA        NA</code></pre>
-<div class="sourceCode" id="cb74"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb74-1"><a href="#cb74-1" tabindex="-1"></a>sjstats<span class="sc">::</span><span class="fu">anova_stats</span>(car<span class="sc">::</span><span class="fu">Anova</span>(factorial_between,<span class="at">Type=</span><span class="dv">3</span>),<span class="at">digits=</span><span class="dv">10</span>)</span></code></pre></div>
-<pre><code>## etasq | partial.etasq | omegasq | partial.omegasq | epsilonsq | cohens.f |           term |    sumsq | df |   meansq | statistic | p.value | power
+## 5 uptake ~ Treatment * Type III      Residuals 80  5127.5971    64.09496        NA           NA         NA            NA         NA              NA         NA        NA
+</pre>
+<div class="sourceCode" id="cb43"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb43-1"><a href="#cb43-1" tabindex="-1"></a>sjstats<span class="sc">::</span><span class="fu">anova_stats</span>(car<span class="sc">::</span><span class="fu">Anova</span>(factorial_between,<span class="at">Type=</span><span class="dv">3</span>),<span class="at">digits=</span><span class="dv">10</span>)</span></code></pre></div>
+<pre class="r-output">## etasq | partial.etasq | omegasq | partial.omegasq | epsilonsq | cohens.f |           term |    sumsq | df |   meansq | statistic | p.value | power
 ## --------------------------------------------------------------------------------------------------------------------------------------------------
 ## 0.102 |         0.162 |   0.095 |           0.146 |     0.095 |    0.439 |      Treatment |  988.114 |  1 |  988.114 |    15.416 |  &lt; .001 | 0.975
 ## 0.347 |         0.396 |   0.338 |           0.380 |     0.340 |    0.810 |           Type | 3365.534 |  1 | 3365.534 |    52.509 |  &lt; .001 | 1.000
 ## 0.023 |         0.042 |   0.017 |           0.029 |     0.017 |    0.210 | Treatment:Type |  225.730 |  1 |  225.730 |     3.522 |   0.064 | 0.467
-##       |               |         |                 |           |          |      Residuals | 5127.597 | 80 |   64.095 |           |         |</code></pre>
+##       |               |         |                 |           |          |      Residuals | 5127.597 | 80 |   64.095 |           |         |
+</pre>
 </div>
 <div id="post-hoc" class="section level2">
 <h2>Post Hoc</h2>
-<div class="sourceCode" id="cb76"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb76-1"><a href="#cb76-1" tabindex="-1"></a><span class="fu">compute_posthoc</span>(mtcars[,<span class="dv">6</span>],mtcars[,<span class="dv">10</span>])</span></code></pre></div>
-<pre><code>## $input
+<div class="sourceCode" id="cb44"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb44-1"><a href="#cb44-1" tabindex="-1"></a><span class="fu">compute_posthoc</span>(mtcars[,<span class="dv">6</span>],mtcars[,<span class="dv">10</span>])</span></code></pre></div>
+<pre class="r-output">## $input
 ## $input$x
 ##  [1] 4 4 4 3 3 3 3 4 4 4 4 3 3 3 3 3 3 4 4 4 3 3 3 3 3 4 5 5 5 5 5 4
 ## 
@@ -1833,7 +1876,8 @@ Installation instructions of workingfunctions can be found here <a href="https:/
 ## 
 ## 
 ## attr(,&quot;class&quot;)
-## [1] &quot;posthocTukeyGamesHowell&quot;</code></pre>
+## [1] &quot;posthocTukeyGamesHowell&quot;
+</pre>
 </div>
 
 
