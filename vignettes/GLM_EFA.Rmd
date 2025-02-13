@@ -1,7 +1,6 @@
 ---
 title: "GLM_EFA"
 author: "Dimitrios Zacharatos"
-date: "`r Sys.Date()`"
 output: rmarkdown::html_vignette
 vignette: >
   %\VignetteIndexEntry{GLM_EFA}
@@ -86,7 +85,6 @@ model3<-psych::fa(df1,nfactors=2,rotate="oblimin",fm="pa",oblique.scores=TRUE)
 plot_loadings(model=model3,matrix_type="pattern",base_size=10)
 ```
 
-
 # Plot Scree
 ```{r, plot_scree,fig.width=10,fig.height=5,echo=TRUE,message=FALSE,warning=FALSE,results='hide',dev='png',fig.retina=2}
 plot_scree(df=mtcars,title="",base_size=15)
@@ -109,9 +107,12 @@ compute_residual_stats(model)
 # Report EFA
 ```{r, report_efa,fig.width=10,fig.height=5,echo=TRUE,message=FALSE,warning=FALSE,results='hide',dev='png',fig.retina=2}
 model<-psych::fa(mtcars,nfactors=2,rotate="oblimin",fm="minres",oblique.scores=TRUE)
-report_efa(model=model,df=mtcars)
+result<-report_efa(model=model,df=mtcars)
 ```
 
+```{r, print_output,fig.width=10,fig.height=5,echo=TRUE,message=FALSE,warning=FALSE,dev='png',fig.retina=2}
+result
+```
 
 
 
