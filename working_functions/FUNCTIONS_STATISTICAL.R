@@ -44,13 +44,8 @@ compute_adjustment<-function(a,ntests) {
 #' compute_standard(vector,type="all")
 #' compute_standard(seq(-6,6,.1),type="all",input="standard")
 compute_standard<-function(vector,mean=0,sd=1,type="z",input="non_standard") {
-  mean_vector<-mean(vector,na.rm=TRUE)
-  sd_vector<-stats::sd(vector,na.rm=TRUE)
-  length_vector<-length(vector)
   if(input=="non_standard"){
-    numerator<-vector-mean_vector
-    denominator<-sd_vector
-    z<-numerator/denominator
+    z<-(vector-mean(vector,na.rm=TRUE))/stats::sd(vector,na.rm=TRUE)
   }
   if(input=="standard")
     z<-vector
@@ -82,9 +77,10 @@ compute_standard<-function(vector,mean=0,sd=1,type="z",input="non_standard") {
   if(type=="normal_density")
     result<-(1/(sqrt(sd*pi)))*exp(-0.5*((vector-mean)/sd)^2)
   if(type=="cumulative_density") {
-    result<-c()
-    for(i in 1:length(vector))
-      result<-c(result,vector[i]+sum(vector[1:i]))
+    result<-cumsum(vector)
+    # result<-cumprod(vector)
+    # result<-cummax(vector)
+    # result<-cummin(vector)
   }
   if(type=="all") {
     mydata<-data.frame(score=vector)
