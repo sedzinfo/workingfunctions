@@ -24,6 +24,8 @@ source(paste0(directory,"ENVIRONMENT_GENERATE_PACKAGE.R"))
 # 
 ##########################################################################################
 library(reticulate)
+system2("python", "--version")
+system2("R", "--version")
 use_python("/opt/pyrepo/bin/python3")
 use_virtualenv("/opt/pyrepo")
 ##########################################################################################
