@@ -21,7 +21,7 @@ compute_adjustment<-function(a,ntests) {
 #' @param vector vector
 #' @param mean numeric applicable to "uz"
 #' @param sd numeric applicable to "uz"
-#' @param type "z" "uz" "sten" "t" "stanine" "center" "center_reversed" "percent" "scale_zero_one" "normal_density" "cumulative_density" "all"
+#' @param type "z" "uz" "sten" "t" "stanine" "center" "center_reversed" "percent" "percentile" "scale_zero_one" "normal_density" "cumulative_density" "all"
 #' @param input "standard" "non_standard" standard inputs are z scores and non standard are raw scores
 #' @importFrom stats qnorm pnorm
 #' @keywords functions statistical
@@ -72,6 +72,8 @@ compute_standard<-function(vector,mean=0,sd=1,type="z",input="non_standard") {
     result<-mean(vector,na.rm=TRUE)-vector
   if(type=="percent")
     result<-(vector/max(vector,na.rm=TRUE))*100
+  if(type=="percentile")
+    result<-pnorm(z) * 100
   if(type=="scale_zero_one")
     result<-(vector-min(vector,na.rm=TRUE))/(max(vector,na.rm=TRUE)-min(vector,na.rm=TRUE))
   if(type=="normal_density")
@@ -89,6 +91,7 @@ compute_standard<-function(vector,mean=0,sd=1,type="z",input="non_standard") {
     mydata$t<-compute_standard(mydata$score,type="t",input=input)
     mydata$stanine<-compute_standard(mydata$score,type="stanine",input=input)
     mydata$percent<-compute_standard(mydata$score,type="percent",input=input)
+    mydata$percentile<-compute_standard(mydata$score,type="percentile",input=input)
     mydata$scale_0_1<-compute_standard(mydata$score,type="scale_zero_one",input=input)
     result<-data.frame(mydata[order(mydata$z),])
   }

@@ -1,7 +1,7 @@
 ##########################################################################################
 # PLOT ROC
 ##########################################################################################
-#' @title Plot ROC curve
+#' @title Plot Receiver Operating Characteristic (ROC) curve 
 #' @param observed vector of observed outcomes
 #' @param predicted vector of predicted outcome probability
 #' @param base_size base font size
