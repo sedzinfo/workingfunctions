@@ -6,8 +6,7 @@
 #' @param predicted vector of predicted outcome probability
 #' @param base_size base font size
 #' @param title plot title
-#' @importFrom pROC roc
-#' @importFrom pROC ggroc
+#' @importFrom pROC roc ggroc
 #' @keywords functions
 #' @export
 #' @examples
