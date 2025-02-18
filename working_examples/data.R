@@ -144,7 +144,6 @@
 "sexual_comp"
 
 
-
 df_admission<-read.csv("https://raw.githubusercontent.com/researchpy/Data-sets/master/admission.csv")
 df_automotive_data<-read.csv("https://raw.githubusercontent.com/researchpy/Data-sets/master/automotive_data.csv")
 df_blood_pressure<-read.csv("https://raw.githubusercontent.com/researchpy/Data-sets/master/blood_pressure.csv")
@@ -155,5 +154,3 @@ df_responses<-read.csv("https://raw.githubusercontent.com/researchpy/Data-sets/m
 df_responses_state<-read.csv("https://raw.githubusercontent.com/researchpy/Data-sets/master/responses_state.csv")
 df_sexual_comp<-read.csv("https://raw.githubusercontent.com/researchpy/Data-sets/master/sexual_comp.csv")
 
-
-head(df_responses,1)
