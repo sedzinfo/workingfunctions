@@ -345,24 +345,6 @@ recode_scale_dummy<-function(df,categories=10) {
   return(result)
 }
 ##########################################################################################
-# CONFUSION FOR CLASSIFICATION
-##########################################################################################
-#' @title Create a confusion matrix from observed and expected vectors
-#' @param observed vector of observed variables
-#' @param predicted vector of predicted variables
-#' @importFrom gtools mixedsort
-#' @keywords functions
-#' @export
-#' @examples
-#' confusion(observed=c(1,2,3,4,5,10),predicted=c(1,2,3,4,5,11))
-#' confusion(observed=c(1,2,2,2,2),predicted=c(1,1,2,2,2))
-confusion<-function(observed,predicted) {
-  levels<-gtools::mixedsort(as.character(unique(c(observed,predicted))),decreasing=FALSE)
-  result<-table(predicted=factor(as.character(predicted),levels=levels),
-                observed=factor(as.character(observed),levels=levels))
-  return(result)
-}
-##########################################################################################
 # PROPORTION ACCURATE
 ##########################################################################################
 #' @title Proportion overall accuracy of a confusion matrix
@@ -394,6 +376,24 @@ proportion_accurate<-function(observed,predicted) {
                      kappa_unweighted=kappa_unweighted$value,
                      kappa_linear=kappa_linear$value,
                      kappa_squared=kappa_squared$value)
+  return(result)
+}
+##########################################################################################
+# CONFUSION FOR CLASSIFICATION
+##########################################################################################
+#' @title Create a confusion matrix from observed and expected vectors
+#' @param observed vector of observed variables
+#' @param predicted vector of predicted variables
+#' @importFrom gtools mixedsort
+#' @keywords functions
+#' @export
+#' @examples
+#' confusion(observed=c(1,2,3,4,5,10),predicted=c(1,2,3,4,5,11))
+#' confusion(observed=c(1,2,2,2,2),predicted=c(1,1,2,2,2))
+confusion<-function(observed,predicted) {
+  levels<-gtools::mixedsort(as.character(unique(c(observed,predicted))),decreasing=FALSE)
+  result<-table(predicted=factor(as.character(predicted),levels=levels),
+                observed=factor(as.character(observed),levels=levels))
   return(result)
 }
 ##########################################################################################
