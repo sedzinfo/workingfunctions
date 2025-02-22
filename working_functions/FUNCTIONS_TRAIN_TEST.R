@@ -198,7 +198,8 @@ plot_separability<-function(observed,predicted,base_size=10,title="") {
 #' - A legend representing different performance metrics.
 #' - A caption showing the number of observations and the optimal cut-off point.
 #'
-#' The function returns a list containing the plot, the data frame with cut-off performance, the optimal cut-off point, and the confusion matrix at the optimal cut-off.
+#' The function returns a list containing the plot, the data frame with cut-off performance, the optimal cut-off point, 
+#' and the confusion matrix at the optimal cut-off.
 result_confusion_performance<-function(observed,predicted,step=.1,base_size=10,title="") {
   cut_point<-value<-variable<-NULL
   df_cut_performance<-data.frame()
