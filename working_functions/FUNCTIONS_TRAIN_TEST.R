@@ -27,7 +27,8 @@
 #' plot_roc(observed=round(abs(df1$X1), 0), predicted=abs(df1$X2))
 #'
 #' @details
-#' This function generates a ROC curve to evaluate the performance of a binary classification model. The ROC curve is a plot of the true positive rate (TPR) against the false positive rate (FPR) at various threshold settings.
+#' This function generates a ROC curve to evaluate the performance of a binary classification model. 
+#' The ROC curve is a plot of the true positive rate (TPR) against the false positive rate (FPR) at various threshold settings.
 #'
 #' The function performs the following steps:
 #' 1. Computes the ROC curve and its confidence interval using `pROC::roc`.
@@ -161,7 +162,8 @@ plot_separability<-function(observed,predicted,base_size=10,title="") {
 # PLOT CONFUSION PERFORMANCE
 ##########################################################################################
 #' @title Plot performance of confusion matrix for different cut off points
-#' @description This function generates a plot to visualize the performance of a confusion matrix at various cut-off points. It evaluates the proportion of correct classifications and identifies the optimal cut-off point.
+#' @description This function generates a plot to visualize the performance of a confusion matrix at various cut-off points. 
+#' It evaluates the proportion of correct classifications and identifies the optimal cut-off point.
 #' @inheritParams plot_roc
 #' @param observed Vector of observed outcomes. This can be numeric or factor values representing the true class labels.
 #' @param predicted Vector of predicted outcome probabilities. This should have the same length as the observed vector and represent the predicted probabilities.
@@ -187,7 +189,8 @@ plot_separability<-function(observed,predicted,base_size=10,title="") {
 #' result_confusion_performance(observed=c(1, 2, 3, 1, 2, 3), predicted=abs(rnorm(6, 0, sd=0.1)))
 #'
 #' @details
-#' This function evaluates the performance of a confusion matrix at different cut-off points. It iterates through a range of cut-off points, calculates the confusion matrix, and evaluates the proportion of correct classifications for each cut-off.
+#' This function evaluates the performance of a confusion matrix at different cut-off points. It iterates through a range of cut-off points, 
+#' calculates the confusion matrix, and evaluates the proportion of correct classifications for each cut-off.
 #'
 #' The function generates a plot that includes:
 #' - The proportion of correct classifications for different cut-off points.
@@ -254,7 +257,8 @@ result_confusion_performance<-function(observed,predicted,step=.1,base_size=10,t
 #' result <- k_fold(mtcars, k=2, model_formula=model_formula)
 #'
 #' @details
-#' This function performs k-fold cross-validation by splitting the input dataframe into k folds. Each fold serves as a test set once, while the remaining k-1 folds form the training set.
+#' This function performs k-fold cross-validation by splitting the input dataframe into k folds. 
+#' Each fold serves as a test set once, while the remaining k-1 folds form the training set.
 #'
 #' The function prepares data objects for xgboost model training and evaluation, including train/test datasets and xgboost DMatrix objects.
 #'
@@ -325,7 +329,8 @@ k_fold<-function(df,model_formula,k=10) {
 #' result <- k_sample(df=mtcars, k=10, model_formula=model_formula)
 #'
 #' @details
-#' This function performs k-fold cross-validation or a simple train-test split (if k=1) by splitting the input dataframe into k folds. Each fold serves as a test set once, while the remaining k-1 folds form the training set.
+#' This function performs k-fold cross-validation or a simple train-test split (if k=1) by splitting the input dataframe into k folds. 
+#' Each fold serves as a test set once, while the remaining k-1 folds form the training set.
 #'
 #' The function prepares data objects for xgboost model training and evaluation, including train, test, and validation datasets and xgboost DMatrix objects.
 #'
@@ -420,7 +425,9 @@ k_sample<-function(df,model_formula,k=1) {
 #' recode_scale_dummy(df)
 #'
 #' @details
-#' This function processes a dataframe by scaling numeric variables and creating dummy codes for character and factor variables. The numeric variables are scaled between 0 and 1, while the character and factor variables are converted to dummy variables if they have fewer unique values than the specified `categories` parameter.
+#' This function processes a dataframe by scaling numeric variables and creating dummy codes for character and factor variables. 
+#' The numeric variables are scaled between 0 and 1, while the character and factor variables are converted to dummy variables if they have fewer unique values than 
+#' the specified `categories` parameter.
 #'
 #' The function performs the following steps:
 #' 1. Identifies numeric variables in the dataframe and scales them.
@@ -568,7 +575,8 @@ confusion<-function(observed,predicted) {
 #' confusion_matrix_percent(observed, predicted)
 #'
 #' @details
-#' This function creates a confusion matrix by comparing the observed (true) class labels with the predicted class labels. Additionally, it calculates row and column percentages to provide a more detailed performance analysis.
+#' This function creates a confusion matrix by comparing the observed (true) class labels with the predicted class labels. Additionally, 
+#' it calculates row and column percentages to provide a more detailed performance analysis.
 #'
 #' The function performs the following steps:
 #' 1. Computes the confusion matrix from the observed and predicted values.
