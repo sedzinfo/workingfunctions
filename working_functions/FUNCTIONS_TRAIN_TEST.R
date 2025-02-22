@@ -379,7 +379,7 @@ proportion_accurate<-function(observed,predicted) {
   return(result)
 }
 ##########################################################################################
-# CONFUSION FOR CLASSIFICATION
+# CONFUSION MATRIX
 ##########################################################################################
 #' @title Create a confusion matrix from observed and expected vectors
 #' @param observed vector of observed variables
