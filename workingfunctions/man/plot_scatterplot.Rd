@@ -19,7 +19,8 @@ plot_scatterplot(
 \arguments{
 \item{df}{dataframe if dataframe consists of 2 collumns the second collumn is the outcome and the first collumn is the predictor}
 
-\item{method}{smoothing method, "auto", "lm", "glm", "gam", "loess" or a function, e.g. MASS::rlm or mgcv::gam, stats::lm, or stats::loess}
+\item{method}{smoothing method, "auto", "lm", "glm", "gam", "loess" or a function, 
+e.g. MASS::rlm or mgcv::gam, stats::lm, or stats::loess}
 
 \item{formula}{formula used in smoothing function for geom_smooth}
 
@@ -31,7 +32,7 @@ plot_scatterplot(
 
 \item{title}{Plot title}
 
-\item{combinations}{dataframe if not NULL user can provide a dataframe for variable combinations for x and y axis . First collumn represents x and second collumn represents y}
+\item{combinations}{dataframe if not NULL user can provide a dataframe for variable combinations for x and y axis . First column represents x and second column represents y}
 
 \item{string_aes}{if TRUE string_aes function is used for names}
 }

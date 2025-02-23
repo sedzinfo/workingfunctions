@@ -23,6 +23,8 @@ plot_loadings(
 \item{base_size}{base font size}
 
 \item{color}{color ranges for heatmap}
+
+\item{sort}{TRUE or FALSE sort loadings}
 }
 \description{
 Plot loadings

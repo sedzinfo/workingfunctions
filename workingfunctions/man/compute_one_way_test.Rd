@@ -9,7 +9,10 @@ compute_one_way_test(formula, df, var.equal = TRUE)
 \arguments{
 \item{formula}{one way formula in form of y~x. It will ignore more complex formulas}
 
-\item{df}{dataframe}
+\item{df}{dataframe
+eta squared ranges between 0 and 1 \cr
+epsilon squared ranges between 0 and 1 \cr
+eta squared multiplied by 100 indicates the percentage of variance in the dependent variable explained by the independent variable \cr}
 
 \item{var.equal}{if TRUE it assumes equal variances}
 }
@@ -17,7 +20,7 @@ compute_one_way_test(formula, df, var.equal = TRUE)
 one way test
 }
 \note{
-eta and omega for welch statistics are not adequatelly tested and they should not be consulted \cr
+eta and omega for Welch statistics are not adequately tested and they should not be consulted
 }
 \examples{
 form<-formula(qsec~cyl)

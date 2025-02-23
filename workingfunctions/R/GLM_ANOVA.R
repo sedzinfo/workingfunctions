@@ -4,7 +4,6 @@
 #' @title Kruskal Wallis test
 #' @param formula one way formula in form of y~x. It will ignore more complex formulas
 #' @param df dataframe
-#' @note 
 #' eta squared ranges between 0 and 1 \cr
 #' epsilon squared ranges between 0 and 1 \cr
 #' eta squared multiplied by 100 indicates the percentage of variance in the dependent variable explained by the independent variable \cr
@@ -42,7 +41,7 @@ compute_kruskal_wallis_test<-function(formula,df) {
 #' @title one way test
 #' @inheritParams compute_kruskal_wallis_test
 #' @param var.equal if TRUE it assumes equal variances
-#' @note eta and omega for welch statistics are not adequatelly tested and they should not be consulted \cr
+#' @note eta and omega for Welch statistics are not adequately tested and they should not be consulted
 #' @importFrom stats pf
 #' @keywords ANOVA
 #' @export
@@ -474,15 +473,19 @@ report_factorial_anova<-function(df,dv,wid,within=NULL,within_full=NULL,between=
 #' @param file output filename
 #' @keywords ANOVA
 #' @note
-#' Pillai-Bartlett trace (V): Represents the sum of the proportion of explained variance on the discriminant functions. As such,it is similar to the ratio of SS M /SS T,which is known as R 2. \cr
+#' Pillai-Bartlett trace (V): Represents the sum of the proportion of explained variance on the discriminant functions. 
+#' As such,it is similar to the ratio of SS M /SS T,which is known as R 2. \cr
 #' Hotelling-s T 2: Represents the sum of the eigenvalues for each variate it compares directly to the F-ratio in ANOVA  \cr
 #' Wilks-s lambda (L): Represents the ratio of error variance to total variance (SS R /SS T ) for each variate.  \cr
 #' Roy-s largest root: Represents the proportion of explained variance to unexplained variance (SS M /SS R ) for the first discriminant function.  \cr
 #' ASSUMPTIONS  \cr
 #' Independence: Observations should be statistically independent.  \cr
 #' Random sampling: Data should be randomly sampled from the population of interest and measured at an interval level.  \cr
-#' Multivariate normality: In ANOVA,we assume that our dependent variable is normally distributed within each group. In the case of MANOVA,we assume that the dependent variables (collectively) have multivariate normality within groups.  \cr
-#' Homogeneity of covariance matrices: In ANOVA,it is assumed that the variances in each group are roughly equal (homogeneity of variance). In MANOVA we must assume that this is true for each dependent variable,but also that the correlation between any two dependent variables is the same in all groups. This assumption is examined by testing whether the population variance-covariance matrices of the different groups in the analysis are equal.
+#' Multivariate normality: In ANOVA,we assume that our dependent variable is normally distributed within each group. 
+#' In the case of MANOVA,we assume that the dependent variables (collectively) have multivariate normality within groups.  \cr
+#' Homogeneity of covariance matrices: In ANOVA,it is assumed that the variances in each group are roughly equal (homogeneity of variance). 
+#' In MANOVA we must assume that this is true for each dependent variable,but also that the correlation between any two dependent variables is the same in all groups. 
+#' This assumption is examined by testing whether the population variance-covariance matrices of the different groups in the analysis are equal.
 #' @importFrom car Anova
 #' @importFrom openxlsx createWorkbook saveWorkbook
 #' @export
@@ -610,7 +613,7 @@ compute_aov_es<-function(model,ss="I") {
 #' @description Based on http://www.psych.yorku.ca/cribbie/6130/games_howell.R
 #' @param y Vector continous variable
 #' @param x Vector factor
-#' @param method Character takes two values "games-howell" or "tukey" or c("games-howell","tukey")
+#' @param method Character "games-howell" "tukey" or c("games-howell","tukey")
 #' @importFrom utils combn
 #' @importFrom stats ptukey
 #' @keywords ANOVA

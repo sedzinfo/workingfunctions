@@ -16,7 +16,7 @@ Scales numeric variables between 0 and 1 and creates dummy coding for character 
 }
 \details{
 This function processes a dataframe by scaling numeric variables and creating dummy codes for character and factor variables. 
-The numeric variables are scaled between 0 and 1, while the character and factor variables are converted to dummy variables if they have fewer unique values than 
+The numeric variables are scaled between 0 and 1,while the character and factor variables are converted to dummy variables if they have fewer unique values than 
 the specified `categories` parameter.
 
 The function performs the following steps:
@@ -31,9 +31,9 @@ The output is a dataframe with scaled numeric variables and dummy-coded characte
 recode_scale_dummy(infert)
 
 # Example with a custom dataframe
-df <- data.frame(
-  numeric_var = c(1, 2, 3, 4, 5),
-  factor_var = factor(c('A', 'B', 'A', 'B', 'C'))
+df<-data.frame(
+  numeric_var = c(1,2,3,4,5),
+  factor_var = factor(c('A','B','A','B','C'))
 )
 recode_scale_dummy(df)
 

@@ -28,8 +28,8 @@ This function generates a plot to visualize the performance of a confusion matri
 It evaluates the proportion of correct classifications and identifies the optimal cut-off point.
 }
 \details{
-This function evaluates the performance of a confusion matrix at different cut-off points. It iterates through a range of cut-off points, 
-calculates the confusion matrix, and evaluates the proportion of correct classifications for each cut-off.
+This function evaluates the performance of a confusion matrix at different cut-off points. It iterates through a range of cut-off points,
+calculates the confusion matrix,and evaluates the proportion of correct classifications for each cut-off.
 
 The function generates a plot that includes:
 - The proportion of correct classifications for different cut-off points.
@@ -37,22 +37,23 @@ The function generates a plot that includes:
 - A legend representing different performance metrics.
 - A caption showing the number of observations and the optimal cut-off point.
 
-The function returns a list containing the plot, the data frame with cut-off performance, the optimal cut-off point, 
+The function returns a list containing the plot,the data frame with cut-off performance,the optimal cut-off point,
 and the confusion matrix at the optimal cut-off.
 }
 \examples{
 # Example with numeric class labels
-df <- data.frame(matrix(.999, ncol=2, nrow=2))
-correlation_matrix <- as.matrix(df)
-diag(correlation_matrix) <- 1
-df <- generate_correlation_matrix(correlation_matrix, nrows=1000)
-df$X1 <- ifelse(abs(df$X1) < 1, 0, 1)
-df$X2 <- abs(df$X2)
-df$X2 <- (df$X2 - min(df$X2)) / (max(df$X2) - min(df$X2))
-result_confusion_performance(observed=round(abs(df$X1), 0),
+df<-data.frame(matrix(.999,ncol=2,nrow=2))
+correlation_matrix<-as.matrix(df)
+diag(correlation_matrix)<-1
+df<-generate_correlation_matrix(correlation_matrix,nrows=1000)
+df$X1<-ifelse(abs(df$X1) < 1,0,1)
+df$X2<-abs(df$X2)
+df$X2<-(df$X2 - min(df$X2)) / (max(df$X2) - min(df$X2))
+result_confusion_performance(observed=round(abs(df$X1),0),
                              predicted=abs(df$X2),
                              step=0.01)
-result_confusion_performance(observed=c(1, 2, 3, 1, 2, 3), predicted=abs(rnorm(6, 0, sd=0.1)))
+result_confusion_performance(observed=c(1,2,3,1,2,3),
+                             predicted=abs(rnorm(6,0,sd=0.1)))
 
 }
 \keyword{functions}

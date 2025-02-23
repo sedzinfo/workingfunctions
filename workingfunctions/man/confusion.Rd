@@ -23,14 +23,14 @@ The function performs the following steps:
 2. Sorts the class labels in a mixed order (if they are character variables) using `gtools::mixedsort`.
 3. Constructs a table to represent the confusion matrix with the sorted class labels as levels.
 
-The output is a confusion matrix, where rows represent the predicted class labels and columns represent the observed class labels.
+The output is a confusion matrix,where rows represent the predicted class labels and columns represent the observed class labels.
 }
 \examples{
 # Example with numeric observed and predicted values
-confusion(observed=c(1, 2, 3, 4, 5, 10), predicted=c(1, 2, 3, 4, 5, 11))
+confusion(observed=c(1,2,3,4,5,10),predicted=c(1,2,3,4,5,11))
 
 # Example with repeated observed and predicted values
-confusion(observed=c(1, 2, 2, 2, 2), predicted=c(1, 1, 2, 2, 2))
+confusion(observed=c(1,2,2,2,2),predicted=c(1,1,2,2,2))
 
 }
 \keyword{functions}

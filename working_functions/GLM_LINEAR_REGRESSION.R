@@ -3,12 +3,13 @@
 ##########################################################################################
 #' @title Plot plot_scatterplot
 #' @param df dataframe if dataframe consists of 2 collumns the second collumn is the outcome and the first collumn is the predictor
-#' @param method smoothing method, "auto", "lm", "glm", "gam", "loess" or a function, e.g. MASS::rlm or mgcv::gam, stats::lm, or stats::loess
+#' @param method smoothing method, "auto", "lm", "glm", "gam", "loess" or a function, 
+#' e.g. MASS::rlm or mgcv::gam, stats::lm, or stats::loess
 #' @param formula formula used in smoothing function for geom_smooth
 #' @param base_size base font size
 #' @param coord_equal if TRUE axes maintain equal scale
 #' @param all_orders if TRUE the order of combination is considered
-#' @param combinations dataframe if not NULL user can provide a dataframe for variable combinations for x and y axis . First collumn represents x and second collumn represents y
+#' @param combinations dataframe if not NULL user can provide a dataframe for variable combinations for x and y axis . First column represents x and second column represents y
 #' @param string_aes if TRUE string_aes function is used for names
 #' @param title Plot title
 #' @import ggplot2 foreach doSNOW
@@ -138,36 +139,46 @@ plot_scatterplot<-function(df,method=lm,formula=y~x,base_size=10,coord_equal=FAL
 #' @param file output filename
 #' @note
 #' (1) Problematic values for standardized residuals > +-1.96 \cr
-#' Standardized residuals are residuals divided by an estimated standard deviation and they can be interpreted as z scores in that: \cr
-#' 95.00% of z-scores lie between -1.96 and +1.96 \cr
-#' 99.00% of z-scores lie between -2.58 and +2.58 \cr 
-#' 99.99% of z-scores lie between -3.29 and +3.29 \cr
-#' (2) Studentized residuals indicate the the ability of the model to predict that case. They follow a t distribution \cr
-#' (3) DFFits indicate the difference between the adjusted predicted value and the original predicted value. Adjusted predicted value for a case refers to the predicted value of that case, when that case is excluded from model fit. \cr
-#' (4) Cook's distance indicates leverage. Problematic values for cook's distance > 1 Cook and Weisberg (1982). \cr
-#' (5) Hat values indicate leverage. Problematic values for Hat values 2 or 3 times the average (k+1/n) \cr
-#' The average leverage value is defined as (k+1)/n, k=number of predictors, n=number of participants. Leverage values lie between 0 (no influence) and 1 (complete influence over prediction) \cr
-#' Hoaglin and Welsch (1978) recommends investigating cases with values greater than twice the average (2(k+1)/n) \cr
-#' Stevens (2002) recommends investigating cases with values greater than three times the average (3(k+1)/n) \cr
-#' T-tests test the hypothesis that b's are different from 0 \cr
-#' Multiple R^2: Variance Explained \cr
-#' Adjusted R^2: Indicates how much variance in Y would be accounted for if the model is derived from the population from which the sample was taken. Idealy, R^2 = Adjusted R^2 \cr
-#' F-Statistic tests the null hypothesis is that the overall model has no effect \cr
-#' Covariance ratios critical values CVR>1+[3(k+1)/n] CRV<1-[3(k+1)/n]. In general we should obtain small values or we may have to remove cases
-#' ASSUMPTIONS \cr
-#' (1) variable types: All predictors must be quantitative or categorical (with two levels), and the outcome variable must be quantitative (interval data), continuous and unbounded (no constraints on the variability of the outcome)
+#' **Standardized residuals** are residuals divided by an estimated standard deviation and they can be interpreted as z scores in that: \cr
+#' - 95.00% of z-scores lie between -1.96 and +1.96 \cr
+#' - 99.00% of z-scores lie between -2.58 and +2.58 \cr 
+#' - 99.99% of z-scores lie between -3.29 and +3.29 \cr
+#' (2) **Studentized residuals** indicate the the ability of the model to predict that case. They follow a t distribution \cr
+#' (3) **DFFits** indicate the difference between the adjusted predicted value and the original predicted value. 
+#' Adjusted predicted value for a case refers to the predicted value of that case, when that case is excluded from model fit. \cr
+#' (4) **Cook's distance** indicates leverage. Problematic values for cook's distance > 1 Cook and Weisberg (1982). \cr
+#' (5) **Hat values** indicate leverage. Problematic values for Hat values 2 or 3 times the average (k+1/n) \cr
+#' The average leverage value is defined as (k+1)/n, k=number of predictors, n=number of participants. 
+#' Leverage values lie between 0 (no influence) and 1 (complete influence over prediction) \cr
+#' - Hoaglin and Welsch (1978) recommends investigating cases with values greater than twice the average (2(k+1)/n) \cr
+#' - Stevens (2002) recommends investigating cases with values greater than three times the average (3(k+1)/n) \cr
+#' **T-tests** test the hypothesis that b's are different from 0 \cr
+#' **Multiple R^2**: Variance Explained \cr
+#' **Adjusted R^2**: Indicates how much variance in Y would be accounted for if the model is derived from the population from which the sample was taken. 
+#' Idealy, R^2 = Adjusted R^2 \cr
+#' **F-Statistic** tests the null hypothesis is that the overall model has no effect \cr
+#' **Covariance ratios** critical values CVR>1+[3(k+1)/n] CRV<1-[3(k+1)/n]. In general we should obtain small values or we may have to remove cases\cr
+#' **ASSUMPTIONS** \cr
+#' (1) variable types: All predictors must be quantitative or categorical (with two levels), 
+#' and the outcome variable must be quantitative (interval data), 
+#' continuous and unbounded (no constraints on the variability of the outcome)
 #' (2) Non-zero variance \cr
 #' (3) No perfect multicollinearity \cr
 #' (4) Predictors are uncorrelated with -external variables- \cr
-#' (5) Homoscedasticity: At each level of the predictor variable(s), the variance of the residual terms should be constant. Residuals at each level of the predictor(s) should have similar variance (homoscedasticity) \cr
-#' (6) Independent errors: For any two observations the residual terms should be uncorrelated (or independent)
+#' (5) Homoscedasticity: At each level of the predictor variable(s), the variance of the residual terms should be constant. 
+#' Residuals at each level of the predictor(s) should have similar variance (homoscedasticity) \cr
+#' (6) Independent errors: For any two observations the residual terms should be uncorrelated (or independent)\cr
 #' This eventuality is sometimes described as a lack of autocorrelation.
-#' This assumption can be tested with the Durbin-Watson test,which tests for serial correlations between errors. Specifically, it tests whether adjacent residuals are correlated
+#' This assumption can be tested with the Durbin-Watson test,which tests for serial correlations between errors.
+#' Specifically, it tests whether adjacent residuals are correlated
 #' The size of the Durbin-Watson statistic depends upon the number of predictors in the model and the number of observations
-#' As a very conservative rule of thumb, values less than 1 or greater than 3 are definitely cause for concern; however,values closer to 2 may still be problematic depending on your sample and model
-#' R also provides a p-value of the autocorrelation. Be very careful with the Durbin-Watson test, though, as it depends on the order of the data: if you reorder your data, you-ll get a different value \cr
+#' As a very conservative rule of thumb, values less than 1 or greater than 3 are definitely cause for concern; 
+#' however,values closer to 2 may still be problematic depending on your sample and model
+#' R also provides a p-value of the autocorrelation. 
+#' Be very careful with the Durbin-Watson test, though, as it depends on the order of the data: if you reorder your data, you-ll get a different value \cr
 #' (7) Normally distributed errors: It is assumed that the residuals in the model are random, normally distributed variables with a mean of 0 \cr
-#' (8) Independence: It is assumed that all of the values of the outcome variable are independent (in other words, each value of the outcome variable comes from a separate entity) \cr
+#' (8) Independence: It is assumed that all of the values of the outcome variable are independent 
+#' (in other words, each value of the outcome variable comes from a separate entity) \cr
 #' (9) Linearity: The mean values of the outcome variable for each increment of the predictor(s) lie along a straight line \cr
 #' @import ggfortify
 #' @importFrom stats confint deviance
@@ -182,7 +193,9 @@ plot_scatterplot<-function(df,method=lm,formula=y~x,base_size=10,coord_equal=FAL
 #' res<-report_regression(model=regressionmodel,plot_diagnostics=TRUE)
 #' res<-report_regression(model=multipleregressionmodel)
 #' res<-report_regression(model=regressionmodel,file="regression")
-#' res<-report_regression(model=multipleregressionmodel,file="regression",plot_diagnostics=TRUE)
+#' res<-report_regression(model=multipleregressionmodel,
+#'                        file="regression",
+#'                        plot_diagnostics=TRUE)
 report_regression<-function(model,base_size=10,title="",file=NULL,w=10,h=10,plot_diagnostics=TRUE) {
   anova<-NULL
   instruction_coefficients<-c("Unstandardized coefficients (b's) indicate the change in the outcome resulting from a unit change in the predictor",

@@ -18,27 +18,27 @@ Splits a dataframe into train and test dataframes for model evaluation. Prepared
 }
 \details{
 This function performs k-fold cross-validation or a simple train-test split (if k=1) by splitting the input dataframe into k folds. 
-Each fold serves as a test set once, while the remaining k-1 folds form the training set.
+Each fold serves as a test set once,while the remaining k-1 folds form the training set.
 
-The function prepares data objects for xgboost model training and evaluation, including train, test, and validation datasets and xgboost DMatrix objects.
+The function prepares data objects for xgboost model training and evaluation,including train,test,and validation datasets and xgboost DMatrix objects.
 
 The output is a list containing the following elements:
-- `f`: List of train, test, and validation datasets for each fold.
+- `f`: List of train,test,and validation datasets for each fold.
 - `index`: Vector of fold indices.
 - `model_formula`: Model formula used for generating the datasets.
 - `variables`: Names of the variables in the model formula.
 - `predictors`: Names of the predictor variables.
 - `outcome`: Name of the outcome variable.
-- `xgb`: List of xgboost DMatrix objects for training, testing, and validation.
+- `xgb`: List of xgboost DMatrix objects for training,testing,and validation.
 }
 \examples{
 # Example with the 'infert' dataset
-infert_formula <- as.formula(factor(case) ~ age + parity + education + spontaneous + induced)
-result <- k_sample(df=infert, k=10, model_formula=infert_formula)
+infert_formula<-formula(case~education+spontaneous+induced)
+result<-k_sample(df=infert,k=10,model_formula=infert_formula)
 
 # Example with the 'mtcars' dataset
-model_formula <- as.formula(mpg ~ cyl + disp + hp + drat + wt + qsec + vs + am + gear + carb)
-result <- k_sample(df=mtcars, k=10, model_formula=model_formula)
+model_formula<-as.formula(mpg ~ cyl + disp + hp + drat + wt + qsec + vs + am + gear + carb)
+result<-k_sample(df=mtcars,k=10,model_formula=model_formula)
 
 }
 \keyword{functions}

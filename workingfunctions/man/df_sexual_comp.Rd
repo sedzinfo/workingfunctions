@@ -29,6 +29,7 @@ researchpy repo
 df_sexual_comp
 }
 \description{
-This data set contains responses to questions about sexual compatibility, including scores, gender, and age.
+This data set contains responses to questions about sexual compatibility, 
+including scores, gender, and age.
 }
 \keyword{datasets}

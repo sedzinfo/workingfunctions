@@ -11,7 +11,7 @@ compute_posthoc(y, x, method = c("games-howell", "tukey"))
 
 \item{x}{Vector factor}
 
-\item{method}{Character takes two values "games-howell" or "tukey" or c("games-howell","tukey")}
+\item{method}{Character "games-howell" "tukey" or c("games-howell","tukey")}
 }
 \description{
 Based on http://www.psych.yorku.ca/cribbie/6130/games_howell.R

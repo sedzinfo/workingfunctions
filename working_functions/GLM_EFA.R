@@ -7,6 +7,7 @@
 #' @param title plot title
 #' @param base_size base font size
 #' @param color color ranges for heatmap
+#' @param sort TRUE or FALSE sort loadings
 #' @import ggplot2
 #' @import grid
 #' @importFrom reshape2 melt

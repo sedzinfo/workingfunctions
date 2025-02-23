@@ -23,6 +23,7 @@ researchpy repo
 df_insurance
 }
 \description{
-This data set contains information about insurance charges based on various factors such as age, sex, BMI, number of children, smoking status, and region.
+This data set contains information about insurance charges based on various factors 
+such as age, sex, BMI, number of children, smoking status, and region.
 }
 \keyword{datasets}

@@ -135,7 +135,6 @@ text_similarity<-function(text1,text2) {
 #' @title Text similarity measures
 #' @param text character vector
 #' @importFrom future.apply future_sapply
-#' @importFrom future plan availableCores multiprocess
 #' @importFrom stats sd
 #' @importFrom spelling spell_check_text
 #' @keywords NLP
@@ -146,7 +145,6 @@ text_similarity<-function(text1,text2) {
 #' or randomised words which don't look even slightly believable."
 #' stat_word_char(text)
 stat_word_char<-function(text) {
-  # future::plan(future::multiprocess,gc=TRUE,.cleanup=TRUE,workers=future::availableCores("mc.cores"))
   text<-clear_text(text)
   data<-strsplit(text," ")
   words<-future.apply::future_sapply(data,length)

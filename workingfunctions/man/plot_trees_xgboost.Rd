@@ -17,23 +17,29 @@ plot_trees_xgboost(model, train, file = "xgboost")
 Plot trees for xgboost::xgb.train
 }
 \examples{
-infert_formula<-as.formula(factor(case)~education+spontaneous+induced)
-boston_formula<-as.formula(c("medv~",paste(names(MASS::Boston)[1:13],collapse="+")))
-train_test_classification<-workingfunctions::k_fold(df=infert,model_formula=infert_formula)
-train_test_regression<-workingfunctions::k_fold(df=MASS::Boston,model_formula=boston_formula)
-xgb_classification<-xgboost::xgb.train(data=train_test_classification$xgb$f1$train,
-                                       watchlist=train_test_classification$xgb$f1$watchlist,
-                                       eta=.1,
-                                       nthread=8,
-                                       nround=20,
-                                       objective="binary:logistic")
-xgb_regression<-xgboost::xgb.train(data=train_test_regression$xgb$f1$train,
-                                   watchlist=train_test_regression$xgb$f1$watchlist,
-                                   eta=.3,
-                                   nthread=8,
-                                   nround=20)
-xgboost::xgb.plot.multi.trees(model = xgb_classification, features_keep = 2)
-plot_trees_xgboost(model=xgb_classification,train=train_test_classification$xgb$f1,file="Classification")
-plot_trees_xgboost(model=xgb_regression,train=train_test_regression$xbg$f1,file="Regression")
+infert_formula<-formula(case~education+spontaneous+induced)
+boston_formula<-formula(medv~crim+zn+indus+chas+nox+rm+age+dis+rad+tax+ptratio+black+lstat)
+train_test_classification<-k_fold(df=infert,model_formula=infert_formula)
+train_test_regression<-k_fold(df=MASS::Boston,model_formula=boston_formula)
+xgb_classification<-xgboost::xgb.train(
+                    data=train_test_classification$xgb$f1$train,
+                    watchlist=train_test_classification$xgb$f1$watchlist,
+                    eta=.1,
+                    nthread=8,
+                    nround=20,
+                    objective="binary:logistic")
+xgb_regression<-xgboost::xgb.train(
+                data=train_test_regression$xgb$f1$train,
+                watchlist=train_test_regression$xgb$f1$watchlist,
+                eta=.3,
+                nthread=8,
+                nround=20)
+# xgboost::xgb.plot.multi.trees(model=xgb_classification,features_keep=2)
+# plot_trees_xgboost(model=xgb_classification,
+#                    train=train_test_classification$xgb$f1,
+#                    file="Classification")
+# plot_trees_xgboost(model=xgb_regression,
+#                    train=train_test_regression$xbg$f1,
+#                    file="Regression")
 }
 \keyword{ML}

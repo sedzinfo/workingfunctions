@@ -1,6 +1,7 @@
 #' Admission Data
 #'
-#' This data set contains information about graduate admission, including GRE scores, GPA, and the ranking of the undergraduate institution.
+#' This data set contains information about graduate admission, 
+#' including GRE scores, GPA, and the ranking of the undergraduate institution.
 #'
 #' @format A data frame with 8 rows and 4 variables:
 #' \describe{
@@ -14,7 +15,9 @@
 
 #' Automotive Data
 #'
-#' This data set contains various automotive information including engine location, dimensions, weight, engine type, number of cylinders, and other specifications.
+#' This data set contains various automotive information including 
+#' engine location, dimensions, weight, engine type, number of cylinders, 
+#' and other specifications.
 #'
 #' @format A data frame with 38 rows and 26 variables:
 #' \describe{
@@ -37,7 +40,9 @@
 #'   \item{highway.mpg}{Miles per gallon on the highway}
 #'   \item{price}{Price of the vehicle}
 #' }
-#' @source Downloaded from Kaggle.com by the user Ramakrishnan Srinivasan. \url{https://www.kaggle.com/toramky/automobile-dataset}
+#' @source Downloaded from Kaggle.com by the user Ramakrishnan Srinivasan. 
+#' see \url{https://www.kaggle.com/toramky/automobile-dataset}
+"df_automotive_data"
 
 #' Blood Pressure Data
 #'
@@ -52,23 +57,20 @@
 #'   \item{bp_after}{Blood pressure reading after the intervention}
 #' }
 #' @source researchpy repo
+"df_blood_pressure"
 
 #' Crop Yield Data
 #'
-#' This data set contains information about crop yields.
+#' This data set contains information about crop yields based on different fertilizer types and water conditions.
 #'
-#' @format A data frame with [number of rows] rows and [number of variables] variables:
+#' @format A data frame with 20 rows and 3 variables:
 #' \describe{
-#'   \item{variable1}{Description of variable1}
-#'   \item{variable2}{Description of variable2}
-#'   \item{variable3}{Description of variable3}
-#'   \item{variable4}{Description of variable4}
-#'   \item{variable5}{Description of variable5}
-#'   \item{variable6}{Description of variable6}
+#'   \item{Fert}{Type of fertilizer used (A or B)}
+#'   \item{Water}{Watering condition (High or Low)}
+#'   \item{Yield}{Crop yield (in unspecified units)}
 #' }
-#' @source researchpy repo
+#' @source researchpy repo (simulated data, not real)
 "df_crop_yield"
-
 
 #' Difficile Data
 #'
@@ -85,7 +87,8 @@
 
 #' Insurance Data
 #'
-#' This data set contains information about insurance charges based on various factors such as age, sex, BMI, number of children, smoking status, and region.
+#' This data set contains information about insurance charges based on various factors 
+#' such as age, sex, BMI, number of children, smoking status, and region.
 #'
 #' @format A data frame with 19 rows and 7 variables:
 #' \describe{
@@ -99,14 +102,6 @@
 #' }
 #' @source researchpy repo
 "df_insurance"
-
-#' Responses Data
-#'
-#' This data set contains responses data.
-#'
-#' @format A data frame with [number of rows] rows and [number of variables] variables.
-#' @source Downloaded from Kaggle.com by the user Miroslav Sabo. \url{https://www.kaggle.com/miroslavsabo/young-people-survey}
-"df_responses"
 
 #' Responses State Data
 #'
@@ -122,7 +117,8 @@
 
 #' Sexual Compatibility Data
 #'
-#' This data set contains responses to questions about sexual compatibility, including scores, gender, and age.
+#' This data set contains responses to questions about sexual compatibility, 
+#' including scores, gender, and age.
 #'
 #' @format A data frame with 22 rows and 13 variables:
 #' \describe{

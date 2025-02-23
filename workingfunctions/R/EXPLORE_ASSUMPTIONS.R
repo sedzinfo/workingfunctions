@@ -293,7 +293,8 @@ plot_boxplot<-function(df,title="",base_size=10) {
 # NORMALITY TESTS
 ##########################################################################################
 #' @title Normality tests
-#' @description Shapiro-Wilk Anderson-Darling Cramer-von-Mises Shapiro-Francia Jarque-Bera Kolmogorov-Smirnov Lilliefors Pearson X2
+#' @description Shapiro-Wilk Anderson-Darling Cramer-von-Mises Shapiro-Francia\cr 
+#' Jarque-Bera Kolmogorov-Smirnov Lilliefors Pearson X2
 #' @details returns xlsx file
 #' @param df dataframe with continous or ordinal data
 #' @param file output filename

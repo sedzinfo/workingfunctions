@@ -12,7 +12,8 @@ report_normality_tests(df, file = NULL)
 \item{file}{output filename}
 }
 \description{
-Shapiro-Wilk Anderson-Darling Cramer-von-Mises Shapiro-Francia Jarque-Bera Kolmogorov-Smirnov Lilliefors Pearson X2
+Shapiro-Wilk Anderson-Darling Cramer-von-Mises Shapiro-Francia\cr 
+Jarque-Bera Kolmogorov-Smirnov Lilliefors Pearson X2
 }
 \details{
 returns xlsx file

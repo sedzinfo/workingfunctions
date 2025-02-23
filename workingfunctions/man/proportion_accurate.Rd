@@ -20,7 +20,7 @@ This function evaluates the performance of a confusion matrix by calculating the
 The function performs the following steps:
 1. Computes the confusion matrix from the observed and predicted values.
 2. Calculates the diagonal proportion (overall accuracy) and the off-diagonal proportion.
-3. Computes Cohen's kappa statistics (unweighted, linear, and squared weights).
+3. Computes Cohen's kappa statistics (unweighted,linear,and squared weights).
 
 The output is a data.frame containing the following metrics:
 - `cm_diagonal`: Proportion of correct classifications (diagonal elements).
@@ -31,7 +31,7 @@ The output is a data.frame containing the following metrics:
 }
 \examples{
 # Example with numeric observed and predicted values
-proportion_accurate(observed=c(1, 2, 3, 4, 5, 10), predicted=c(1, 2, 3, 4, 5, 11))
+proportion_accurate(observed=c(1,2,3,4,5,10),predicted=c(1,2,3,4,5,11))
 
 }
 \keyword{functions}

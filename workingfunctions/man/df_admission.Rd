@@ -20,6 +20,7 @@ researchpy repo
 df_admission
 }
 \description{
-This data set contains information about graduate admission, including GRE scores, GPA, and the ranking of the undergraduate institution.
+This data set contains information about graduate admission, 
+including GRE scores, GPA, and the ranking of the undergraduate institution.
 }
 \keyword{datasets}

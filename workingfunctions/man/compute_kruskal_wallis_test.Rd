@@ -9,15 +9,13 @@ compute_kruskal_wallis_test(formula, df)
 \arguments{
 \item{formula}{one way formula in form of y~x. It will ignore more complex formulas}
 
-\item{df}{dataframe}
+\item{df}{dataframe
+eta squared ranges between 0 and 1 \cr
+epsilon squared ranges between 0 and 1 \cr
+eta squared multiplied by 100 indicates the percentage of variance in the dependent variable explained by the independent variable \cr}
 }
 \description{
 Kruskal Wallis test
-}
-\note{
-eta squared ranges between 0 and 1 \cr
-epsilon squared ranges between 0 and 1 \cr
-eta squared multiplied by 100 indicates the percentage of variance in the dependent variable explained by the independent variable \cr
 }
 \examples{
 form<-formula(qsec~cyl)
