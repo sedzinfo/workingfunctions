@@ -138,3 +138,85 @@
 #' }
 #' @source researchpy repo
 "df_sexual_comp"
+
+#' Personality Dataset
+#'
+#' A dataset containing personality test results.
+#'
+#' @format A data frame with 22 rows and 44 variables:
+#' \describe{
+#'   \item{pers01}{Personality trait 1}
+#'   \item{pers02}{Personality trait 2}
+#'   \item{pers03}{Personality trait 3}
+#'   \item{pers04}{Personality trait 4}
+#'   \item{pers05}{Personality trait 5}
+#'   \item{pers06}{Personality trait 6}
+#'   \item{pers07}{Personality trait 7}
+#'   \item{pers08}{Personality trait 8}
+#'   \item{pers09}{Personality trait 9}
+#'   \item{pers10}{Personality trait 10}
+#'   \item{pers11}{Personality trait 11}
+#'   \item{pers12}{Personality trait 12}
+#'   \item{pers13}{Personality trait 13}
+#'   \item{pers14}{Personality trait 14}
+#'   \item{pers15}{Personality trait 15}
+#'   \item{pers16}{Personality trait 16}
+#'   \item{pers17}{Personality trait 17}
+#'   \item{pers18}{Personality trait 18}
+#'   \item{pers19}{Personality trait 19}
+#'   \item{pers20}{Personality trait 20}
+#'   \item{pers21}{Personality trait 21}
+#'   \item{pers22}{Personality trait 22}
+#'   \item{pers23}{Personality trait 23}
+#'   \item{pers24}{Personality trait 24}
+#'   \item{pers25}{Personality trait 25}
+#'   \item{pers26}{Personality trait 26}
+#'   \item{pers27}{Personality trait 27}
+#'   \item{pers28}{Personality trait 28}
+#'   \item{pers29}{Personality trait 29}
+#'   \item{pers30}{Personality trait 30}
+#'   \item{pers31}{Personality trait 31}
+#'   \item{pers32}{Personality trait 32}
+#'   \item{pers33}{Personality trait 33}
+#'   \item{pers34}{Personality trait 34}
+#'   \item{pers35}{Personality trait 35}
+#'   \item{pers36}{Personality trait 36}
+#'   \item{pers37}{Personality trait 37}
+#'   \item{pers38}{Personality trait 38}
+#'   \item{pers39}{Personality trait 39}
+#'   \item{pers40}{Personality trait 40}
+#'   \item{pers41}{Personality trait 41}
+#'   \item{pers42}{Personality trait 42}
+#'   \item{pers43}{Personality trait 43}
+#'   \item{pers44}{Personality trait 44}
+#' }
+#' @examples
+#' data(df_personality)
+#' head(df_personality)
+"df_personality"
+
+#' Titanic Dataset
+#'
+#' A dataset containing information about passengers on the Titanic.
+#'
+#' @format A data frame with the following variables:
+#' \describe{
+#'   \item{PassengerId}{Unique identifier for each passenger}
+#'   \item{Survived}{Survival status (0 = No, 1 = Yes)}
+#'   \item{Pclass}{Passenger class (1 = 1st, 2 = 2nd, 3 = 3rd)}
+#'   \item{Name}{Name of the passenger}
+#'   \item{Sex}{Gender of the passenger}
+#'   \item{Age}{Age of the passenger}
+#'   \item{SibSp}{Number of siblings/spouses aboard the Titanic}
+#'   \item{Parch}{Number of parents/children aboard the Titanic}
+#'   \item{Ticket}{Ticket number}
+#'   \item{Fare}{Passenger fare}
+#'   \item{Cabin}{Cabin number}
+#'   \item{Embarked}{Port of embarkation (C = Cherbourg; Q = Queenstown; S = Southampton)}
+#' }
+#' @examples
+#' data(df_titanic)
+#' head(df_titanic)
+
+
+
