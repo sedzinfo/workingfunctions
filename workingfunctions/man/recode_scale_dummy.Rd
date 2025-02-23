@@ -31,10 +31,8 @@ The output is a dataframe with scaled numeric variables and dummy-coded characte
 recode_scale_dummy(infert)
 
 # Example with a custom dataframe
-df<-data.frame(
-  numeric_var = c(1,2,3,4,5),
-  factor_var = factor(c('A','B','A','B','C'))
-)
+df<-data.frame(numeric_var=c(1,2,3,4,5),
+               factor_var=factor(c('A','B','A','B','C')))
 recode_scale_dummy(df)
 
 }

@@ -23,13 +23,13 @@ Each fold serves as a test set once,while the remaining k-1 folds form the train
 The function prepares data objects for xgboost model training and evaluation,including train/test datasets and xgboost DMatrix objects.
 
 The output is a list containing the following elements:
-- `f`: List of train and test datasets for each fold.
-- `index`: Vector of fold indices.
-- `model_formula`: Model formula used for generating the datasets.
-- `variables`: Names of the variables in the model formula.
-- `predictors`: Names of the predictor variables.
-- `outcome`: Name of the outcome variable.
-- `xgb`: List of xgboost DMatrix objects for training and testing.
+-`f`: List of train and test datasets for each fold.
+-`index`: Vector of fold indices.
+-`model_formula`: Model formula used for generating the datasets.
+-`variables`: Names of the variables in the model formula.
+-`predictors`: Names of the predictor variables.
+-`outcome`: Name of the outcome variable.
+-`xgb`: List of xgboost DMatrix objects for training and testing.
 }
 \examples{
 # Example with the 'infert' dataset
@@ -37,7 +37,7 @@ infert_formula<-formula(case~education+spontaneous+induced)
 result<-k_fold(infert,k=10,model_formula=infert_formula)
 
 # Example with the 'mtcars' dataset
-model_formula<-as.formula(mpg ~ cyl + disp + hp + drat + wt + qsec + vs + am + gear + carb)
+model_formula<-as.formula(mpg~cyl+disp+hp+drat+wt+qsec+vs+am+gear+carb)
 result<-k_fold(mtcars,k=2,model_formula=model_formula)
 
 }

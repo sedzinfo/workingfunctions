@@ -41,7 +41,6 @@ Report for xgboost::xgb.train
 \examples{
 infert_formula<-formula(case~education+spontaneous+induced)
 boston_formula<-formula(medv~crim+zn+indus+chas+nox+rm+age+dis+rad+tax+ptratio+black+lstat)
-                           rm+age+dis+rad+tax+ptratio+black+lstat)
 train_test_classification<-k_fold(df=infert,model_formula=infert_formula)
 train_test_regression<-k_fold(df=MASS::Boston,model_formula=boston_formula)
 xgb_classification<-xgboost::xgb.train(

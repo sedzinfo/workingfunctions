@@ -23,7 +23,7 @@
 #' df1<-generate_correlation_matrix(correlation_matrix,nrows=1000)
 #' df1$X1<-ifelse(abs(df1$X1) < 1,0,1)
 #' df1$X2<-abs(df1$X2)
-#' df1$X2<-(df1$X2 - min(df1$X2)) / (max(df1$X2) - min(df1$X2))
+#' df1$X2<-(df1$X2-min(df1$X2))/(max(df1$X2)-min(df1$X2))
 #' plot_roc(observed=round(abs(df1$X1),0),predicted=abs(df1$X2))
 #'
 #' @details
@@ -83,9 +83,9 @@ plot_roc<-function(observed,predicted,base_size=10,title="") {
 #' matrix are filled with the count of observations and annotated with the corresponding values.
 #'
 #' The plot also includes various accuracy metrics in the caption,such as:
-#' - Overall Accuracy: Proportion of correctly classified observations (diagonal elements).
-#' - Off-diagonal Accuracy: Proportion of misclassified observations (off-diagonal elements).
-#' - Cohen's Kappa (Unweighted,Linear,and Squared): Measures the agreement between observed and predicted outcomes.
+#'-Overall Accuracy: Proportion of correctly classified observations (diagonal elements).
+#'-Off-diagonal Accuracy: Proportion of misclassified observations (off-diagonal elements).
+#'-Cohen's Kappa (Unweighted,Linear,and Squared): Measures the agreement between observed and predicted outcomes.
 plot_confusion<-function(observed,predicted,base_size=10,title="") {
   value<-NULL
   cmatrixp<-confusion_matrix_percent(observed=observed,predicted=predicted)
@@ -137,7 +137,7 @@ plot_confusion<-function(observed,predicted,base_size=10,title="") {
 #' df1<-generate_correlation_matrix(correlation_matrix,nrows=1000)
 #' df1$X1<-ifelse(abs(df1$X1) < 1,0,1)
 #' df1$X2<-abs(df1$X2)
-#' df1$X2<-(df1$X2 - min(df1$X2)) / (max(df1$X2) - min(df1$X2))
+#' df1$X2<-(df1$X2-min(df1$X2))/(max(df1$X2)-min(df1$X2))
 #' plot_separability(observed=round(abs(df1$X1),0),predicted=abs(df1$X2))
 #'
 #' @details
@@ -145,9 +145,9 @@ plot_confusion<-function(observed,predicted,base_size=10,title="") {
 #' The plot helps to visualize how well the predicted probabilities separate the different observed categories.
 #'
 #' The plot includes the following components:
-#' - Density curves for each observed category,representing the distribution of predicted probabilities.
-#' - A legend indicating the observed categories.
-#' - The total number of observations is included in the plot caption.
+#'-Density curves for each observed category,representing the distribution of predicted probabilities.
+#'-A legend indicating the observed categories.
+#'-The total number of observations is included in the plot caption.
 plot_separability<-function(observed,predicted,base_size=10,title="") {
   df<-data.frame(observed=as.factor(observed),predicted=predicted)
   plot<-ggplot(df,aes(x=predicted,color=factor(observed)))+
@@ -182,7 +182,7 @@ plot_separability<-function(observed,predicted,base_size=10,title="") {
 #' df<-generate_correlation_matrix(correlation_matrix,nrows=1000)
 #' df$X1<-ifelse(abs(df$X1) < 1,0,1)
 #' df$X2<-abs(df$X2)
-#' df$X2<-(df$X2 - min(df$X2)) / (max(df$X2) - min(df$X2))
+#' df$X2<-(df$X2-min(df$X2))/(max(df$X2)-min(df$X2))
 #' result_confusion_performance(observed=round(abs(df$X1),0),
 #'                              predicted=abs(df$X2),
 #'                              step=0.01)
@@ -194,10 +194,10 @@ plot_separability<-function(observed,predicted,base_size=10,title="") {
 #' calculates the confusion matrix,and evaluates the proportion of correct classifications for each cut-off.
 #'
 #' The function generates a plot that includes:
-#' - The proportion of correct classifications for different cut-off points.
-#' - Vertical lines indicating the optimal cut-off point.
-#' - A legend representing different performance metrics.
-#' - A caption showing the number of observations and the optimal cut-off point.
+#'-The proportion of correct classifications for different cut-off points.
+#'-Vertical lines indicating the optimal cut-off point.
+#'-A legend representing different performance metrics.
+#'-A caption showing the number of observations and the optimal cut-off point.
 #'
 #' The function returns a list containing the plot,the data frame with cut-off performance,the optimal cut-off point,
 #' and the confusion matrix at the optimal cut-off.
@@ -255,7 +255,7 @@ result_confusion_performance<-function(observed,predicted,step=.1,base_size=10,t
 #' result<-k_fold(infert,k=10,model_formula=infert_formula)
 #'
 #' # Example with the 'mtcars' dataset
-#' model_formula<-as.formula(mpg ~ cyl + disp + hp + drat + wt + qsec + vs + am + gear + carb)
+#' model_formula<-as.formula(mpg~cyl+disp+hp+drat+wt+qsec+vs+am+gear+carb)
 #' result<-k_fold(mtcars,k=2,model_formula=model_formula)
 #'
 #' @details
@@ -265,13 +265,13 @@ result_confusion_performance<-function(observed,predicted,step=.1,base_size=10,t
 #' The function prepares data objects for xgboost model training and evaluation,including train/test datasets and xgboost DMatrix objects.
 #'
 #' The output is a list containing the following elements:
-#' - `f`: List of train and test datasets for each fold.
-#' - `index`: Vector of fold indices.
-#' - `model_formula`: Model formula used for generating the datasets.
-#' - `variables`: Names of the variables in the model formula.
-#' - `predictors`: Names of the predictor variables.
-#' - `outcome`: Name of the outcome variable.
-#' - `xgb`: List of xgboost DMatrix objects for training and testing.
+#'-`f`: List of train and test datasets for each fold.
+#'-`index`: Vector of fold indices.
+#'-`model_formula`: Model formula used for generating the datasets.
+#'-`variables`: Names of the variables in the model formula.
+#'-`predictors`: Names of the predictor variables.
+#'-`outcome`: Name of the outcome variable.
+#'-`xgb`: List of xgboost DMatrix objects for training and testing.
 k_fold<-function(df,model_formula,k=10) {
   variable_names<-names(stats::get_all_vars(model_formula,data=df))
   index<-sample(cut(1:nrow(df),breaks=k,labels=FALSE))
@@ -327,7 +327,7 @@ k_fold<-function(df,model_formula,k=10) {
 #' result<-k_sample(df=infert,k=10,model_formula=infert_formula)
 #'
 #' # Example with the 'mtcars' dataset
-#' model_formula<-as.formula(mpg ~ cyl + disp + hp + drat + wt + qsec + vs + am + gear + carb)
+#' model_formula<-formula(mpg~cyl+disp+hp+drat+wt+qsec+vs+am+gear+carb)
 #' result<-k_sample(df=mtcars,k=10,model_formula=model_formula)
 #'
 #' @details
@@ -337,13 +337,13 @@ k_fold<-function(df,model_formula,k=10) {
 #' The function prepares data objects for xgboost model training and evaluation,including train,test,and validation datasets and xgboost DMatrix objects.
 #'
 #' The output is a list containing the following elements:
-#' - `f`: List of train,test,and validation datasets for each fold.
-#' - `index`: Vector of fold indices.
-#' - `model_formula`: Model formula used for generating the datasets.
-#' - `variables`: Names of the variables in the model formula.
-#' - `predictors`: Names of the predictor variables.
-#' - `outcome`: Name of the outcome variable.
-#' - `xgb`: List of xgboost DMatrix objects for training,testing,and validation.
+#'-`f`: List of train,test,and validation datasets for each fold.
+#'-`index`: Vector of fold indices.
+#'-`model_formula`: Model formula used for generating the datasets.
+#'-`variables`: Names of the variables in the model formula.
+#'-`predictors`: Names of the predictor variables.
+#'-`outcome`: Name of the outcome variable.
+#'-`xgb`: List of xgboost DMatrix objects for training,testing,and validation.
 k_sample<-function(df,model_formula,k=1) {
   sv<-function(vector)
     split(vector,ceiling(seq_along(vector)/(length(vector)/2)))
@@ -420,10 +420,8 @@ k_sample<-function(df,model_formula,k=1) {
 #' recode_scale_dummy(infert)
 #'
 #' # Example with a custom dataframe
-#' df<-data.frame(
-#'   numeric_var = c(1,2,3,4,5),
-#'   factor_var = factor(c('A','B','A','B','C'))
-#' )
+#' df<-data.frame(numeric_var=c(1,2,3,4,5),
+#'                factor_var=factor(c('A','B','A','B','C')))
 #' recode_scale_dummy(df)
 #'
 #' @details
@@ -483,11 +481,11 @@ recode_scale_dummy<-function(df,categories=10) {
 #' 3. Computes Cohen's kappa statistics (unweighted,linear,and squared weights).
 #' 
 #' The output is a data.frame containing the following metrics:
-#' - `cm_diagonal`: Proportion of correct classifications (diagonal elements).
-#' - `cm_off_diagonal`: Proportion of misclassified observations (off-diagonal elements).
-#' - `kappa_unweighted`: Cohen's kappa statistic with no weights.
-#' - `kappa_linear`: Cohen's kappa statistic with linear weights.
-#' - `kappa_squared`: Cohen's kappa statistic with squared weights.
+#'-`cm_diagonal`: Proportion of correct classifications (diagonal elements).
+#'-`cm_off_diagonal`: Proportion of misclassified observations (off-diagonal elements).
+#'-`kappa_unweighted`: Cohen's kappa statistic with no weights.
+#'-`kappa_linear`: Cohen's kappa statistic with linear weights.
+#'-`kappa_squared`: Cohen's kappa statistic with squared weights.
 proportion_accurate<-function(observed,predicted) {
   cmatrix<-confusion(observed=observed,predicted=predicted)
   train_test<-data.frame(observed=observed,predicted=predicted)
@@ -553,17 +551,17 @@ confusion<-function(observed,predicted) {
 #' @inheritParams confusion
 #' @keywords functions
 #' @note
-#' Total measures - Accuracy: (TP+TN)/total\cr
-#' Total measures - Prevalence: (TP+FN)/total\cr
-#' Total measures - Proportion Incorrectly Classified: (FN+FP)/total\cr
-#' Horizontal measures - True Positive Rate - Sensitivity: TP/(TP+FN)\cr
-#' Horizontal measures - True Negative Rate - Specificity: TN/(FP+TN)\cr
-#' Horizontal measures - False Negative Rate - Miss Rate: FN/(TP+FN)\cr
-#' Horizontal measures - False Positive Rate - Fall-out: FP/(FP+TN)\cr
-#' Vertical measures - Positive Predictive value - Precision: TP/(TP+FP)\cr
-#' Vertical measures - Negative Predictive value: TN/(FN+TN)\cr
-#' Vertical measures - False Omission Rate: FN/(FN+TN)\cr
-#' Vertical measures - False Discovery Rate: FP/(TP+FP)\cr
+#' Total measures-Accuracy: (TP+TN)/total\cr
+#' Total measures-Prevalence: (TP+FN)/total\cr
+#' Total measures-Proportion Incorrectly Classified: (FN+FP)/total\cr
+#' Horizontal measures-True Positive Rate-Sensitivity: TP/(TP+FN)\cr
+#' Horizontal measures-True Negative Rate-Specificity: TN/(FP+TN)\cr
+#' Horizontal measures-False Negative Rate-Miss Rate: FN/(TP+FN)\cr
+#' Horizontal measures-False Positive Rate-Fall-out: FP/(FP+TN)\cr
+#' Vertical measures-Positive Predictive value-Precision: TP/(TP+FP)\cr
+#' Vertical measures-Negative Predictive value: TN/(FN+TN)\cr
+#' Vertical measures-False Omission Rate: FN/(FN+TN)\cr
+#' Vertical measures-False Discovery Rate: FP/(TP+FP)\cr
 #' @export
 #' @examples
 #' # Example with numeric observed and predicted values

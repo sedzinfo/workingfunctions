@@ -24,9 +24,9 @@ confusion matrix with observed outcomes on the x-axis and predicted outcomes on 
 matrix are filled with the count of observations and annotated with the corresponding values.
 
 The plot also includes various accuracy metrics in the caption,such as:
-- Overall Accuracy: Proportion of correctly classified observations (diagonal elements).
-- Off-diagonal Accuracy: Proportion of misclassified observations (off-diagonal elements).
-- Cohen's Kappa (Unweighted,Linear,and Squared): Measures the agreement between observed and predicted outcomes.
+-Overall Accuracy: Proportion of correctly classified observations (diagonal elements).
+-Off-diagonal Accuracy: Proportion of misclassified observations (off-diagonal elements).
+-Cohen's Kappa (Unweighted,Linear,and Squared): Measures the agreement between observed and predicted outcomes.
 }
 \examples{
 # Example with numeric class labels

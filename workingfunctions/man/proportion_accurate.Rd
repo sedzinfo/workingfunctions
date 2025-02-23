@@ -23,11 +23,11 @@ The function performs the following steps:
 3. Computes Cohen's kappa statistics (unweighted,linear,and squared weights).
 
 The output is a data.frame containing the following metrics:
-- `cm_diagonal`: Proportion of correct classifications (diagonal elements).
-- `cm_off_diagonal`: Proportion of misclassified observations (off-diagonal elements).
-- `kappa_unweighted`: Cohen's kappa statistic with no weights.
-- `kappa_linear`: Cohen's kappa statistic with linear weights.
-- `kappa_squared`: Cohen's kappa statistic with squared weights.
+-`cm_diagonal`: Proportion of correct classifications (diagonal elements).
+-`cm_off_diagonal`: Proportion of misclassified observations (off-diagonal elements).
+-`kappa_unweighted`: Cohen's kappa statistic with no weights.
+-`kappa_linear`: Cohen's kappa statistic with linear weights.
+-`kappa_squared`: Cohen's kappa statistic with squared weights.
 }
 \examples{
 # Example with numeric observed and predicted values

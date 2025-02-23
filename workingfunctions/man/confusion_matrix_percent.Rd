@@ -26,17 +26,17 @@ The function performs the following steps:
 5. Returns a formatted data frame with the confusion matrix,row and column percentages,and overall accuracy.
 }
 \note{
-Total measures - Accuracy: (TP+TN)/total\cr
-Total measures - Prevalence: (TP+FN)/total\cr
-Total measures - Proportion Incorrectly Classified: (FN+FP)/total\cr
-Horizontal measures - True Positive Rate - Sensitivity: TP/(TP+FN)\cr
-Horizontal measures - True Negative Rate - Specificity: TN/(FP+TN)\cr
-Horizontal measures - False Negative Rate - Miss Rate: FN/(TP+FN)\cr
-Horizontal measures - False Positive Rate - Fall-out: FP/(FP+TN)\cr
-Vertical measures - Positive Predictive value - Precision: TP/(TP+FP)\cr
-Vertical measures - Negative Predictive value: TN/(FN+TN)\cr
-Vertical measures - False Omission Rate: FN/(FN+TN)\cr
-Vertical measures - False Discovery Rate: FP/(TP+FP)\cr
+Total measures-Accuracy: (TP+TN)/total\cr
+Total measures-Prevalence: (TP+FN)/total\cr
+Total measures-Proportion Incorrectly Classified: (FN+FP)/total\cr
+Horizontal measures-True Positive Rate-Sensitivity: TP/(TP+FN)\cr
+Horizontal measures-True Negative Rate-Specificity: TN/(FP+TN)\cr
+Horizontal measures-False Negative Rate-Miss Rate: FN/(TP+FN)\cr
+Horizontal measures-False Positive Rate-Fall-out: FP/(FP+TN)\cr
+Vertical measures-Positive Predictive value-Precision: TP/(TP+FP)\cr
+Vertical measures-Negative Predictive value: TN/(FN+TN)\cr
+Vertical measures-False Omission Rate: FN/(FN+TN)\cr
+Vertical measures-False Discovery Rate: FP/(TP+FP)\cr
 }
 \examples{
 # Example with numeric observed and predicted values
