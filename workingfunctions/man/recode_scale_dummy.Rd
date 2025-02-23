@@ -7,14 +7,35 @@
 recode_scale_dummy(df, categories = 10)
 }
 \arguments{
-\item{df}{dataframe}
+\item{df}{Dataframe containing the dataset to be scaled and dummy coded.}
 
-\item{categories}{Numeric Number of unique values a vector must have to perform dummy coding}
+\item{categories}{Numeric value representing the number of unique values a vector must have to perform dummy coding. Defaults to 10.}
 }
 \description{
-Scales numeric variables between 0 and 1 and creates dummy coding for character and vector variables
+Scales numeric variables between 0 and 1 and creates dummy coding for character and factor variables.
+}
+\details{
+This function processes a dataframe by scaling numeric variables and creating dummy codes for character and factor variables. 
+The numeric variables are scaled between 0 and 1, while the character and factor variables are converted to dummy variables if they have fewer unique values than 
+the specified `categories` parameter.
+
+The function performs the following steps:
+1. Identifies numeric variables in the dataframe and scales them.
+2. Identifies character and factor variables and creates dummy variables if they meet the criteria.
+3. Combines the scaled numeric variables and dummy variables into a single dataframe.
+
+The output is a dataframe with scaled numeric variables and dummy-coded character/factor variables.
 }
 \examples{
+# Example with the 'infert' dataset
 recode_scale_dummy(infert)
+
+# Example with a custom dataframe
+df <- data.frame(
+  numeric_var = c(1, 2, 3, 4, 5),
+  factor_var = factor(c('A', 'B', 'A', 'B', 'C'))
+)
+recode_scale_dummy(df)
+
 }
 \keyword{functions}

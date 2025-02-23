@@ -7,19 +7,38 @@
 k_fold(df, model_formula, k = 10)
 }
 \arguments{
-\item{df}{dataframe}
+\item{df}{Dataframe containing the dataset to be split.}
 
-\item{model_formula}{model formula}
+\item{model_formula}{Model formula specifying the predictors and outcome variable.}
 
-\item{k}{k-folds}
+\item{k}{Integer value representing the number of folds. Defaults to 10.}
 }
 \description{
-splits a dataframe in train and test dataframes for model evaluation. Prepared data include data objects for xgboost
+Splits a dataframe into train and test dataframes for model evaluation. Prepared data include data objects for xgboost.
+}
+\details{
+This function performs k-fold cross-validation by splitting the input dataframe into k folds. 
+Each fold serves as a test set once, while the remaining k-1 folds form the training set.
+
+The function prepares data objects for xgboost model training and evaluation, including train/test datasets and xgboost DMatrix objects.
+
+The output is a list containing the following elements:
+- `f`: List of train and test datasets for each fold.
+- `index`: Vector of fold indices.
+- `model_formula`: Model formula used for generating the datasets.
+- `variables`: Names of the variables in the model formula.
+- `predictors`: Names of the predictor variables.
+- `outcome`: Name of the outcome variable.
+- `xgb`: List of xgboost DMatrix objects for training and testing.
 }
 \examples{
-infert_formula<-as.formula(factor(case)~age+parity+education+spontaneous+induced)
-result<-k_fold(infert,k=10,model_formula=infert_formula)
-model_formula<-as.formula(mpg~cyl+disp+hp+drat+wt+qsec+vs+am+gear+carb)
-result<-k_fold(mtcars,k=2,model_formula=model_formula)
+# Example with the 'infert' dataset
+infert_formula <- as.formula(factor(case) ~ age + parity + education + spontaneous + induced)
+result <- k_fold(infert, k=10, model_formula=infert_formula)
+
+# Example with the 'mtcars' dataset
+model_formula <- as.formula(mpg ~ cyl + disp + hp + drat + wt + qsec + vs + am + gear + carb)
+result <- k_fold(mtcars, k=2, model_formula=model_formula)
+
 }
 \keyword{functions}

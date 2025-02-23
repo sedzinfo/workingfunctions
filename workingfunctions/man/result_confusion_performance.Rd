@@ -13,30 +13,46 @@ result_confusion_performance(
 )
 }
 \arguments{
-\item{observed}{vector of observed outcomes}
+\item{observed}{Vector of observed outcomes. This can be numeric or factor values representing the true class labels.}
 
-\item{predicted}{vector of predicted outcome probability}
+\item{predicted}{Vector of predicted outcome probabilities. This should have the same length as the observed vector and represent the predicted probabilities.}
 
-\item{step}{stepping for tested cut values}
+\item{step}{Numeric value representing the stepping for tested cut values. Defaults to 0.1.}
 
-\item{base_size}{base font size}
+\item{base_size}{Integer value representing the base font size for the plot. Defaults to 10.}
 
-\item{title}{plot title}
+\item{title}{String representing the title of the plot. Defaults to an empty string.}
 }
 \description{
-Plot performance of confusion matrix for different cut off points
+This function generates a plot to visualize the performance of a confusion matrix at various cut-off points. 
+It evaluates the proportion of correct classifications and identifies the optimal cut-off point.
+}
+\details{
+This function evaluates the performance of a confusion matrix at different cut-off points. It iterates through a range of cut-off points, 
+calculates the confusion matrix, and evaluates the proportion of correct classifications for each cut-off.
+
+The function generates a plot that includes:
+- The proportion of correct classifications for different cut-off points.
+- Vertical lines indicating the optimal cut-off point.
+- A legend representing different performance metrics.
+- A caption showing the number of observations and the optimal cut-off point.
+
+The function returns a list containing the plot, the data frame with cut-off performance, the optimal cut-off point, 
+and the confusion matrix at the optimal cut-off.
 }
 \examples{
-df<-data.frame(matrix(.999,ncol=2,nrow=2))
-correlation_martix<-as.matrix(df)
-diag(correlation_martix)<-1
-df<-generate_correlation_matrix(correlation_martix,nrows=1000)
-df$X1<-ifelse(abs(df$X1)<1,0,1)
-df$X2<-abs(df$X2)
-df$X2<-(df$X2-min(df$X2))/(max(df$X2)-min(df$X2))
-result_confusion_performance(observed=round(abs(df$X1),0),
+# Example with numeric class labels
+df <- data.frame(matrix(.999, ncol=2, nrow=2))
+correlation_matrix <- as.matrix(df)
+diag(correlation_matrix) <- 1
+df <- generate_correlation_matrix(correlation_matrix, nrows=1000)
+df$X1 <- ifelse(abs(df$X1) < 1, 0, 1)
+df$X2 <- abs(df$X2)
+df$X2 <- (df$X2 - min(df$X2)) / (max(df$X2) - min(df$X2))
+result_confusion_performance(observed=round(abs(df$X1), 0),
                              predicted=abs(df$X2),
-                             step=.01)
-result_confusion_performance(observed=c(1,2,3,1,2,3),predicted=abs(rnorm(6,0,sd=.1)))
+                             step=0.01)
+result_confusion_performance(observed=c(1, 2, 3, 1, 2, 3), predicted=abs(rnorm(6, 0, sd=0.1)))
+
 }
 \keyword{functions}

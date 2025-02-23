@@ -13,7 +13,7 @@ compute_standard(vector, mean = 0, sd = 1, type = "z", input = "non_standard")
 
 \item{sd}{numeric applicable to "uz"}
 
-\item{type}{"z" "uz" "sten" "t" "stanine" "center" "center_reversed" "percent" "scale_zero_one" "normal_density" "cumulative_density" "all"}
+\item{type}{"z" "uz" "sten" "t" "stanine" "center" "center_reversed" "percent" "percentile" "scale_zero_one" "normal_density" "cumulative_density" "all"}
 
 \item{input}{"standard" "non_standard" standard inputs are z scores and non standard are raw scores}
 }

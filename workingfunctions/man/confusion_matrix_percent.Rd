@@ -7,29 +7,73 @@
 confusion_matrix_percent(observed, predicted)
 }
 \arguments{
-\item{observed}{vector of observed variables}
+\item{observed}{Vector of observed variables. These are the true class labels.}
 
-\item{predicted}{vector of predicted variables}
+\item{predicted}{Vector of predicted variables. These are the predicted class labels.}
 }
 \description{
-Confusion matrix with row and column percent
+Generates a confusion matrix from observed and predicted values, including row and column percentages.
 }
-\note{
-Total measures - Accuracy: (TP+TN)/total\cr
-Total measures - Prevalence: (TP+FN)/total\cr
-Total measures - Proportion Incorrectly Classified: (FN+FP)/total\cr
-Horizontal measures - True Positive Rate - Sensitivity: TP/(TP+FN)\cr
-Horizontal measures - True Negative Rate - Specificity: TN/(FP+TN)\cr
-Horizontal measures - False Negative Rate - Miss Rate: FN/(TP+FN)\cr
-Horizontal measures - False Positive Rate - Fall-out: FP/(FP+TN)\cr
-Vertical measures - Positive Predictive value - Precision: TP/(TP+FP)\cr
-Vertical measures - Negative Predictive value: TN/(FN+TN)\cr
-Vertical measures - False Omission Rate: FN/(FN+TN)\cr
-Vertical measures - False Discovery Rate: FP/(TP+FP)\cr
+\details{
+This function creates a confusion matrix by comparing the observed (true) class labels with the predicted class labels. Additionally, 
+it calculates row and column percentages to provide a more detailed performance analysis.
+
+The function performs the following steps:
+1. Computes the confusion matrix from the observed and predicted values.
+2. Calculates the overall accuracy by dividing the sum of diagonal elements by the total number of observations.
+3. Appends row and column sums to the confusion matrix.
+4. Computes precision and recall for each class and appends these metrics to the matrix.
+5. Returns a formatted data frame with the confusion matrix, row and column percentages, and overall accuracy.
 }
 \examples{
-observed<-factor(round(rnorm(10000,m=10,sd=1)))
-predicted<-factor(round(rnorm(10000,m=10,sd=1)))
-confusion_matrix_percent(observed,predicted)
+# Example with numeric observed and predicted values
+confusion_matrix_percent(observed=c(1, 2, 3, 4, 5, 10), predicted=c(1, 2, 3, 4, 5, 11))
+
+# Example with repeated observed and predicted values
+confusion_matrix_percent(observed=c(1, 2, 2, 2, 2), predicted=c(1, 1, 2, 2, 2))
+
+# Example with random observed and predicted values
+observed <- factor(round(rnorm(10000, m=10, sd=1)))
+predicted <- factor(round(rnorm(10000, m=10, sd=1)))
+confusion_matrix_percent(observed, predicted)
+
 }
-\keyword{functions}
+\keyword{(FN+FP)/total\cr}
+\keyword{(TP+FN)/total\cr}
+\keyword{(TP+TN)/total\cr}
+\keyword{-}
+\keyword{@note}
+\keyword{Accuracy:}
+\keyword{Classified:}
+\keyword{Discovery}
+\keyword{FN/(FN+TN)\cr}
+\keyword{FN/(TP+FN)\cr}
+\keyword{FP/(FP+TN)\cr}
+\keyword{FP/(TP+FP)\cr}
+\keyword{Fall-out:}
+\keyword{False}
+\keyword{Horizontal}
+\keyword{Incorrectly}
+\keyword{Miss}
+\keyword{Negative}
+\keyword{Omission}
+\keyword{Positive}
+\keyword{Precision:}
+\keyword{Predictive}
+\keyword{Prevalence:}
+\keyword{Proportion}
+\keyword{Rate}
+\keyword{Rate:}
+\keyword{Sensitivity:}
+\keyword{Specificity:}
+\keyword{TN/(FN+TN)\cr}
+\keyword{TN/(FP+TN)\cr}
+\keyword{TP/(TP+FN)\cr}
+\keyword{TP/(TP+FP)\cr}
+\keyword{Total}
+\keyword{True}
+\keyword{Vertical}
+\keyword{functions#'}
+\keyword{measures}
+\keyword{value}
+\keyword{value:}

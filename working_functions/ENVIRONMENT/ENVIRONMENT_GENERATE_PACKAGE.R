@@ -18,7 +18,7 @@ working_directory<-gsub("working_functions/ENVIRONMENT/","",directory)
 setwd(working_directory)
 # usethis::create_package("workingfunctions")
 setwd("workingfunctions")
-# dir.create(file.path("data"),showWarnings=FALSE)
+dir.create(file.path("data"),showWarnings=FALSE)
 filestocopy<-setdiff(list.files(paste0(working_directory,"/working_functions"),full.names=TRUE),
                      list.dirs(paste0(working_directory,"/working_functions"),recursive=FALSE))
 file.copy(from=filestocopy,to=paste0(working_directory,"/workingfunctions/R"),recursive=TRUE,copy.mode=TRUE)
