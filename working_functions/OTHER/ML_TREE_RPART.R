@@ -11,13 +11,13 @@
 #' @keywordsML
 #' @export
 #' @examples
-#' infert_formula<-as.formula(factor(case)~age+parity+education+spontaneous+induced)
-#' boston_formula<-as.formula(c("medv~",paste(names(MASS::Boston)[1:13],collapse="+")))
-#' train_test_classification<-workingfunctions::k_fold(df=infert,model_formula=infert_formula)
-#' train_test_regression<-workingfunctions::k_fold(df=MASS::Boston,model_formula=boston_formula)
-#' rtree_classification<-rpart::rpart(infert_formula,train_test_classification$f$train$f1,model=TRUE,x=TRUE,y=TRUE)
-#' rtree_regression<-rpart::rpart(boston_formula,train_test_regression$f$train$f1,model=TRUE,x=TRUE,y=TRUE)
+#' titanic_formula<-formula(survived~pclass+sex+age+sibsp)
+#' train_test_classification<-k_fold(df=df_titanic,model_formula=titanic_formula,k=12)
+#' rtree_classification<-rpart::rpart(titanic_formula,train_test_classification$f$train$f1,model=TRUE,x=TRUE,y=TRUE)
 #' report_rtree(model=rtree_classification,file="Classification")
+#' boston_formula<-formula(medv~crim+zn+indus+chas+nox+rm+age+dis+rad+tax+ptratio+black+lstat)
+#' train_test_regression<-k_fold(df=MASS::Boston,model_formula=boston_formula)
+#' rtree_regression<-rpart::rpart(boston_formula,train_test_regression$f$train$f1,model=TRUE,x=TRUE,y=TRUE)
 #' report_rtree(model=rtree_regression,file="Regression")
 report_rtree<-function(model,file="rpart_rtree",w=10,h=10,base_size=10,fast=TRUE) {
   result<-data.frame(model$cptable)

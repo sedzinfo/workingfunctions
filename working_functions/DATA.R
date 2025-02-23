@@ -219,5 +219,3 @@
 #' head(df_titanic)
 "df_titanic"
 
-nrow(df_titanic)
-
