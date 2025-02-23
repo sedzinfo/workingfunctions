@@ -217,6 +217,6 @@
 #' @examples
 #' data(df_titanic)
 #' head(df_titanic)
-
+"df_titanic"
 
 
