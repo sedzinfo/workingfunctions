@@ -12,7 +12,6 @@ text4<-"All the Lorem Ipsum generators on the Internet tend to repeat predefined
 text5<-"It uses a dictionary of over 200 Latin words, combined with a handful of model sentence structures, to generate Lorem Ipsum which looks reasonable."
 text6<-"The generated Lorem Ipsum is therefore always free from repetition, injected humour, or non-characteristic words etc."
 text<-c(text1,text2,text3,text4,text5,text6)
-load(file="rworking/data/text_frequency.RD")
 ##########################################################################################
 # REMOVE MISPELLED WORDS
 ##########################################################################################
@@ -65,30 +64,6 @@ tag_pos_df<-function(text){
   return(df_pos)
 }
 # tag_pos_df(text)
-##########################################################################################
-# WORD COUNT FREQUENCY
-##########################################################################################
-# es<-read.csv("rworking/projects/graduace/data/essay_scores.csv",stringsAsFactors=FALSE)
-# text<-es$Essay.text
-# text<-gsub("\n"," ",text)
-# text<-gsub("\b"," ",text)
-# text<-gsub("\t"," ",text)
-# text<-gsub("\037"," ",text)
-# text<-gsub("[[:punct:]]"," ",text)
-# text<-gsub("[[:digit:]]"," ",text)
-# text<-tolower(unlist(strsplit(text," ")))
-# text<-trimws(text)
-# text<-text[text!=""]
-# text<-remove_misspelled(text)
-# text<-gsub("[^\x20-\x7E]", "", text)
-# text_frequency<-as.data.frame.table(prop.table(table(unlist(strsplit(text," ")))))
-# text_frequency$prop<-text_frequency$Freq*1000
-# text_frequency$inv<-1/text_frequency$prop
-# text_frequency$inv<-compute_z(text_frequency$inv)
-# text_frequency[0:100,]
-# text_frequency$Var1<-as.character(text_frequency$Var1)
-# save(text_frequency,file="text_frequency.RD")
-# write.csv(text_frequency,"text_frequency.csv")
 ##########################################################################################
 # LSA PCA
 ##########################################################################################
