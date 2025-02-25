@@ -1,43 +1,26 @@
 ---
 title: "GLM_MEANS"
 author: "Dimitrios Zacharatos"
-output: rmarkdown::html_vignette
+output:
+  html_document:
+    css: styles.css
+    toc: true
+    toc_depth: 2
+    theme: readable
 vignette: >
   %\VignetteIndexEntry{GLM_MEANS}
   %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8}
 ---
 
-<style>
-body { max-width: 95%; margin: 0 auto; padding: 0; } 
-.container { width: 100%; max-width: none; } 
-/* Example for wider tables */ 
-table { width: 80%; table-layout: fixed; } 
-th, td { padding: 8px; text-align: left; } 
-/* Styling for input code */
-pre { 
-  background-color: #f4f4f4; /* Light gray background for input */
-  border-left: 5px solid #007ACC; /* Blue border */
-  padding: 10px;
-  font-size: 20px !important;
-}
-/* Styling for output */
-pre.r-output {
-  background-color: #e8f5e9; /* Light green background for output */
-  border-left: 5px solid #388E3C; /* Green border */
-  padding: 10px;
-  font-size: 15px !important;
-}
-</style>
-
 ```{r options,echo=FALSE,warning=FALSE,message=FALSE}
-options(future.show.progress=FALSE)
 options(width=1000)
-knitr::opts_chunk$set(echo=TRUE)
-hook_output<-function(x, options) {
-  paste0('<pre class="r-output">',knitr::knit_print(x),'</pre>')
+hook_output <- function(x, options) {
+  paste0('<pre class="r-output">', knitr::knit_print(x), '</pre>')
 }
-knitr::knit_hooks$set(output=hook_output)
+knitr::knit_hooks$set(output = hook_output)
+knitr::opts_chunk$set(echo=TRUE)
+options(future.show.progress = FALSE)
 ```
 
 ```{r load,include=FALSE}
@@ -49,12 +32,31 @@ Installation instructions for workingfunctions can be found [here](https://githu
 
 These functions perform t tests and wilcoxon tests for all possible combinations of levels of the independent variables.
 
+# Data
+Format: A data frame with 19 rows and 7 variables:  
+age: Age of the individual  
+sex: Sex of the individual (e.g., male, female)  
+bmi: Body Mass Index of the individual  
+children: Number of children covered by the insurance  
+smoker: Smoking status (yes or no)  
+region: Region where the individual resides (e.g., southwest, southeast, northwest, northeast)  
+charges: Insurance charges  
+Source: researchpy repo  
+
+```{r, data}
+head(df_insurance)
+cdf(df_insurance)
+```
+
 # T TEST
 ```{r, report_ttests}
-report_ttests(df=mtcars,dv=2,iv=9,alternative="two.sided")
-report_ttests(df=mtcars,dv=2,iv=9:10,alternative="less")
-report_ttests(df=mtcars,dv=2:3,iv=9,alternative="greater")
-report_ttests(df=mtcars,dv=2:3,iv=9:10)
+report_ttests(df=df_insurance,dv=7,iv=c(2))
+report_ttests(df=df_insurance,dv=7,iv=c(4))
+report_ttests(df=df_insurance,dv=7,iv=c(2,4))
+report_ttests(df=df_insurance,dv=7,iv=c(2,4),alternative="two.sided")
+report_ttests(df=df_insurance,dv=7,iv=c(2,4),alternative="less")
+report_ttests(df=df_insurance,dv=7,iv=c(2,4),alternative="greater")
+report_ttests(df=df_insurance,dv=7,iv=c(2,4),var.equal=TRUE)
 ```
 
 ## Explanation of columns
@@ -94,10 +96,13 @@ report_ttests(df=mtcars,dv=2:3,iv=9:10)
 
 # WILCOXON TEST
 ```{r, report_wtests}
-report_wtests(df=mtcars,dv=2,iv=9,alternative="two.sided",exact=FALSE)
-report_wtests(df=mtcars,dv=2,iv=9:10,alternative="less",exact=FALSE)
-report_wtests(df=mtcars,dv=2:3,iv=9,alternative="greater",exact=FALSE)
-report_wtests(df=mtcars,dv=2:3,iv=9:10,exact=FALSE)
+report_wtests(df=df_insurance,dv=7,iv=c(2))
+report_wtests(df=df_insurance,dv=7,iv=c(4))
+report_wtests(df=df_insurance,dv=7,iv=c(2,4))
+report_wtests(df=df_insurance,dv=7,iv=c(2,4),alternative="two.sided")
+report_wtests(df=df_insurance,dv=7,iv=c(2,4),alternative="less")
+report_wtests(df=df_insurance,dv=7,iv=c(2,4),alternative="greater")
+report_wtests(df=df_insurance,dv=7,iv=c(2,4),var.equal=TRUE)
 ```
 
 ## Explanation of columns

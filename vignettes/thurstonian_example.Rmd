@@ -1,43 +1,26 @@
 ---
 title: "Thurstonian IRT Example"
 author: "Dimitrios Zacharatos"
-output: rmarkdown::html_vignette
+output:
+  html_document:
+    css: styles.css
+    toc: true
+    toc_depth: 2
+    theme: readable
 vignette: >
   %\VignetteIndexEntry{Thurstonian IRT Example}
   %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8}
 ---
 
-<style>
-body { max-width: 95%; margin: 0 auto; padding: 0; } 
-.container { width: 100%; max-width: none; } 
-/* Example for wider tables */ 
-table { width: 80%; table-layout: fixed; } 
-th, td { padding: 8px; text-align: left; } 
-/* Styling for input code */
-pre { 
-  background-color: #f4f4f4; /* Light gray background for input */
-  border-left: 5px solid #007ACC; /* Blue border */
-  padding: 10px;
-  font-size: 20px !important;
-}
-/* Styling for output */
-pre.r-output {
-  background-color: #e8f5e9; /* Light green background for output */
-  border-left: 5px solid #388E3C; /* Green border */
-  padding: 10px;
-  font-size: 15px !important;
-}
-</style>
-
 ```{r options,echo=FALSE,warning=FALSE,message=FALSE}
-options(future.show.progress=FALSE)
 options(width=1000)
-knitr::opts_chunk$set(echo=TRUE)
-hook_output<-function(x, options) {
-  paste0('<pre class="r-output">',knitr::knit_print(x),'</pre>')
+hook_output <- function(x, options) {
+  paste0('<pre class="r-output">', knitr::knit_print(x), '</pre>')
 }
-knitr::knit_hooks$set(output=hook_output)
+knitr::knit_hooks$set(output = hook_output)
+knitr::opts_chunk$set(echo=TRUE)
+options(future.show.progress = FALSE)
 ```
 
 ## Load
