@@ -1,34 +1,17 @@
 ---
 title: "LDA"
 author: "Dimitrios Zacharatos"
-date: "`r Sys.Date()`"
-output: rmarkdown::html_vignette
+output: 
+  html_document:
+    css: styles.css
+    toc: true
+    toc_depth: 2
+    theme: readable
 vignette: >
   %\VignetteIndexEntry{LDA}
   %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8}
 ---
-
-<style> 
-body { max-width: 95%; margin: 0 auto; padding: 0; } 
-.container { width: 100%; max-width: none; } 
-/* Example for wider tables */ 
-table { width: 80%; table-layout: fixed; } 
-th, td { padding: 8px; text-align: left; } 
-/* Styling for input code */
-pre { 
-  background-color: #f4f4f4; /* Light gray background for input */
-  border-left: 5px solid #007ACC; /* Blue border */
-  padding: 10px;
-}
-
-/* Styling for output */
-pre.r-output {
-  background-color: #e8f5e9; /* Light green background for output */
-  border-left: 5px solid #388E3C; /* Green border */
-  padding: 10px;
-}
-</style>
 
 This shows the output of LDA function from workingfunctions.  
 Installation instructions of workingfunctions can be found here https://github.com/sedzinfo/workingfunctions

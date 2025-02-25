@@ -1,43 +1,26 @@
 ---
 title: "GLM ANOVA"
 author: "Dimitrios Zacharatos"
-output: rmarkdown::html_vignette
+output:
+  html_document:
+    css: styles.css
+    toc: true
+    toc_depth: 2
+    theme: readable
 vignette: >
   %\VignetteIndexEntry{GLM ANOVA}
   %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8}
 ---
 
-<style>
-body { max-width: 95%; margin: 0 auto; padding: 0; } 
-.container { width: 100%; max-width: none; } 
-/* Example for wider tables */ 
-table { width: 80%; table-layout: fixed; } 
-th, td { padding: 8px; text-align: left; } 
-/* Styling for input code */
-pre { 
-  background-color: #f4f4f4; /* Light gray background for input */
-  border-left: 5px solid #007ACC; /* Blue border */
-  padding: 10px;
-  font-size: 20px !important;
-}
-/* Styling for output */
-pre.r-output {
-  background-color: #e8f5e9; /* Light green background for output */
-  border-left: 5px solid #388E3C; /* Green border */
-  padding: 10px;
-  font-size: 15px !important;
-}
-</style>
-
 ```{r options,echo=FALSE,warning=FALSE,message=FALSE}
-options(future.show.progress=FALSE)
 options(width=1000)
-knitr::opts_chunk$set(echo=TRUE)
-hook_output<-function(x, options) {
-  paste0('<pre class="r-output">',knitr::knit_print(x),'</pre>')
+hook_output <- function(x, options) {
+  paste0('<pre class="r-output">', knitr::knit_print(x), '</pre>')
 }
-knitr::knit_hooks$set(output=hook_output)
+knitr::knit_hooks$set(output = hook_output)
+knitr::opts_chunk$set(echo=TRUE)
+options(future.show.progress = FALSE)
 ```
 
 ```{r load,include=FALSE}
@@ -48,18 +31,26 @@ library(workingfunctions)
 This shows the output of several ANOVA related functions from workingfunctions.  
 Installation instructions for workingfunctions can be found [here](https://github.com/sedzinfo/workingfunctions)
 
-## KRUSKALL WALLIS TEST
-```{r Kruskal-Wallis,echo=TRUE}
+## Formula
+```{r Kruskal-Wallis0,echo=TRUE}
+mtcars
 form<-formula(qsec~cyl)
-kruskal.test(formula=form,data=mtcars)
+```
+
+## KRUSKALL WALLIS TEST from other packages
+```{r Kruskal-Wallis1,echo=TRUE}
+stats::kruskal.test(formula=form,data=mtcars)
 rcompanion::epsilonSquared(x=mtcars$qsec,g=mtcars$cyl,group="row",ci=TRUE,conf=0.95,type="perc",R=1000,digits=3)
 rstatix::kruskal_effsize(mtcars,form,ci=TRUE,conf.level=0.95,ci.type="perc",nboot=100)
+```
+
+## KRUSKALL WALLIS TEST
+```{r Kruskal-Wallis2,echo=TRUE}
 compute_kruskal_wallis_test(formula=form,df=mtcars)
 ```
 
 ## ONE WAY test with SS MS effect size and power
 ```{r one-way,echo=TRUE}
-form<-formula(qsec~cyl)
 compute_one_way_test(formula=form,df=mtcars,var.equal=TRUE)
 compute_one_way_test(formula=form,df=mtcars,var.equal=FALSE)
 oneway.test(formula=form,data=mtcars,var.equal=TRUE)
@@ -70,7 +61,7 @@ lsr::etaSquared(aov(form,data=mtcars),type=3,anova=TRUE)
 sjstats::anova_stats(model,digits=22)
 ```
 
-## Report One Way ANOVA with effect size power and post hocs
+## Report One Way ANOVA with SS MS effect size power and post hocs
 ```{r report_one-way,echo=TRUE,message=FALSE,warning=FALSE,results='hide'}
 result0<-report_oneway(df=mtcars,dv=2:4,iv=9:10,plot_diagnostics=FALSE,plot_means=FALSE)
 result1<-report_oneway(df=mtcars,dv=2:4,iv=9:10,plot_diagnostics=TRUE,plot_means=TRUE)
@@ -82,7 +73,8 @@ result1
 ```
 
 ## Report Factorial ANOVA with effect size power and post hocs
-```{r report_factorial,echo=TRUE,warning=FALSE}
+### Define models
+```{r report_factorial0,echo=TRUE,warning=FALSE}
 set.seed(12345)
 df<-data.frame(id=rep(seq(1,80),each=81,1),
                IV1=rep(LETTERS[1:3],each=1,2160),
@@ -139,11 +131,26 @@ r4<-report_factorial_anova(df=df,
                            within_covariates=c("DV3","DV4"),
                            between_covariates=NULL,
                            post_hoc=TRUE)
-r1
-r2
-r3
-r4
+```
 
+### Output 1
+```{r report_factorial1,echo=TRUE,warning=FALSE}
+r1
+```
+
+### Output 2
+```{r report_factorial2,echo=TRUE,warning=FALSE}
+r2
+```
+
+### Output 3
+```{r report_factorial3,echo=TRUE,warning=FALSE}
+r3
+```
+
+### Output 4
+```{r report_factorial4,echo=TRUE,warning=FALSE}
+r4
 ```
 
 ## MANOVA

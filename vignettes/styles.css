@@ -1,11 +1,52 @@
-/* Increase the width of the page content */
-body {
-  max-width: 100% !important;
-  margin: 0 auto;
-  padding: 0;
+<style>
+body { 
+  max-width: 95%; 
+  margin: 0 auto; 
+  padding: 0; 
+} 
+
+.container { 
+  width: 100%; 
+  max-width: 100%; 
+} 
+
+/* Example for wider tables */
+table { 
+  width: 80%;
+} 
+
+th, td { 
+  padding: 8px; 
+  text-align: left; 
+} 
+
+/* Styling for input code - WIDER */
+pre { 
+  background-color: #f4f4f4; /* Light gray background for input */
+  border-left: 5px solid #007ACC; /* Blue border */
+  padding: 10px;
+  font-size: 15px;
+  width: 100%;              /* Make pre blocks take full width */
+  max-width: 100%;          /* Ensure no max-width limit */
+  overflow-x: auto;         /* Horizontal scrollbar if content overflows */
+  box-sizing: border-box;   /* Includes padding in width calculation */
 }
 
-.container {
-  width: 100%;
-  max-width: none;
+/* Styling for output - WIDER */
+pre.r-output {
+  background-color: #e8f5e9; /* Light green background for output */
+  border-left: 5px solid #388E3C; /* Green border */
+  padding: 10px;
+  font-size: 15px;
+  width: 100%;              /* Full width for output blocks */
+  max-width: 100%;
+  overflow-x: auto;         /* Scroll horizontally if needed */
+  box-sizing: border-box;
 }
+
+/* Optional: Override common container restrictions */
+.main-container, .rmd-container { 
+  width: 100% !important;
+  max-width: 100% !important;
+}
+</style>

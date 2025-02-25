@@ -1,43 +1,26 @@
 ---
 title: "Regression and Classification Trees"
 author: "Dimitrios Zacharatos"
-output: rmarkdown::html_vignette
+output:
+  html_document:
+    css: styles.css
+    toc: true
+    toc_depth: 2
+    theme: readable
 vignette: >
   %\VignetteIndexEntry{RPART}
   %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8}
 ---
 
-<style>
-body { max-width: 95%; margin: 0 auto; padding: 0; } 
-.container { width: 100%; max-width: none; } 
-/* Example for wider tables */ 
-table { width: 80%; table-layout: fixed; } 
-th, td { padding: 8px; text-align: left; } 
-/* Styling for input code */
-pre { 
-  background-color: #f4f4f4; /* Light gray background for input */
-  border-left: 5px solid #007ACC; /* Blue border */
-  padding: 10px;
-  font-size: 20px !important;
-}
-/* Styling for output */
-pre.r-output {
-  background-color: #e8f5e9; /* Light green background for output */
-  border-left: 5px solid #388E3C; /* Green border */
-  padding: 10px;
-  font-size: 15px !important;
-}
-</style>
-
 ```{r options,echo=FALSE,warning=FALSE,message=FALSE}
-options(future.show.progress=FALSE)
 options(width=1000)
-knitr::opts_chunk$set(echo=TRUE)
-hook_output<-function(x, options) {
-  paste0('<pre class="r-output">',knitr::knit_print(x),'</pre>')
+hook_output <- function(x, options) {
+  paste0('<pre class="r-output">', knitr::knit_print(x), '</pre>')
 }
-knitr::knit_hooks$set(output=hook_output)
+knitr::knit_hooks$set(output = hook_output)
+knitr::opts_chunk$set(echo=TRUE)
+options(future.show.progress = FALSE)
 ```
 
 ```{r load,include=FALSE}
@@ -49,20 +32,26 @@ This shows the output of PART RPART functions from workingfunctions.
 Installation instructions for workingfunctions can be found [here](https://github.com/sedzinfo/workingfunctions)
 These functions are not installed by default they are in /workingfunctions/working_functions/OTHER/ML_TREE_RPART.R
 
-```{r create_models,include=FALSE}
-infert_formula<-as.formula(factor(case)~age+parity+education+spontaneous+induced)
-boston_formula<-as.formula(c("medv~",paste(names(MASS::Boston)[1:13],collapse="+")))
+```{r create_models,include=TRUE}
+infert_formula<-formula(factor(case)~age+parity+education+spontaneous+induced)
+boston_formula<-formula(c("medv~",paste(names(MASS::Boston)[1:13],collapse="+")))
 
 print(infert_formula)
 print(boston_formula)
 
 #kfolding
-train_test_classification<-workingfunctions::k_fold(df=infert,model_formula=infert_formula)
-train_test_regression<-workingfunctions::k_fold(df=MASS::Boston,model_formula=boston_formula)
+train_test_classification<-k_fold(df=infert,
+                                  model_formula=infert_formula)
+train_test_regression<-k_fold(df=MASS::Boston,
+                              model_formula=boston_formula)
 
 #rpart models
-rtree_classification<-rpart::rpart(infert_formula,train_test_classification$f$train$f1,model=TRUE,x=TRUE,y=TRUE)
-rtree_regression<-rpart::rpart(boston_formula,train_test_regression$f$train$f1,model=TRUE,x=TRUE,y=TRUE)
+rtree_classification<-rpart::rpart(infert_formula,
+                                   train_test_classification$f$train$f1,
+                                   model=TRUE,x=TRUE,y=TRUE)
+rtree_regression<-rpart::rpart(boston_formula,
+                               train_test_regression$f$train$f1,
+                               model=TRUE,x=TRUE,y=TRUE)
 
 ```
 
@@ -72,7 +61,8 @@ result<-data.frame(rtree_classification$cptable)
 result$nsplit<-factor(result$nsplit+1)
 minimun_size<-as.numeric(as.character(result[which.min(result[,"xerror"]),"nsplit"]))
 initial_model<-rtree_classification
-model<-rpart::prune(rtree_classification,cp=rtree_classification$cptable[which.min(rtree_classification$cptable[,"xerror"]),"CP"])
+model<-rpart::prune(rtree_classification,
+                    cp=rtree_classification$cptable[which.min(rtree_classification$cptable[,"xerror"]),"CP"])
 
 importance<-model$variable.importance
 importance<-data.frame(names=names(importance),importance=importance)
