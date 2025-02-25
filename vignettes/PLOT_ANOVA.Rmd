@@ -1,0 +1,59 @@
+---
+title: "PLOT MEANS INTERACTIONS AND ANOVA DIAGNOSTICS"
+author: "Dimitrios Zacharatos"
+output:
+  html_document:
+    css: styles.css
+    toc: true
+    toc_depth: 2
+    theme: readable
+vignette: >
+  %\VignetteIndexEntry{PLOT ANOVA}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+  
+```{r options,echo=FALSE,warning=FALSE,message=FALSE}
+options(width=1000)
+hook_output <- function(x, options) {
+paste0('<pre class="r-output">', knitr::knit_print(x), '</pre>')
+}
+knitr::knit_hooks$set(output = hook_output)
+knitr::opts_chunk$set(echo=TRUE)
+options(future.show.progress = FALSE)
+```
+
+```{r load,include=FALSE}
+library(workingfunctions)
+```
+
+## Description
+This shows the output of several ANOVA related functions from workingfunctions.  
+Installation instructions for workingfunctions can be found [here](https://github.com/sedzinfo/workingfunctions)
+
+## Plot Oneway
+```{r plot_oneway,fig.width=10,fig.height=10,echo=TRUE,message=FALSE,warning=FALSE,results='show',dev='png',fig.retina=2}
+df_blood_pressure_melt<-melt(df_blood_pressure,
+                             variable.name="treatment",
+                             value.name="blood_pressure",
+                             id.vars=c("patient","sex","agegrp"))
+plot_oneway(df=df_blood_pressure_melt,dv=5,iv=3:4,type="se")
+plot_oneway(df=df_blood_pressure,dv=5,iv=2,type="ci")
+plot_oneway(df=df_blood_pressure,dv=4:5,iv=2,type="sd")
+plot_oneway(df=df_blood_pressure,dv=4:5,iv=2:3)
+
+```
+
+
+## Plot Interactions
+```{r plot_interactions,fig.width=15,fig.height=10,echo=TRUE,message=FALSE,warning=FALSE,results='show',dev='png',fig.retina=2}
+plot_interaction(df=df_blood_pressure_melt,
+                 dv=5,iv=2:4,base_size=20,title="",type="se")
+plot_interaction(df=df_crop_yield,dv=3,iv=1:2,type="se",order_factor=TRUE)
+
+```
+
+## Plot ANOVA Diagnostics
+```{r plot_anova_diagnostics,fig.width=20,fig.height=15,echo=TRUE,message=FALSE,warning=FALSE,results='show',dev='png',fig.retina=2}
+plot_oneway_diagnostics(df=df_blood_pressure_melt,dv=5,iv=2:4,base_size=15)
+```
