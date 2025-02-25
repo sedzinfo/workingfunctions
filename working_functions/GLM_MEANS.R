@@ -129,7 +129,7 @@ report_ttests<-function(df,dv,iv,file=NULL,...) {
 #' report_wtests(df=df_insurance,dv=7,iv=c(2,4),alternative="less")
 #' report_wtests(df=df_insurance,dv=7,iv=c(2,4),alternative="greater")
 #' report_wtests(df=df_insurance,dv=7,iv=c(2,4),var.equal=TRUE)
-#' report_wtests(df=mtcars,dv=1:7,iv=8:10,var.equal=TRUE,file="wilcoxontest")
+#' report_wtests(df=df_insurance,dv=7,iv=c(2,4),var.equal=TRUE,file="wilcoxontest")
 report_wtests<-function(df,dv,iv,file=NULL,...) {
   comment<-list(DV="dependent variable",
                 IV="independent variable",
