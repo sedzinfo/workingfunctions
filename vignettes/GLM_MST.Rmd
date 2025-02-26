@@ -1,0 +1,242 @@
+---
+title: "FUNCTIONS TRAIN TEST"
+author: "Dimitrios Zacharatos"
+date: "`r Sys.Date()`"
+output:
+  html_document:
+    css: styles.css
+    toc: true
+    toc_depth: 2
+    theme: readable
+vignette: >
+  %\VignetteIndexEntry{FUNCTIONS_TRAIN_TEST}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r options,echo=FALSE,warning=FALSE,message=FALSE}
+options(width=1000)
+hook_output <- function(x, options) {
+  paste0('<pre class="r-output">', knitr::knit_print(x), '</pre>')
+}
+knitr::knit_hooks$set(output = hook_output)
+knitr::opts_chunk$set(echo=TRUE)
+options(future.show.progress = FALSE)
+```
+
+```{r load,include=TRUE}
+library(workingfunctions)
+library(mstR)
+```
+
+## Description
+This shows the output of useful functions for training and testing from workingfunctions.  
+Installation instructions for workingfunctions can be found [here](https://github.com/sedzinfo/workingfunctions)
+
+## Basic examples
+```{r excamples0,fig.width=8,fig.height=8,echo=TRUE,message=FALSE,warning=FALSE,results='hide',dev='png',fig.retina=2}
+it.MST <- rbind(genDichoMatrix(8, model = "2PL"), 
+                genDichoMatrix(6, model = "2PL",bPrior = c("norm", -1, 1)),
+                genDichoMatrix(6, model = "2PL",bPrior = c("norm", 1, 1)),
+                genDichoMatrix(9, model = "2PL",bPrior = c("norm", -2, 1)),
+                genDichoMatrix(9, model = "2PL",bPrior = c("norm", 0, 1)),
+                genDichoMatrix(9, model = "2PL",bPrior = c("norm", 2, 1)))
+it.MST <- as.matrix(it.MST)
+
+modules <- matrix(0, 47, 6)
+modules[1:8, 1] <- 1
+modules[9:14, 2] <- 1
+modules[15:20, 3] <- 1
+modules[21:29, 4] <- 1
+modules[30:38, 5] <- 1
+modules[39:47, 6] <- 1
+
+colSums(modules)
+
+trans <- matrix(0, 6, 6)
+trans[1, 2:3] <- 1
+trans[2, 4:5] <- 1
+trans[3, 5:6] <- 1
+
+startModule(itemBank = it.MST, modules = modules, transMatrix = trans)
+# startModule(itemBank = it.MST, modules = modules, transMatrix = trans, fixModule = 3)
+
+x <- c(1, 1, 1, 1, 0, 0, 0, 0)
+thetaEst(it.MST[1:8, ], x, method = "ML", out = 1:8, criterion = "MFI", x = x, theta = 0)
+
+cut <- matrix(NA, 6, 2)
+cut[2,] <- c(-Inf, 0)
+cut[3,] <- c(0, Inf)
+cut[4,] <- c(-Inf, -1)
+cut[5,] <- c(-1, 1)
+cut[6,] <- c(1, Inf)
+
+nextModule(itemBank = it.MST, modules = modules,transMatrix = trans, current.module = 1, out = 1:8, cutoff = cut, theta = th)
+nextModule(itemBank = it.MST, modules = modules, transMatrix = trans, current.module = 1, out = 1:8, cutoff = cut, theta = -0.2)
+
+cut.score <- matrix(NA, 6, 2)
+cut.score [2,] <- c(0, 5)
+cut.score [3,] <- c(5, 8)
+cut.score [4,] <- c(0, 5)
+cut.score [5,] <- c(5, 10)
+cut.score [6,] <- c(10, 14)
+
+nextModule(itemBank = it.MST, modules = modules, transMatrix = trans, current.module = 3, out = c(1:8, 15:20), cutoff = cut.score,theta = 11)
+
+```
+
+
+## Simulation examples
+```{r excamples1,fig.width=8,fig.height=8,echo=TRUE,message=FALSE,warning=FALSE,results='hide',dev='png',fig.retina=2}
+A1 <- c(7, 13, 14, 15, 22, 28, 34, 38, 51, 59, 70, 84, 85, 87, 89)
+B1 <- c(4, 12, 19, 27, 29, 39, 43, 60, 69, 71, 72, 73, 75, 90, 97)
+C1 <- c(32, 35, 36, 45, 52, 57, 61, 63, 66, 78, 81,82, 88, 92, 100)
+D1 <- c(1, 2, 3, 6, 18, 21, 41, 48, 49, 50, 54, 56, 58, 65, 77)
+E1 <- c(5, 16, 24, 25, 26, 37, 40, 44, 53, 68, 74, 80, 86, 91, 93)
+F1 <- c(9, 11, 31, 46, 47, 55, 64, 67, 76, 79, 83, 94, 95, 98, 99)
+
+a <- c(0.8, 0.9, 1.0, 1.1, 1.2)
+b <- c(0.0, -0.5, 1.1, -0.8, 0.7)
+it.2PL <- cbind(a, b, c = 0, d = 1)
+
+module1 <- matrix(0, 100, 6)
+module1[A1, 1] <- module1[B1, 2] <- module1[C1, 3] <- module1[D1, 4] <- module1[E1, 5] <- module1[F1, 6] <- 1
+
+trans <- matrix(0, 6, 6)
+trans[1, 2:3] <- trans[2, 4:5] <- trans[3, 5:6] <- 1
+
+start <- list(theta = 0)
+
+test <- list(method = "ML", moduleSelect = "MFI")
+final <- list(method = "ML")
+mst.ex1 <- randomMST(trueTheta = 0, itemBank = it.2PL, modules = module1, transMatrix = trans, genSeed = 1, start = start, test = test, final = final)
+
+sum(Ii(0.204, it.2PL[module1[, 2] == 1, ])$Ii)
+sum(Ii(0.204, it.2PL[module1[, 3] == 1, ])$Ii)
+
+plot(mst.ex1, border.col = "grey", arrow.col = "grey")
+
+cut <- matrix(NA, 6, 2)
+cut[2,] <- c(-Inf, 0)
+cut[3,] <- c(0, Inf)
+cut[4,] <- c(-Inf,-0.3)
+cut[5,] <- c(-0.3, 0.3)
+cut[6,] <- c(0.3, Inf)
+
+test2 <- list(method = "ML", cutoff = cut)
+
+mst.ex2 <- randomMST(trueTheta = 1, itemBank = it.2PL, modules = module1, transMatrix = trans, genSeed = 1, start = start, test = test2, final = final)
+
+
+cut2 <- matrix(NA, 6, 2)
+cut2[2,] <- c(-Inf, 7.5)
+cut2[3,] <- c(7.5, Inf)
+cut2[4,] <- c(-Inf,9.5)
+cut2[5,] <- c(9.5, 20.5)
+cut2[6,] <- c(20.5, Inf)
+
+test3 <- list(method = "score", cutoff = cut2)
+final3 <- list(method = "score")
+
+mst.ex3 <- randomMST(trueTheta = 1, itemBank = it.2PL, modules = module1, transMatrix = trans, genSeed = 1, start = start, test = test3, final = final)
+
+s <- seq(-2, 2, 0.5)
+TH <- rep(s, each = 1000)
+RES <- matrix(NA, length(TH), 6)
+start <- list(theta = 0)
+test <- list(method = "BM", moduleSelect = "MFI")
+final <- list(method = "ML")
+
+
+for (j in 1:6) { 
+  mod <- get(paste("module", j, sep = ""))
+  for (i in 1:length(TH)){
+    prov <- randomMST(trueTheta = TH[i],
+                      itemBank = it.2PL, modules = mod,
+                      transMatrix = trans, genSeed = i, start = start,
+                      test = test, final = final)
+    RES[i, j] <- prov$thFinal
+  }}
+
+res.ASB <- res.RMSE <- matrix(NA, length(s), 6)
+ASB <- function(t, th) mean(t-th)
+RMSE <- function(t, th) sqrt(mean((t-th)^2))
+
+for (i in 1:length(s)){
+  for (j in 1:6){
+    ind <- which(TH == s[i])
+    res.ASB[i, j] <- ASB(RES[ind, j], s[i])
+    res.RMSE[i, j] <- RMSE(RES[ind, j], s[i])
+  }}
+
+
+
+s <- seq(-2, 2, 0.5)
+TH <- rep(s, each = 1000)
+DATA <- genPattern(TH, it.2PL, seed = 1)
+RES <- matrix(NA, length(TH), 4)
+
+
+
+start.mst <- list(theta = 0)
+start.cat <- list(theta = 0, randomesque = 5)
+test.cat <- list(method = "BM", itemSelect = "MFI", randomesque = 5)
+test.mst <- list(method = "BM", moduleSelect = "MFI")
+stop <- list(rule = "length", thr = 45)
+final <- list(method = "BM")
+
+for (i in 1:length(TH)){
+  pr <- randomCAT(trueTheta = TH[i],
+                  itemBank = it.2PL, genSeed = i, start = start.cat,
+                  test = test.cat, stop = stop, final = final)
+  RES[i,1] <- pr$thFinal
+  RES[i,2] <- pr$seFinal
+  pr <- randomMST(trueTheta = TH[i],
+                  itemBank = it.2PL, genSeed = i, modules = module1,
+                  transMatrix = trans, start = start.mst,
+                  test = test.mst, final = final)
+  RES[i,3] <- pr$thFinal
+  RES[i,4] <- pr$seFinal
+}
+
+
+
+
+
+
+
+
+
+
+
+
+```
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
