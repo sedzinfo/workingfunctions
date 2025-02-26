@@ -62,7 +62,7 @@ startModule(itemBank = it.MST, modules = modules, transMatrix = trans)
 # startModule(itemBank = it.MST, modules = modules, transMatrix = trans, fixModule = 3)
 
 x <- c(1, 1, 1, 1, 0, 0, 0, 0)
-thetaEst(it.MST[1:8, ], x, method = "ML", out = 1:8, criterion = "MFI", x = x, theta = 0)
+th<-mstR::thetaEst(it.MST[1:8, ], x, method = "ML")
 
 cut <- matrix(NA, 6, 2)
 cut[2,] <- c(-Inf, 0)
@@ -81,7 +81,7 @@ cut.score [4,] <- c(0, 5)
 cut.score [5,] <- c(5, 10)
 cut.score [6,] <- c(10, 14)
 
-nextModule(itemBank = it.MST, modules = modules, transMatrix = trans, current.module = 3, out = c(1:8, 15:20), cutoff = cut.score,theta = 11)
+nextModule(itemBank = it.MST, modules = modules, transMatrix = trans, current.module = 3, out = c(1:8, 15:20), cutoff = cut.score,theta = th)
 
 ```
 
@@ -124,9 +124,7 @@ cut[5,] <- c(-0.3, 0.3)
 cut[6,] <- c(0.3, Inf)
 
 test2 <- list(method = "ML", cutoff = cut)
-
 mst.ex2 <- randomMST(trueTheta = 1, itemBank = it.2PL, modules = module1, transMatrix = trans, genSeed = 1, start = start, test = test2, final = final)
-
 
 cut2 <- matrix(NA, 6, 2)
 cut2[2,] <- c(-Inf, 7.5)
@@ -137,7 +135,6 @@ cut2[6,] <- c(20.5, Inf)
 
 test3 <- list(method = "score", cutoff = cut2)
 final3 <- list(method = "score")
-
 mst.ex3 <- randomMST(trueTheta = 1, itemBank = it.2PL, modules = module1, transMatrix = trans, genSeed = 1, start = start, test = test3, final = final)
 
 s <- seq(-2, 2, 0.5)
@@ -146,7 +143,6 @@ RES <- matrix(NA, length(TH), 6)
 start <- list(theta = 0)
 test <- list(method = "BM", moduleSelect = "MFI")
 final <- list(method = "ML")
-
 
 for (j in 1:6) { 
   mod <- get(paste("module", j, sep = ""))
@@ -169,14 +165,10 @@ for (i in 1:length(s)){
     res.RMSE[i, j] <- RMSE(RES[ind, j], s[i])
   }}
 
-
-
 s <- seq(-2, 2, 0.5)
 TH <- rep(s, each = 1000)
 DATA <- genPattern(TH, it.2PL, seed = 1)
 RES <- matrix(NA, length(TH), 4)
-
-
 
 start.mst <- list(theta = 0)
 start.cat <- list(theta = 0, randomesque = 5)
@@ -198,16 +190,6 @@ for (i in 1:length(TH)){
   RES[i,3] <- pr$thFinal
   RES[i,4] <- pr$seFinal
 }
-
-
-
-
-
-
-
-
-
-
 
 
 ```
