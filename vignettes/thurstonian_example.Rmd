@@ -71,7 +71,7 @@ head(triplets)
 ```{r blocks}
 blocks<-set_block(c("i1","i2","i3"),
                   traits=c("t1","t2","t3"),
-                  signs=c(1,1,1))+
+                  signs=c(1,1,1))+  
   set_block(c("i4","i5","i6"),
             traits=c("t1","t2","t3"),
             signs=c(-1,1,1))+
@@ -81,26 +81,49 @@ blocks<-set_block(c("i1","i2","i3"),
   set_block(c("i10","i11","i12"),
             traits=c("t1","t2","t3"),
             signs=c(1,-1,1))
-print(data.frame(blocks[[1]]))
+data.frame(blocks$blocks)
 ```
 
 ## Triplets
 
 ```{r triplets}
-triplets_long<-make_TIRT_data(data=triplets,blocks=blocks,direction="larger",format="pairwise",family="bernoulli",range=c(0,1))
-head(triplets_long)
+data_tirt<-make_TIRT_data(data=triplets,blocks=blocks,direction="larger",format="pairwise",family="bernoulli",range=c(0,1))
+
+data_sem<-make_sem_data(data=data_tirt)
+data_stan<-make_stan_data(data=data_tirt)
+
+spesification_lavaan<-make_lavaan_code(data_tirt)
+spesification_mplus<-make_mplus_code(data_tirt)
+
 ```
+
+## Model Spesification
+```{r spesification}
+# Spesification in lavaan
+cat(spesification_lavaan)
+
+# Spesification in MPLUS
+cat(spesification_lavaan)
+cat(spesification_mplus$TITLE)
+cat(spesification_mplus$DATA)
+cat(spesification_mplus$VARIABLE)
+cat(spesification_mplus$ANALYSIS)
+cat(spesification_mplus$MODEL)
+cat(spesification_mplus$MODELCONSTRAINT)
+cat(spesification_mplus$SAVEDATA)
+
+```
+
 
 ## Model fit
 
-```{r fit}
-# fit_lavaan<-fit_TIRT_lavaan(triplets_long,control=list(maxiter=1000))
-# fit_stan<-fit_TIRT_stan(triplets_long)
-# save(fit_lavaan,fit_stan,file="fit.RData")
-load("fit.RData")
-print(fit_lavaan)
-summary(fit_lavaan$fit)
+```{r fit, cache=TRUE}
+fit_lavaan<-fit_TIRT_lavaan(data_tirt,control=list(maxiter=1000))
+fit_mplus<-fit_TIRT_stan(data_tirt)
+fit_stan<-fit_TIRT_stan(data_tirt)
 model<-fit_lavaan$fit 
+
+predict(fit_lavaan,newdata=data_tirt)
 
 ```
 

@@ -1,5 +1,5 @@
 ---
-title: "FUNCTIONS TRAIN TEST"
+title: "MST"
 author: "Dimitrios Zacharatos"
 date: "`r Sys.Date()`"
 output:
@@ -9,7 +9,7 @@ output:
     toc_depth: 2
     theme: readable
 vignette: >
-  %\VignetteIndexEntry{FUNCTIONS_TRAIN_TEST}
+  %\VignetteIndexEntry{MST}
   %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8}
 ---
@@ -24,7 +24,7 @@ knitr::opts_chunk$set(echo=TRUE)
 options(future.show.progress = FALSE)
 ```
 
-```{r load,include=TRUE}
+```{r library,message=FALSE,warning=FALSE}
 library(workingfunctions)
 library(mstR)
 ```

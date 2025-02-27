@@ -23,7 +23,7 @@ knitr::opts_chunk$set(echo=TRUE)
 options(future.show.progress = FALSE)
 ```
 
-```{r load,include=FALSE}
+```{r library,message=FALSE,warning=FALSE}
 library(workingfunctions)
 ```
 
