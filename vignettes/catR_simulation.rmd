@@ -8,7 +8,7 @@ output:
     toc_depth: 2
     theme: readable
 vignette: >
-  %\VignetteIndexEntry{RPART}
+  %\VignetteIndexEntry{CAT Simulation}
   %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8}
 ---
@@ -100,7 +100,7 @@ A summary of the results is best provided graphically. Here we will summarize wh
 * Graph 5: The distribution of CAT estimated scores.  
 * Graph 6: The distribution of mirt estimated scores.  
 
-```{r ,echo=TRUE,out.width=1000,warning=FALSE,message=FALSE,error=FALSE,fig.align="center",cache=TRUE}
+```{r ,echo=TRUE,fig.width=20,fig.height=15,out.width=1000,warning=FALSE,message=FALSE,error=FALSE,fig.align="center",cache=TRUE,dev='png',fig.retina=2}
 par(mfrow=c(3,2),mai=c(.5,.5,.2,.2))
 plot(result$est_theta,result$mirt_scores,xlab="CAT Theta",ylab="mirt Theta",main=paste("Pearson r",round(cor(result$est_theta,result$mirt_scores),4)))
 plot(result$questions,result$est_theta,xlab="Questions asked",ylab="CAT Theta")
@@ -116,7 +116,7 @@ It seems that the distribution of scores is uniform. The function which generate
 
 In additions to the simulation used above, catR also provides the simulateRespondents which can provide an interesting summary.
 
-```{r ,echo=TRUE,results="hide",out.width=1000,warning=FALSE,message=FALSE,error=FALSE,fig.align="center",cache=TRUE}
+```{r ,echo=TRUE,fig.width=20,fig.height=15,results="hide",out.width=1000,warning=FALSE,message=FALSE,error=FALSE,fig.align="center",cache=TRUE,dev='png',fig.retina=2}
 result_simulate_respondents<-simulateRespondents(thetas=seq(-6,6,.001),itemBank=itemBank,genSeed=NULL,start=start,test=test,stop=stop,final=final)
 result_simulate_respondents
 plot(result_simulate_respondents)
