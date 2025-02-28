@@ -7,10 +7,10 @@ output:
     toc: true
     toc_depth: 2
     theme: readable
-vignette: >
-  %\VignetteIndexEntry{PLOT ANOVA}
-  %\VignetteEngine{knitr::rmarkdown}
-  %\VignetteEncoding{UTF-8}
+  pdf_document:
+    toc: true
+    toc_depth: '2'
+vignette: "%\\VignetteIndexEntry{PLOT ANOVA} %\\VignetteEngine{knitr::rmarkdown} %\\VignetteEncoding{UTF-8}\n"
 ---
   
 ```{r options,echo=FALSE,warning=FALSE,message=FALSE}
