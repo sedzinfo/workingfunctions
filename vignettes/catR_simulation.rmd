@@ -100,7 +100,7 @@ A summary of the results is best provided graphically. Here we will summarize wh
 * Graph 5: The distribution of CAT estimated scores.  
 * Graph 6: The distribution of mirt estimated scores.  
 
-```{r results0,echo=TRUE,fig.width=20,fig.height=15,out.width=1000,warning=FALSE,message=FALSE,error=FALSE,fig.align="center",cache=TRUE,dev='png',fig.retina=1}
+```{r results0,echo=TRUE,fig.width=20,fig.height=15,out.width=1000,warning=FALSE,message=FALSE,error=FALSE,fig.align="center",cache=TRUE,dev='png',fig.retina=2}
 par(mfrow=c(3,2),mai=c(.5,.5,.2,.2))
 plot(result$est_theta,result$mirt_scores,xlab="CAT Theta",ylab="mirt Theta",main=paste("Pearson r",round(cor(result$est_theta,result$mirt_scores),4)))
 plot(result$questions,result$est_theta,xlab="Questions asked",ylab="CAT Theta")

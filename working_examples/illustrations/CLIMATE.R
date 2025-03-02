@@ -1,6 +1,9 @@
 ##########################################################################################
 # ICE
 ##########################################################################################
+remotes::install_github("https://github.com/ropensci/rnoaa")
+install.packages("https://cran.r-project.org/src/contrib/Archive/rgdal/rgdal_1.6-7.tar.gz")
+
 options(noaakey="wmUcxgwckVYpOHZHzeGugclTMpdRyWQW")
 library(rnoaa)
 library(ggplot2)
