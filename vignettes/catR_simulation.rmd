@@ -42,7 +42,7 @@ The genDichoMatrix will generate 200 items of a 2PL model with parameter a model
 The genDichoMatrix also provides a c and a d parameter which stand for guessing or inattentiveness, however because their values are always 0 and 1, they have no effect in the ability estimation formula. As a result catR may use a 4PL formula internally, however item parameters for c and d, will make the relevant formulas equivalent of a 2PL model.  
 The resulting item bank from the genDichoMatrix, provides relatively good discrimination for items that measure a relatively wide ability levels.  
 
-```{r ,echo=TRUE,cache=TRUE}
+```{r bank,echo=TRUE,cache=TRUE}
 itemBank<-genDichoMatrix(items=200,model="2PL",aPrior=c("norm",2,.1),bPrior=c("norm",0,4))
 head(itemBank)
 summary(itemBank)
@@ -52,7 +52,7 @@ summary(itemBank)
 
 In addition, catR provides the genPattern function witch allows to generate item responses or participant responses for that matter, given an itemBank provided by genDichoMatrix or other means. For illustration purposes the code generates descriptive statistics for the first 9 columns of the generated data.  
 
-```{r ,echo=TRUE,cache=TRUE}
+```{r simulate_responses,echo=TRUE,cache=TRUE}
 data<-genPattern(th=seq(-10,10,length=1000),it=itemBank,model=NULL,seed=1)
 summary(data[,1:9])
 ```
@@ -61,7 +61,7 @@ summary(data[,1:9])
 
 Assuming that the generated data are participant responses with each row representing a single participant, we can use a third package, the mirt package, to estimate item parameters, the overall model and participant scores, assuming participants answered all questions.  
 
-```{r ,echo=TRUE,out.width=1000,results="hide",warning=FALSE,message=FALSE,error=FALSE,cache=TRUE}
+```{r estimation,echo=TRUE,out.width=1000,results="hide",warning=FALSE,message=FALSE,error=FALSE,cache=TRUE}
 mirt_model<-mirt::mirt(data=data.frame(data),model=1,itemtype="2PL",technical=list(theta_lim=c(-6,6),NCYCLES=10000))
 ```
 
@@ -73,7 +73,7 @@ Here we will simulate a CAT scenario where participants fill in a CAT questionna
 * The final list defines the options for the final ability estimation.  
 * The stop list defines the conditions where the test will stop. In this case, the test stops when 40 items out of 200 are asked and when the precision criterion falls bellow .3. The precision criterion is estimated using the SE of the provisional ability estimate.  
 
-```{r ,echo=TRUE,warning=FALSE,message=FALSE,error=FALSE,fig.align="center",cache=TRUE}
+```{r simulation,echo=TRUE,warning=FALSE,message=FALSE,error=FALSE,fig.align="center",cache=TRUE}
 start<-list(theta=0,nrItems=1,startSelect="bOpt")
 test<-list(method="BM",itemSelect="bOpt",randomesque=5,range=c(-20,20))
 final<-list(method="BM",range=c(-20,20))
@@ -100,7 +100,7 @@ A summary of the results is best provided graphically. Here we will summarize wh
 * Graph 5: The distribution of CAT estimated scores.  
 * Graph 6: The distribution of mirt estimated scores.  
 
-```{r ,echo=TRUE,fig.width=20,fig.height=15,out.width=1000,warning=FALSE,message=FALSE,error=FALSE,fig.align="center",cache=TRUE,dev='png',fig.retina=2}
+```{r results0,echo=TRUE,fig.width=20,fig.height=15,out.width=1000,warning=FALSE,message=FALSE,error=FALSE,fig.align="center",cache=TRUE,dev='png',fig.retina=1}
 par(mfrow=c(3,2),mai=c(.5,.5,.2,.2))
 plot(result$est_theta,result$mirt_scores,xlab="CAT Theta",ylab="mirt Theta",main=paste("Pearson r",round(cor(result$est_theta,result$mirt_scores),4)))
 plot(result$questions,result$est_theta,xlab="Questions asked",ylab="CAT Theta")
@@ -116,9 +116,9 @@ It seems that the distribution of scores is uniform. The function which generate
 
 In additions to the simulation used above, catR also provides the simulateRespondents which can provide an interesting summary.
 
-```{r ,echo=TRUE,fig.width=20,fig.height=15,results="hide",out.width=1000,warning=FALSE,message=FALSE,error=FALSE,fig.align="center",cache=TRUE,dev='png',fig.retina=2}
+```{r results1,echo=TRUE,fig.width=20,fig.height=15,results="hide",out.width=1000,warning=FALSE,message=FALSE,error=FALSE,fig.align="center",cache=TRUE,dev='png',fig.retina=2}
 result_simulate_respondents<-simulateRespondents(thetas=seq(-6,6,.001),itemBank=itemBank,genSeed=NULL,start=start,test=test,stop=stop,final=final)
 result_simulate_respondents
-plot(result_simulate_respondents)
+plot(result_simulate_respondents,cex.main=5,cex.lab=5,cex.axis=5)
 ```
 

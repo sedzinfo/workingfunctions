@@ -14,8 +14,10 @@ rstudioapi::getSourceEditorContext()$path
 ##########################################################################################
 # SOURCE
 ##########################################################################################
-r_files<-setdiff(list.files("working_functions",full.names=TRUE),list.dirs("working_functions",recursive=FALSE))
-r_irr_files<-setdiff(list.files("working_functions/IRR",full.names=TRUE),list.dirs("working_functions/IRR",recursive=FALSE))
+r_files<-setdiff(list.files("working_functions",full.names=TRUE),
+                 list.dirs("working_functions",recursive=FALSE))
+r_irr_files<-setdiff(list.files("working_functions/IRR",full.names=TRUE),
+                     list.dirs("working_functions/IRR",recursive=FALSE))
 for (i in r_files)
   source(i)
 directory<-paste0(dirname(rstudioapi::getActiveDocumentContext()$path),"/")
@@ -72,12 +74,3 @@ library(help="datasets")
 # scp -r admin@192.168.84.55:/srv/shiny-server/* /home/dimitrios/Desktop/shiny/.
 # ssh admin@192.168.84.55
 # install.packages("https://cran.r-project.org/src/contrib/Archive/varComp/varComp_0.2-0.tar.gz",type="source",repos=NULL,dependencies=TRUE)
-
-
-
-
-
-
-
-
-
