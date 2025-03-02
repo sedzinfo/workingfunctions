@@ -74,3 +74,4 @@ library(help="datasets")
 # scp -r admin@192.168.84.55:/srv/shiny-server/* /home/dimitrios/Desktop/shiny/.
 # ssh admin@192.168.84.55
 # install.packages("https://cran.r-project.org/src/contrib/Archive/varComp/varComp_0.2-0.tar.gz",type="source",repos=NULL,dependencies=TRUE)
+

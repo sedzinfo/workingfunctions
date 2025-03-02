@@ -1,19 +1,42 @@
 ---
-editor_options:
-  chunk_output_type: console
+title: "MNIST in Keras"
+author: "Dimitrios Zacharatos"
 output:
-  html_document: default
-  word_document: default
-  pdf_document: default
+  html_document:
+    css: styles.css
+    toc: true
+    toc_depth: 2
+    theme: readable
+vignette: >
+  %\VignetteIndexEntry{MNIST in Keras}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
 ---
-<style type="text/css">
-.main-container {
-max-width: 1400px;
-margin-left: auto;
-margin-right: auto;
-text-align: justify;
+
+```{r options,echo=FALSE,warning=FALSE,message=FALSE}
+options(width=1000)
+hook_output <- function(x, options) {
+  paste0('<pre class="r-output">', knitr::knit_print(x), '</pre>')
 }
-</style>
+knitr::knit_hooks$set(output = hook_output)
+knitr::opts_chunk$set(echo=TRUE)
+options(future.show.progress = FALSE)
+```
+
+
+```{r install_keras_tensorflow,echo=FALSE,warning=FALSE,message=FALSE}
+# install.packages("remotes")
+# remotes::install_github("rstudio/tensorflow")
+# reticulate::install_python()
+# library(tensorflow)
+# tensorflow::install_tensorflow(envname = "r-tensorflow")
+# install.packages("keras")
+# library(keras)
+# install_keras()
+# reticulate::virtualenv_create("r-tensorflow")
+# reticulate::use_virtualenv("r-tensorflow")
+```
+
 
 # Keras on the MNIST dataset
 The code bellow works with the keras and psycholate library. Most of the code was taken from Chollet and Allaire (1917) book: Deep Learning with R.
