@@ -1,19 +1,27 @@
 ---
-editor_options:
-  chunk_output_type: console
+title: "Multitrait Multimethod"
+author: "Dimitrios Zacharatos"
 output:
-  html_document: default
-  word_document: default
-  pdf_document: default
+  html_document:
+    css: styles.css
+    toc: true
+    toc_depth: 2
+    theme: readable
+vignette: >
+  %\VignetteIndexEntry{Multitrait Multimethod}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
 ---
-<style type="text/css">
-.main-container {
-max-width: 1400px;
-margin-left: auto;
-margin-right: auto;
-text-align: justify;
+
+```{r options,echo=FALSE,warning=FALSE,message=FALSE}
+options(width=1000)
+hook_output <- function(x, options) {
+  paste0('<pre class="r-output">', knitr::knit_print(x), '</pre>')
 }
-</style>
+knitr::knit_hooks$set(output = hook_output)
+knitr::opts_chunk$set(echo=TRUE)
+options(future.show.progress = FALSE)
+```
 
 # CFA MULTITRAIT MULTIMETHOD
 ```{r set-options,echo=FALSE}
@@ -170,7 +178,7 @@ cat(perfectly_correlated_methods_model)
 ```
 
 ## Model 1 Freely correlated traits and methods  
-```{r,out.width="100%"}
+```{r,cache=TRUE,dev='png',fig.retina=2}
 fm<-lavaan::cfa(freely_correlated_traits_methods_model,data=mtmm_data,std.lv=TRUE)
 # lavaan::inspect(fm,what="std")
 # lavaan::parameterEstimates(fm,standardized=TRUE)
@@ -179,7 +187,7 @@ semPlot::semPaths(fm,"model",whatLabels="std",layout="tree2",residuals=FALSE,exo
 ```
 
 ## Model 2 No traits – freely correlated methods  
-```{r,out.width="100%"}
+```{r,cache=TRUE,dev='png',fig.retina=2}
 mm<-lavaan::cfa(methods_only_model,data=mtmm_data)
 # lavaan::inspect(mm,what="std")
 # lavaan::parameterEstimates(mm,standardized=TRUE)
@@ -188,7 +196,7 @@ semPlot::semPaths(mm,"model",whatLabels="std",layout="tree2",residuals=FALSE,exo
 ```
 
 ## Perfectly correlated traits – freely correlated methods  
-```{r,out.width="100%"}
+```{r,cache=TRUE,fig.width=8,fig.height=8,dev='png',fig.retina=2}
 ctm<-lavaan::cfa(perfectly_correlated_traits_model,data=mtmm_data,std.lv=TRUE)
 # lavaan::inspect(ctm,what="std")
 # lavaan::parameterEstimates(ctm,standardized=TRUE)
@@ -197,7 +205,7 @@ semPlot::semPaths(ctm,"model",whatLabels="std",layout="tree2",residuals=FALSE,ex
 ```
 
 ## Freely correlated traits – perfectly independent methods 
-```{r,out.width="100%"}
+```{r,cache=TRUE,fig.width=8,fig.height=8,dev='png',fig.retina=2}
 imm<-lavaan::cfa(perfectly_independent_methods_model,data=mtmm_data,std.lv=TRUE)
 # lavaan::inspect(imm,what="std")
 # lavaan::parameterEstimates(imm,standardized=TRUE)
@@ -224,7 +232,7 @@ lavaan::anova(fm,imm) # Evidence for discriminant validity for non significant r
 # Other models
 
 ## Freely correlated traits – perfectly correlated methods 
-```{r,out.width="100%"}
+```{r,fig.width=8,fig.height=8,dev='png',fig.retina=2}
 cmm<-lavaan::cfa(perfectly_correlated_methods_model,data=mtmm_data,std.lv=TRUE)
 # lavaan::inspect(cmm,what="std")
 # lavaan::parameterEstimates(cmm,standardized=TRUE)
@@ -233,7 +241,7 @@ semPlot::semPaths(cmm,"model",whatLabels="std",layout="tree2",residuals=FALSE,ex
 ```
 
 ## Freely correlated traits – correlated residuals
-```{r,out.width="100%"}
+```{r,fig.width=8,fig.height=8,dev='png',fig.retina=2}
 crm<-lavaan::cfa(correlated_residuals_model,data=mtmm_data,std.lv=TRUE)
 # lavaan::inspect(crm,what="std")
 # lavaan::parameterEstimates(crm,standardized=TRUE)
