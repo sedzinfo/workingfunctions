@@ -23,7 +23,7 @@ knitr::opts_chunk$set(echo=TRUE)
 options(future.show.progress = FALSE)
 ```
 
-```{r load,include=TRUE}
+```{r load,include=TRUE,echo=TRUE,results=FALSE,warning=FALSE,message=FALSE}
 library(workingfunctions)
 ```
 
@@ -39,13 +39,13 @@ boston_formula<-formula(c("medv~",paste(names(MASS::Boston)[1:13],collapse="+"))
 print(infert_formula)
 print(boston_formula)
 
-#kfolding
+# kfolding
 train_test_classification<-k_fold(df=infert,
                                   model_formula=infert_formula)
 train_test_regression<-k_fold(df=MASS::Boston,
                               model_formula=boston_formula)
 
-#rpart models
+# srpart models
 rtree_classification<-rpart::rpart(infert_formula,
                                    train_test_classification$f$train$f1,
                                    model=TRUE,x=TRUE,y=TRUE)
