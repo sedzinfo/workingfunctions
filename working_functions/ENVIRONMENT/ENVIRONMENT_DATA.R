@@ -81,9 +81,9 @@ df_responses_state<-read.csv("https://raw.githubusercontent.com/researchpy/Data-
                              check.names=FALSE)
 df_sexual_comp<-read.csv("https://raw.githubusercontent.com/researchpy/Data-sets/master/sexual_comp.csv",
                          check.names=FALSE)
-df_personality<-read.csv(paste0(directory,"data/df_personality.csv"),
+df_personality<-read.csv(paste0(directory,"data/personality.csv"),
                          check.names=FALSE)
-df_titanic<-read.csv(paste0(directory,"data/df_titanic.csv"),
+df_titanic<-read.csv(paste0(directory,"data/titanic.csv"),
                      check.names=FALSE)
 
 save(df_admission,file=paste0(directory,"workingfunctions/data/df_admission.rda"))
