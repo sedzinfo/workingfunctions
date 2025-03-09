@@ -63,17 +63,28 @@
 directory<-paste0(dirname(rstudioapi::getActiveDocumentContext()$path),"/")
 directory<-gsub("working_functions/ENVIRONMENT/","",directory)
 
-df_admission<-read.csv("https://raw.githubusercontent.com/researchpy/Data-sets/master/admission.csv")
-df_automotive_data<-read.csv("https://raw.githubusercontent.com/researchpy/Data-sets/master/automotive_data.csv")
-df_blood_pressure<-read.csv("https://raw.githubusercontent.com/researchpy/Data-sets/master/blood_pressure.csv")
-df_crop_yield<-read.csv("https://raw.githubusercontent.com/researchpy/Data-sets/master/crop_yield.csv")
-df_difficile<-read.csv("https://raw.githubusercontent.com/researchpy/Data-sets/master/difficile.csv")
-df_insurance<-read.csv("https://raw.githubusercontent.com/researchpy/Data-sets/master/insurance.csv")
-df_responses<-read.csv("https://raw.githubusercontent.com/researchpy/Data-sets/master/responses.csv")
-df_responses_state<-read.csv("https://raw.githubusercontent.com/researchpy/Data-sets/master/responses_state.csv")
-df_sexual_comp<-read.csv("https://raw.githubusercontent.com/researchpy/Data-sets/master/sexual_comp.csv")
-df_personality<-read.csv(paste0(directory,"data/df_personality.csv"))
-df_titanic<-read.csv(paste0(directory,"data/df_titanic.csv"))
+df_admission<-read.csv("https://raw.githubusercontent.com/researchpy/Data-sets/master/admission.csv",
+                       check.names=FALSE)
+df_automotive_data<-read.csv("https://raw.githubusercontent.com/researchpy/Data-sets/master/automotive_data.csv",
+                             check.names=FALSE,na.strings="?")
+df_blood_pressure<-read.csv("https://raw.githubusercontent.com/researchpy/Data-sets/master/blood_pressure.csv",
+                            check.names=FALSE)
+df_crop_yield<-read.csv("https://raw.githubusercontent.com/researchpy/Data-sets/master/crop_yield.csv",
+                        check.names=FALSE)
+df_difficile<-read.csv("https://raw.githubusercontent.com/researchpy/Data-sets/master/difficile.csv",
+                       check.names=FALSE)
+df_insurance<-read.csv("https://raw.githubusercontent.com/researchpy/Data-sets/master/insurance.csv",
+                       check.names=FALSE)
+df_responses<-read.csv("https://raw.githubusercontent.com/researchpy/Data-sets/master/responses.csv",
+                       check.names=FALSE)
+df_responses_state<-read.csv("https://raw.githubusercontent.com/researchpy/Data-sets/master/responses_state.csv",
+                             check.names=FALSE)
+df_sexual_comp<-read.csv("https://raw.githubusercontent.com/researchpy/Data-sets/master/sexual_comp.csv",
+                         check.names=FALSE)
+df_personality<-read.csv(paste0(directory,"data/df_personality.csv"),
+                         check.names=FALSE)
+df_titanic<-read.csv(paste0(directory,"data/df_titanic.csv"),
+                     check.names=FALSE)
 
 save(df_admission,file=paste0(directory,"workingfunctions/data/df_admission.rda"))
 save(df_automotive_data,file=paste0(directory,"workingfunctions/data/df_automotive_data.rda"))
@@ -86,5 +97,33 @@ save(df_responses_state,file=paste0(directory,"workingfunctions/data/df_response
 save(df_sexual_comp,file=paste0(directory,"workingfunctions/data/df_sexual_comp.rda"))
 save(df_personality,file=paste0(directory,"workingfunctions/data/df_personality.rda"))
 save(df_titanic,file=paste0(directory,"workingfunctions/data/df_titanic.rda"))
+
+
+write.csv(df_admission,file=paste0(directory,"/data/admission.csv"),
+          row.names=FALSE)
+write.csv(df_automotive_data,file=paste0(directory,"/data/automotive_data.csv"),
+          row.names=FALSE)
+write.csv(df_blood_pressure,file=paste0(directory,"/data/blood_pressure.csv"),
+          row.names=FALSE)
+write.csv(df_crop_yield,file=paste0(directory,"/data/crop_yield.csv"),
+          row.names=FALSE)
+write.csv(df_difficile,file=paste0(directory,"/data/difficile.csv"),
+          row.names=FALSE)
+write.csv(df_insurance,file=paste0(directory,"/data/insurance.csv"),
+          row.names=FALSE)
+write.csv(df_responses,file=paste0(directory,"/data/responses.csv"),
+          row.names=FALSE)
+write.csv(df_responses_state,file=paste0(directory,"/data/responses_state.csv"),
+          row.names=FALSE)
+write.csv(df_sexual_comp,file=paste0(directory,"/data/sexual_comp.csv"),
+          row.names=FALSE)
+write.csv(df_personality,file=paste0(directory,"/data/personality.csv"),
+          row.names=FALSE)
+write.csv(df_titanic,file=paste0(directory,"/data/titanic.csv"),
+          row.names=FALSE)
+
+
+
+
 
 
