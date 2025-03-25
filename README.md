@@ -1,7 +1,18 @@
 # workingfunctions
-Statistical reporting and visualization for common methods
 
-Statistical reporting and visualization for common methodology. Functions to minimize code and automate procedures using common R packages.
+**Version 0.1**
+
+---
+
+## Overview
+`workingfunctions` is an R package designed to streamline **statistical reporting** and enhance **visualizations** for commonly used methodologies in psychology. By automating code-heavy tasks using well-known R packages, `workingfunctions` helps researchers and data scientists save time and reduce coding complexity.
+
+## Key Features
+- Statistical reporting for ANOVA, regression, t-tests, and more.
+- Intuitive visualizations: ROC curves, histograms, scatterplots, and interaction plots.
+- Support for advanced modeling: CFA, IRT models, Thurstonian scales.
+- Simulated datasets for practice and demonstration.
+
 
 # Installation Instructions
 
