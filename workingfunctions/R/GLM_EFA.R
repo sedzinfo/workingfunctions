@@ -12,6 +12,7 @@
 #' @import grid
 #' @importFrom reshape2 melt
 #' @importFrom ggpubr ggarrange
+#' @importFrom grDevices colorRampPalette
 #' @keywords EFA
 #' @export
 #' @examples

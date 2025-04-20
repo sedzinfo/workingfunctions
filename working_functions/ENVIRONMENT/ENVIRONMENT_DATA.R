@@ -86,7 +86,7 @@ df_personality<-read.csv(paste0(directory,"data/personality.csv"),
 df_titanic<-read.csv(paste0(directory,"data/titanic.csv"),
                      check.names=FALSE)
 df_co2<-read.csv(paste0(directory,"data/co2.csv"),
-                     check.names=FALSE)
+                 check.names=FALSE)
 
 save(df_admission,file=paste0(directory,"workingfunctions/data/df_admission.rda"))
 save(df_automotive_data,file=paste0(directory,"workingfunctions/data/df_automotive_data.rda"))
