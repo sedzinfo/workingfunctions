@@ -132,11 +132,17 @@ compute_one_way_test<-function(formula,df,var.equal=TRUE) {
 #' @keywords ANOVA
 #' @export
 #' @examples
-#' report_oneway(df=mtcars,dv=2:4,iv=9:10,file="anova",
-#'               plot_diagnostics=FALSE,plot_means=FALSE)
+#' report_oneway(df=df_blood_pressure,
+#'               dv=c(which("bp_before"==names(df_blood_pressure)),
+#'                    which("bp_after"==names(df_blood_pressure))),
+#'               iv=c(which("sex"==names(df_blood_pressure)),
+#'                    which("agegrp"==names(df_blood_pressure))),
+#'               file="anova",
+#'               plot_diagnostics=FALSE,
+#'               plot_means=FALSE)
 #' report_oneway(df=mtcars,dv=2:4,iv=9:10,file="anova_oneway_two_factor")
-#' report_oneway(df=mtcars,dv=2:4,iv=9,file="anova_oneway_one_factor")
-#' report_oneway(df=mtcars,dv=2:4,iv=9,file="anova_oneway_one_factor",
+#' report_oneway(df=df_blood_pressure,dv=2:4,iv=9,file="anova_oneway_one_factor")
+#' report_oneway(df=df_blood_pressure,dv=2:4,iv=9,file="anova_oneway_one_factor",
 #'               plot_means=TRUE,plot_diagnostics=TRUE)
 report_oneway<-function(df,dv,iv,file=NULL,w=10,h=10,base_size=10,note="",title="",type="ci",plot_means=FALSE,plot_diagnostics=FALSE) {
   instruction<-list(fisher="Fisher assumes heteroscedasticity",
@@ -185,7 +191,7 @@ report_oneway<-function(df,dv,iv,file=NULL,w=10,h=10,base_size=10,note="",title=
                                                 p=bartlett.test$p.value,
                                                 check.names=FALSE))
       
-      post_hoc<-compute_posthoc(tempdata[,cors],tempdata[,factors],method=c("games-howell","tukey"))
+      post_hoc<-compute_posthoc(tempdata[,cors],tempdata[,factors])
       tukey<-data.frame(Method="Tukey",IV=factors,DV=cors,LEVEL=rownames(post_hoc$output$tukey),post_hoc$output$tukey,row.names=NULL)
       games.howell<-data.frame(method="Games Howell",IV=factors,DV=cors,LEVEL=rownames(post_hoc$output$games.howell),post_hoc$output$games.howell,row.names=NULL)
       df_tukey<-rbind(df_tukey,tukey)
@@ -619,15 +625,15 @@ compute_aov_es<-function(model,ss="I") {
 #' @description Based on http://www.psych.yorku.ca/cribbie/6130/games_howell.R
 #' @param y Vector continous variable
 #' @param x Vector factor
-#' @param method Character "games-howell" "tukey" or c("games-howell","tukey")
 #' @importFrom utils combn
 #' @importFrom stats ptukey
 #' @keywords ANOVA
 #' @export
 #' @examples
-#' result<-compute_posthoc(mtcars[,6],mtcars[,10])
-compute_posthoc<-function(y,x,method=c("games-howell","tukey")) {
-  method<-tolower(method)
+#' compute_posthoc(y=df_blood_pressure$bp_before,x=df_blood_pressure$agegrp)
+#' compute_posthoc(y=df_blood_pressure$bp_after,x=df_blood_pressure$agegrp)
+compute_posthoc<-function(y,x) {
+  method=c("games-howell","tukey")
   tryCatch(method<-match.arg(method),error=function(err) {print("Argument for 'method' not valid!")})
   res<-list(input=list(x=x,y=y,method=method))
   res$intermediate<-list(x=factor(x[complete.cases(x,y)]),y=y[complete.cases(x,y)])
@@ -641,8 +647,10 @@ compute_posthoc<-function(y,x,method=c("games-howell","tukey")) {
   rownames(res$intermediate$descriptives)<-levels(res$intermediate$x)
   colnames(res$intermediate$descriptives)<-c('n','means','variances')
   # Tukey
-  res$intermediate$errorVariance<-sum((res$intermediate$n-1)*res$intermediate$variances)/res$intermediate$df;
-  res$intermediate$t<-utils::combn(res$intermediate$groups,2,function(ij) {abs(diff(res$intermediate$means[ij]))/sqrt(res$intermediate$errorVariance*sum(1/res$intermediate$n[ij]))})
+  res$intermediate$errorVariance<-sum((res$intermediate$n-1)*res$intermediate$variances)/res$intermediate$df
+  res$intermediate$t<-utils::combn(res$intermediate$groups,2,function(ij) {
+    abs(diff(res$intermediate$means[ij]))/sqrt(res$intermediate$errorVariance*sum(1/res$intermediate$n[ij]))
+    })
   res$intermediate$p.tukey<-stats::ptukey(res$intermediate$t*sqrt(2),res$intermediate$groups,res$intermediate$df,lower.tail=FALSE)
   res$output<-list()
   res$output$tukey<-cbind(res$intermediate$t,res$intermediate$df,res$intermediate$p.tukey)
@@ -650,9 +658,10 @@ compute_posthoc<-function(y,x,method=c("games-howell","tukey")) {
   colnames(res$output$tukey)<-c('t','df','p')
   # Games-Howell
   res$intermediate$df.corrected<-utils::combn(res$intermediate$groups,2,function(ij) {
-    sum(res$intermediate$variances[ij] /res$intermediate$n[ij])^2/sum((res$intermediate$variances[ij] /res$intermediate$n[ij])^2/(res$intermediate$n[ij]-1))})
+    sum(res$intermediate$variances[ij]/res$intermediate$n[ij])^2/sum((res$intermediate$variances[ij] /res$intermediate$n[ij])^2/(res$intermediate$n[ij]-1))})
   res$intermediate$t.corrected<-utils::combn(res$intermediate$groups,2,function(ij) {
-    abs(diff(res$intermediate$means[ij]))/sqrt(sum(res$intermediate$variances[ij] /res$intermediate$n[ij]))})
+    abs(diff(res$intermediate$means[ij]))/sqrt(sum(res$intermediate$variances[ij] /res$intermediate$n[ij]))
+    })
   res$intermediate$p.gameshowell<-stats::ptukey(res$intermediate$t.corrected*sqrt(2),res$intermediate$groups,res$intermediate$df.corrected,lower.tail=FALSE)
   res$output$games.howell<-cbind(res$intermediate$t.corrected,res$intermediate$df.corrected,res$intermediate$p.gameshowell)
   rownames(res$output$games.howell)<-res$intermediate$pairNames
