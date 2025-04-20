@@ -219,3 +219,30 @@
 #' head(df_titanic)
 "df_titanic"
 
+#' Carbon Dioxide Uptake in Grass Plants
+#'
+#' The CO2 data frame has 84 rows and 5 columns of data from an experiment on the cold tolerance of the grass species Echinochloa crus-galli.
+#'
+#' @format A data frame with 84 rows and 5 variables:
+#' \describe{
+#'   \item{Plant}{an ordered factor with levels Qn1 < Qn2 < Qn3 < ... < Mc1 giving a unique identifier for each plant). Used as a grouping factor.}
+#'   \item{Type}{a factor with levels Quebec Mississippi giving the origin of the plant}
+#'   \item{Treatment}{a factor with levels nonchilled chilled}
+#'   \item{conc}{a numeric vector of ambient carbon dioxide concentrations (mL/L)}
+#'   \item{uptake}{a numeric vector of carbon dioxide uptake rates (in μmol/m²/sec)}
+#' }
+#'
+#' @details
+#' Grouped formulas like \code{uptake ~ conc | Plant} are useful in lattice graphics
+#' and mixed-effect models. The vertical bar (`|`) separates the grouping variable.
+#' This allows modeling or plotting the response (\code{uptake}) versus the predictor
+#' (\code{conc}) within each level of \code{Plant}.
+#' 
+#' @source
+#' Potvin, C., Lechowicz, M. J. and Tardif, S. (1990) “The statistical analysis of ecophysiological response curves obtained from experiments involving repeated measures”, Ecology, 71, 1389–1400.
+#' Pinheiro, J. C. and Bates, D. M. (2000) Mixed-effects Models in S and S-PLUS, Springer.
+#' @examples
+#' data(df_co2)
+#' head(df_co2)
+
+"df_CO2"

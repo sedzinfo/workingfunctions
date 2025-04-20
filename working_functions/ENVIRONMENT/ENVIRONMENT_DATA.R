@@ -85,6 +85,8 @@ df_personality<-read.csv(paste0(directory,"data/personality.csv"),
                          check.names=FALSE)
 df_titanic<-read.csv(paste0(directory,"data/titanic.csv"),
                      check.names=FALSE)
+df_co2<-read.csv(paste0(directory,"data/co2.csv"),
+                     check.names=FALSE)
 
 save(df_admission,file=paste0(directory,"workingfunctions/data/df_admission.rda"))
 save(df_automotive_data,file=paste0(directory,"workingfunctions/data/df_automotive_data.rda"))
@@ -97,6 +99,7 @@ save(df_responses_state,file=paste0(directory,"workingfunctions/data/df_response
 save(df_sexual_comp,file=paste0(directory,"workingfunctions/data/df_sexual_comp.rda"))
 save(df_personality,file=paste0(directory,"workingfunctions/data/df_personality.rda"))
 save(df_titanic,file=paste0(directory,"workingfunctions/data/df_titanic.rda"))
+save(df_co2,file=paste0(directory,"workingfunctions/data/df_co2.rda"))
 
 
 write.csv(df_admission,file=paste0(directory,"/data/admission.csv"),
