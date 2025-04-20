@@ -18,11 +18,17 @@ eta squared multiplied by 100 indicates the percentage of variance in the depend
 Kruskal Wallis test
 }
 \examples{
-form<-formula(qsec~cyl)
-kruskal.test(formula=form,data=mtcars)
-rcompanion::epsilonSquared(x=mtcars$qsec,g=mtcars$cyl,group="row",ci=TRUE,conf=0.95,
-                           type="perc",R=1000,digits=3)
-rstatix::kruskal_effsize(mtcars,form,ci=TRUE,conf.level=0.95,ci.type="perc",nboot=100)
-compute_kruskal_wallis_test(formula=form,df=mtcars)
+form<-formula(bp_before~agegrp)
+kruskal.test(formula=form,data=df_blood_pressure)
+rcompanion::epsilonSquared(x=df_blood_pressure$bp_before,
+                           g=df_blood_pressure$agegrp,
+                           group="row",
+                           ci=TRUE,
+                           conf=0.95,
+                           type="perc",
+                           R=1000,
+                           digits=3)
+rstatix::kruskal_effsize(df_blood_pressure,form,ci=TRUE,conf.level=0.95,ci.type="perc",nboot=100)
+compute_kruskal_wallis_test(formula=form,df=df_blood_pressure)
 }
 \keyword{ANOVA}

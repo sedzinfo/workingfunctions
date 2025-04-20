@@ -55,8 +55,14 @@ One way
       (5) Posthoc Games Howell: good for unequal sample sizes and heteroscedasticity
 }
 \examples{
-report_oneway(df=mtcars,dv=2:4,iv=9:10,file="anova",
-              plot_diagnostics=FALSE,plot_means=FALSE)
+report_oneway(df=df_blood_pressure,
+              dv=c(which("bp_before"==names(df_blood_pressure)),
+                   which("bp_after"==names(df_blood_pressure))),
+              iv=c(which("sex"==names(df_blood_pressure)),
+                   which("agegrp"==names(df_blood_pressure))),
+              file="anova",
+              plot_diagnostics=FALSE,
+              plot_means=FALSE)
 report_oneway(df=mtcars,dv=2:4,iv=9:10,file="anova_oneway_two_factor")
 report_oneway(df=mtcars,dv=2:4,iv=9,file="anova_oneway_one_factor")
 report_oneway(df=mtcars,dv=2:4,iv=9,file="anova_oneway_one_factor",

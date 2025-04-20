@@ -141,8 +141,8 @@ compute_one_way_test<-function(formula,df,var.equal=TRUE) {
 #'               plot_diagnostics=FALSE,
 #'               plot_means=FALSE)
 #' report_oneway(df=mtcars,dv=2:4,iv=9:10,file="anova_oneway_two_factor")
-#' report_oneway(df=df_blood_pressure,dv=2:4,iv=9,file="anova_oneway_one_factor")
-#' report_oneway(df=df_blood_pressure,dv=2:4,iv=9,file="anova_oneway_one_factor",
+#' report_oneway(df=mtcars,dv=2:4,iv=9,file="anova_oneway_one_factor")
+#' report_oneway(df=mtcars,dv=2:4,iv=9,file="anova_oneway_one_factor",
 #'               plot_means=TRUE,plot_diagnostics=TRUE)
 report_oneway<-function(df,dv,iv,file=NULL,w=10,h=10,base_size=10,note="",title="",type="ci",plot_means=FALSE,plot_diagnostics=FALSE) {
   instruction<-list(fisher="Fisher assumes heteroscedasticity",
@@ -633,9 +633,7 @@ compute_aov_es<-function(model,ss="I") {
 #' compute_posthoc(y=df_blood_pressure$bp_before,x=df_blood_pressure$agegrp)
 #' compute_posthoc(y=df_blood_pressure$bp_after,x=df_blood_pressure$agegrp)
 compute_posthoc<-function(y,x) {
-  method=c("games-howell","tukey")
-  tryCatch(method<-match.arg(method),error=function(err) {print("Argument for 'method' not valid!")})
-  res<-list(input=list(x=x,y=y,method=method))
+  res<-list(input=list(x=x,y=y))
   res$intermediate<-list(x=factor(x[complete.cases(x,y)]),y=y[complete.cases(x,y)])
   res$intermediate$n<-tapply(y,x,length)
   res$intermediate$groups<-length(res$intermediate$n)
@@ -666,7 +664,7 @@ compute_posthoc<-function(y,x) {
   res$output$games.howell<-cbind(res$intermediate$t.corrected,res$intermediate$df.corrected,res$intermediate$p.gameshowell)
   rownames(res$output$games.howell)<-res$intermediate$pairNames
   colnames(res$output$games.howell)<-c('t','df','p')
-  class(res)<-'posthocTukeyGamesHowell'
+  res$intermediate<-NULL
   return(res)
 }
 ##########################################################################################

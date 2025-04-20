@@ -4,19 +4,18 @@
 \alias{compute_posthoc}
 \title{Games Howell Tukey post hoc tests}
 \usage{
-compute_posthoc(y, x, method = c("games-howell", "tukey"))
+compute_posthoc(y, x)
 }
 \arguments{
 \item{y}{Vector continous variable}
 
 \item{x}{Vector factor}
-
-\item{method}{Character "games-howell" "tukey" or c("games-howell","tukey")}
 }
 \description{
 Based on http://www.psych.yorku.ca/cribbie/6130/games_howell.R
 }
 \examples{
-result<-compute_posthoc(mtcars[,6],mtcars[,10])
+compute_posthoc(y=df_blood_pressure$bp_before,x=df_blood_pressure$agegrp)
+compute_posthoc(y=df_blood_pressure$bp_after,x=df_blood_pressure$agegrp)
 }
 \keyword{ANOVA}

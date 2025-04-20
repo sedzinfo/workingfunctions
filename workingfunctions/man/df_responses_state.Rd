@@ -7,7 +7,7 @@
 \format{
 A data frame with 28 rows and 2 variables:
 \describe{
-  \item{Participant.Number}{Unique identifier for each participant}
+  \item{Participant Number}{Unique identifier for each participant}
   \item{State}{State code where the participant resides (e.g., MI, OH, CO, CA, MA, WA)}
 }
 }

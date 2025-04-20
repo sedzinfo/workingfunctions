@@ -37,19 +37,20 @@ mtcars
 form<-formula(qsec~cyl)
 ```
 
-## KRUSKALL WALLIS TEST from other packages
-```{r Kruskal-Wallis1,echo=TRUE}
+## KRUSKALL WALLIS TEST
+We use the packages stats rcompanion and rstatix to confirm the results of compute_kruskal_wallis_test.
+
+```{r Kruskal-Wallis2,echo=TRUE}
 stats::kruskal.test(formula=form,data=mtcars)
 rcompanion::epsilonSquared(x=mtcars$qsec,g=mtcars$cyl,group="row",ci=TRUE,conf=0.95,type="perc",R=1000,digits=3)
 rstatix::kruskal_effsize(mtcars,form,ci=TRUE,conf.level=0.95,ci.type="perc",nboot=100)
-```
-
-## KRUSKALL WALLIS TEST
-```{r Kruskal-Wallis2,echo=TRUE}
 compute_kruskal_wallis_test(formula=form,df=mtcars)
 ```
 
 ## ONE WAY test with SS MS effect size and power
+
+We use the packages car lsr and sjstats to confirm the results of compute_one_way_test.
+
 ```{r one-way,echo=TRUE}
 compute_one_way_test(formula=form,df=mtcars,var.equal=TRUE)
 compute_one_way_test(formula=form,df=mtcars,var.equal=FALSE)
@@ -164,6 +165,9 @@ report_manova(model=model_between)
 ```
 
 ## Effect Size
+
+We use the package sjstats to confirm the results of compute_aov_es.
+
 ```{r effect_size,echo=TRUE}
 form<-formula(uptake~Treatment)
 one_way_between<-aov(form,CO2)

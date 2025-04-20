@@ -34,13 +34,14 @@ options(future.show.progress = FALSE)
 # library(keras)
 # install_keras()
 # reticulate::virtualenv_create("r-tensorflow")
-# reticulate::use_virtualenv("r-tensorflow")
+reticulate::use_virtualenv("r-tensorflow")
 ```
 
 
 # Keras on the MNIST dataset
 The code bellow works with the keras and psycholate library. Most of the code was taken from Chollet and Allaire (1917) book: Deep Learning with R.
 ```{r set-options}
+library(tensorflow)
 library(keras)
 options(width=1000)
 options(digits=3)
