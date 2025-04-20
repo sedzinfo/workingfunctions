@@ -11,12 +11,18 @@
 #' @keywords ANOVA
 #' @export
 #' @examples
-#' form<-formula(qsec~cyl)
-#' kruskal.test(formula=form,data=mtcars)
-#' rcompanion::epsilonSquared(x=mtcars$qsec,g=mtcars$cyl,group="row",ci=TRUE,conf=0.95,
-#'                            type="perc",R=1000,digits=3)
-#' rstatix::kruskal_effsize(mtcars,form,ci=TRUE,conf.level=0.95,ci.type="perc",nboot=100)
-#' compute_kruskal_wallis_test(formula=form,df=mtcars)
+#' form<-formula(bp_before~agegrp)
+#' kruskal.test(formula=form,data=df_blood_pressure)
+#' rcompanion::epsilonSquared(x=df_blood_pressure$bp_before,
+#'                            g=df_blood_pressure$agegrp,
+#'                            group="row",
+#'                            ci=TRUE,
+#'                            conf=0.95,
+#'                            type="perc",
+#'                            R=1000,
+#'                            digits=3)
+#' rstatix::kruskal_effsize(df_blood_pressure,form,ci=TRUE,conf.level=0.95,ci.type="perc",nboot=100)
+#' compute_kruskal_wallis_test(formula=form,df=df_blood_pressure)
 compute_kruskal_wallis_test<-function(formula,df) {
   x<-df[,all.vars(formula)[1]]
   g<-factor(df[,all.vars(formula)[2]])
@@ -46,14 +52,14 @@ compute_kruskal_wallis_test<-function(formula,df) {
 #' @keywords ANOVA
 #' @export
 #' @examples
-#' form<-formula(qsec~cyl)
-#' compute_one_way_test(formula=form,df=mtcars,var.equal=TRUE)
-#' compute_one_way_test(formula=form,df=mtcars,var.equal=FALSE)
-#' oneway.test(formula=form,data=mtcars,var.equal=TRUE)
-#' oneway.test(formula=form,data=mtcars,var.equal=FALSE)
-#' car::Anova(aov(form,data=mtcars),type=2)
-#' model<-lm(form,data=mtcars)
-#' lsr::etaSquared(aov(form,data=mtcars),type=3,anova=TRUE)
+#' form<-formula(bp_before~agegrp)
+#' compute_one_way_test(formula=form,df=df_blood_pressure,var.equal=TRUE)
+#' compute_one_way_test(formula=form,df=df_blood_pressure,var.equal=FALSE)
+#' oneway.test(formula=form,data=df_blood_pressure,var.equal=TRUE)
+#' oneway.test(formula=form,data=df_blood_pressure,var.equal=FALSE)
+#' car::Anova(aov(form,data=df_blood_pressure),type=2)
+#' model<-lm(form,data=df_blood_pressure)
+#' lsr::etaSquared(aov(form,data=df_blood_pressure),type=3,anova=TRUE)
 #' sjstats::anova_stats(model,digits=22)
 compute_one_way_test<-function(formula,df,var.equal=TRUE) {
   y<-df[,all.vars(formula)[1]]
