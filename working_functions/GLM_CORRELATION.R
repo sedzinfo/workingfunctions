@@ -21,7 +21,7 @@ plot_corrplot<-function(mydata,title="",base_size=10,fill_limits=c(-1,0,1)) {
   plot<-ggplot(melted_cormat,aes(Var2,Var1,fill=value))+
     geom_tile(color="white")+
     scale_fill_gradient2(midpoint=fill_limits[2],limit=fill_limits[c(1,3)])+
-    #geom_text(aes(Var2,Var1,label=value),color="black",size=base_size/4)+
+    geom_text(aes(Var2,Var1,label=value),color="black",size=base_size/4)+
     theme_bw(base_size=base_size)+
     theme(axis.text.x=element_text(angle=45,vjust=1,hjust=1),
           axis.title.x=element_blank(),

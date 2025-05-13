@@ -102,6 +102,7 @@ source	How the participant came to the test. Based on HTTP Referer. 1=from anoth
 
 ## Descriprion of data
 ```{r description,fig.width=10,fig.height=10,echo=TRUE,message=FALSE,warning=FALSE,results='show',dev='png',fig.retina=2}
+data(df_ocean)
 cdf(df_ocean)
 ```
 
@@ -113,11 +114,33 @@ plot_corrplot(mydata=stats::cor(df_ocean[,grep("E",names(df_ocean))]),base_size=
 plot_corrplot(mydata=stats::cor(df_ocean[,grep("A",names(df_ocean))]),base_size=20)
 plot_corrplot(mydata=stats::cor(df_ocean[,grep("N",names(df_ocean))]),base_size=20)
 
-round(cor(df_ocean[,grep("O",names(df_ocean))]),2)
-round(cor(df_ocean[,grep("C",names(df_ocean))]),2)
-round(cor(df_ocean[,grep("E",names(df_ocean))]),2)
-round(cor(df_ocean[,grep("A",names(df_ocean))]),2)
-round(cor(df_ocean[,grep("N",names(df_ocean))]),2)
+```
+
+## Alpha
+```{r alpha,fig.width=15,fig.height=10,echo=TRUE,message=FALSE,warning=FALSE,results='show',dev='png',fig.retina=2}
+key<-list(O=grep("O",names(df_ocean),value=TRUE),
+          C=grep("C",names(df_ocean),value=TRUE),
+          E=grep("E",names(df_ocean),value=TRUE),
+          A=grep("A",names(df_ocean),value=TRUE),
+          N=grep("N",names(df_ocean),value=TRUE))
+
+reverse<-list(O=c(1,-1,1,-1,1,-1,1,1,1,1),
+              C=c(1,-1,1,-1,1,-1,1,-1,1,1),
+              E=c(1,-1,1,-1,1,-1,1,-1,1,-1),
+              A=c(-1,1,-1,1,-1,1,-1,1,1,1),
+              N=c(1,-1,1,-1,1,1,1,1,1,1))
+
+report_alpha(df=df_ocean,key=key,reverse=reverse,check.keys=TRUE,file=NULL,n.iter=10)
 
 ```
 
+## Omega
+```{r omega,fig.width=15,fig.height=10,echo=TRUE,message=FALSE,warning=FALSE,results='show',dev='png',fig.retina=2}
+psych::omega(df_ocean[,grep("O",names(df_ocean),value=TRUE)])
+psych::omega(df_ocean[,grep("C",names(df_ocean),value=TRUE)])
+psych::omega(df_ocean[,grep("E",names(df_ocean),value=TRUE)])
+psych::omega(df_ocean[,grep("A",names(df_ocean),value=TRUE)])
+psych::omega(df_ocean[,grep("N",names(df_ocean),value=TRUE)])
+
+
+```
