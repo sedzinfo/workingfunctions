@@ -204,12 +204,12 @@ plot_corrplot(mydata=stats::cor(df_ocean_reversed[,grep("N",names(df_ocean_rever
 
 ## Alpha
 ```{r alpha,fig.width=15,fig.height=10,echo=TRUE,message=FALSE,warning=FALSE,results='show',dev='png',fig.retina=2}
-key<-list(O=grep("O",names(df_ocean_reversed),value=TRUE),
-          C=grep("C",names(df_ocean_reversed),value=TRUE),
-          E=grep("E",names(df_ocean_reversed),value=TRUE),
-          A=grep("A",names(df_ocean_reversed),value=TRUE),
-          N=grep("N",names(df_ocean_reversed),value=TRUE))
-report_alpha(df=df_ocean_reversed,key=key,n.iter=10,check.keys=TRUE,file=NULL)
+key_reversed<-list(O=grep("O",names(df_ocean_reversed),value=TRUE),
+                   C=grep("C",names(df_ocean_reversed),value=TRUE),
+                   E=grep("E",names(df_ocean_reversed),value=TRUE),
+                   A=grep("A",names(df_ocean_reversed),value=TRUE),
+                   N=grep("N",names(df_ocean_reversed),value=TRUE))
+report_alpha(df=df_ocean_reversed,key=key_reversed,n.iter=10,check.keys=TRUE,file=NULL)
 
 ```
 
@@ -273,7 +273,7 @@ mln
 
 ## Response Frequencies
 ```{r responsefrequencies,fig.width=20,fig.height=40,echo=TRUE,message=FALSE,warning=FALSE,results='show',dev='png',fig.retina=2}
-response_frequencies<-plot_response_frequencies(df_ocean_reversed,reorder=FALSE)
+response_frequencies<-plot_response_frequencies(df_ocean[,as.character(unlist(key))],reorder=FALSE)
 
 plot_multiplot(plotlist=response_frequencies,cols=5)
 
