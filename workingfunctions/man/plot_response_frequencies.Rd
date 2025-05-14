@@ -9,7 +9,8 @@ plot_response_frequencies(
   factor_index,
   base_size = 10,
   title = "",
-  width = 100
+  width = 100,
+  reorder = FALSE
 )
 }
 \arguments{
