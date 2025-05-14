@@ -82,7 +82,6 @@ df_lookup<-data.frame(code=c(paste0("E",1:10),
                                     "I spend time reflecting on things.",
                                     "I am full of ideas."))
 
-
 df_lookup<-df_lookup[c(grep("O",df_lookup$code),
                        grep("C",df_lookup$code),
                        grep("E",df_lookup$code),
@@ -270,14 +269,34 @@ mln
 
 ```
 
-
 ## Response Frequencies
-```{r responsefrequencies,fig.width=20,fig.height=40,echo=TRUE,message=FALSE,warning=FALSE,results='show',dev='png',fig.retina=2}
+```{r responsefrequencies,fig.width=30,fig.height=40,echo=TRUE,message=FALSE,warning=FALSE,results='hide',dev='png',fig.retina=2}
 response_frequencies<-plot_response_frequencies(df_ocean[,as.character(unlist(key))],reorder=FALSE)
 
 plot_multiplot(plotlist=response_frequencies,cols=5)
 
 ```
+
+## Histogram of Scores
+```{r scores,fig.width=30,fig.height=5,echo=TRUE,message=FALSE,warning=FALSE,results='hide',dev='png',fig.retina=2}
+df_ocean_reversed$score_O<-rowMeans(df_ocean_reversed[,grep("O",names(df_ocean_reversed),value=TRUE)],na.rm=TRUE)
+df_ocean_reversed$score_C<-rowMeans(df_ocean_reversed[,grep("C",names(df_ocean_reversed),value=TRUE)],na.rm=TRUE)
+df_ocean_reversed$score_E<-rowMeans(df_ocean_reversed[,grep("E",names(df_ocean_reversed),value=TRUE)],na.rm=TRUE)
+df_ocean_reversed$score_A<-rowMeans(df_ocean_reversed[,grep("A",names(df_ocean_reversed),value=TRUE)],na.rm=TRUE)
+df_ocean_reversed$score_N<-rowMeans(df_ocean_reversed[,grep("N",names(df_ocean_reversed),value=TRUE)],na.rm=TRUE)
+
+scores_ocean<-data.frame(Openness=df_ocean_reversed$score_O,
+                         Conscientiousness=df_ocean_reversed$score_C,
+                         Extraversion=df_ocean_reversed$score_E,
+                         Agreeableness=df_ocean_reversed$score_A,
+                         Neuroticism=df_ocean_reversed$score_N)
+
+scores<-plot_histogram(scores_ocean,bins=40)
+
+plot_multiplot(plotlist=scores,cols=5)
+
+```
+
 
 
 
