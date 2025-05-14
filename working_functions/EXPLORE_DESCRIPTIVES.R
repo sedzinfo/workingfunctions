@@ -365,18 +365,26 @@ plot_mosaic<-function(df,factor_index,base_size=10,title="") {
 #' @export
 #' @examples
 #' plot_response_frequencies(df=mtcars,factor_index=1:10)
-plot_response_frequencies<-function(df,factor_index,base_size=10,title="",width=100) {
+plot_response_frequencies<-function(df,factor_index,base_size=10,title="",width=100,reorder=FALSE) {
   Freq<-NULL
   plots<-list()
   for (i in names(df[,factor_index])) {
     tempdata<-df[complete.cases(df[,i]),i]
     tempdata<-data.frame(table(tempdata))
     if(nrow(tempdata)>0) {
+      if(reorder) {
       plots[[i]]<-ggplot(data.frame(tempdata),aes(x=stats::reorder(tempdata,Freq),y=Freq))+
         geom_bar(stat="identity")+
         labs(x="",y="Count",title=paste(title,wrapper(i,width=width),collapse="\n"),caption=paste0("Observations:",sum(tempdata$Freq)))+
         coord_flip()+
         theme_bw(base_size=base_size)
+      } else {
+        plots[[i]]<-ggplot(data.frame(tempdata),aes(x=tempdata,y=Freq))+
+          geom_bar(stat="identity")+
+          labs(x="",y="Count",title=paste(title,wrapper(i,width=width),collapse="\n"),caption=paste0("Observations:",sum(tempdata$Freq)))+
+          coord_flip()+
+          theme_bw(base_size=base_size)
+      }
     }
   }
   return(plots)

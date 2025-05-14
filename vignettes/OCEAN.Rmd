@@ -172,7 +172,6 @@ cdf(df_ocean)
 
 ## Reverse data
 ```{r reverse,fig.width=10,fig.height=10,echo=TRUE,message=FALSE,warning=FALSE,results='show',dev='png',fig.retina=2}
-
 key<-list(O=grep("O",names(df_ocean),value=TRUE),
           C=grep("C",names(df_ocean),value=TRUE),
           E=grep("E",names(df_ocean),value=TRUE),
@@ -186,7 +185,8 @@ reverse<-list(O=c(1,-1,1,-1,1,-1,1,1,1,1),
               N=c(1,-1,1,-1,1,1,1,1,1,1))
 
 df_ocean_reversed<-psych::reverse.code(as.numeric(as.character(unlist(reverse))),
-                                       df_ocean[,as.character(unlist(key))])
+                                       df_ocean[,as.character(unlist(key))],
+                                       mini=1,maxi=5)
 df_ocean_reversed<-data.frame(df_ocean_reversed)
 
 ```
@@ -268,5 +268,20 @@ mla
 mln
 
 ```
+
+
+## Response Frequencies
+```{r responsefrequencies,fig.width=20,fig.height=40,echo=TRUE,message=FALSE,warning=FALSE,results='show',dev='png',fig.retina=2}
+response_frequencies<-plot_response_frequencies(df_ocean_reversed,reorder=FALSE)
+
+plot_multiplot(plotlist=response_frequencies,cols=5)
+
+```
+
+
+
+
+
+
 
 
