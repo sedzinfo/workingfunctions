@@ -1,6 +1,6 @@
 ---
 title: "OCEAN"
-author: "Dimitrios Zacharatos"
+author: ""
 output:
   html_document:
     css: styles.css
@@ -192,12 +192,12 @@ df_ocean_reversed<-data.frame(df_ocean_reversed)
 ```
 
 ## Correlations
-```{r correlations,fig.width=15,fig.height=10,echo=TRUE,message=FALSE,warning=FALSE,results='show',dev='png',fig.retina=2}
-plot_corrplot(mydata=stats::cor(df_ocean_reversed[,grep("O",names(df_ocean_reversed))]),base_size=20)
-plot_corrplot(mydata=stats::cor(df_ocean_reversed[,grep("C",names(df_ocean_reversed))]),base_size=20)
-plot_corrplot(mydata=stats::cor(df_ocean_reversed[,grep("E",names(df_ocean_reversed))]),base_size=20)
-plot_corrplot(mydata=stats::cor(df_ocean_reversed[,grep("A",names(df_ocean_reversed))]),base_size=20)
-plot_corrplot(mydata=stats::cor(df_ocean_reversed[,grep("N",names(df_ocean_reversed))]),base_size=20)
+```{r correlations,fig.width=8,fig.height=8,echo=TRUE,message=FALSE,warning=FALSE,results='show',dev='png',fig.retina=2}
+plot_corrplot(mydata=stats::cor(df_ocean_reversed[,grep("O",names(df_ocean_reversed))]),base_size=20,title="Openness")
+plot_corrplot(mydata=stats::cor(df_ocean_reversed[,grep("C",names(df_ocean_reversed))]),base_size=20,title="Conscientiousness")
+plot_corrplot(mydata=stats::cor(df_ocean_reversed[,grep("E",names(df_ocean_reversed))]),base_size=20,title="Extraversion")
+plot_corrplot(mydata=stats::cor(df_ocean_reversed[,grep("A",names(df_ocean_reversed))]),base_size=20,title="Agreeableness")
+plot_corrplot(mydata=stats::cor(df_ocean_reversed[,grep("N",names(df_ocean_reversed))]),base_size=20,title="Neuroticism")
 
 ```
 
@@ -229,8 +229,8 @@ omega_N
 ```
 
 ## Scree
-```{r scree,fig.width=15,fig.height=10,echo=TRUE,message=FALSE,warning=FALSE,results='show',dev='png',fig.retina=2}
-plot_scree(df_ocean_reversed[,grep("O",names(df_ocean_reversed),value=TRUE)],title="Openess")
+```{r scree,fig.width=10,fig.height=5,echo=TRUE,message=FALSE,warning=FALSE,results='show',dev='png',fig.retina=2}
+plot_scree(df_ocean_reversed[,grep("O",names(df_ocean_reversed),value=TRUE)],title="Openness")
 plot_scree(df_ocean_reversed[,grep("C",names(df_ocean_reversed),value=TRUE)],title="Conscientiousness")
 plot_scree(df_ocean_reversed[,grep("E",names(df_ocean_reversed),value=TRUE)],title="Extraversion")
 plot_scree(df_ocean_reversed[,grep("A",names(df_ocean_reversed),value=TRUE)],title="Agreeableness")
