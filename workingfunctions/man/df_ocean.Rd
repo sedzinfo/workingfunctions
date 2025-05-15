@@ -77,7 +77,8 @@ A data frame with 19719 rows and 57 variables:
 }
 }
 \source{
-Collected via an online personality test with informed consent (~2012). The data were obtained from kaggle https://www.kaggle.com/datasets/lucasgreenwell/ocean-five-factor-personality-test-responses.
+Collected via an online personality test with informed consent (~2012).
+Downloaded from Kaggle.com by the user Lucas Greenwell. see \url{https://www.kaggle.com/datasets/lucasgreenwell/ocean-five-factor-personality-test-responses}
 }
 \usage{
 df_ocean
@@ -89,25 +90,36 @@ and also provided demographic and technical metadata. Responses were collected
 with informed consent, and missing data is coded as 0.
 }
 \details{
-Personality items were rated on a five-point Likert scale: #' 1 = Disagree, 3 = Neutral, 5 = Agree. Missing items are coded as 0.
-race Chosen from a drop down menu. 1=Mixed Race, 2=Arctic (Siberian, Eskimo), 3=Caucasian (European), 4=Caucasian (Indian), 5=Caucasian (Middle East), 6=Caucasian (North African, Other), 7=Indigenous Australian, 8=Native American, 9=North East Asian (Mongol, Tibetan, Korean Japanese, etc), 10=Pacific (Polynesian, Micronesian, etc), 11=South East Asian (Chinese, Thai, Malay, Filipino, etc), 12=West African, Bushmen, Ethiopian, 13=Other (0=missed)
-age	entered as text (individuals reporting age < 13 were not recorded)
-engnat	Response to "is English your native language?". 1=yes, 2=no (0=missed)
-gender	Chosen from a drop down menu. 1=Male, 2=Female, 3=Other (0=missed)
-hand	"What hand do you use to write with?". 1=Right, 2=Left, 3=Both (0=missed)
-On this page users were also asked to confirm that their answers were accurate and could be used for research. Participants who did not were not recorded).
-Some values were calculated from technical information.
-country	The participant's technical location. ISO country code.
-source	How the participant came to the test. Based on HTTP Referer. 1=from another page on the test website, 2=from google, 3=from facebook, 4=from any url with ".edu" in its domain name (e.g. xxx.edu, xxx.edu.au), 6=other source, or HTTP Referer not provided.
+Personality items were rated on a five-point Likert scale: #' 1 = Disagree, 3 = Neutral, 5 = Agree. Missing items are coded as 0.  
+\strong{race} Chosen from a drop down menu. 1=Mixed Race, 2=Arctic (Siberian, Eskimo), 3=Caucasian (European), 4=Caucasian (Indian), 5=Caucasian (Middle East), 6=Caucasian (North African, Other), 7=Indigenous Australian, 8=Native American, 9=North East Asian (Mongol, Tibetan, Korean Japanese, etc), 10=Pacific (Polynesian, Micronesian, etc), 11=South East Asian (Chinese, Thai, Malay, Filipino, etc), 12=West African, Bushmen, Ethiopian, 13=Other (0=missed)
+
+\strong{age}	Entered as text (individuals reporting age < 13 were not recorded)
+
+\strong{engnat}	Response to "is English your native language?". 1=yes, 2=no (0=missed)
+
+\strong{gender}	Chosen from a drop down menu. 1=Male, 2=Female, 3=Other (0=missed)
+
+\strong{hand}	"What hand do you use to write with?". 1=Right, 2=Left, 3=Both (0=missed)
+
+On this page users were also asked to confirm that their answers were accurate and could be used for research. Participants who did not were not recorded). Some values were calculated from technical information.
+
+\strong{country}	The participant's technical location. ISO country code.
+
+\strong{source}	How the participant came to the test. Based on HTTP Referer. 1=from another page on the test website, 2=from google, 3=from facebook, 4=from any url with ".edu" in its domain name (e.g. xxx.edu, xxx.edu.au), 6=other source, or HTTP Referer not provided.
+
 In psychological trait theory, the Big Five personality traits, also known as the five-factor model (FFM) and the OCEAN model, is a suggested taxonomy, or grouping, for personality traits, developed from the 1980s onwards. When factor analysis (a statistical technique) is applied to personality survey data, some words used to describe aspects of personality are often applied to the same person. For example, someone described as conscientious is more likely to be described as "always prepared" rather than "messy". This theory is based therefore on semantic associations between words and not on neuropsychological experiments. This theory uses descriptors of common language and suggests five broad dimensions commonly used to describe the human personality and psyche.
+
 The theory identifies five factors:
-openness to experience (inventive/curious vs. consistent/cautious)
-conscientiousness (efficient/organized vs. extravagant/careless)
-extraversion (outgoing/energetic vs. solitary/reserved)
-agreeableness (friendly/compassionate vs. challenging/callous)
-neuroticism (sensitive/nervous vs. resilient/confident)
-The five factors are represented using the acronyms OCEAN or CANOE. Beneath each proposed global factor, there are a number of correlated and more specific primary factors. For example, extroversion is typically associated with qualities such as gregariousness, assertiveness, excitement-seeking, warmth, activity, and positive emotions.
+\itemize{
+  \item \strong{Openness to experience (O)} (inventive/curious vs. consistent/cautious)
+  \item \strong{Conscientiousness (C)} (efficient/organized vs. extravagant/careless)
+  \item \strong{Extraversion (E)} (outgoing/energetic vs. solitary/reserved)
+  \item \strong{Agreeableness (A)} (friendly/compassionate vs. challenging/callous)
+  \item \strong{Neuroticism (N)} (sensitive/nervous vs. resilient/confident)
+}
+The five factors are represented using the acronyms OCEAN or CANOE. Beneath each proposed global factor, there are a number of correlated and more specific primary factors. For example, extroversion is typically associated with qualities such as gregariousness, assertiveness, excitement-seeking, warmth, activity, and positive emotions.  
 Family life and the way someone was raised will affect these traits. Twin studies and other research have shown that about half of the variation between individuals results from their genetics and half from their environments. Researchers have found conscientiousness, extroversion, openness to experience, and neuroticism to be relatively stable from childhood through adulthood.
+
 Items are grouped by Big Five traits:
 \itemize{
   \item \strong{Extraversion (E)}: E1 to E10
