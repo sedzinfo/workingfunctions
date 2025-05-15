@@ -22,7 +22,9 @@ plot_response_frequencies(
 
 \item{title}{plot title}
 
-\item{width}{wrap width for x title}
+\item{width}{Numeric, wrap width for x-axis title}
+
+\item{reorder}{Logical, whether to reorder factors based on frequency}
 }
 \description{
 Plot response frequencies

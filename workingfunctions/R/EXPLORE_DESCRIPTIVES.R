@@ -358,7 +358,8 @@ plot_mosaic<-function(df,factor_index,base_size=10,title="") {
 #' @param factor_index index of factors
 #' @param base_size base font size
 #' @param title plot title
-#' @param width wrap width for x title
+#' @param width Numeric, wrap width for x-axis title
+#' @param reorder Logical, whether to reorder factors based on frequency
 #' @import ggplot2
 #' @importFrom stats reorder
 #' @keywords descriptives
