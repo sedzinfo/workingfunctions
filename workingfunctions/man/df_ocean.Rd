@@ -62,18 +62,18 @@ A data frame with 19719 rows and 57 variables:
   \item{A1 to A10}{Agreeableness items}
   \item{C1 to C10}{Conscientiousness items}
   \item{O1 to O10}{Openness to experience items}
-  \item{race}{Race/ethnic background (1–13, 0 = missing)}
+  \item{race}{Race/ethnic background (1–13, 0=missing)}
   \item{age}{Age (integer; only responses from participants 13 and older included)}
-  \item{engnat}{Is English your native language? (1 = Yes, 2 = No, 0 = missing)}
-  \item{gender}{1 = Male, 2 = Female, 3 = Other, 0 = missing}
-  \item{hand}{Dominant writing hand: 1 = Right, 2 = Left, 3 = Both, 0 = missing}
+  \item{engnat}{Is English your native language? (1=Yes, 2=No, 0=missing)}
+  \item{gender}{1=Male, 2=Female, 3=Other, 0=missing}
+  \item{hand}{Dominant writing hand: 1=Right, 2=Left, 3=Both, 0=missing}
   \item{country}{Two-letter ISO country code (e.g., "US", "GB")}
   \item{source}{How participant came to the test site: 
-    1 = Internal link,
-    2 = Google,
-    3 = Facebook,
-    4 = .edu site,
-    6 = Other/unknown}
+    1=Internal link,
+    2=Google,
+    3=Facebook,
+    4=.edu site,
+    6=Other/unknown}
 }
 }
 \source{
@@ -90,12 +90,13 @@ and also provided demographic and technical metadata. Responses were collected
 with informed consent, and missing data is coded as 0.
 }
 \details{
-Personality items were rated on a five-point Likert scale: #' 1 = Disagree, 3 = Neutral, 5 = Agree. Missing items are coded as 0.  
+Personality items were rated on a five-point Likert scale: #' 1=Disagree, 3=Neutral, 5=Agree. Missed=0.
+
 \strong{race} Chosen from a drop down menu. 1=Mixed Race, 2=Arctic (Siberian, Eskimo), 3=Caucasian (European), 4=Caucasian (Indian), 5=Caucasian (Middle East), 6=Caucasian (North African, Other), 7=Indigenous Australian, 8=Native American, 9=North East Asian (Mongol, Tibetan, Korean Japanese, etc), 10=Pacific (Polynesian, Micronesian, etc), 11=South East Asian (Chinese, Thai, Malay, Filipino, etc), 12=West African, Bushmen, Ethiopian, 13=Other (0=missed)
 
 \strong{age}	Entered as text (individuals reporting age < 13 were not recorded)
 
-\strong{engnat}	Response to "is English your native language?". 1=yes, 2=no (0=missed)
+\strong{engnat}	Response to "is English your native language?". 1=Yes, 2=No (0=missed)
 
 \strong{gender}	Chosen from a drop down menu. 1=Male, 2=Female, 3=Other (0=missed)
 
@@ -105,7 +106,7 @@ On this page users were also asked to confirm that their answers were accurate a
 
 \strong{country}	The participant's technical location. ISO country code.
 
-\strong{source}	How the participant came to the test. Based on HTTP Referer. 1=from another page on the test website, 2=from google, 3=from facebook, 4=from any url with ".edu" in its domain name (e.g. xxx.edu, xxx.edu.au), 6=other source, or HTTP Referer not provided.
+\strong{source}	How the participant came to the test. Based on HTTP Referrer. 1=from another page on the test website, 2=from google, 3=from facebook, 4=from any url with ".edu" in its domain name (e.g. xxx.edu, xxx.edu.au), 6=other source, or HTTP Referer not provided.
 
 In psychological trait theory, the Big Five personality traits, also known as the five-factor model (FFM) and the OCEAN model, is a suggested taxonomy, or grouping, for personality traits, developed from the 1980s onwards. When factor analysis (a statistical technique) is applied to personality survey data, some words used to describe aspects of personality are often applied to the same person. For example, someone described as conscientious is more likely to be described as "always prepared" rather than "messy". This theory is based therefore on semantic associations between words and not on neuropsychological experiments. This theory uses descriptors of common language and suggests five broad dimensions commonly used to describe the human personality and psyche.
 
@@ -138,7 +139,7 @@ head(bfi_data)
 
 # Compute Big Five average scores (after reverse scoring)
 # library(dplyr)
-# bfi_data <- bfi_data \%>\% mutate(E = rowMeans(select(., E1:E10), na.rm = TRUE))
+# bfi_data <- bfi_data \%>\% mutate(E=rowMeans(select(., E1:E10), na.rm=TRUE))
 
 }
 \keyword{datasets}

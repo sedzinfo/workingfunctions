@@ -18,7 +18,7 @@ A data frame with 22 rows and 13 variables:
   \item{Q9}{Response to question 9}
   \item{Q10}{Response to question 10}
   \item{score}{Total score}
-  \item{gender}{Gender of the respondent (1 = Male, 2 = Female)}
+  \item{gender}{Gender of the respondent (1=Male, 2=Female)}
   \item{age}{Age of the respondent}
 }
 }

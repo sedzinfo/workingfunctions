@@ -52,9 +52,12 @@ plot_oneway<-function(df,dv,iv,base_size=20,type="se",order_factor=TRUE,title=""
         means_plot<-ggplot(tempdata,aes(x=tempdata[,1],y=tempdata[,3]))
       means_plot<-means_plot+
         geom_point()+
-        labs(y=string_aes(names(tempdata)[3]),x=wrapper(string_aes(names(tempdata)[1]),width=width),title=title,caption=note)+
+        labs(y=string_aes(names(tempdata)[3]),
+             x=wrapper(string_aes(names(tempdata)[1]),width=width),
+             title=title,
+             caption=note)+
         theme_bw(base_size=base_size)+
-        scale_x_discrete(labels=scales::wrap_format(50))+
+        scale_x_discrete(labels=scales::wrap_format(width))+
         coord_flip()
       if(type=="se")
         means_plot<-means_plot+geom_errorbar(aes(ymin=tempdata[,3]-se,ymax=tempdata[,3]+se),width=.1)+
@@ -117,14 +120,12 @@ plot_oneway<-function(df,dv,iv,base_size=20,type="se",order_factor=TRUE,title=""
     }
     close(pb)
   }
-  
   plot_data_df<-Reduce(plyr::rbind.fill,plot_data)
   names_input_missing<-setdiff(names(df)[c(iv,dv)],names(plot_data_df))
   names_input<-names(df)[c(iv,dv)]
   names_input<-names_input[!names_input%in%names_input_missing]
   plot_data_df<-plot_data_df[,c(names_input,"N","sd","se","ci")]
   result<-list(plot_data=plot_data,plot_data_df=plot_data_df,plots=plots)
-  gc(full=TRUE)
   return(result)
 }
 ##########################################################################################

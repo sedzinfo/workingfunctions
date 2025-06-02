@@ -7,10 +7,10 @@
 \format{
 A data frame with 8 rows and 4 variables:
 \describe{
-  \item{admit}{Binary variable indicating admission (0 = No, 1 = Yes)}
+  \item{admit}{Binary variable indicating admission (0=No, 1=Yes)}
   \item{gre}{GRE (Graduate Record Examination) score}
   \item{gpa}{Grade Point Average}
-  \item{rank}{Ranking of the undergraduate institution (1 = highest, 4 = lowest)}
+  \item{rank}{Ranking of the undergraduate institution (1=highest, 4=lowest)}
 }
 }
 \source{

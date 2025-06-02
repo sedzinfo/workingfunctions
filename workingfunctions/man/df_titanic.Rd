@@ -8,8 +8,8 @@
 A data frame with the following variables:
 \describe{
   \item{PassengerId}{Unique identifier for each passenger}
-  \item{survived}{Survival status (0 = No, 1 = Yes)}
-  \item{pclass}{Passenger class (1 = 1st, 2 = 2nd, 3 = 3rd)}
+  \item{survived}{Survival status (0=No, 1=Yes)}
+  \item{pclass}{Passenger class (1=1st, 2=2nd, 3=3rd)}
   \item{name}{Name of the passenger}
   \item{sex}{Gender of the passenger}
   \item{age}{Age of the passenger}
@@ -18,7 +18,7 @@ A data frame with the following variables:
   \item{ticket}{Ticket number}
   \item{fare}{Passenger fare}
   \item{cabin}{Cabin number}
-  \item{embarked}{Port of embarkation (C = Cherbourg; Q = Queenstown; S = Southampton)}
+  \item{embarked}{Port of embarkation (C=Cherbourg; Q=Queenstown; S=Southampton)}
   \item{boat}{Lifeboat number}
   \item{body}{Body number}
   \item{home.dest}{Home destination}

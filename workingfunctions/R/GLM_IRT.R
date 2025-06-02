@@ -80,8 +80,8 @@ plot_irt_onefactor<-function(model,theta=seq(-6,6,.1),title="",base_size=10) {
 #' report_irt(model=irt_twofactor,file="two_factors")
 #' report_irt(model=irt_threefactor,file="three_factors")
 report_irt<-function(model,m2=TRUE,file=NULL) {
-  comment<-list(a1="difficulty",
-                d="discrimination",
+  comment<-list(a1="discrimination",
+                d="difficulty",
                 g="guessing",
                 u="inattentiveness",
                 G2="PARSCALE's G^2",
@@ -135,8 +135,8 @@ report_irt<-function(model,m2=TRUE,file=NULL) {
     excel_critical_value(result$item_fit,wb,"item fit",numFmt="#0.00",comment=comment)
     excel_critical_value(result$g2_fit,wb,"G2",numFmt="#0.00",comment=comment)
     if(is.data.frame(result$m2_fit))
-      excel_critical_value(result$m2_fit,wb,"M2",numFmt="#0.00",title="M2 (Maydeu-Olivares & Joe, 2006) statistic when all data are dichotomous",comment=comment)
-    excel_matrix(result$q3_matrix,wb,"Q3",title="Test for local independence: There is no concensus about the critical values. Critical values may range from absolute of .7 to .1",numFmt="#0.00",conditional_formatting=TRUE)
+      excel_critical_value(result$m2_fit,wb,"M2",numFmt="#0.00",title="M2 (Maydeu-Olivares & Joe, 2006) statistic\n when all data are dichotomous",comment=comment)
+    excel_matrix(result$q3_matrix,wb,"Q3",title="Test for local independence:\nThere is no concensus about the critical values.\nCritical values may range from absolute of .7 to .1",numFmt="#0.00",conditional_formatting=TRUE)
     excel_critical_value(result$exp_residuals,wb,"Residuals",numFmt="#0.00")
     excel_critical_value(result$model_options,wb,"Model Options",numFmt="#0.00")
     openxlsx::saveWorkbook(wb,filename,overwrite=TRUE)
