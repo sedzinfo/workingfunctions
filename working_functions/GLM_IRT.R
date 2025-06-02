@@ -80,8 +80,8 @@ plot_irt_onefactor<-function(model,theta=seq(-6,6,.1),title="",base_size=10) {
 #' report_irt(model=irt_twofactor,file="two_factors")
 #' report_irt(model=irt_threefactor,file="three_factors")
 report_irt<-function(model,m2=TRUE,file=NULL) {
-  comment<-list(a1="difficulty",
-                d="discrimination",
+  comment<-list(a1="discrimination",
+                d="difficulty",
                 g="guessing",
                 u="inattentiveness",
                 G2="PARSCALE's G^2",
