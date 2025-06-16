@@ -31,13 +31,13 @@ system2("R", "--version")
 use_python("/opt/pyrepo/bin/python3")
 use_virtualenv("/opt/pyrepo")
 ##########################################################################################
-# SAVE 
+# SAVE
 ##########################################################################################
 # savehistory(file="COMMAND.HISTORY.Rhistory")
 # loadhistory(file="COMMAND.HISTORY.Rhistory")
 # save.image("ENVIRONMENT.Renvironment") load("ENVIRONMENT.Renvironment")
 ##########################################################################################
-# ENVIRONMENT CHECK
+#ENVIRONMENT CHECK
 ##########################################################################################
 original_options<-options()
 original_parameters<-par()
