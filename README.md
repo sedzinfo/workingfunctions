@@ -14,7 +14,7 @@
 - Simulated datasets for practice and demonstration.
 
 
-# Installation Instructions
+# Installation Instructions For Private Repo
 
 install.packages("devtools")
 
@@ -35,6 +35,12 @@ usethis::create_github_token()
 #paste your PAT into pop-up that follows...
 
 credentials::set_github_pat()
+
+remotes::install_github("sedzinfo/workingfunctions/workingfunctions")
+
+# Installation Instructions For Public Repo
+
+install.packages("remotes")
 
 remotes::install_github("sedzinfo/workingfunctions/workingfunctions")
 
