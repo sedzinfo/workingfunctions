@@ -38,9 +38,11 @@ credentials::set_github_pat()
 
 remotes::install_github("sedzinfo/workingfunctions/workingfunctions")
 
+---
+
 ![Stars](https://img.shields.io/github/stars/sedzinfo/workingfunctions)
 ![Watchers](https://img.shields.io/github/watchers/sedzinfo/workingfunctions)
-![Repo Size](https://img.shields.io/github/repo-size/sedzinfo/workingfunctions)  
+![Repo Size](https://img.shields.io/github/repo-size/sedzinfo/workingfunctions)
 ![Open Issues](https://img.shields.io/github/issues/sedzinfo/workingfunctions)
 ![Forks](https://img.shields.io/github/forks/sedzinfo/workingfunctions)
 ![Last Commit](https://img.shields.io/github/last-commit/sedzinfo/workingfunctions)
