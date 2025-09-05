@@ -57,4 +57,3 @@ remotes::install_github("sedzinfo/workingfunctions/workingfunctions")
 ![Release](https://img.shields.io/github/v/release/sedzinfo/workingfunctions)
 ![Workflow Status](https://img.shields.io/github/actions/workflow/status/sedzinfo/workingfunctions/main.yml)
 
-
