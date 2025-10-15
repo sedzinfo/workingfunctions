@@ -200,6 +200,99 @@ excel_critical_value<-function(df,workbook,sheet="output",title=NULL,comment=NUL
     }
   }
 }
+# excel_critical_value<-function(df,workbook,sheet="output",title=NULL,comment=NULL,numFmt="#0.00",critical=NULL) {
+#   # helpers
+#   colnum_to_letter<-function(colnum) {
+#     letters<-c(LETTERS)
+#     res<-""
+#     while (colnum > 0) {
+#       rem<-(colnum-1) %% 26
+#       res<-paste0(letters[rem+1],res)
+#       colnum<-(colnum-1) %/% 26
+#     }
+#     res
+#   }
+#   contiguous_ranges<-function(indices) {
+#     if (length(indices) == 0) return(list())
+#     idx<-sort(indices)
+#     breaks<-c(1,which(diff(idx) != 1)+1,length(idx)+1)
+#     ranges<-list()
+#     for (b in seq_len(length(breaks)-1)) {
+#       start_i<-idx[breaks[b]]
+#       end_i<-idx[breaks[b+1]-1]
+#       ranges[[length(ranges)+1]]<-c(start_i,end_i)
+#     }
+#     ranges
+#   }
+#   
+#   openxlsx::addWorksheet(workbook,sheet)
+#   openxlsx::writeData(workbook,sheet,df,rowNames=TRUE)
+#   excel_generic_format(df=df,workbook=workbook,sheet=sheet,
+#                        title=title,comment=comment,numFmt=numFmt)
+#   
+#   if (is.null(critical)) return(invisible(NULL))
+#   
+#   # Pre-clean once
+#   df_clean<-remove_nc(df,value=NA,
+#                       remove_rows=FALSE,aggressive=FALSE,
+#                       remove_cols=FALSE,remove_zero_variance=FALSE)
+#   
+#   for (col_name in names(critical)) {
+#     if (!col_name %in% names(df_clean)) next
+#     # find non-NA data rows in the data frame; +1 for header row written by writeData()
+#     data_row_indices<-which(!is.na(df_clean[[col_name]]))
+#     if (length(data_row_indices) == 0) next
+#     
+#     # Excel rows start at 2 when rowNames=TRUE (first row=header,second row=first data row)
+#     excel_rows<-data_row_indices+1L
+#     
+#     # Excel column index in sheet: offset by 1 because writeData wrote row names as first column
+#     col_index<-which(names(df_clean) == col_name)+1L
+#     col_letter<-colnum_to_letter(col_index)
+#     
+#     # Build style(s)
+#     if (length(critical[[col_name]]) > 1) {
+#       style_min<-openxlsx::createStyle(bgFill="red",numFmt=numFmt)
+#       style_max<-openxlsx::createStyle(bgFill="purple",numFmt=numFmt)
+#       
+#       # group contiguous rows to reduce # of conditionalFormatting calls
+#       ranges<-contiguous_ranges(excel_rows)
+#       for (r in ranges) {
+#         start_row<-r[1]
+#         end_row<-r[2]
+#         # use the start_row in the formula; applying the rule to rows=start_row:end_row will evaluate
+#         # the expression per cell in that area (Excel evaluates the formula relative to each cell in range)
+#         rule1<-paste0("AND(",col_letter,start_row,critical[[col_name]][1],")")
+#         rule2<-paste0("AND(",col_letter,start_row,critical[[col_name]][2],")")
+#         
+#         openxlsx::conditionalFormatting(
+#           workbook,sheet,
+#           cols=col_index,rows=start_row:end_row,
+#           type="expression",rule=rule1,style=style_min
+#         )
+#         openxlsx::conditionalFormatting(
+#           workbook,sheet,
+#           cols=col_index,rows=start_row:end_row,
+#           type="expression",rule=rule2,style=style_max
+#         )
+#       }
+#     } else {
+#       style<-openxlsx::createStyle(bgFill="red",numFmt=numFmt)
+#       ranges<-contiguous_ranges(excel_rows)
+#       for (r in ranges) {
+#         start_row<-r[1]
+#         end_row<-r[2]
+#         rule<-paste0("AND(",col_letter,start_row,critical[[col_name]],")")
+#         openxlsx::conditionalFormatting(
+#           workbook,sheet,
+#           cols=col_index,rows=start_row:end_row,
+#           type="expression",rule=rule,style=style
+#         )
+#       }
+#     }
+#   }
+#   invisible(NULL)
+# }
 ##########################################################################################
 # DATAFRAME TO EXCEL CONFUSION MATRIX
 ##########################################################################################
