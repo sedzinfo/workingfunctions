@@ -310,13 +310,14 @@ report_efa<-function(model,df,file=NULL,w=10,h=5,cut=0,base_size=10,scores=FALSE
   bartlett_test<-data.frame("x_squared[bartlett]"=bartlett$chisq,"df[bartlett]"=bartlett$df,"p[bartlett]"=bartlett$p.value,check.names=FALSE)
   ##########################################################################################
   fit_index<-data.frame(t(model$RMSEA),
-                        rms=model$rms,
-                        crms=model$crms,
-                        tli=model$TLI,
-                        bic=model$BIC,
-                        sabic=model$SABIC,
-                        ebic=model$EBIC,
-                        esabic=model$ESABIC,
+                        RMS=model$rms,
+                        CRMS=model$crms,
+                        TLI=model$TLI,
+                        CFI=model$CFI,
+                        BIC=model$BIC,
+                        SABIC=model$SABIC,
+                        EBIC=model$EBIC,
+                        ESABIC=model$ESABIC,
                         fit=model$fit,
                         fit.off=model$fit.off)
   
@@ -363,7 +364,7 @@ report_efa<-function(model,df,file=NULL,w=10,h=5,cut=0,base_size=10,scores=FALSE
     excel_matrix(correlations,wb,sheet="r",conditional_formatting=TRUE,numFmt="#0.00")
     excel_matrix(model$np.obs,wb,sheet="n",conditional_formatting=TRUE,numFmt="#0.00")
     excel_matrix(residual_stats,wb,sheet="residual stats",conditional_formatting=FALSE)
-    excel_critical_value(fit_index,wb,sheet="fit_index",conditional_formatting=FALSE)
+    excel_critical_value(fit_index,wb,sheet="fit_index")
     
     if(length(model$values)>0) {
       excel_matrix(loadings,wb,sheet="loadings",conditional_formatting=TRUE,title="structure loadings: loadings after rotation, pattern loadings: loadings before rotation")

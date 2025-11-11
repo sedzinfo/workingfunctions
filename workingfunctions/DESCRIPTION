@@ -10,4 +10,4 @@ Encoding: UTF-8
 LazyData: true
 Author: Dimitrios Zacharatos [aut, cre]
 Maintainer: Dimitrios Zacharatos <dzacharatos@yahoo.com>
-RoxygenNote: 7.3.2
+RoxygenNote: 7.3.3
