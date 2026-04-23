@@ -1,6 +1,6 @@
 ##########################################################################################
 # DESCRIPTIVES
-##########################################################################################
+######################################################################20####################
 #' @title Descriptive statistics
 #' @description uses psych
 #' @details returns xlsx
@@ -38,8 +38,7 @@ compute_descriptives<-function(df,dv,iv=NULL,file=NULL) {
                 Q0.25="percentile\n\n25% of observations fall bellow this value",
                 Q0.5="percentile\n\n50% of observations fall bellow this value",
                 Q0.75="percentile\n\n75% of observations fall bellow this value",
-                Q0.9="percentile\n\n90% of observations fall bellow this value"
-  )
+                Q0.9="percentile\n\n90% of observations fall bellow this value")
   result_df<-data.frame()
   describe<-function(x) psych::describe(x,skew=TRUE,ranges=TRUE,check=TRUE,fast=FALSE,IQR=TRUE,quant=c(.1,.25,.5,.75,.90),na.rm=TRUE)
   if (missing(iv)){

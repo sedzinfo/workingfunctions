@@ -297,16 +297,16 @@ report_efa<-function(model,df,file=NULL,w=10,h=5,cut=0,base_size=10,scores=FALSE
   kmo_test<-data.frame(Overall_MSA=kmo$MSA,MSA=kmo$MSAi)
   kmo_test$Kaiser_1974<-NA
   
-  if(nrow(kmo_test[kmo_test$MSA<=.5,])>0)
-    kmo_test[kmo_test$MSA<.5,]$Kaiser_1974<-"Unacceptable"
-  if(nrow(kmo_test[kmo_test$MSA>.5&kmo_test$MSA<=.7,])>0)
-    kmo_test[kmo_test$MSA>=.5&kmo_test$MSA<=.7,]$Kaiser_1974<-"Mediocre"
-  if(nrow(kmo_test[kmo_test$MSA>.7&kmo_test$MSA<=.8,])>0)
-    kmo_test[kmo_test$MSA>.7&kmo_test$MSA<=.8,]$Kaiser_1974<-"Good"
-  if(nrow(kmo_test[kmo_test$MSA>.8&kmo_test$MSA<=.9,])>0)
-    kmo_test[kmo_test$MSA>.8&kmo_test$MSA<=.9,]$Kaiser_1974<-"Great"
-  if(nrow(kmo_test[kmo_test$MSA>.9,])>0)
-    kmo_test[kmo_test$MSA>.9,]$Kaiser_1974<-"Superb"
+  # if(nrow(kmo_test[kmo_test$MSA<=.5,])>0)
+  #   kmo_test[kmo_test$MSA<.5,]$Kaiser_1974<-"Unacceptable"
+  # if(nrow(kmo_test[kmo_test$MSA>.5&kmo_test$MSA<=.7,])>0)
+  #   kmo_test[kmo_test$MSA>=.5&kmo_test$MSA<=.7,]$Kaiser_1974<-"Mediocre"
+  # if(nrow(kmo_test[kmo_test$MSA>.7&kmo_test$MSA<=.8,])>0)
+  #   kmo_test[kmo_test$MSA>.7&kmo_test$MSA<=.8,]$Kaiser_1974<-"Good"
+  # if(nrow(kmo_test[kmo_test$MSA>.8&kmo_test$MSA<=.9,])>0)
+  #   kmo_test[kmo_test$MSA>.8&kmo_test$MSA<=.9,]$Kaiser_1974<-"Great"
+  # if(nrow(kmo_test[kmo_test$MSA>.9,])>0)
+  #   kmo_test[kmo_test$MSA>.9,]$Kaiser_1974<-"Superb"
   bartlett_test<-data.frame("x_squared[bartlett]"=bartlett$chisq,"df[bartlett]"=bartlett$df,"p[bartlett]"=bartlett$p.value,check.names=FALSE)
   ##########################################################################################
   fit_index<-data.frame(t(model$RMSEA),
