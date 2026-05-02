@@ -149,9 +149,9 @@ cdf<-function(df,name_length=(getOption("width")/3),digits=2,nuniques=0,parralel
     excel_critical_value(summary_dataframe,workbook=wb,sheet="summary",numFmt="#0.00")
     openxlsx::saveWorkbook(wb=wb,file=filename,overwrite=TRUE)
   }
-  check_df$NAMES<-sub_str(check_df$NAMES,name_length,type="left")
-  check_df$MIN<-sub_str(check_df$MIN,floor(name_length/6),type="left")
-  check_df$MAX<-sub_str(check_df$MAX,floor(name_length/6),type="left")
+  check_df$NAMES <- substr(check_df$NAMES, 1, name_length)
+  check_df$MIN   <- substr(check_df$MIN,   1, floor(name_length / 6))
+  check_df$MAX   <- substr(check_df$MAX,   1, floor(name_length / 6))
   
   row.names(check_df)<-NULL
   result<-list(summary=summary_dataframe,check=check_df)
@@ -191,24 +191,18 @@ cdf<-function(df,name_length=(getOption("width")/3),digits=2,nuniques=0,parralel
 #' @export
 #'
 #' @examples
-#' # basic usage
-#' cdff(df = mtcars)
-#'
-#' # show up to 5 unique values per column
-#' cdff(df = infert, nuniques = 5)
-#'
-#' # use multiple cores for a wide dataframe
-#' cdff(df = mtcars, parralel = TRUE)
-#'
-#' # export to Excel
-#' cdff(df = mtcars, file = "mtcars_check", nuniques = 10)
-#'
-#' # with a date column
-#' df <- data.frame(
-#'   infert,
-#'   date = seq(as.Date("2010-01-01"), as.Date("2020-01-01"), length.out = nrow(infert))
-#' )
-#' cdff(df = mtcars)
+#' cdff(df=mtcars,parralel=TRUE)
+#' cdff(df=change_data_type(mtcars,"factor"),nuniques=3)
+#' cdff(df=data.frame(t(mtcars)),file="mtcars",nuniques=10)
+#' cdff(df=mtcars)
+#' cdff(df=generate_missing(mtcars))
+#' cdff(df=infert,nuniques=10)
+#' cdff(df=infert)
+#' df<-data.frame(infert,
+#'                date=seq(as.Date("2010-1-1"),
+#'                     as.Date("2020-1-1"),
+#'                     length.out=nrow(infert)))
+#' cdff(df=df)
 cdff<-function(df, name_length = (getOption("width") / 3), digits = 2, nuniques = 0, parralel = FALSE, file = NULL) {
   if (parralel) {
     future::plan(future::multisession, gc = TRUE, .cleanup = TRUE,
@@ -324,9 +318,9 @@ cdff<-function(df, name_length = (getOption("width") / 3), digits = 2, nuniques 
     openxlsx::saveWorkbook(wb = wb, file = filename, overwrite = TRUE)
   }
   
-  check_df$NAMES <- sub_str(check_df$NAMES, name_length,          type = "left")
-  check_df$MIN   <- sub_str(check_df$MIN,   floor(name_length/6), type = "left")
-  check_df$MAX   <- sub_str(check_df$MAX,   floor(name_length/6), type = "left")
+  check_df$NAMES <- substr(check_df$NAMES, 1, name_length)
+  check_df$MIN   <- substr(check_df$MIN,   1, floor(name_length / 6))
+  check_df$MAX   <- substr(check_df$MAX,   1, floor(name_length / 6))
   
   row.names(check_df) <- NULL
   list(summary = summary_dataframe, check = check_df)
