@@ -208,7 +208,7 @@ cdf<-function(df,name_length=(getOption("width")/3),digits=2,nuniques=0,parralel
 #'   infert,
 #'   date = seq(as.Date("2010-01-01"), as.Date("2020-01-01"), length.out = nrow(infert))
 #' )
-#' cdff(df = df)
+#' cdff(df = mtcars)
 cdff<-function(df, name_length = (getOption("width") / 3), digits = 2, nuniques = 0, parralel = FALSE, file = NULL) {
   if (parralel) {
     future::plan(future::multisession, gc = TRUE, .cleanup = TRUE,
