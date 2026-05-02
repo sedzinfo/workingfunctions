@@ -86,7 +86,6 @@ tag_pos<-function(text) {
 #' @title Text similarity measures
 #' @param text1 character vector
 #' @param text2 character vector
-#' @importFrom tcR tversky.index
 #' @keywords NLP
 #' @export
 #' @examples
@@ -110,7 +109,7 @@ tag_pos<-function(text) {
 #' text_similarity(text1,text3)
 #' text_similarity(text1,text4)
 text_similarity<-function(text1,text2) {
-  tversky<-tcR::tversky.index(text1,text2)
+  tversky<-compute_tversky_index(text1,text2)
   intersect<-length(intersect(text1,text2))
   tb1<-table(text1)
   tb2<-table(text2)
@@ -157,4 +156,71 @@ stat_word_char<-function(text) {
   result<-data.frame(words,mean_char,sd_char,max_char,min_char,spell_error)
   return(result)
 }
-
+##########################################################################################
+# STATISTICS FOR CHARACTERS AND WORDS
+##########################################################################################
+#' @title Compute the Tversky index
+#'
+#' @description Computes the Tversky index between two sets, a generalisation of the
+#' Jaccard and Sørensen–Dice similarity coefficients. The index measures
+#' the overlap between \code{x} and \code{y} relative to their differences,
+#' weighted by \code{alpha} and \code{beta}.
+#'
+#' The Tversky index is defined as:
+#'
+#' \deqn{T(x, y) = \frac{|x \cap y|}{|x \cap y| + \alpha|x \setminus y| + \beta|y \setminus x|}}
+#'
+#' Special cases:
+#' \itemize{
+#'   \item \code{alpha = beta = 0.5} — Sørensen–Dice coefficient
+#'   \item \code{alpha = beta = 1.0} — Jaccard index
+#' }
+#'
+#' @param x A vector. Coerced to character before comparison.
+#' @param y A vector. Coerced to character before comparison.
+#' @param alpha Non-negative numeric. Weight applied to elements in \code{x}
+#'   but not in \code{y}. Defaults to \code{0.5}.
+#' @param beta Non-negative numeric. Weight applied to elements in \code{y}
+#'   but not in \code{x}. Defaults to \code{0.5}.
+#'
+#' @return A single numeric value in the range \code{[0, 1]}, where \code{0}
+#'   indicates no overlap and \code{1} indicates identical sets.
+#'
+#' @note Both \code{x} and \code{y} are treated as \emph{sets} — duplicate
+#'   elements within each vector are ignored. Inputs are coerced to character
+#'   before comparison, so \code{1L} and \code{"1"} are treated as equal.
+#'
+#' @seealso \code{\link[base]{intersect}}, \code{\link[base]{setdiff}},
+#'   \code{\link{cdf}}
+#'
+#' @keywords similarity distance set
+#' @export
+#'
+#' @examples
+#' x <- c("a", "b", "c", "d")
+#' y <- c("b", "c", "d", "e")
+#'
+#' # default (Sorensen-Dice)
+#' compute_tversky_index(x, y)
+#'
+#' # Jaccard index
+#' compute_tversky_index(x, y, alpha = 1, beta = 1)
+#'
+#' # asymmetric: penalise x-only elements more heavily
+#' compute_tversky_index(x, y, alpha = 0.9, beta = 0.1)
+#'
+#' # identical sets → 1
+#' compute_tversky_index(x, x)
+#'
+#' # disjoint sets → 0
+#' compute_tversky_index(c("a", "b"), c("c", "d"))
+compute_tversky_index <- function(x, y, alpha = 0.5, beta = 0.5) {
+  x <- as.character(x)
+  y <- as.character(y)
+  
+  intersection <- length(intersect(x, y))
+  x_only       <- length(setdiff(x, y))
+  y_only       <- length(setdiff(y, x))
+  
+  intersection / (intersection + alpha * x_only + beta * y_only)
+}
