@@ -241,137 +241,68 @@ result_confusion_performance<-function(observed,predicted,step=.1,base_size=10,t
 #' @param df Dataframe containing the dataset to be split.
 #' @param model_formula Model formula specifying the predictors and outcome variable.
 #' @param k Integer value representing the number of folds. Defaults to 10.
-#' @param stratify Logical. If TRUE, folds are balanced by outcome class. Useful for imbalanced classification. Defaults to FALSE.
+#' @importFrom xgboost xgb.DMatrix
 #' @importFrom stats get_all_vars
 #' @keywords functions
 #' @export
 #' @examples
 #' # Example with the 'infert' dataset
-#' infert_formula <- formula(case ~ education + spontaneous + induced)
-#' result <- k_fold(infert, k = 10, model_formula = infert_formula)
+#' infert_formula<-formula(case~education+spontaneous+induced)
+#' result<-k_fold(infert,k=10,model_formula=infert_formula)
 #'
 #' # Example with the 'mtcars' dataset
-#' model_formula <- as.formula(mpg ~ cyl + disp + hp + drat + wt + qsec + vs + am + gear + carb)
-#' result <- k_fold(mtcars, k = 2, model_formula = model_formula)
-#'
-#' # Example with stratification
-#' result <- k_fold(infert, k = 5, model_formula = infert_formula, stratify = TRUE)
+#' model_formula<-as.formula(mpg~cyl+disp+hp+drat+wt+qsec+vs+am+gear+carb)
+#' result<-k_fold(mtcars,k=2,model_formula=model_formula)
 #'
 #' @details
-#' This function performs k-fold cross-validation by splitting the input dataframe into k folds.
-#' Each fold serves as a test set once, while the remaining k-1 folds form the training set.
+#' This function performs k-fold cross-validation by splitting the input dataframe into k folds. 
+#' Each fold serves as a test set once,while the remaining k-1 folds form the training set.
 #'
-#' Folds are assigned using \code{rep(1:k, length.out = nrow(df))} to ensure equal (or near-equal)
-#' fold sizes regardless of whether \code{nrow(df)} is divisible by \code{k}.
-#'
-#' When \code{stratify = TRUE}, fold assignment is performed separately within each outcome class,
-#' preserving class proportions across folds.
-#'
-#' If \code{xgboost} is installed, the function also prepares xgb.DMatrix objects for each fold.
-#' If \code{xgboost} is not installed, the \code{xgb} element of the result will be \code{NULL}
-#' and a message will be issued.
-#'
-#' Factor predictors are coerced to integer codes when building xgb.DMatrix objects.
-#' A warning is issued when this occurs.
+#' The function prepares data objects for xgboost model training and evaluation,including train/test datasets and xgboost DMatrix objects.
 #'
 #' The output is a list containing the following elements:
-#' \itemize{
-#'   \item \code{f}: List of train and test datasets for each fold.
-#'   \item \code{fold_index}: Vector of fold assignments for each row.
-#'   \item \code{model_formula}: Model formula used for generating the datasets.
-#'   \item \code{variables}: Names of the variables in the model formula.
-#'   \item \code{predictors}: Names of the predictor variables.
-#'   \item \code{outcome}: Name of the outcome variable.
-#'   \item \code{xgb}: List of xgboost DMatrix objects for training and testing, or NULL if xgboost is not installed.
-#' }
-k_fold <- function(df, model_formula, k = 10, stratify = FALSE) {
-  
-  if (k > nrow(df))
-    stop("k cannot be greater than the number of rows in df.")
-  if (k < 2)
-    stop("k must be at least 2.")
-  
-  variable_names <- names(stats::get_all_vars(model_formula, data = df))
-  df             <- stats::get_all_vars(model_formula, df)
-  predictors     <- all.vars(model_formula[[3]])
-  outcome        <- all.vars(model_formula[[2]])
-  
-  # ── Fold assignment ───────────────────────────────────────────────────────
-  if (stratify) {
-    index <- numeric(nrow(df))
-    for (cls in unique(df[[outcome]])) {
-      cls_idx        <- which(df[[outcome]] == cls)
-      index[cls_idx] <- sample(rep(1:k, length.out = length(cls_idx)))
-    }
-  } else {
-    index <- sample(rep(1:k, length.out = nrow(df)))
-  }
-  
-  # ── xgboost availability ──────────────────────────────────────────────────
-  has_xgb <- requireNamespace("xgboost", quietly = TRUE)
-  if (!has_xgb)
-    message("xgboost is not installed. The `xgb` element of the result will be NULL.")
-  
-  fold    <- list()
-  xgboost <- list()
-  
+#'-`f`: List of train and test datasets for each fold.
+#'-`index`: Vector of fold indices.
+#'-`model_formula`: Model formula used for generating the datasets.
+#'-`variables`: Names of the variables in the model formula.
+#'-`predictors`: Names of the predictor variables.
+#'-`outcome`: Name of the outcome variable.
+#'-`xgb`: List of xgboost DMatrix objects for training and testing.
+k_fold<-function(df,model_formula,k=10) {
+  variable_names<-names(stats::get_all_vars(model_formula,data=df))
+  index<-sample(cut(1:nrow(df),breaks=k,labels=FALSE))
+  rows<-1:nrow(df)
+  fold<-xgboost<-list()
+  df<-stats::get_all_vars(model_formula,df)
+  predictors<-all.vars(model_formula[[3]])
+  outcome<-all.vars(model_formula[[2]])
   for (i in 1:k) {
-    k_index          <- paste0("f", i)
-    iteration_index  <- which(index == i)
-    
-    train <- df[-iteration_index, ]
-    test  <- df[ iteration_index, ]
-    
-    fold[["index"]][[k_index]] <- iteration_index
-    fold[["train"]][[k_index]] <- train
-    fold[["test"]][[k_index]]  <- test
-    fold[["x_test"]][[k_index]] <- test[, predictors, drop = FALSE]
-    fold[["y_test"]][[k_index]] <- test[, outcome]
-    
-    # ── xgboost DMatrix ─────────────────────────────────────────────────────
-    if (has_xgb) {
-      if (any(sapply(train[, predictors, drop = FALSE], is.factor)))
-        warning(sprintf(
-          "Fold %d: factor predictor(s) coerced to integer codes for xgb.DMatrix.", i
-        ))
-      
-      xgbtrain <- xgboost::xgb.DMatrix(
-        data  = data.matrix(train[, predictors, drop = FALSE]),
-        label = train[, outcome]
-      )
-      xgbtest <- xgboost::xgb.DMatrix(
-        data  = data.matrix(test[, predictors, drop = FALSE]),
-        label = test[, outcome]
-      )
-      xgboost[[k_index]] <- list(
-        train     = xgbtrain,
-        test      = xgbtest,
-        watchlist = list(train = xgbtrain, test = xgbtest),
-        ytrain    = train[, outcome],
-        ytest     = test[, outcome]
-      )
-    } else {
-      xgboost[[k_index]] <- NULL
-    }
-    
-    cat("Fold:",          i,
-        "| Train:",       nrow(train),
-        "| Test:",        nrow(test),
-        "| Total:",       sum(nrow(train), nrow(test)),
-        "| Unique Train:", length(unique(row.names(train))),
-        "| Unique Test:", length(unique(row.names(test))), "\n")
+    k_index<-paste0("f",i)
+    fold[["index"]][[k_index]]<-iteration_index<-which(index==i)
+    fold[["train"]][[k_index]]<-train<-df[rows[-iteration_index],]
+    fold[["test"]][[k_index]]<-test<-df[rows[iteration_index],]
+    fold[["x_test"]][[k_index]]<-test[,predictors]
+    fold[["y_test"]][[k_index]]<-test[,outcome]
+    xgbtrain<-xgboost::xgb.DMatrix(data=data.matrix(train[,predictors]),label=train[,outcome])
+    xgbtest<-xgboost::xgb.DMatrix(data=data.matrix(test[,predictors]),label=test[,outcome])
+    xgboost[[k_index]]<-list(train=xgbtrain,test=xgbtest,
+                             watchlist=list(train=xgbtrain,test=xgbtest),
+                             ytrain=fold$train[[k_index]][,outcome],
+                             ytest=fold$test[[k_index]][,outcome])
+    cat("Fold Cases:",i,
+        "Train:",nrow(train),
+        "Test:",nrow(test),
+        "Total:",sum(nrow(train),nrow(test)),
+        "Unique Train:",length(unique(row.names(train))),
+        "Unique Test:",length(unique(row.names(test))),"\n")
   }
-  
-  result <- list(
-    f            = fold,
-    fold_index   = index,
-    model_formula = model_formula,
-    variables    = variable_names,
-    predictors   = predictors,
-    outcome      = outcome,
-    xgb          = if (has_xgb) xgboost else NULL
-  )
-  
+  result<-list(f=fold,
+               index=index,
+               model_formula=model_formula,
+               variables=variable_names,
+               predictors=predictors,
+               outcome=outcome,
+               xgb=xgboost)
   return(result)
 }
 ##########################################################################################
