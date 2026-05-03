@@ -13,9 +13,9 @@ result_confusion_performance(
 )
 }
 \arguments{
-\item{observed}{Vector of observed outcomes. This can be numeric or factor values representing the true class labels.}
+\item{observed}{Vector of observed outcomes. These are the true class labels.}
 
-\item{predicted}{Vector of predicted outcome probabilities. This should have the same length as the observed vector and represent the predicted probabilities.}
+\item{predicted}{Vector of predicted outcome probabilities. These are the predicted probabilities for the positive class.}
 
 \item{step}{Numeric value representing the stepping for tested cut values. Defaults to 0.1.}
 

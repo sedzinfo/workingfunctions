@@ -165,11 +165,7 @@ plot_separability<-function(observed,predicted,base_size=10,title="") {
 #' @description This function generates a plot to visualize the performance of a confusion matrix at various cut-off points. 
 #' It evaluates the proportion of correct classifications and identifies the optimal cut-off point.
 #' @inheritParams plot_roc
-#' @param observed Vector of observed outcomes. This can be numeric or factor values representing the true class labels.
-#' @param predicted Vector of predicted outcome probabilities. This should have the same length as the observed vector and represent the predicted probabilities.
 #' @param step Numeric value representing the stepping for tested cut values. Defaults to 0.1.
-#' @param base_size Integer value representing the base font size for the plot. Defaults to 10.
-#' @param title String representing the title of the plot. Defaults to an empty string.
 #' @importFrom plyr rbind.fill
 #' @importFrom reshape2 melt
 #' @keywords functions
