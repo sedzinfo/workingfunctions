@@ -16,6 +16,7 @@
 #'   annotate coord_fixed theme_void theme labs scale_x_continuous scale_y_continuous
 #' @importFrom igraph graph_from_data_frame layout_in_circle layout_as_tree layout_with_fr
 #' @export
+#' @examples
 #' model='LATENT1=~X1+X2+X3
 #'        LATENT2=~X4+X5+X6'
 #' df<-lavaan::simulateData(model=model,model.type="cfa",
