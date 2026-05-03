@@ -1,72 +1,289 @@
 ##########################################################################################
 # MODEL PLOT
 ##########################################################################################
-#' @title Plot cfa model
-#' @param model lavaan object
-#' @param ... arguments passed to semPlot::semPaths
-#' @importFrom semPlot semPaths
-#' @keywords SEM
+#' @title Plot CFA model (semPlot-free)
+#' @param model A fitted lavaan object
+#' @param what One of "std" (standardized), "est" (unstandardized), or "eq" (parameter labels)
+#' @param layout One of "tree", "circle", or "spring"
+#' @param label_size Size of node labels
+#' @param edge_label_size Size of path coefficient labels
+#' @param color_latent Fill colour for latent variable nodes
+#' @param color_observed Fill colour for observed variable nodes
+#' @param ... Ignored (kept for API compatibility with plot_cfa)
+#' @return A named list of ggplot objects
+#' @importFrom lavaan parameterEstimates lavNames
+#' @importFrom ggplot2 ggplot aes geom_segment geom_curve geom_rect geom_text
+#'   annotate coord_fixed theme_void theme labs scale_x_continuous scale_y_continuous
+#' @importFrom igraph graph_from_data_frame layout_in_circle layout_as_tree layout_with_fr
 #' @export
-#' @examples
 #' model='LATENT1=~X1+X2+X3
 #'        LATENT2=~X4+X5+X6'
 #' df<-lavaan::simulateData(model=model,model.type="cfa",
 #'                              return.type="data.frame",sample.nobs=100)
 #' df<-generate_missing(df)
 #' fit<-lavaan::cfa(model,data=df,missing="ML")
-#' plot_cfa(fit)
-#' model='LATENT1=~X1+X2+X3+X4+X5+X6
-#'        LATENT2=~X1+X2+X3+X4+X5+X6'
-plot_cfa<-function(model,...) {
-  plot<-list()
-  tryCatch({
-    semPlot::semPaths(model,what="est",layout="circle",ask=FALSE,...)
-    title("Estimates",line=3)
-    plot[["circle_estimates"]]<-recordPlot()
-  })
-  tryCatch({
-    semPlot::semPaths(model,what="std",layout="circle",ask=FALSE,...)
-    title("Standardized Estimates",line=3)
-    plot[["circle_standard_estimates"]]<-recordPlot()
-  })
-  tryCatch({
-    semPlot::semPaths(model,what="eq",layout="circle",ask=FALSE,...)
-    title("Parameters With Equality Constraints",line=3)
-    plot[["circle_parameters_wih_equality_constraints"]]<-recordPlot()
-  })
+#' plots<-plot_cfa_gg(fit,what="std")
+#' plots<-plot_cfa_gg(fit,what="std",layout="tree")
+#' plots<-plot_cfa_gg(fit,what="std",layout="circle")
+#' plots<-plot_cfa_gg(fit,what="std",layout="spring")
+plot_cfa_gg <- function(model,
+                        what        = c("std", "est", "eq"),
+                        layout      = c("tree", "circle", "spring"),
+                        label_size      = 3.2,
+                        edge_label_size = 2.6,
+                        color_latent    = "#4f8ef7",
+                        color_observed  = "#e8eaf0",
+                        ...) {
   
-  tryCatch({
-    semPlot::semPaths(model,what="est",layout="tree",ask=FALSE,...)
-    title("Estimates",line=3)
-    plot[["tree_estimates"]]<-recordPlot()
-  })
-  tryCatch({
-    semPlot::semPaths(model,what="std",layout="tree",ask=FALSE,...)
-    title("Standardized Estimates",line=3)
-    plot[["tree_standard_estimates"]]<-recordPlot()
-  })
-  tryCatch({
-    semPlot::semPaths(model,what="eq",layout="tree",ask=FALSE,...)
-    title("Parameters With Equality Constraints",line=3)
-    plot[["tree_parameters_wih_equality_constraints"]]<-recordPlot()
-  })
+  what   <- match.arg(what)
+  layout <- match.arg(layout)
   
-  tryCatch({
-    semPlot::semPaths(model,what="est",layout="spring",ask=FALSE,...)
-    title("Estimates",line=3)
-    plot[["spring_estimates"]]<-recordPlot()
-  })
-  tryCatch({
-    semPlot::semPaths(model,what="std",layout="spring",ask=FALSE,...)
-    title("Standardized Estimates",line=3)
-    plot[["spring_standard_estimates"]]<-recordPlot()
-  })
-  tryCatch({
-    semPlot::semPaths(model,what="eq",layout="spring",ask=FALSE,...)
-    title("Parameters With Equality Constraints",line=3)
-    plot[["spring_parameters_wih_equality_constraints"]]<-recordPlot()
-  })
-  return(plot)
+  # ── 1. Extract parameter table ───────────────────────────────────────────
+  pe <- lavaan::parameterEstimates(model, standardized = TRUE)
+  
+  # Choose which column to display on edges
+  edge_col <- switch(what,
+                     std = "std.all",
+                     est = "est",
+                     eq  = "label"
+  )
+  
+  # ── 2. Identify nodes ────────────────────────────────────────────────────
+  latent_vars   <- unique(pe$lhs[pe$op == "=~"])
+  observed_vars <- unique(pe$rhs[pe$op == "=~"])
+  all_nodes     <- unique(c(latent_vars, observed_vars))
+  
+  node_df <- data.frame(
+    name    = all_nodes,
+    is_lat  = all_nodes %in% latent_vars,
+    stringsAsFactors = FALSE
+  )
+  
+  # ── 3. Compute node layout ───────────────────────────────────────────────
+  # Build an igraph just for layout purposes
+  edge_list <- pe[pe$op %in% c("=~", "~"), c("lhs","rhs"), drop=FALSE]
+  edge_list <- edge_list[edge_list$lhs %in% all_nodes &
+                           edge_list$rhs %in% all_nodes, ]
+  
+  g <- igraph::graph_from_data_frame(
+    d        = edge_list,
+    directed = TRUE,
+    vertices = node_df
+  )
+  
+  coords <- switch(layout,
+                   circle = igraph::layout_in_circle(g),
+                   tree   = {
+                     # root = latent variables
+                     roots <- which(igraph::V(g)$name %in% latent_vars)
+                     igraph::layout_as_tree(g, root = roots, flip.y = TRUE)
+                   },
+                   spring = igraph::layout_with_fr(g, niter = 1000)
+  )
+  
+  node_df$x <- coords[, 1]
+  node_df$y <- coords[, 2]
+  
+  # normalise to [0,10] for stable sizing
+  rng_x <- range(node_df$x); rng_y <- range(node_df$y)
+  safe_scale <- function(v, rng) {
+    if (diff(rng) == 0) rep(5, length(v)) else (v - rng[1]) / diff(rng) * 10
+  }
+  node_df$x <- safe_scale(node_df$x, rng_x)
+  node_df$y <- safe_scale(node_df$y, rng_y)
+  
+  # node half-dimensions
+  node_df$hw <- ifelse(node_df$is_lat, 0.90, 0.70)   # half-width
+  node_df$hh <- ifelse(node_df$is_lat, 0.55, 0.42)   # half-height
+  
+  # ── 4. Build edge data for factor loadings (=~) ──────────────────────────
+  loadings <- pe[pe$op == "=~", ]
+  
+  edge_df <- merge(
+    loadings,
+    node_df[, c("name","x","y")],
+    by.x = "lhs", by.y = "name"
+  )
+  names(edge_df)[names(edge_df) %in% c("x","y")] <- c("x_from","y_from")
+  
+  edge_df <- merge(
+    edge_df,
+    node_df[, c("name","x","y")],
+    by.x = "rhs", by.y = "name"
+  )
+  names(edge_df)[names(edge_df) %in% c("x","y")] <- c("x_to","y_to")
+  
+  # label to display
+  edge_df$display <- if (what == "eq") {
+    ifelse(is.na(edge_df$label) | edge_df$label == "",
+           formatC(edge_df$est, digits = 3, format = "f"),
+           edge_df$label)
+  } else {
+    formatC(edge_df[[edge_col]], digits = 3, format = "f")
+  }
+  
+  # midpoints for edge labels
+  edge_df$mx <- (edge_df$x_from + edge_df$x_to) / 2
+  edge_df$my <- (edge_df$y_from + edge_df$y_to) / 2
+  
+  # ── 5. Covariance arcs between latent variables ──────────────────────────
+  cov_df <- pe[pe$op == "~~" & pe$lhs != pe$rhs &
+                 pe$lhs %in% latent_vars & pe$rhs %in% latent_vars, ]
+  
+  if (nrow(cov_df) > 0) {
+    cov_df <- merge(cov_df, node_df[, c("name","x","y")],
+                    by.x = "lhs", by.y = "name")
+    names(cov_df)[names(cov_df) %in% c("x","y")] <- c("x_from","y_from")
+    cov_df <- merge(cov_df, node_df[, c("name","x","y")],
+                    by.x = "rhs", by.y = "name")
+    names(cov_df)[names(cov_df) %in% c("x","y")] <- c("x_to","y_to")
+    cov_df$display <- formatC(cov_df[[edge_col]], digits = 3, format = "f")
+    cov_df$mx <- (cov_df$x_from + cov_df$x_to) / 2
+    cov_df$my <- (cov_df$y_from + cov_df$y_to) / 2
+  }
+  
+  # ── 6. Build plot ────────────────────────────────────────────────────────
+  plot_title <- switch(what,
+                       std = "Standardised Estimates",
+                       est = "Unstandardised Estimates",
+                       eq  = "Parameters with Equality Constraints"
+  )
+  
+  p <- ggplot2::ggplot() +
+    
+    # factor loading edges
+    ggplot2::geom_segment(
+      data = edge_df,
+      ggplot2::aes(x = x_from, y = y_from, xend = x_to, yend = y_to),
+      colour   = "#555a6b",
+      linewidth = 0.55,
+      arrow = ggplot2::arrow(length = ggplot2::unit(6, "pt"),
+                             type = "closed", ends = "last")
+    ) +
+    
+    # loading labels
+    ggplot2::geom_label(
+      data = edge_df,
+      ggplot2::aes(x = mx, y = my, label = display),
+      size      = edge_label_size,
+      fill      = "white",
+      label.size = 0,
+      label.padding = ggplot2::unit(1.5, "pt"),
+      colour    = "#333745"
+    ) +
+    
+    # node rectangles — observed
+    ggplot2::geom_rect(
+      data = node_df[!node_df$is_lat, ],
+      ggplot2::aes(
+        xmin = x - hw, xmax = x + hw,
+        ymin = y - hh, ymax = y + hh
+      ),
+      fill   = color_observed,
+      colour = "#8890a8",
+      linewidth = 0.4
+    ) +
+    
+    # node ellipses — latent (drawn as wider rounded rects via annotate_custom;
+    # simplest portable approach: just use distinctly-coloured rects)
+    ggplot2::geom_rect(
+      data = node_df[node_df$is_lat, ],
+      ggplot2::aes(
+        xmin = x - hw, xmax = x + hw,
+        ymin = y - hh, ymax = y + hh
+      ),
+      fill   = color_latent,
+      colour = "#2a5cc7",
+      linewidth = 0.5
+    ) +
+    
+    # node labels — observed
+    ggplot2::geom_text(
+      data   = node_df[!node_df$is_lat, ],
+      ggplot2::aes(x = x, y = y, label = name),
+      size   = label_size,
+      colour = "#222533",
+      fontface = "plain"
+    ) +
+    
+    # node labels — latent
+    ggplot2::geom_text(
+      data   = node_df[node_df$is_lat, ],
+      ggplot2::aes(x = x, y = y, label = name),
+      size   = label_size,
+      colour = "white",
+      fontface = "bold"
+    ) +
+    
+    ggplot2::coord_fixed(clip = "off") +
+    ggplot2::theme_void(base_size = 11) +
+    ggplot2::theme(
+      plot.title   = ggplot2::element_text(
+        hjust = 0.5, size = 12, margin = ggplot2::margin(b = 8)),
+      plot.margin  = ggplot2::margin(20, 20, 20, 20)
+    ) +
+    ggplot2::labs(title = paste0(plot_title, " — ", layout))
+  
+  # add covariance arcs if present
+  if (nrow(cov_df) > 0) {
+    p <- p +
+      ggplot2::geom_curve(
+        data = cov_df,
+        ggplot2::aes(x = x_from, y = y_from, xend = x_to, yend = y_to),
+        curvature = 0.35,
+        colour    = "#e87c4f",
+        linewidth  = 0.5,
+        linetype  = "dashed",
+        arrow = ggplot2::arrow(length = ggplot2::unit(5, "pt"),
+                               type = "open", ends = "both")
+      ) +
+      ggplot2::geom_label(
+        data = cov_df,
+        ggplot2::aes(x = mx, y = my, label = display),
+        size      = edge_label_size,
+        fill      = "#fff5f0",
+        label.size = 0,
+        colour    = "#993c1d"
+      )
+  }
+  
+  return(p)
+}
+##########################################################################################
+# MODEL PLOT
+##########################################################################################
+#' @title Batch-plot CFA across layouts and display modes
+#' @description Drop-in replacement for \code{plot_cfa()} — same signature,
+#'   returns a named list of ggplot objects instead of base-graphics recordings.
+#' @param model A fitted lavaan object
+#' @param ... Extra arguments forwarded to \code{plot_cfa_gg()}
+#' @return Named list of ggplot objects (same keys as the original \code{plot_cfa})
+#' @export
+plot_cfa <- function(model, ...) {
+  
+  layouts  <- c("circle", "tree", "spring")
+  whats    <- c("est", "std", "eq")
+  what_key <- c(est = "estimates",
+                std = "standard_estimates",
+                eq  = "parameters_wih_equality_constraints")
+  
+  plots <- list()
+  
+  for (lay in layouts) {
+    for (wh in whats) {
+      key <- paste0(lay, "_", what_key[[wh]])
+      plots[[key]] <- tryCatch(
+        plot_cfa_gg(model, what = wh, layout = lay, ...),
+        error = function(e) {
+          message(sprintf("Skipping %s: %s", key, conditionMessage(e)))
+          NULL
+        }
+      )
+    }
+  }
+  
+  plots <- Filter(Negate(is.null), plots)
+  return(plots)
 }
 ##########################################################################################
 # MODEL

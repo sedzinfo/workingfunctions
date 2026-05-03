@@ -2,27 +2,19 @@
 % Please edit documentation in R/GLM_SEM.R
 \name{plot_cfa}
 \alias{plot_cfa}
-\title{Plot cfa model}
+\title{Batch-plot CFA across layouts and display modes}
 \usage{
 plot_cfa(model, ...)
 }
 \arguments{
-\item{model}{lavaan object}
+\item{model}{A fitted lavaan object}
 
-\item{...}{arguments passed to semPlot::semPaths}
+\item{...}{Extra arguments forwarded to \code{plot_cfa_gg()}}
+}
+\value{
+Named list of ggplot objects (same keys as the original \code{plot_cfa})
 }
 \description{
-Plot cfa model
+Drop-in replacement for \code{plot_cfa()} — same signature,
+  returns a named list of ggplot objects instead of base-graphics recordings.
 }
-\examples{
-model='LATENT1=~X1+X2+X3
-       LATENT2=~X4+X5+X6'
-df<-lavaan::simulateData(model=model,model.type="cfa",
-                             return.type="data.frame",sample.nobs=100)
-df<-generate_missing(df)
-fit<-lavaan::cfa(model,data=df,missing="ML")
-plot_cfa(fit)
-model='LATENT1=~X1+X2+X3+X4+X5+X6
-       LATENT2=~X1+X2+X3+X4+X5+X6'
-}
-\keyword{SEM}
