@@ -29,40 +29,36 @@
 
 ## Installation
 
-### Public Repository
+> **Note on Git LFS:** `remotes::install_github()` downloads a ZIP archive which does **not** include Git LFS files — large assets will appear as broken pointer files. If the package functions that depend on those files are critical to you, use the **Clone & Install** path below. If you only need the R code (functions, no bundled datasets), the standard `remotes` install is sufficient.
+
+---
+
+### Option A — Standard install (R code only, no LFS assets)
 
 ```r
 install.packages("remotes")
 remotes::install_github("sedzinfo/workingfunctions/workingfunctions")
 ```
 
-### Private Repository
+For a private repository:
 
 ```r
-install.packages("devtools")
-install.packages("usethis")
-install.packages("credentials")
-install.packages("remotes")
+install.packages(c("devtools", "usethis", "credentials", "remotes"))
 
-# Set git config
 usethis::use_git_config(user.name = "YourName", user.email = "your@mail.com")
-
-# Go to GitHub to generate a Personal Access Token
-usethis::create_github_token()
-
-# Paste your PAT into the pop-up that follows
-credentials::set_github_pat()
+usethis::create_github_token()   # opens GitHub — generate a PAT there
+credentials::set_github_pat()    # paste your PAT into the prompt
 
 remotes::install_github("sedzinfo/workingfunctions/workingfunctions")
 ```
 
 ---
 
-## Git LFS Setup
+### Option B — Clone & install (includes Git LFS assets)
 
-Large files (e.g. datasets) are stored using [Git LFS](https://git-lfs.com). Follow the steps below to clone the repository and retrieve them.
+Use this path when you need bundled datasets or any other large files tracked by LFS.
 
-### 1. Install Git LFS (one-time setup)
+#### 1. Install Git LFS (one-time)
 
 **Ubuntu/Debian:**
 ```bash
@@ -70,39 +66,65 @@ sudo apt install git-lfs
 git lfs install
 ```
 
-**Mac:**
+**macOS:**
 ```bash
 brew install git-lfs
 git lfs install
 ```
 
 **Windows:**
-
 Download and run the installer from https://git-lfs.com, then:
 ```bash
 git lfs install
 ```
 
-### 2. Clone the repository
+#### 2. Clone the repository
 
+**Public:**
 ```bash
 git clone https://github.com/sedzinfo/workingfunctions.git
 cd workingfunctions
 ```
 
-### 3. Pull the LFS files
+**Private (token auth):**
+```bash
+git clone https://YOUR_PAT@github.com/sedzinfo/workingfunctions.git
+cd workingfunctions
+```
+
+Replace `YOUR_PAT` with a Personal Access Token generated at **GitHub → Settings → Developer settings → Personal access tokens**. The token needs at minimum `repo` scope.
+
+#### 3. Pull LFS files
 
 ```bash
 git lfs pull
 ```
 
-> **Note:** If you cloned the repository *before* installing Git LFS and large files appear as small pointer files, run:
-> ```bash
-> git lfs install
-> git lfs pull
-> ```
-
-To verify that LFS files downloaded correctly:
+To verify LFS files downloaded correctly (you should see real file sizes, not 130-byte pointers):
 ```bash
 git lfs ls-files
 ```
+
+> If you cloned *before* installing Git LFS and files appear as small pointer files, run `git lfs install` then `git lfs pull` to hydrate them.
+
+#### 4. Install the package from the local clone
+
+```r
+install.packages("devtools")
+devtools::install("path/to/workingfunctions/workingfunctions")
+```
+
+---
+
+### Keeping up to date (Option B)
+
+```bash
+git pull
+git lfs pull
+```
+
+Then reinstall in R:
+```r
+devtools::install("path/to/workingfunctions/workingfunctions")
+```
+
