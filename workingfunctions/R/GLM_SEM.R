@@ -12,8 +12,7 @@
 #' @param ... Ignored (kept for API compatibility with plot_cfa)
 #' @return A named list of ggplot objects
 #' @importFrom lavaan parameterEstimates lavNames
-#' @importFrom ggplot2 ggplot aes geom_segment geom_curve geom_rect geom_text
-#'   annotate coord_fixed theme_void theme labs scale_x_continuous scale_y_continuous
+#' @importFrom ggplot2 ggplot aes geom_segment geom_curve geom_rect geom_text annotate coord_fixed theme_void theme labs scale_x_continuous scale_y_continuous
 #' @importFrom igraph graph_from_data_frame layout_in_circle layout_as_tree layout_with_fr
 #' @export
 #' @examples
