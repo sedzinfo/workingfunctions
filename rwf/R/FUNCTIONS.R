@@ -290,9 +290,7 @@ min_max_index<-function(vector){
 #' @examples
 #' # Returns the directory of the active script in RStudio
 #' directory <- get_script_directory()
-#' # Typical use case: build paths relative to the script location
-#' data_path <- paste0(get_script_directory(), "data/myfile.csv")
-#' source(paste0(get_script_directory(), "helpers.R"))
+#' directory
 get_script_directory<-function() {
   if(requireNamespace("rstudioapi",quietly=TRUE) && rstudioapi::isAvailable()) {
     return(paste0(dirname(rstudioapi::getActiveDocumentContext()$path),"/"))

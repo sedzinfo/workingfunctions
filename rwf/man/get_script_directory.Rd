@@ -27,8 +27,6 @@ The fallback to \code{getwd()} may not reflect the script's actual location
 \examples{
 # Returns the directory of the active script in RStudio
 directory <- get_script_directory()
-# Typical use case: build paths relative to the script location
-data_path <- paste0(get_script_directory(), "data/myfile.csv")
-source(paste0(get_script_directory(), "helpers.R"))
+directory
 }
 \keyword{functions}

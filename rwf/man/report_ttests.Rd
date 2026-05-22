@@ -19,6 +19,34 @@ report_ttests(df, dv, iv, file = NULL, ...)
   Arguments passed on to \code{\link[stats:t.test]{stats::t.test}}
   \describe{
     \item{\code{x}}{a (non-empty) numeric vector of data values.}
+    \item{\code{y}}{an optional (non-empty) numeric vector of data values.}
+    \item{\code{alternative}}{a character string specifying the alternative
+    hypothesis, must be one of \code{"two.sided"} (default),
+    \code{"greater"} or \code{"less"}.  You can specify just the initial
+    letter.}
+    \item{\code{mu}}{a number indicating the true value of the mean (or
+    difference in means if you are performing a two sample test).}
+    \item{\code{paired}}{a logical indicating whether you want a paired
+    t-test.}
+    \item{\code{var.equal}}{a logical variable indicating whether to treat the
+    two variances as being equal. If \code{TRUE} then the pooled
+    variance is used to estimate the variance otherwise the Welch
+    (or Satterthwaite) approximation to the degrees of freedom is used.}
+    \item{\code{conf.level}}{confidence level of the interval.}
+    \item{\code{formula}}{a formula of the form \code{lhs ~ rhs} where \code{lhs}
+    is a numeric variable giving the data values and \code{rhs} either 
+    \code{1} for a one-sample or paired test or a factor
+    with two levels giving the corresponding groups. If \code{lhs} is of 
+    class \code{"\link[stats]{Pair}"} and \code{rhs} is \code{1}, a paired test
+    is done, see Examples.}
+    \item{\code{data}}{an optional matrix or data frame (or similar: see
+    \code{\link[stats]{model.frame}}) containing the variables in the
+    formula \code{formula}.  By default the variables are taken from
+    \code{environment(formula)}.}
+    \item{\code{subset}}{an optional vector specifying a subset of observations
+    to be used.}
+    \item{\code{na.action}}{a function which indicates what should happen when
+    the data contain \code{\link{NA}}s.}
   }}
 }
 \description{

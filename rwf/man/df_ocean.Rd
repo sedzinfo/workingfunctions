@@ -134,12 +134,12 @@ Negatively keyed items are: E2, E4, E6, E8, E10, N2, N4, A1, A3, A5, A7, C2, C4,
 These should be reverse-coded prior to scoring.
 }
 \examples{
-data(bfi_data)
-head(bfi_data)
+data(df_ocean)
+head(df_ocean)
 
 # Compute Big Five average scores (after reverse scoring)
 # library(dplyr)
-# bfi_data <- bfi_data \%>\% mutate(E=rowMeans(select(., E1:E10), na.rm=TRUE))
+# df_ocean <- df_ocean \%>\% mutate(E=rowMeans(select(., E1:E10), na.rm=TRUE))
 
 }
 \keyword{datasets}

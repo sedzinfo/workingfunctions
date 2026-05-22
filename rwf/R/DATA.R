@@ -385,12 +385,12 @@
 #' Downloaded from Kaggle.com by the user Lucas Greenwell. see \url{https://www.kaggle.com/datasets/lucasgreenwell/ocean-five-factor-personality-test-responses}
 #' 
 #' @examples
-#' data(bfi_data)
-#' head(bfi_data)
+#' data(df_ocean)
+#' head(df_ocean)
 #' 
 #' # Compute Big Five average scores (after reverse scoring)
 #' # library(dplyr)
-#' # bfi_data <- bfi_data %>% mutate(E=rowMeans(select(., E1:E10), na.rm=TRUE))
+#' # df_ocean <- df_ocean %>% mutate(E=rowMeans(select(., E1:E10), na.rm=TRUE))
 #'
 "df_ocean"
 
