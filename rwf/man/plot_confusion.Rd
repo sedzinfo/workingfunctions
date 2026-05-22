@@ -36,6 +36,5 @@ plot_confusion(observed=c(1,2,3,1,2,3),predicted=c(1,2,3,1,2,3))
 observed<-c(rep("male",10),rep("female",10),"male","male")
 predicted<-c(rep("male",10),rep("female",10),"female","female")
 plot_confusion(observed=observed,predicted=predicted)
-
 }
 \keyword{functions}

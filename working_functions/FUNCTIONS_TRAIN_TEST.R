@@ -10,6 +10,16 @@
 #' @importFrom pROC roc ggroc
 #' @keywords functions
 #' @export
+#' @details
+#' This function generates a ROC curve to evaluate the performance of a binary classification model. 
+#' The ROC curve is a plot of the true positive rate (TPR) against the false positive rate (FPR) at various threshold settings.
+#'
+#' The function performs the following steps:
+#' 1. Computes the ROC curve and its confidence interval using `pROC::roc`.
+#' 2. Generates ROC plots for both reversed and non-reversed order of class levels.
+#' 3. Creates a list of ROC plots,each with an AUC value,control level,and direction.
+#'
+#' The output is a list of ggplot objects representing the ROC curves for different class level orders.
 #' @examples
 #' # Example with random observed and predicted values
 #' observed<-round(abs(rnorm(100,m=0,sd=0.5)))
@@ -25,17 +35,6 @@
 #' df1$X2<-abs(df1$X2)
 #' df1$X2<-(df1$X2-min(df1$X2))/(max(df1$X2)-min(df1$X2))
 #' plot_roc(observed=round(abs(df1$X1),0),predicted=abs(df1$X2))
-#'
-#' @details
-#' This function generates a ROC curve to evaluate the performance of a binary classification model. 
-#' The ROC curve is a plot of the true positive rate (TPR) against the false positive rate (FPR) at various threshold settings.
-#'
-#' The function performs the following steps:
-#' 1. Computes the ROC curve and its confidence interval using `pROC::roc`.
-#' 2. Generates ROC plots for both reversed and non-reversed order of class levels.
-#' 3. Creates a list of ROC plots,each with an AUC value,control level,and direction.
-#'
-#' The output is a list of ggplot objects representing the ROC curves for different class level orders.
 plot_roc<-function(observed,predicted,base_size=10,title="") {
   plotlist<-list()
   rco1<-pROC::roc(observed,predicted,ci=TRUE,levels=as.factor(rev(sort(unique(observed)))),quiet=TRUE)
@@ -68,15 +67,6 @@ plot_roc<-function(observed,predicted,base_size=10,title="") {
 #' @importFrom reshape2 melt
 #' @keywords functions
 #' @export
-#' @examples
-#' # Example with numeric class labels
-#' plot_confusion(observed=c(1,2,3,1,2,3),predicted=c(1,2,3,1,2,3))
-#'
-#' # Example with factor class labels
-#' observed<-c(rep("male",10),rep("female",10),"male","male")
-#' predicted<-c(rep("male",10),rep("female",10),"female","female")
-#' plot_confusion(observed=observed,predicted=predicted)
-#'
 #' @details
 #' This function generates a confusion matrix plot using ggplot2. It provides a visual representation of the
 #' confusion matrix with observed outcomes on the x-axis and predicted outcomes on the y-axis. The cells of the
@@ -86,6 +76,14 @@ plot_roc<-function(observed,predicted,base_size=10,title="") {
 #'-Overall Accuracy: Proportion of correctly classified observations (diagonal elements).
 #'-Off-diagonal Accuracy: Proportion of misclassified observations (off-diagonal elements).
 #'-Cohen's Kappa (Unweighted,Linear,and Squared): Measures the agreement between observed and predicted outcomes.
+#' @examples
+#' # Example with numeric class labels
+#' plot_confusion(observed=c(1,2,3,1,2,3),predicted=c(1,2,3,1,2,3))
+#'
+#' # Example with factor class labels
+#' observed<-c(rep("male",10),rep("female",10),"male","male")
+#' predicted<-c(rep("male",10),rep("female",10),"female","female")
+#' plot_confusion(observed=observed,predicted=predicted)
 plot_confusion<-function(observed,predicted,base_size=10,title="") {
   value<-NULL
   cmatrixp<-confusion_matrix_percent(observed=observed,predicted=predicted)
@@ -129,6 +127,14 @@ plot_confusion<-function(observed,predicted,base_size=10,title="") {
 #' @param title String representing the title of the plot. Defaults to an empty string.
 #' @keywords functions
 #' @export
+#' @details
+#' This function generates a separability plot using ggplot2. It shows the density distribution of predicted probabilities for different observed categories.
+#' The plot helps to visualize how well the predicted probabilities separate the different observed categories.
+#'
+#' The plot includes the following components:
+#'-Density curves for each observed category,representing the distribution of predicted probabilities.
+#'-A legend indicating the observed categories.
+#'-The total number of observations is included in the plot caption.
 #' @examples
 #' # Example with numeric class labels
 #' df1<-data.frame(matrix(.999,ncol=2,nrow=2))
@@ -139,15 +145,6 @@ plot_confusion<-function(observed,predicted,base_size=10,title="") {
 #' df1$X2<-abs(df1$X2)
 #' df1$X2<-(df1$X2-min(df1$X2))/(max(df1$X2)-min(df1$X2))
 #' plot_separability(observed=round(abs(df1$X1),0),predicted=abs(df1$X2))
-#'
-#' @details
-#' This function generates a separability plot using ggplot2. It shows the density distribution of predicted probabilities for different observed categories.
-#' The plot helps to visualize how well the predicted probabilities separate the different observed categories.
-#'
-#' The plot includes the following components:
-#'-Density curves for each observed category,representing the distribution of predicted probabilities.
-#'-A legend indicating the observed categories.
-#'-The total number of observations is included in the plot caption.
 plot_separability<-function(observed,predicted,base_size=10,title="") {
   df<-data.frame(observed=as.factor(observed),predicted=predicted)
   plot<-ggplot(df,aes(x=predicted,color=factor(observed)))+
@@ -170,6 +167,18 @@ plot_separability<-function(observed,predicted,base_size=10,title="") {
 #' @importFrom reshape2 melt
 #' @keywords functions
 #' @export
+#' @details
+#' This function evaluates the performance of a confusion matrix at different cut-off points. It iterates through a range of cut-off points,
+#' calculates the confusion matrix,and evaluates the proportion of correct classifications for each cut-off.
+#'
+#' The function generates a plot that includes:
+#'-The proportion of correct classifications for different cut-off points.
+#'-Vertical lines indicating the optimal cut-off point.
+#'-A legend representing different performance metrics.
+#'-A caption showing the number of observations and the optimal cut-off point.
+#'
+#' The function returns a list containing the plot,the data frame with cut-off performance,the optimal cut-off point,
+#' and the confusion matrix at the optimal cut-off.
 #' @examples
 #' # Example with numeric class labels
 #' df<-data.frame(matrix(.999,ncol=2,nrow=2))
@@ -184,19 +193,6 @@ plot_separability<-function(observed,predicted,base_size=10,title="") {
 #'                              step=0.01)
 #' result_confusion_performance(observed=c(1,2,3,1,2,3),
 #'                              predicted=abs(rnorm(6,0,sd=0.1)))
-#'
-#' @details
-#' This function evaluates the performance of a confusion matrix at different cut-off points. It iterates through a range of cut-off points,
-#' calculates the confusion matrix,and evaluates the proportion of correct classifications for each cut-off.
-#'
-#' The function generates a plot that includes:
-#'-The proportion of correct classifications for different cut-off points.
-#'-Vertical lines indicating the optimal cut-off point.
-#'-A legend representing different performance metrics.
-#'-A caption showing the number of observations and the optimal cut-off point.
-#'
-#' The function returns a list containing the plot,the data frame with cut-off performance,the optimal cut-off point,
-#' and the confusion matrix at the optimal cut-off.
 result_confusion_performance<-function(observed,predicted,step=.1,base_size=10,title="") {
   cut_point<-value<-variable<-NULL
   df_cut_performance<-data.frame()
@@ -245,15 +241,6 @@ result_confusion_performance<-function(observed,predicted,step=.1,base_size=10,t
 #' @importFrom stats get_all_vars
 #' @keywords functions
 #' @export
-#' @examples
-#' # Example with the 'infert' dataset
-#' infert_formula<-formula(case~education+spontaneous+induced)
-#' result<-k_fold(infert,k=10,model_formula=infert_formula)
-#'
-#' # Example with the 'mtcars' dataset
-#' model_formula<-as.formula(mpg~cyl+disp+hp+drat+wt+qsec+vs+am+gear+carb)
-#' result<-k_fold(mtcars,k=2,model_formula=model_formula)
-#'
 #' @details
 #' This function performs k-fold cross-validation by splitting the input dataframe into k folds. 
 #' Each fold serves as a test set once,while the remaining k-1 folds form the training set.
@@ -268,6 +255,14 @@ result_confusion_performance<-function(observed,predicted,step=.1,base_size=10,t
 #'-`predictors`: Names of the predictor variables.
 #'-`outcome`: Name of the outcome variable.
 #'-`xgb`: List of xgboost DMatrix objects for training and testing.
+#' @examples
+#' # Example with the 'infert' dataset
+#' infert_formula<-formula(case~education+spontaneous+induced)
+#' result<-k_fold(infert,k=10,model_formula=infert_formula)
+#'
+#' # Example with the 'mtcars' dataset
+#' model_formula<-as.formula(mpg~cyl+disp+hp+drat+wt+qsec+vs+am+gear+carb)
+#' result<-k_fold(mtcars,k=2,model_formula=model_formula)
 k_fold<-function(df,model_formula,k=10) {
   variable_names<-names(stats::get_all_vars(model_formula,data=df))
   index<-sample(cut(1:nrow(df),breaks=k,labels=FALSE))
@@ -285,8 +280,10 @@ k_fold<-function(df,model_formula,k=10) {
     fold[["y_test"]][[k_index]]<-test[,outcome]
     xgbtrain<-xgboost::xgb.DMatrix(data=data.matrix(train[,predictors]),label=train[,outcome])
     xgbtest<-xgboost::xgb.DMatrix(data=data.matrix(test[,predictors]),label=test[,outcome])
+    evals<-list(train=xgbtrain,test=xgbtest)
     xgboost[[k_index]]<-list(train=xgbtrain,test=xgbtest,
-                             watchlist=list(train=xgbtrain,test=xgbtest),
+                 evals=evals,
+                 watchlist=evals,
                              ytrain=fold$train[[k_index]][,outcome],
                              ytest=fold$test[[k_index]][,outcome])
     cat("Fold Cases:",i,
@@ -317,15 +314,6 @@ k_fold<-function(df,model_formula,k=10) {
 #' @importFrom stats get_all_vars
 #' @keywords functions
 #' @export
-#' @examples
-#' # Example with the 'infert' dataset
-#' infert_formula<-formula(case~education+spontaneous+induced)
-#' result<-k_sample(df=infert,k=10,model_formula=infert_formula)
-#'
-#' # Example with the 'mtcars' dataset
-#' model_formula<-formula(mpg~cyl+disp+hp+drat+wt+qsec+vs+am+gear+carb)
-#' result<-k_sample(df=mtcars,k=10,model_formula=model_formula)
-#'
 #' @details
 #' This function performs k-fold cross-validation or a simple train-test split (if k=1) by splitting the input dataframe into k folds. 
 #' Each fold serves as a test set once,while the remaining k-1 folds form the training set.
@@ -340,6 +328,14 @@ k_fold<-function(df,model_formula,k=10) {
 #'-`predictors`: Names of the predictor variables.
 #'-`outcome`: Name of the outcome variable.
 #'-`xgb`: List of xgboost DMatrix objects for training,testing,and validation.
+#' @examples
+#' # Example with the 'infert' dataset
+#' infert_formula<-formula(case~education+spontaneous+induced)
+#' result<-k_sample(df=infert,k=10,model_formula=infert_formula)
+#'
+#' # Example with the 'mtcars' dataset
+#' model_formula<-formula(mpg~cyl+disp+hp+drat+wt+qsec+vs+am+gear+carb)
+#' result<-k_sample(df=mtcars,k=10,model_formula=model_formula)
 k_sample<-function(df,model_formula,k=1) {
   sv<-function(vector)
     split(vector,ceiling(seq_along(vector)/(length(vector)/2)))
@@ -374,10 +370,12 @@ k_sample<-function(df,model_formula,k=1) {
     xgbtrain<-xgboost::xgb.DMatrix(data=data.matrix(train[,predictors]),label=train[,outcome])
     xgbtest<-xgboost::xgb.DMatrix(data=data.matrix(test[,predictors]),label=test[,outcome])
     xgbvalidation<-xgboost::xgb.DMatrix(data=data.matrix(validation[,predictors]),label=validation[,outcome])
+    evals<-list(train=xgbtrain,test=xgbtest)
     xgb[[k_index]]<-list(train=xgbtrain,
                          test=xgbtest,
                          validation=xgbvalidation,
-                         watchlist=list(train=xgbtrain,test=xgbtest),
+               evals=evals,
+               watchlist=evals,
                          ytrain=fold$train[[k_index]][,outcome],
                          ytest=fold$test[[k_index]][,outcome],
                          yvalidation=fold$test[[k_index]][,outcome])
@@ -411,15 +409,6 @@ k_sample<-function(df,model_formula,k=1) {
 #' @importFrom psych dummy.code
 #' @keywords functions
 #' @export
-#' @examples
-#' # Example with the 'infert' dataset
-#' recode_scale_dummy(infert)
-#'
-#' # Example with a custom dataframe
-#' df<-data.frame(numeric_var=c(1,2,3,4,5),
-#'                factor_var=factor(c('A','B','A','B','C')))
-#' recode_scale_dummy(df)
-#'
 #' @details
 #' This function processes a dataframe by scaling numeric variables and creating dummy codes for character and factor variables. 
 #' The numeric variables are scaled between 0 and 1,while the character and factor variables are converted to dummy variables if they have fewer unique values than 
@@ -431,6 +420,14 @@ k_sample<-function(df,model_formula,k=1) {
 #' 3. Combines the scaled numeric variables and dummy variables into a single dataframe.
 #'
 #' The output is a dataframe with scaled numeric variables and dummy-coded character/factor variables.
+#' @examples
+#' # Example with the 'infert' dataset
+#' recode_scale_dummy(infert)
+#'
+#' # Example with a custom dataframe
+#' df<-data.frame(numeric_var=c(1,2,3,4,5),
+#'                factor_var=factor(c('A','B','A','B','C')))
+#' recode_scale_dummy(df)
 recode_scale_dummy<-function(df,categories=10) {
   index_numeric<-names(df[,sapply(df,is.numeric)])
   if(sum(sapply(df,function(x) is.character(x)|is.factor(x)))>1){
@@ -464,10 +461,6 @@ recode_scale_dummy<-function(df,categories=10) {
 #' @importFrom irr kappa2
 #' @keywords functions
 #' @export
-#' @examples
-#' # Example with numeric observed and predicted values
-#' proportion_accurate(observed=c(1,2,3,4,5,10),predicted=c(1,2,3,4,5,11))
-#'
 #' @details
 #' This function evaluates the performance of a confusion matrix by calculating the overall accuracy and Cohen's kappa statistics.
 #'
@@ -482,6 +475,9 @@ recode_scale_dummy<-function(df,categories=10) {
 #'-`kappa_unweighted`: Cohen's kappa statistic with no weights.
 #'-`kappa_linear`: Cohen's kappa statistic with linear weights.
 #'-`kappa_squared`: Cohen's kappa statistic with squared weights.
+#' @examples
+#' # Example with numeric observed and predicted values
+#' proportion_accurate(observed=c(1,2,3,4,5,10),predicted=c(1,2,3,4,5,11))
 proportion_accurate<-function(observed,predicted) {
   cmatrix<-confusion(observed=observed,predicted=predicted)
   train_test<-data.frame(observed=observed,predicted=predicted)
@@ -516,23 +512,19 @@ proportion_accurate<-function(observed,predicted) {
 #' @importFrom gtools mixedsort
 #' @keywords functions
 #' @export
-#' @examples
-#' # Example with numeric observed and predicted values
-#' confusion(observed=c(1,2,3,4,5,10),predicted=c(1,2,3,4,5,11))
-#'
-#' # Example with repeated observed and predicted values
-#' confusion(observed=c(1,2,2,2,2),predicted=c(1,1,2,2,2))
-#'
 #' @details
 #' This function creates a confusion matrix by comparing the observed (true) class labels with the predicted class labels.
 #' The confusion matrix is a table that is often used to describe the performance of a classification model.
-#'
 #' The function performs the following steps:
 #' 1. Identifies the unique class labels from both the observed and predicted vectors.
 #' 2. Sorts the class labels in a mixed order (if they are character variables) using `gtools::mixedsort`.
 #' 3. Constructs a table to represent the confusion matrix with the sorted class labels as levels.
-#'
 #' The output is a confusion matrix,where rows represent the predicted class labels and columns represent the observed class labels.
+#' @examples
+#' # Example with numeric observed and predicted values
+#' confusion(observed=c(1,2,3,4,5,10),predicted=c(1,2,3,4,5,11))
+#' # Example with repeated observed and predicted values
+#' confusion(observed=c(1,2,2,2,2),predicted=c(1,1,2,2,2))
 confusion<-function(observed,predicted) {
   levels<-gtools::mixedsort(as.character(unique(c(observed,predicted))),decreasing=FALSE)
   result<-table(predicted=factor(as.character(predicted),levels=levels),
@@ -559,6 +551,16 @@ confusion<-function(observed,predicted) {
 #' Vertical measures-False Omission Rate: FN/(FN+TN)\cr
 #' Vertical measures-False Discovery Rate: FP/(TP+FP)\cr
 #' @export
+#' @details
+#' This function creates a confusion matrix by comparing the observed (true) class labels with the predicted class labels. Additionally,
+#' it calculates row and column percentages to provide a more detailed performance analysis.
+#'
+#' The function performs the following steps:
+#' 1. Computes the confusion matrix from the observed and predicted values.
+#' 2. Calculates the overall accuracy by dividing the sum of diagonal elements by the total number of observations.
+#' 3. Appends row and column sums to the confusion matrix.
+#' 4. Computes precision and recall for each class and appends these metrics to the matrix.
+#' 5. Returns a formatted data frame with the confusion matrix,row and column percentages,and overall accuracy.
 #' @examples
 #' # Example with numeric observed and predicted values
 #' confusion_matrix_percent(observed=c(1,2,3,4,5,10),predicted=c(1,2,3,4,5,11))
@@ -570,17 +572,6 @@ confusion<-function(observed,predicted) {
 #' observed<-factor(round(rnorm(10000,m=10,sd=1)))
 #' predicted<-factor(round(rnorm(10000,m=10,sd=1)))
 #' confusion_matrix_percent(observed,predicted)
-#'
-#' @details
-#' This function creates a confusion matrix by comparing the observed (true) class labels with the predicted class labels. Additionally,
-#' it calculates row and column percentages to provide a more detailed performance analysis.
-#'
-#' The function performs the following steps:
-#' 1. Computes the confusion matrix from the observed and predicted values.
-#' 2. Calculates the overall accuracy by dividing the sum of diagonal elements by the total number of observations.
-#' 3. Appends row and column sums to the confusion matrix.
-#' 4. Computes precision and recall for each class and appends these metrics to the matrix.
-#' 5. Returns a formatted data frame with the confusion matrix,row and column percentages,and overall accuracy.
 confusion_matrix_percent<-function(observed,predicted) {
   cmatrix<-confusion(observed=observed,predicted=predicted)
   overall_accuracy<-sum(as.numeric(diag(cmatrix)))/sum(as.numeric(matrix(cmatrix,ncol=1)))

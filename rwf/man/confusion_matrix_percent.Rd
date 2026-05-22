@@ -49,6 +49,5 @@ confusion_matrix_percent(observed=c(1,2,2,2,2),predicted=c(1,1,2,2,2))
 observed<-factor(round(rnorm(10000,m=10,sd=1)))
 predicted<-factor(round(rnorm(10000,m=10,sd=1)))
 confusion_matrix_percent(observed,predicted)
-
 }
 \keyword{functions}

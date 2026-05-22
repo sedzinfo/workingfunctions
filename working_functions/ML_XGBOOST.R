@@ -63,18 +63,15 @@ plot_trees_xgboost<-function(model,train,file="xgboost") {
 #' train_test_classification<-k_fold(df=infert,model_formula=infert_formula)
 #' train_test_regression<-k_fold(df=MASS::Boston,model_formula=boston_formula)
 #' xgb_classification<-xgboost::xgb.train(
+#'                     params=xgboost::xgb.params(objective="binary:logistic"),
 #'                     data=train_test_classification$xgb$f1$train,
-#'                     watchlist=train_test_classification$xgb$f1$watchlist,
-#'                     eta=.1,
-#'                     nthread=8,
-#'                     nround=20,
-#'                     objective="binary:logistic")
+#'                     evals=train_test_classification$xgb$f1$watchlist,
+#'                     nround=20)
 #' xgb_regression<-xgboost::xgb.train(
 #'                 data=train_test_regression$xgb$f1$train,
-#'                 watchlist=train_test_regression$xgb$f1$watchlist,
-#'                 eta=.3,
-#'                 nthread=8,
+#'                 evals=train_test_regression$xgb$f1$watchlist,
 #'                 nround=20)
+#' \dontrun{
 #' report_xgboost(model=xgb_classification,
 #'                validation_data=train_test_classification$f$test$f1,
 #'                label=train_test_classification$outcome,
@@ -83,12 +80,16 @@ plot_trees_xgboost<-function(model,train,file="xgboost") {
 #'                validation_data=train_test_regression$f$test$f1,
 #'                label=train_test_regression$outcome,
 #'                file="Regression")
+#' }
 report_xgboost<-function(model,validation_data=NULL,label=NULL,file="xgboost",w=10,h=10,base_size=10,title="",fast=FALSE) {
   Depth<-Tree<-Cover<-Weight<-value<-Iteration<-Metric<-Factor<-NULL
   plots<-list()
   if(!is.null(validation_data)) {
     observed<-validation_data[,label]
-    predicted<-predict(model,newdata=xgboost::xgb.DMatrix(data=data.matrix(validation_data[,model$feature_names]),label=validation_data[,label]))
+    vx<-matrix(as.double(data.matrix(validation_data[,model$feature_names,drop=FALSE])),
+               nrow=nrow(validation_data),ncol=length(model$feature_names),
+               dimnames=list(NULL,model$feature_names))
+    predicted<-predict(model,newdata=xgboost::xgb.DMatrix(data=vx))
     plots[[paste0("performance")]]<-result_confusion_performance(observed=observed,predicted=predicted)
     plots$regression<-plot_scatterplot(data.frame(observed=observed,predicted=predicted))
   }
@@ -137,33 +138,3 @@ report_xgboost<-function(model,validation_data=NULL,label=NULL,file="xgboost",w=
     openxlsx::saveWorkbook(wb=wb,file=filename,overwrite=TRUE)
   }
 }
-##########################################################################################
-# NOTES
-##########################################################################################
-# model$handle
-# model$raw
-# model$callbacks
-##########################################################################################
-# xgb_classification
-##########################################################################################
-# xgb_classification$handle
-# xgb_classification$raw
-# xgb_classification$niter
-# xgb_classification$evaluation_log
-# xgb_classification$call
-# xgb_classification$params
-# xgb_classification$callbacks$cb.print.evaluation
-# xgb_classification$callbacks$cb.evaluation.log
-##########################################################################################
-# XGBOOST_REGRESSION
-##########################################################################################
-# xgb_regression$handle
-# xgb_regression$raw
-# xgb_regression$niter
-# xgb_regression$evaluation_log
-# xgb_regression$call
-# xgb_regression$params
-# xgb_regression$callbacks
-
-
-

@@ -54,6 +54,5 @@ result_confusion_performance(observed=round(abs(df$X1),0),
                              step=0.01)
 result_confusion_performance(observed=c(1,2,3,1,2,3),
                              predicted=abs(rnorm(6,0,sd=0.1)))
-
 }
 \keyword{functions}

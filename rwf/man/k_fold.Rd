@@ -39,6 +39,5 @@ result<-k_fold(infert,k=10,model_formula=infert_formula)
 # Example with the 'mtcars' dataset
 model_formula<-as.formula(mpg~cyl+disp+hp+drat+wt+qsec+vs+am+gear+carb)
 result<-k_fold(mtcars,k=2,model_formula=model_formula)
-
 }
 \keyword{functions}

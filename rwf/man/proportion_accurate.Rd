@@ -32,6 +32,5 @@ The output is a data.frame containing the following metrics:
 \examples{
 # Example with numeric observed and predicted values
 proportion_accurate(observed=c(1,2,3,4,5,10),predicted=c(1,2,3,4,5,11))
-
 }
 \keyword{functions}

@@ -44,18 +44,15 @@ boston_formula<-formula(medv~crim+zn+indus+chas+nox+rm+age+dis+rad+tax+ptratio+b
 train_test_classification<-k_fold(df=infert,model_formula=infert_formula)
 train_test_regression<-k_fold(df=MASS::Boston,model_formula=boston_formula)
 xgb_classification<-xgboost::xgb.train(
+                    params=xgboost::xgb.params(objective="binary:logistic"),
                     data=train_test_classification$xgb$f1$train,
-                    watchlist=train_test_classification$xgb$f1$watchlist,
-                    eta=.1,
-                    nthread=8,
-                    nround=20,
-                    objective="binary:logistic")
+                    evals=train_test_classification$xgb$f1$watchlist,
+                    nround=20)
 xgb_regression<-xgboost::xgb.train(
                 data=train_test_regression$xgb$f1$train,
-                watchlist=train_test_regression$xgb$f1$watchlist,
-                eta=.3,
-                nthread=8,
+                evals=train_test_regression$xgb$f1$watchlist,
                 nround=20)
+\dontrun{
 report_xgboost(model=xgb_classification,
                validation_data=train_test_classification$f$test$f1,
                label=train_test_classification$outcome,
@@ -64,5 +61,6 @@ report_xgboost(model=xgb_regression,
                validation_data=train_test_regression$f$test$f1,
                label=train_test_regression$outcome,
                file="Regression")
+}
 }
 \keyword{ML}
