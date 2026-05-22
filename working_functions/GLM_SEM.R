@@ -22,10 +22,10 @@
 #'                              return.type="data.frame",sample.nobs=100)
 #' df<-generate_missing(df)
 #' fit<-lavaan::cfa(model,data=df,missing="ML")
-#' plots<-plot_cfa_gg(fit,what="std")
-#' plots<-plot_cfa_gg(fit,what="std",layout="tree")
-#' plots<-plot_cfa_gg(fit,what="std",layout="circle")
-#' plots<-plot_cfa_gg(fit,what="std",layout="spring")
+#' plot_cfa_gg(fit,what="std")
+#' plot_cfa_gg(fit,what="std",layout="tree")
+#' plot_cfa_gg(fit,what="std",layout="circle")
+#' plot_cfa_gg(fit,what="std",layout="spring")
 plot_cfa_gg <- function(model,
                         what        = c("std", "est", "eq"),
                         layout      = c("tree", "circle", "spring"),
@@ -34,6 +34,8 @@ plot_cfa_gg <- function(model,
                         color_latent    = "#4f8ef7",
                         color_observed  = "#e8eaf0",
                         ...) {
+  hh<-hw<-mx<-my<-name<-x<-x_from<-x_to<-y<-y_from<-y_to<-NULL
+  
   
   what   <- match.arg(what)
   layout <- match.arg(layout)

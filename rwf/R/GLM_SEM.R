@@ -34,6 +34,8 @@ plot_cfa_gg <- function(model,
                         color_latent    = "#4f8ef7",
                         color_observed  = "#e8eaf0",
                         ...) {
+  hh<-hw<-mx<-my<-name<-x<-x_from<-x_to<-y<-y_from<-y_to<-NULL
+  
   
   what   <- match.arg(what)
   layout <- match.arg(layout)

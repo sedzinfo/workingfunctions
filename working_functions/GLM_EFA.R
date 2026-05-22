@@ -118,6 +118,7 @@ plot_loadings<-function(model,matrix_type=NULL,title="",base_size=10,color=c("#5
 #' @examples
 #' plot_scree(df=mtcars,title="",base_size=15)
 plot_scree<-function(df,base_size=15,title="",color=c("#5F2C91","#5E912C")) {
+  x<-NULL
   eigenvalues<-data.frame(eigenvalues=eigen(cor(df,use="pairwise.complete.obs"))$values)
   eigenvalues$x<-as.numeric(row.names(eigenvalues))
   kaiser<-length(eigenvalues$eigenvalues[eigenvalues$eigenvalues>1])
