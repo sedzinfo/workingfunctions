@@ -42,11 +42,11 @@ knitr::knit_hooks$set(output=hook_output)
 ```
 
 ```{r load,include=FALSE}
-library(workingfunctions)
+library(rwf)
 ```
 
-This shows the output of several functions that may be used in NLP from workingfunctions.  
-Installation instructions of workingfunctions can be found here https://github.com/sedzinfo/workingfunctions
+This shows the output of several functions that may be used in NLP from rwf.  
+Installation instructions of rwf can be found here https://github.com/sedzinfo/rwf
 
 ## Clear text
 ```{r clear_text}

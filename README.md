@@ -1,11 +1,11 @@
-# workingfunctions
+# rwf
 **Version 0.1**
 
 ---
 
 ## Overview
 
-`workingfunctions` is an R package designed to streamline **statistical reporting** and enhance **visualizations** for commonly used methodologies in psychology. By automating code-heavy tasks using well-known R packages, `workingfunctions` helps researchers and data scientists save time and reduce coding complexity.
+`rwf` is an R package designed to streamline **statistical reporting** and enhance **visualizations** for commonly used methodologies in psychology. By automating code-heavy tasks using well-known R packages, `rwf` helps researchers and data scientists save time and reduce coding complexity.
 
 ## Key Features
 
@@ -26,7 +26,7 @@
 
 ```r
 install.packages("remotes")
-remotes::install_github("sedzinfo/workingfunctions/workingfunctions")
+remotes::install_github("sedzinfo/rwf/rwf")
 ```
 
 For a private repository:
@@ -38,7 +38,7 @@ usethis::use_git_config(user.name = "YourName", user.email = "your@mail.com")
 usethis::create_github_token()   # opens GitHub — generate a PAT there
 credentials::set_github_pat()    # paste your PAT into the prompt
 
-remotes::install_github("sedzinfo/workingfunctions/workingfunctions")
+remotes::install_github("sedzinfo/rwf/rwf")
 ```
 
 ---
@@ -71,14 +71,14 @@ git lfs install
 
 **Public:**
 ```bash
-git clone https://github.com/sedzinfo/workingfunctions.git
-cd workingfunctions
+git clone https://github.com/sedzinfo/rwf.git
+cd rwf
 ```
 
 **Private (token auth):**
 ```bash
-git clone https://YOUR_PAT@github.com/sedzinfo/workingfunctions.git
-cd workingfunctions
+git clone https://YOUR_PAT@github.com/sedzinfo/rwf.git
+cd rwf
 ```
 
 Replace `YOUR_PAT` with a Personal Access Token generated at **GitHub → Settings → Developer settings → Personal access tokens**. The token needs at minimum `repo` scope.
@@ -100,7 +100,7 @@ git lfs ls-files
 
 ```r
 install.packages("devtools")
-devtools::install("path/to/workingfunctions/workingfunctions")
+devtools::install("path/to/rwf/rwf")
 ```
 
 ---
@@ -114,18 +114,18 @@ git lfs pull
 
 Then reinstall in R:
 ```r
-devtools::install("path/to/workingfunctions/workingfunctions")
+devtools::install("path/to/rwf/rwf")
 ```
 
 ---
 
-![Stars](https://img.shields.io/github/stars/sedzinfo/workingfunctions)
-![Watchers](https://img.shields.io/github/watchers/sedzinfo/workingfunctions)
-![Repo Size](https://img.shields.io/github/repo-size/sedzinfo/workingfunctions)
-![Open Issues](https://img.shields.io/github/issues/sedzinfo/workingfunctions)
-![Forks](https://img.shields.io/github/forks/sedzinfo/workingfunctions)
-![Last Commit](https://img.shields.io/github/last-commit/sedzinfo/workingfunctions)
-![Contributors](https://img.shields.io/github/contributors/sedzinfo/workingfunctions)
-![License](https://img.shields.io/github/license/sedzinfo/workingfunctions)
-![Release](https://img.shields.io/github/v/release/sedzinfo/workingfunctions)
-![Workflow Status](https://img.shields.io/github/actions/workflow/status/sedzinfo/workingfunctions/main.yml)
+![Stars](https://img.shields.io/github/stars/sedzinfo/rwf)
+![Watchers](https://img.shields.io/github/watchers/sedzinfo/rwf)
+![Repo Size](https://img.shields.io/github/repo-size/sedzinfo/rwf)
+![Open Issues](https://img.shields.io/github/issues/sedzinfo/rwf)
+![Forks](https://img.shields.io/github/forks/sedzinfo/rwf)
+![Last Commit](https://img.shields.io/github/last-commit/sedzinfo/rwf)
+![Contributors](https://img.shields.io/github/contributors/sedzinfo/rwf)
+![License](https://img.shields.io/github/license/sedzinfo/rwf)
+![Release](https://img.shields.io/github/v/release/sedzinfo/rwf)
+![Workflow Status](https://img.shields.io/github/actions/workflow/status/sedzinfo/rwf/main.yml)

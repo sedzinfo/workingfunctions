@@ -24,7 +24,7 @@ options(future.show.progress = FALSE)
 ```
 
 ```{r load,include=TRUE,echo=TRUE,results=FALSE,warning=FALSE,message=FALSE}
-library(workingfunctions)
+library(rwf)
 ```
 
 # CFA measurement invariance
@@ -51,7 +51,7 @@ model_data[10001:20000,]$group<-"Group2"
 
 ## Data summary
 ```{r,summary}
-workingfunctions::cdf(model_data,name_length=5)
+rwf::cdf(model_data,name_length=5)
 ```
 
 ## Model spesification

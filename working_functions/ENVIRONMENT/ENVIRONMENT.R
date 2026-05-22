@@ -8,7 +8,7 @@ lapply(paste0('package:',names(sessionInfo()$otherPkgs)),detach,character.only=T
 graphics.off()
 cat("\014")
 # .rs.restartR()
-library(workingfunctions)
+library(rwf)
 environment_options()
 rstudioapi::getSourceEditorContext()$path
 ##########################################################################################

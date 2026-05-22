@@ -24,13 +24,13 @@ options(future.show.progress = FALSE)
 ```
 
 ```{r load,include=TRUE,echo=TRUE,results=FALSE,warning=FALSE,message=FALSE}
-library(workingfunctions)
+library(rwf)
 ```
 
 ## Description
-This shows the output of PART RPART functions from workingfunctions.  
-Installation instructions for workingfunctions can be found [here](https://github.com/sedzinfo/workingfunctions)
-These functions are not installed by default they are in /workingfunctions/working_functions/OTHER/ML_TREE_RPART.R
+This shows the output of PART RPART functions from rwf.  
+Installation instructions for rwf can be found [here](https://github.com/sedzinfo/rwf)
+These functions are not installed by default they are in /rwf/working_functions/OTHER/ML_TREE_RPART.R
 
 ```{r create_models,include=TRUE}
 infert_formula<-formula(factor(case)~age+parity+education+spontaneous+induced)

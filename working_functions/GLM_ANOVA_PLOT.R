@@ -100,10 +100,10 @@ plot_oneway<-function(df,dv,iv,base_size=20,type="se",order_factor=TRUE,title=""
     doSNOW::registerDoSNOW(cl)
     progress<-function(n) setTxtProgressBar(pb,n)
     opts<-list(progress=progress)
-    plot_data<-foreach(i=1:nrow(combinations),.final=function(x) setNames(x,row.names(combinations)),.packages=c("workingfunctions"),.options.snow=opts) %dopar% {
+    plot_data<-foreach(i=1:nrow(combinations),.final=function(x) setNames(x,row.names(combinations)),.packages=c("rwf"),.options.snow=opts) %dopar% {
       output_data(i)
     }
-    plots<-foreach(i=1:length(plot_data),.final=function(x) setNames(x,row.names(combinations)),.packages=c("workingfunctions"),.options.snow=opts) %dopar% {
+    plots<-foreach(i=1:length(plot_data),.final=function(x) setNames(x,row.names(combinations)),.packages=c("rwf"),.options.snow=opts) %dopar% {
       output_plot(i)
     }
     close(pb)
@@ -243,11 +243,11 @@ plot_interaction<-function(df,dv,iv,base_size=20,type="se",order_factor=TRUE,tit
     progress<-function(n) setTxtProgressBar(pb,n)
     opts<-list(progress=progress)
     plot_data<-foreach(i=1:nrow(combinations),.final=function(x) setNames(x,row.names(combinations)),
-                       .packages=c("workingfunctions"),.options.snow=opts) %dopar% {
+                       .packages=c("rwf"),.options.snow=opts) %dopar% {
       output_data(i)
     }
     plots<-foreach(i=1:length(plot_data),.final=function(x) setNames(x,row.names(combinations)),
-                   .packages=c("workingfunctions","stringr"),.options.snow=opts) %dopar% {
+                   .packages=c("rwf","stringr"),.options.snow=opts) %dopar% {
       output_plot(i)
     }
     close(pb)
@@ -331,7 +331,7 @@ plot_oneway_diagnostics<-function(df,dv,iv,base_size=10) {
     doSNOW::registerDoSNOW(cl)
     progress<-function(n) setTxtProgressBar(pb,n)
     opts<-list(progress=progress)
-    plots<-foreach(i=1:nrow(combinations),.final=function(x) setNames(x,row.names(combinations)),.packages=c("workingfunctions","ggplot2","ggfortify"),.options.snow=opts) %dopar% {
+    plots<-foreach(i=1:nrow(combinations),.final=function(x) setNames(x,row.names(combinations)),.packages=c("rwf","ggplot2","ggfortify"),.options.snow=opts) %dopar% {
       output_plot(i)
     }
     close(pb)

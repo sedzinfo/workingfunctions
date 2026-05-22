@@ -13,8 +13,8 @@ vignette: >
   %\VignetteEncoding{UTF-8}
 ---
 
-This shows the output of LDA function from workingfunctions.  
-Installation instructions of workingfunctions can be found here https://github.com/sedzinfo/workingfunctions
+This shows the output of LDA function from rwf.  
+Installation instructions of rwf can be found here https://github.com/sedzinfo/rwf
 
 ```{r options,echo=FALSE,warning=FALSE,message=FALSE}
 options(width=1000)
@@ -27,7 +27,7 @@ options(future.show.progress = FALSE)
 ```
 
 ```{r load, include=FALSE}
-library(workingfunctions)
+library(rwf)
 ```
 
 ## Report LDA

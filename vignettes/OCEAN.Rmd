@@ -24,7 +24,7 @@ options(future.show.progress = FALSE)
 ```
 
 ```{r load,include=FALSE}
-library(workingfunctions)
+library(rwf)
 
 df_lookup<-data.frame(code=c(paste0("E",1:10),
                              paste0("N",1:10),

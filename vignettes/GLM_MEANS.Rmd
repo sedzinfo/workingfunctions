@@ -24,11 +24,11 @@ options(future.show.progress = FALSE)
 ```
 
 ```{r library,message=FALSE,warning=FALSE}
-library(workingfunctions)
+library(rwf)
 ```
 
-This shows the output of report_ttests and report_wtests functions from workingfunctions.  
-Installation instructions for workingfunctions can be found [here](https://github.com/sedzinfo/workingfunctions)
+This shows the output of report_ttests and report_wtests functions from rwf.  
+Installation instructions for rwf can be found [here](https://github.com/sedzinfo/rwf)
 
 These functions perform t tests and wilcoxon tests for all possible combinations of levels of the independent variables.
 

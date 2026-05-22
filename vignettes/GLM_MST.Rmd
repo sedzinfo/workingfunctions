@@ -25,13 +25,13 @@ options(future.show.progress = FALSE)
 ```
 
 ```{r library,message=FALSE,warning=FALSE}
-library(workingfunctions)
+library(rwf)
 library(mstR)
 ```
 
 ## Description
-This shows the output of useful functions for training and testing from workingfunctions.  
-Installation instructions for workingfunctions can be found [here](https://github.com/sedzinfo/workingfunctions)
+This shows the output of useful functions for training and testing from rwf.  
+Installation instructions for rwf can be found [here](https://github.com/sedzinfo/rwf)
 
 ## Basic examples
 ```{r excamples0,fig.width=8,fig.height=8,echo=TRUE,message=FALSE,warning=FALSE,results='hide',dev='png',fig.retina=2}
