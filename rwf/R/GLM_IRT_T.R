@@ -598,7 +598,6 @@ compute_map<-function(eta,mean=0,sd=1) {
 #' @export
 #'
 #' @examples
-#' \dontrun{
 #' library(thurstonianIRT)
 #' data("triplets")
 #' # define the blocks of items
@@ -619,7 +618,6 @@ compute_map<-function(eta,mean=0,sd=1) {
 #' # fit the data using lavaan
 #' fit <- fit_TIRT_lavaan(triplets_long)
 #' pars <- extract_tirt_params(fit)
-#' }
 extract_tirt_params<-function(fit_lavaan_obj) {
   est<-lavaan::lavInspect(fit_lavaan_obj$fit, "est")
   lambda<-est$lambda
@@ -691,7 +689,6 @@ extract_tirt_params<-function(fit_lavaan_obj) {
 #' @export
 #'
 #' @examples
-#' #' \dontrun{
 #' library(thurstonianIRT)
 #' data("triplets")
 #' # define the blocks of items
@@ -716,7 +713,6 @@ extract_tirt_params<-function(fit_lavaan_obj) {
 #' score_tirt_pattern(pattern,lambda=pars$lambda,theta_diag=pars$theta_diag,
 #'                    tau=pars$tau,Psi=pars$Psi,nu=NULL,init=NULL,
 #'                    control=list())
-#' }
 score_tirt_pattern<-function(pattern,lambda,theta_diag,tau,Psi,nu=NULL,init=NULL,control=list()) {
   n_traits<-ncol(lambda)
   if (is.null(nu)) 
@@ -890,7 +886,6 @@ compute_solve <- function(a, b) {
 #' @keywords tirt irt scoring map ebm
 #' @export
 #' @examples
-#' #' \dontrun{
 #' library(thurstonianIRT)
 #' data("triplets")
 #' # define the blocks of items
@@ -926,7 +921,6 @@ compute_solve <- function(a, b) {
 #'         tau=pars$tau,Psi=pars$Psi,nu=NULL)
 #' head(reshape2::recast(scores_thurstonianIRT,formula=id~trait,id.var=1:2))
 #' head(scores)
-#' }
 score_tirt<-function(patterns, lambda, theta_diag, tau, Psi, nu=NULL) {
   patterns<-as.matrix(patterns)
   

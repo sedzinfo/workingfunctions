@@ -57,7 +57,6 @@ prior on traits with covariance Psi. Optimization uses BFGS via optim
 with an analytic gradient.
 }
 \examples{
-#' \dontrun{
 library(thurstonianIRT)
 data("triplets")
 # define the blocks of items
@@ -82,7 +81,6 @@ pattern<-as.numeric(triplets[1,])
 score_tirt_pattern(pattern,lambda=pars$lambda,theta_diag=pars$theta_diag,
                    tau=pars$tau,Psi=pars$Psi,nu=NULL,init=NULL,
                    control=list())
-}
 }
 \keyword{ebm}
 \keyword{irt}

@@ -46,7 +46,6 @@ with an informative error. If names are unavailable, positional alignment
 is assumed and a warning is issued.
 }
 \examples{
-#' \dontrun{
 library(thurstonianIRT)
 data("triplets")
 # define the blocks of items
@@ -82,7 +81,6 @@ scores<-score_tirt(patterns,lambda=pars$lambda,theta_diag=pars$theta_diag,
         tau=pars$tau,Psi=pars$Psi,nu=NULL)
 head(reshape2::recast(scores_thurstonianIRT,formula=id~trait,id.var=1:2))
 head(scores)
-}
 }
 \keyword{ebm}
 \keyword{irt}

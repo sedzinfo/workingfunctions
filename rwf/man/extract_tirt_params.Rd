@@ -38,7 +38,6 @@ This function strips everything after \code{"|"} before matching thresholds
 to indicators.
 }
 \examples{
-\dontrun{
 library(thurstonianIRT)
 data("triplets")
 # define the blocks of items
@@ -59,7 +58,6 @@ triplets_long <- make_TIRT_data(
 # fit the data using lavaan
 fit <- fit_TIRT_lavaan(triplets_long)
 pars <- extract_tirt_params(fit)
-}
 }
 \keyword{irt}
 \keyword{lavaan}
