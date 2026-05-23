@@ -69,6 +69,18 @@ pars <- extract_tirt_params(fit)
 patterns<-as.matrix(triplets)
 score_tirt(patterns,Lambda=pars$Lambda,theta_diag=pars$theta_diag,
            tau=pars$tau,Psi=pars$Psi,nu=NULL)
+# Check same scores from thurstonianIRT package
+triplets_long <- make_TIRT_data(data = triplets,
+                                blocks = blocks, 
+                                direction = "larger",
+                                format = "pairwise", 
+                                family = "bernoulli", 
+                                range = c(0, 1))
+scores_thurstonianIRT<-predict(fit)
+scores<-score_tirt(patterns,Lambda=pars$Lambda,theta_diag=pars$theta_diag,
+        tau=pars$tau,Psi=pars$Psi,nu=NULL)
+head(reshape2::recast(scores_thurstonianIRT,formula=id~trait,id.var=1:2))
+head(scores)
 }
 \keyword{ebm}
 \keyword{irt}

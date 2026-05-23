@@ -56,6 +56,32 @@ likelihood from a probit measurement model plus a multivariate normal
 prior on traits with covariance Psi. Optimization uses BFGS via optim
 with an analytic gradient.
 }
+\examples{
+library(thurstonianIRT)
+data("triplets")
+# define the blocks of items
+blocks <-
+  set_block(c("i1", "i2", "i3"), traits = c("t1", "t2", "t3"),
+            signs = c(1, 1, 1)) +
+  set_block(c("i4", "i5", "i6"), traits = c("t1", "t2", "t3"),
+            signs = c(-1, 1, 1)) +
+  set_block(c("i7", "i8", "i9"), traits = c("t1", "t2", "t3"),
+            signs = c(1, 1, -1)) +
+  set_block(c("i10", "i11", "i12"), traits = c("t1", "t2", "t3"),
+            signs = c(1, -1, 1))
+# generate the data to be understood by 'thurstonianIRT'
+triplets_long <- make_TIRT_data(
+  data = triplets, blocks = blocks, direction = "larger",
+  format = "pairwise", family = "bernoulli", range = c(0, 1)
+)
+# fit the data using lavaan
+fit <- fit_TIRT_lavaan(triplets_long)
+pars <- extract_tirt_params(fit)
+pattern<-as.numeric(triplets[1,])
+score_tirt_pattern(pattern,Lambda=pars$Lambda,theta_diag=pars$theta_diag,
+                   tau=pars$tau,Psi=pars$Psi,nu=NULL,init=NULL,
+                   control=list())
+}
 \keyword{ebm}
 \keyword{irt}
 \keyword{map}

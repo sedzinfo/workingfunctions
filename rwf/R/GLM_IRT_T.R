@@ -568,7 +568,7 @@ extract_tirt_params<-function(fit_lavaan_obj) {
   list(Lambda=Lambda,theta_diag=theta_diag,tau=tau_vec,nu=nu_vec,Psi=est$psi)
 }
 ##########################################################################################
-# Score a single response pattern (MAP estimate of latent traits)
+# SCORE RESPONSE PATTERN
 ##########################################################################################
 #' @title Score a Single Thurstonian IRT Response Pattern (MAP / EBM)
 #' @description Computes the maximum a posteriori (MAP), also called empirical
@@ -625,8 +625,7 @@ extract_tirt_params<-function(fit_lavaan_obj) {
 #' # fit the data using lavaan
 #' fit <- fit_TIRT_lavaan(triplets_long)
 #' pars <- extract_tirt_params(fit)
-#' }
-#' pattern<-rep(0,nrow(pars$Lambda))
+#' pattern<-as.numeric(triplets[1,])
 #' score_tirt_pattern(pattern,Lambda=pars$Lambda,theta_diag=pars$theta_diag,
 #'                    tau=pars$tau,Psi=pars$Psi,nu=NULL,init=NULL,
 #'                    control=list())
@@ -766,9 +765,7 @@ my_solve <- function(a, b) {
   x
 }
 ##########################################################################################
-# Score many response patterns
-#   patterns: a matrix or data.frame; columns must be named to match
-#             rownames(Lambda). Columns will be reordered automatically.
+# SCORE MULTIPLE RESPONSE PATTERNS
 ##########################################################################################
 #' @title Score Multiple Thurstonian IRT Response Patterns (MAP / EBM)
 #' @description Scores many respondents at once using Thurstonian IRT
@@ -828,6 +825,18 @@ my_solve <- function(a, b) {
 #' patterns<-as.matrix(triplets)
 #' score_tirt(patterns,Lambda=pars$Lambda,theta_diag=pars$theta_diag,
 #'            tau=pars$tau,Psi=pars$Psi,nu=NULL)
+#' # Check same scores from thurstonianIRT package
+#' triplets_long <- make_TIRT_data(data = triplets,
+#'                                 blocks = blocks, 
+#'                                 direction = "larger",
+#'                                 format = "pairwise", 
+#'                                 family = "bernoulli", 
+#'                                 range = c(0, 1))
+#' scores_thurstonianIRT<-predict(fit)
+#' scores<-score_tirt(patterns,Lambda=pars$Lambda,theta_diag=pars$theta_diag,
+#'         tau=pars$tau,Psi=pars$Psi,nu=NULL)
+#' head(reshape2::recast(scores_thurstonianIRT,formula=id~trait,id.var=1:2))
+#' head(scores)
 score_tirt<-function(patterns, Lambda, theta_diag, tau, Psi, nu=NULL) {
   patterns<-as.matrix(patterns)
   
