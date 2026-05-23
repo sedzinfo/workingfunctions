@@ -125,26 +125,31 @@
 
 #' Sexual Compatibility Data
 #'
-#' This data set contains responses to questions about sexual compatibility, 
-#' including scores, gender, and age.
+#' Responses from 3,376 participants to a 10-item sexual compatibility
+#' questionnaire. The dataset is used as a teaching example in the researchpy
+#' Python statistics tutorials. The exact item wording is not publicly
+#' documented by the original source.
 #'
-#' @format A data frame with 22 rows and 13 variables:
+#' @format A data frame with 3376 rows and 13 variables. Each of Q1-Q10 is
+#'   rated on a 0-4 scale; \code{score} is the unweighted sum (range 0-40).
+#'   Note: age value 999 is a missing-data code; gender codes 0 and 3 are
+#'   rare and likely represent missing or other responses.
 #' \describe{
-#'   \item{Q1}{Response to question 1}
-#'   \item{Q2}{Response to question 2}
-#'   \item{Q3}{Response to question 3}
-#'   \item{Q4}{Response to question 4}
-#'   \item{Q5}{Response to question 5}
-#'   \item{Q6}{Response to question 6}
-#'   \item{Q7}{Response to question 7}
-#'   \item{Q8}{Response to question 8}
-#'   \item{Q9}{Response to question 9}
-#'   \item{Q10}{Response to question 10}
-#'   \item{score}{Total score}
-#'   \item{gender}{Gender of the respondent (1=Male, 2=Female)}
-#'   \item{age}{Age of the respondent}
+#'   \item{Q1}{Sexual compatibility item 1 (0-4)}
+#'   \item{Q2}{Sexual compatibility item 2 (0-4)}
+#'   \item{Q3}{Sexual compatibility item 3 (0-4)}
+#'   \item{Q4}{Sexual compatibility item 4 (0-4)}
+#'   \item{Q5}{Sexual compatibility item 5 (0-4)}
+#'   \item{Q6}{Sexual compatibility item 6 (0-4)}
+#'   \item{Q7}{Sexual compatibility item 7 (0-4)}
+#'   \item{Q8}{Sexual compatibility item 8 (0-4)}
+#'   \item{Q9}{Sexual compatibility item 9 (0-4)}
+#'   \item{Q10}{Sexual compatibility item 10 (0-4)}
+#'   \item{score}{Total scale score (sum of Q1-Q10, range 0-40)}
+#'   \item{gender}{Gender (1=Male, 2=Female; 0 and 3 = missing/other)}
+#'   \item{age}{Age in years (999 = missing)}
 #' }
-#' @source researchpy repo
+#' @source researchpy Data-sets repository (\url{https://github.com/researchpy/Data-sets})
 "df_sexual_comp"
 
 #' Big Five Inventory (BFI-44) Personality Dataset
@@ -343,19 +348,14 @@
 #' Personality items were rated on a five-point Likert scale: #' 1=Disagree, 3=Neutral, 5=Agree. Missed=0.
 #' 
 #' \strong{race} Chosen from a drop down menu. 1=Mixed Race, 2=Arctic (Siberian, Eskimo), 3=Caucasian (European), 4=Caucasian (Indian), 5=Caucasian (Middle East), 6=Caucasian (North African, Other), 7=Indigenous Australian, 8=Native American, 9=North East Asian (Mongol, Tibetan, Korean Japanese, etc), 10=Pacific (Polynesian, Micronesian, etc), 11=South East Asian (Chinese, Thai, Malay, Filipino, etc), 12=West African, Bushmen, Ethiopian, 13=Other (0=missed)
-#' 
 #' \strong{age}	Entered as text (individuals reporting age < 13 were not recorded)
-#' 
 #' \strong{engnat}	Response to "is English your native language?". 1=Yes, 2=No (0=missed)
-#' 
 #' \strong{gender}	Chosen from a drop down menu. 1=Male, 2=Female, 3=Other (0=missed)
-#' 
 #' \strong{hand}	"What hand do you use to write with?". 1=Right, 2=Left, 3=Both (0=missed)
 #' 
 #' On this page users were also asked to confirm that their answers were accurate and could be used for research. Participants who did not were not recorded). Some values were calculated from technical information.
 #' 
 #' \strong{country}	The participant's technical location. ISO country code.
-#' 
 #' \strong{source}	How the participant came to the test. Based on HTTP Referrer. 1=from another page on the test website, 2=from google, 3=from facebook, 4=from any url with ".edu" in its domain name (e.g. xxx.edu, xxx.edu.au), 6=other source, or HTTP Referer not provided.
 #' 
 #' In psychological trait theory, the Big Five personality traits, also known as the five-factor model (FFM) and the OCEAN model, is a suggested taxonomy, or grouping, for personality traits, developed from the 1980s onwards. When factor analysis (a statistical technique) is applied to personality survey data, some words used to describe aspects of personality are often applied to the same person. For example, someone described as conscientious is more likely to be described as "always prepared" rather than "messy". This theory is based therefore on semantic associations between words and not on neuropsychological experiments. This theory uses descriptors of common language and suggests five broad dimensions commonly used to describe the human personality and psyche.
