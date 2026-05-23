@@ -17,6 +17,87 @@ variables.}
 variables.}
 
 \item{file}{output filename}
+
+\item{...}{
+  Arguments passed on to \code{\link[stats:wilcox.test]{stats::wilcox.test}}
+  \describe{
+    \item{\code{x}}{numeric vector of data values.  Non-finite (e.g., infinite or
+    missing) values will be omitted.}
+    \item{\code{y}}{an optional numeric vector of data values: as with \code{x}
+    non-finite values will be omitted.}
+    \item{\code{alternative}}{a character string specifying the alternative
+    hypothesis, must be one of \code{"two.sided"} (default),
+    \code{"greater"} or \code{"less"}.  You can specify just the initial
+    letter.}
+    \item{\code{mu}}{a number specifying an optional parameter used to form the
+    null hypothesis.  See \sQuote{Details}.}
+    \item{\code{paired}}{a logical indicating whether you want a paired test.}
+    \item{\code{exact}}{a logical indicating whether an exact p-value
+    should be computed.}
+    \item{\code{correct}}{a logical indicating whether to apply continuity
+    correction in the normal approximation for the p-value, or an
+    integer \eqn{k} between 0 and 3 giving the number of correction
+    terms to use from the Edgeworth series for the normal approximation.}
+    \item{\code{conf.int}}{a logical indicating whether a confidence interval
+    should be computed.}
+    \item{\code{conf.level}}{confidence level of the interval.}
+    \item{\code{tol.root}}{(when \code{conf.int} is true:) a positive numeric
+    tolerance, used in \code{\link[stats]{uniroot}(*, tol=tol.root)} calls.}
+    \item{\code{digits.rank}}{a number; if finite, \code{\link{rank}(\link{signif}(r, digits.rank))}
+    will be used to compute ranks for the test statistic instead of (the
+    default) \code{rank(r)}.}
+    \item{\code{formula}}{a formula of the form \code{lhs ~ rhs} where \code{lhs}
+    is a numeric variable giving the data values and \code{rhs} either
+    \code{1} for a one-sample or paired test or a factor
+    with two levels giving the corresponding groups. If \code{lhs} is of
+    class \code{"\link[stats]{Pair}"} and \code{rhs} is \code{1}, a paired test
+    is done, see Examples.}
+    \item{\code{data}}{an optional matrix or data frame (or similar: see
+    \code{\link[stats]{model.frame}}) containing the variables in the
+    formula \code{formula}.  By default the variables are taken from
+    \code{environment(formula)}.}
+    \item{\code{subset}}{an optional vector specifying a subset of observations
+    to be used.}
+    \item{\code{na.action}}{a function which indicates what should happen when
+    the data contain \code{\link{NA}}s.}
+  }}
+}
+\value{
+A data frame where each row is one pairwise level comparison for one
+dependent-independent variable combination. Returned columns mean:
+
+\itemize{
+  \item DV: Name stored in the DV column by the current implementation.
+  Note: this currently contains the independent variable name.
+  \item IV: Name stored in the IV column by the current implementation.
+  Note: this currently contains the dependent variable name.
+  \item level1: First group level being compared.
+  \item level2: Second group level being compared.
+  \item n1: Sample size in level1.
+  \item n2: Sample size in level2.
+  \item W: Wilcoxon test statistic from wilcox.test.
+  \item p: p-value from wilcox.test.
+  \item CI_l: Lower confidence interval bound from wilcox.test.
+  \item CI_u: Upper confidence interval bound from wilcox.test.
+  \item alternative: Alternative hypothesis used by wilcox.test.
+  \item method: Test label from wilcox.test.
+  \item mean1: Mean of the dependent variable in level1.
+  \item mean2: Mean of the dependent variable in level2.
+  \item sd1: Standard deviation in level1.
+  \item sd2: Standard deviation in level2.
+  \item sd_pooled: Pooled standard deviation,
+  sqrt((sd1^2 + sd2^2) / 2).
+  \item d: Cohen d effect size, abs(mean2 - mean1) / sd_pooled.
+  \item r: Wilcoxon effect size from rstatix::wilcox_effsize.
+  \item k_squared[bartlett]: Bartlett test statistic for equal variances.
+  \item df[bartlett]: Degrees of freedom of Bartlett test.
+  \item p[bartlett]: p-value of Bartlett test.
+  Small values suggest heteroscedasticity.
+  \item bonferroni_p: Bonferroni-adjusted alpha threshold computed for the
+  number of tests in the output table.
+  \item significant: Logical-like character flag (TRUE/FALSE) indicating
+  whether p is below bonferroni_p.
+}
 }
 \description{
 Performs Wilcoxon rank-sum tests for each selected dependent

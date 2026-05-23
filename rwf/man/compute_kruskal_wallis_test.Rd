@@ -2,20 +2,42 @@
 % Please edit documentation in R/GLM_ANOVA.R
 \name{compute_kruskal_wallis_test}
 \alias{compute_kruskal_wallis_test}
-\title{Kruskal Wallis test}
+\title{Kruskal-Wallis Test with Effect Sizes}
 \usage{
 compute_kruskal_wallis_test(formula, df)
 }
 \arguments{
-\item{formula}{one way formula in form of y~x. It will ignore more complex formulas}
+\item{formula}{A one-way formula in the form \code{y ~ group}.}
 
-\item{df}{dataframe
-eta squared ranges between 0 and 1 \cr
-epsilon squared ranges between 0 and 1 \cr
-eta squared multiplied by 100 indicates the percentage of variance in the dependent variable explained by the independent variable \cr}
+\item{df}{A data frame containing the variables in \code{formula}.}
+}
+\value{
+A one-row data frame with:
+\itemize{
+  \item \code{formula}: model formula used
+  \item \code{method}: test name
+  \item \code{etasq}: Kruskal-Wallis eta-squared, \eqn{(H-k+1)/(n-k)}
+  \item \code{epsilonsq}: epsilon-squared, \eqn{H/(n-1)}
+  \item \code{H}: Kruskal-Wallis chi-squared statistic
+  \item \code{df}: degrees of freedom (\eqn{k-1})
+  \item \code{p}: p-value
+}
 }
 \description{
-Kruskal Wallis test
+Runs a one-way Kruskal-Wallis rank-sum test and returns the test
+statistic, p-value, and two effect sizes:
+\itemize{
+  \item \code{etasq}: eta-squared for Kruskal-Wallis (\eqn{\eta_H^2})
+  \item \code{epsilonsq}: epsilon-squared (\eqn{\epsilon^2})
+}
+
+In simple terms, this tests whether groups differ in their distributions,
+and quantifies how large that group effect is.
+}
+\details{
+\code{etasq} and \code{epsilonsq} are both in [0, 1] in typical use.
+Multiplying by 100 gives an approximate percentage-style interpretation
+of explained rank variance.
 }
 \examples{
 form<-formula(bp_before~agegrp)
@@ -32,3 +54,5 @@ rstatix::kruskal_effsize(df_blood_pressure,form,ci=TRUE,conf.level=0.95,ci.type=
 compute_kruskal_wallis_test(formula=form,df=df_blood_pressure)
 }
 \keyword{ANOVA}
+\keyword{kruskal}
+\keyword{nonparametric}

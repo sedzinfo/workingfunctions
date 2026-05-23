@@ -7,12 +7,9 @@
 compute_one_way_test(formula, df, var.equal = TRUE)
 }
 \arguments{
-\item{formula}{one way formula in form of y~x. It will ignore more complex formulas}
+\item{formula}{A one-way formula in the form \code{y ~ group}.}
 
-\item{df}{dataframe
-eta squared ranges between 0 and 1 \cr
-epsilon squared ranges between 0 and 1 \cr
-eta squared multiplied by 100 indicates the percentage of variance in the dependent variable explained by the independent variable \cr}
+\item{df}{A data frame containing the variables in \code{formula}.}
 
 \item{var.equal}{if TRUE it assumes equal variances}
 }

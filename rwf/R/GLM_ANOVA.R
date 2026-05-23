@@ -1,15 +1,40 @@
 ##########################################################################################
 # KRUSKALL WALLIS TEST WITH EFFECT SIZE
 ##########################################################################################
-#' @title Kruskal Wallis test
-#' @param formula one way formula in form of y~x. It will ignore more complex formulas
-#' @param df dataframe
-#' eta squared ranges between 0 and 1 \cr
-#' epsilon squared ranges between 0 and 1 \cr
-#' eta squared multiplied by 100 indicates the percentage of variance in the dependent variable explained by the independent variable \cr
+#' @title Kruskal-Wallis Test with Effect Sizes
+#' @description Runs a one-way Kruskal-Wallis rank-sum test and returns the test
+#' statistic, p-value, and two effect sizes:
+#' \itemize{
+#'   \item \code{etasq}: eta-squared for Kruskal-Wallis (\eqn{\eta_H^2})
+#'   \item \code{epsilonsq}: epsilon-squared (\eqn{\epsilon^2})
+#' }
+#'
+#' In simple terms, this tests whether groups differ in their distributions,
+#' and quantifies how large that group effect is.
+#'
+#' @param formula A one-way formula in the form \code{y ~ group}.
+#' @param df A data frame containing the variables in \code{formula}.
+#'
+#' @return A one-row data frame with:
+#' \itemize{
+#'   \item \code{formula}: model formula used
+#'   \item \code{method}: test name
+#'   \item \code{etasq}: Kruskal-Wallis eta-squared, \eqn{(H-k+1)/(n-k)}
+#'   \item \code{epsilonsq}: epsilon-squared, \eqn{H/(n-1)}
+#'   \item \code{H}: Kruskal-Wallis chi-squared statistic
+#'   \item \code{df}: degrees of freedom (\eqn{k-1})
+#'   \item \code{p}: p-value
+#' }
+#'
+#' @details
+#' \code{etasq} and \code{epsilonsq} are both in [0, 1] in typical use.
+#' Multiplying by 100 gives an approximate percentage-style interpretation
+#' of explained rank variance.
+#'
 #' @importFrom stats pchisq
-#' @keywords ANOVA
+#' @keywords ANOVA nonparametric kruskal
 #' @export
+#'
 #' @examples
 #' form<-formula(bp_before~agegrp)
 #' kruskal.test(formula=form,data=df_blood_pressure)

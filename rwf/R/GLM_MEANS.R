@@ -14,6 +14,7 @@
 #' @inheritParams plot_oneway_diagnostics
 #' @inheritDotParams stats::t.test
 #' @importFrom stats t.test formula
+#' 
 #' @return A data frame where each row is one pairwise group comparison for one
 #' dependent-independent variable combination. Returned columns mean:
 #'
@@ -202,7 +203,10 @@ report_ttests<-function(df,dv,iv,file=NULL,...) {
 #' @param file output filename
 #' @inheritParams plot_oneway_diagnostics
 #' @inheritDotParams stats::wilcox.test
-#' #' @return A data frame where each row is one pairwise level comparison for one
+#' 
+#' @importFrom stats wilcox.test formula sd
+#'
+#' @return A data frame where each row is one pairwise level comparison for one
 #' dependent-independent variable combination. Returned columns mean:
 #'
 #' \itemize{
@@ -249,8 +253,6 @@ report_ttests<-function(df,dv,iv,file=NULL,...) {
 #' additional arguments through ....
 #'
 #' The function also calls report_dataframe to generate a formatted report.
-#' @importFrom stats wilcox.test formula sd
-#'
 #' @keywords wilcoxon nonparametric pairwise inference effect-size reporting
 #' @export
 #' @examples
