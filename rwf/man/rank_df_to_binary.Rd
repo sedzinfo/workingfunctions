@@ -27,5 +27,5 @@ mydata<-data.frame(i1=rnorm(10,mean=2,sd=.5),
 rank_df_to_binary(mydata[,c("i1","i2","i3","i4")],4)
 rank_df_to_binary(mydata,3)
 }
-\keyword{IRT}
-\keyword{Thurstonian}
+\keyword{irt}
+\keyword{tirt}

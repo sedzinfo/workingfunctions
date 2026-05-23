@@ -20,5 +20,5 @@ generate_unique_comparisons_index(4)
 generate_unique_comparisons_index(5)
 generate_unique_comparisons_index(6)
 }
-\keyword{IRT}
-\keyword{Thurstonian}
+\keyword{irt}
+\keyword{tirt}

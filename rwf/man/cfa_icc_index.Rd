@@ -17,5 +17,5 @@ index of items to convert from lavaan to thurstonian order for analysis
 \examples{
 cfa_icc_index(nitems=18,nfactors=3)
 }
-\keyword{IRT}
-\keyword{Thurstonian}
+\keyword{irt}
+\keyword{tirt}

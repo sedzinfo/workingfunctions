@@ -20,5 +20,5 @@ compute_dummy_comparisons(4)
 compute_dummy_comparisons(5)
 compute_dummy_comparisons(6)
 }
-\keyword{IRT}
-\keyword{Thurstonian}
+\keyword{irt}
+\keyword{tirt}

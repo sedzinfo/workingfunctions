@@ -23,5 +23,5 @@ mydata<-data.frame(i1=rnorm(10,mean=2,sd=.5),
 result<-rank_to_binary(mydata[,1:3])
 rank3_to_triplets(result)
 }
-\keyword{IRT}
-\keyword{Thurstonian}
+\keyword{irt}
+\keyword{tirt}

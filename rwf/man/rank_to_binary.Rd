@@ -28,5 +28,5 @@ rank_to_binary(mydata[,c("i1","i2","i3")],items=3)
 rank_to_binary(mydata[,c("i1","i2","i3")],items=3,reverse=FALSE)
 rank_to_binary(mydata,items=3)
 }
-\keyword{IRT}
-\keyword{Thurstonian}
+\keyword{irt}
+\keyword{tirt}

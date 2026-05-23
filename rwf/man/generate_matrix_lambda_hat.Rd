@@ -17,5 +17,5 @@ Generate matrix lambda for spesified number of comparisons
 \examples{
 generate_matrix_lambda_hat(blocks=3,items=4)
 }
-\keyword{IRT}
-\keyword{Thurstonian}
+\keyword{irt}
+\keyword{tirt}

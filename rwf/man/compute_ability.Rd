@@ -49,5 +49,5 @@ compute_ability(response2,eta,gamma,lambda,psi,map=map,plot=FALSE)
 compute_ability(response3,eta,gamma,lambda,psi,map=map,plot=FALSE)
 compute_ability(response4,eta,gamma,lambda,psi,map=map,plot=FALSE)
 }
-\keyword{IRT}
-\keyword{Thurstonian}
+\keyword{irt}
+\keyword{tirt}

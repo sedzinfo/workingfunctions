@@ -17,5 +17,5 @@ index dataframe picks
 \examples{
 increase_index(3,3)
 }
-\keyword{IRT}
-\keyword{Thurstonian}
+\keyword{irt}
+\keyword{tirt}

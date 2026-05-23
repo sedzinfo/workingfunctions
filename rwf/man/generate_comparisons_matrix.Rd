@@ -19,5 +19,5 @@ generate_comparisons_matrix(4)
 generate_comparisons_matrix(5)
 generate_comparisons_matrix(6)
 }
-\keyword{IRT}
-\keyword{Thurstonian}
+\keyword{irt}
+\keyword{tirt}

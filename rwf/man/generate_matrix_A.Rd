@@ -17,5 +17,5 @@ Generate Matrix A
 \examples{
 generate_matrix_A(blocks=3,items=3)
 }
-\keyword{IRT}
-\keyword{Thurstonian}
+\keyword{irt}
+\keyword{tirt}

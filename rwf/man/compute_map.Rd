@@ -20,5 +20,5 @@ Simulate prior distribution
 eta<-seq(-6,6,by=0.1)
 compute_map(eta=eta,mean=0,sd=1)
 }
-\keyword{IRT}
-\keyword{Thurstonian}
+\keyword{irt}
+\keyword{tirt}

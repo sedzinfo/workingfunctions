@@ -29,5 +29,5 @@ psi<-psi[response_dimension(c(1:12),3,c(1,2))]
 eta<-seq(-6,6,by=0.01)
 compute_icc_thurstonian(eta=eta,gamma=gamma,lambda=lambda,psi=psi,plot=FALSE)
 }
-\keyword{IRT}
-\keyword{Thurstonian}
+\keyword{irt}
+\keyword{tirt}

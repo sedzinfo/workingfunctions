@@ -21,5 +21,5 @@ response_dimension(c(1:18),3,c(1,2))
 response_dimension(c(1:18),3,c(1,3))
 response_dimension(c(1:18),3,c(2,3))
 }
-\keyword{IRT}
-\keyword{Thurstonian}
+\keyword{irt}
+\keyword{tirt}

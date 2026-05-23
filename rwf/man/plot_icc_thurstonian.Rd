@@ -24,5 +24,5 @@ eta<-seq(-6,6,by=1)
 result<-compute_icc_thurstonian(eta=eta,gamma=gamma,lambda=lambda,psi=psi,plot=TRUE)
 plot_icc_thurstonian(result$icc)
 }
-\keyword{IRT}
-\keyword{Thurstonian}
+\keyword{irt}
+\keyword{tirt}
