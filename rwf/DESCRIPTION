@@ -4,7 +4,7 @@ Version: 0.1.0
 Authors@R: person("Dimitrios", "Zacharatos", email = "dzacharatos@yahoo.com", role = c("aut", "cre"))
 Author: Dimitrios Zacharatos [aut, cre]
 Maintainer: Dimitrios Zacharatos <dzacharatos@yahoo.com>
-Description: Statistical reporting and visualization for common methodology used in psychology. Functions to minimize code and automate procedures using common R packages.
+Description: Utilities for psychological data analysis, including automated statistical reporting and visualization for common inferential and modeling workflows. Helps users run analyses faster with less repetitive code and more standardized output.
 Depends: R (>= 3.5), ggplot2
 Imports: MASS, future, future.apply, gtools, irr, openxlsx, pROC, plyr, psych, reshape2, xgboost, DescTools, Rmisc, ggfortify, ggrepel, car, sjstats, ggpubr, gridExtra, scales, pwr, mirt, nlme, NLP, openNLP, tm, spelling, lavaan, ggExtra, QuantPsyc, purrr, emmeans, ez, htmlwidgets, mixlm, rstatix, rstudioapi, igraph, stopwords, gtable
 Suggests: e1071, forecast, lsr, rcompanion, thurstonianIRT
