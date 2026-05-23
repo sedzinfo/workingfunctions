@@ -62,6 +62,7 @@
 #' The function also calls report_dataframe to generate a formatted report.
 #'
 #' @keywords t-test pairwise inference effect-size reporting
+#' @export
 #' @examples
 #' report_ttests(df=df_insurance,
 #'               dv=which("charges"==names(df_insurance)),
