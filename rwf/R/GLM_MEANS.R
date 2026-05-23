@@ -147,6 +147,9 @@ report_ttests<-function(df,dv,iv,file=NULL,...) {
       n2<-length(tempdata[tempdata[,independent] %in% f2,dependent])
       sd_pooled=sqrt((sd1^2+sd2^2)/2)
       cohen_d<-abs(mean2-mean1)/sd_pooled
+      # J<-1-(3/(4*(n1+n2)-9))
+      # hedges_g<-J*cohen_d
+      # r_from_d<-cohen_d/sqrt(cohen_d^2+((n1+n2)^2/(n1*n2)))
       ttest_r<-data.frame(DV=independent,
                           IV=dependent,
                           level1=f1,
