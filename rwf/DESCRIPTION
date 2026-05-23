@@ -6,7 +6,7 @@ Author: Dimitrios Zacharatos [aut, cre]
 Maintainer: Dimitrios Zacharatos <dzacharatos@yahoo.com>
 Description: Statistical reporting and visualization for common methodology used in psychology. Functions to minimize code and automate procedures using common R packages.
 Depends: R (>= 3.5), ggplot2
-Imports: MASS, future, future.apply, gtools, irr, openxlsx, pROC, plyr, psych, reshape2, stringr, xgboost, DescTools, Rmisc, ggfortify, ggrepel, car, sjstats, ggpubr, gridExtra, scales, pwr, mirt, nlme, NLP, openNLP, tm, spelling, lavaan, ggExtra, QuantPsyc, purrr, emmeans, ez, htmlwidgets, mixlm, rstatix, rstudioapi, igraph, stopwords
+Imports: MASS, future, future.apply, gtools, irr, openxlsx, pROC, plyr, psych, reshape2, xgboost, DescTools, Rmisc, ggfortify, ggrepel, car, sjstats, ggpubr, gridExtra, scales, pwr, mirt, nlme, NLP, openNLP, tm, spelling, lavaan, ggExtra, QuantPsyc, purrr, emmeans, ez, htmlwidgets, mixlm, rstatix, rstudioapi, igraph, stopwords, gtable, stringr
 Suggests: e1071, forecast, lsr, rcompanion
 License: GPL (>= 2)
 Encoding: UTF-8

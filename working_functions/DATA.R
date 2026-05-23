@@ -267,6 +267,18 @@
 #'
 #' @format A data frame with 19719 rows and 57 variables:
 #' \describe{
+#'   \item{race}{Race/ethnic background (1–13, 0=missing)}
+#'   \item{age}{Age (integer; only responses from participants 13 and older included)}
+#'   \item{engnat}{Is English your native language? (1=Yes, 2=No, 0=missing)}
+#'   \item{gender}{1=Male, 2=Female, 3=Other, 0=missing}
+#'   \item{hand}{Dominant writing hand: 1=Right, 2=Left, 3=Both, 0=missing}
+#'   \item{source}{How participant came to the test site: 
+#'     1=Internal link,
+#'     2=Google,
+#'     3=Facebook,
+#'     4=.edu site,
+#'     6=Other/unknown}
+#'   \item{country}{Two-letter ISO country code (e.g., "US", "GB")}
 #'   \item{E1}{I am the life of the party.}
 #'   \item{E2}{I don't talk a lot.}
 #'   \item{E3}{I feel comfortable around people.}
@@ -317,23 +329,6 @@
 #'   \item{O8}{I use difficult words.}
 #'   \item{O9}{I spend time reflecting on things.}
 #'   \item{O10}{I am full of ideas.}
-#'   \item{E1 to E10}{Extraversion items}
-#'   \item{N1 to N10}{Neuroticism items}
-#'   \item{A1 to A10}{Agreeableness items}
-#'   \item{C1 to C10}{Conscientiousness items}
-#'   \item{O1 to O10}{Openness to experience items}
-#'   \item{race}{Race/ethnic background (1–13, 0=missing)}
-#'   \item{age}{Age (integer; only responses from participants 13 and older included)}
-#'   \item{engnat}{Is English your native language? (1=Yes, 2=No, 0=missing)}
-#'   \item{gender}{1=Male, 2=Female, 3=Other, 0=missing}
-#'   \item{hand}{Dominant writing hand: 1=Right, 2=Left, 3=Both, 0=missing}
-#'   \item{country}{Two-letter ISO country code (e.g., "US", "GB")}
-#'   \item{source}{How participant came to the test site: 
-#'     1=Internal link,
-#'     2=Google,
-#'     3=Facebook,
-#'     4=.edu site,
-#'     6=Other/unknown}
 #' }
 #'
 #' @details

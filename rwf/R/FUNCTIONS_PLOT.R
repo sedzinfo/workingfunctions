@@ -77,59 +77,78 @@ wrapper<-function(x,...) {
 ##########################################################################################
 # DUPLICATE Y AXIS
 ##########################################################################################
-# #' @title Invert title for duplicating y axis
-# #' @param grob grob object
-# #' @import grid gtable 
-# #' @keywords functions plot 
-# hinvert_title_grob<-function(grob) {
-#   widths<-grob$widths
-#   grob$widths[1]<-widths[3]
-#   grob$widths[3]<-widths[1]
-#   grob$vp[[1]]$layout$widths[1]<-widths[3]
-#   grob$vp[[1]]$layout$widths[3]<-widths[1]
-#   grob$children[[1]]$hjust<-1-grob$children[[1]]$hjust 
-#   grob$children[[1]]$vjust<-1-grob$children[[1]]$vjust 
-#   grob$children[[1]]$x<-unit(1,"npc")-grob$children[[1]]$x
-#   grob
-# }
-# #' @title Duplicate y axis
-# #' @param p1 Plot 1
-# #' @param p2 Plot 2
-# #' @importFrom ggplot2 ggplotGrob 
-# #' @importFrom gtable gtable_add_cols gtable_add_grob
-# #' @importFrom grid unit.c grid.newpage grid.draw
-# #' @keywords functions plot 
-# #' @export
-# #' @examples
-# #' p1<-ggplot(ChickWeight,aes(x=Time,y=weight,colour=Diet,group=Chick))+
-# #'            geom_line()+
-# #'            ggtitle("Growth curve for individual chicks")
-# #' duplicate_y_axis(p1=p1,p2=p1)
-# duplicate_y_axis<-function(p1,p2) {
-#   name<-r<-NULL
-#   g1<-ggplotGrob(p1)
-#   g2<-ggplotGrob(p2)
-#   pp<-c(subset(g1$layout,name=="panel",se=t:r))
-#   index<-which(g2$layout$name=="ylab-l")
-#   ylab<-g2$grobs[[index]]
-#   ylab<-hinvert_title_grob(ylab)
-#   g1<-gtable::gtable_add_cols(g1,g2$widths[g2$layout[index,]$l],pp$r)
-#   g1<-gtable::gtable_add_grob(g1,ylab,pp$t,pp$r+1,pp$b,pp$r+1,clip="off",name="ylab-r")
-#   index<-which(g2$layout$name == "axis-l")
-#   yaxis<-g2$grobs[[index]]
-#   yaxis$children[[1]]$x<-grid::unit.c(unit(0,"npc"),unit(0,"npc"))
-#   ticks<-yaxis$children[[2]]
-#   ticks$widths<-rev(ticks$widths)
-#   ticks$grobs<-rev(ticks$grobs)
-#   ticks$grobs[[1]]$x<-unit(ticks$grobs[[1]]$x,"npc")
-#   ticks$grobs[[1]]$x<-ticks$grobs[[1]]$x-unit(1,"npc")+unit(3,"pt")
-#   ticks$grobs[[2]]<-hinvert_title_grob(ticks$grobs[[2]])
-#   yaxis$children[[2]]<-ticks
-#   g1<-gtable_add_cols(g1,g2$widths[g2$layout[index,]$l],pp$r)
-#   g1<-gtable_add_grob(g1,yaxis,pp$t,pp$r+1,pp$b,pp$r+1,clip="off",name="axis-r")
-#   grid::grid.newpage()
-#   grid::grid.draw(g1)
-# }
+#' @title Invert a title grob horizontally
+#' @description Helper used by \code{duplicate_y_axis} to mirror a grob's
+#'   width layout and text alignment so it renders correctly on the right-hand
+#'   side of a plot.
+#' @param grob A grob object (titleGrob or similar) to invert.
+#' @return The modified grob.
+#' @import grid gtable
+#' @keywords functions plot
+hinvert_title_grob<-function(grob) {
+  widths<-grob$widths
+  grob$widths[1]<-widths[3]
+  grob$widths[3]<-widths[1]
+  if(!is.null(grob$vp)) {
+    grob$vp[[1]]$layout$widths[1]<-widths[3]
+    grob$vp[[1]]$layout$widths[3]<-widths[1]
+  }
+  grob$children[[1]]$hjust<-1-grob$children[[1]]$hjust
+  grob$children[[1]]$vjust<-1-grob$children[[1]]$vjust
+  grob$children[[1]]$x<-unit(1,"npc")-grob$children[[1]]$x
+  grob
+}
+#' @title Duplicate the y axis on the right side of a ggplot
+#' @description Takes two ggplot objects and renders \code{p1} with the y axis
+#'   of \code{p2} mirrored onto the right side. Useful when overlaying two
+#'   series with different scales or simply to frame the plot with matching
+#'   axes on both sides.
+#' @param p1 A ggplot object. This plot is drawn with the duplicated right axis.
+#' @param p2 A ggplot object whose left y axis is mirrored to the right of
+#'   \code{p1}. Typically the same as \code{p1}.
+#' @return Invisibly returns \code{NULL}. The combined plot is drawn to the
+#'   current graphics device.
+#' @importFrom ggplot2 ggplotGrob
+#' @importFrom gtable gtable_add_cols gtable_add_grob
+#' @importFrom grid grid.newpage grid.draw unit
+#' @keywords functions plot
+#' @export
+#' @examples
+#' p1 <- ggplot(ChickWeight, aes(x=Time, y=weight, colour=Diet, group=Chick)) +
+#'   geom_line() +
+#'   ggtitle("Growth curve for individual chicks")
+#' duplicate_y_axis(p1=p1, p2=p1)
+duplicate_y_axis<-function(p1,p2) {
+  name<-r<-NULL
+  g1<-ggplotGrob(p1)
+  g2<-ggplotGrob(p2)
+  pp<-c(subset(g1$layout,name=="panel",se=t:r))
+  index<-which(g2$layout$name=="ylab-l")
+  if(length(index)>0) {
+    ylab<-g2$grobs[[index]]
+    ylab<-hinvert_title_grob(ylab)
+    g1<-gtable::gtable_add_cols(g1,g2$widths[g2$layout[index,]$l],pp$r)
+    g1<-gtable::gtable_add_grob(g1,ylab,pp$t,pp$r+1,pp$b,pp$r+1,clip="off",name="ylab-r")
+  }
+  index<-which(g2$layout$name=="axis-l")
+  yaxis<-g2$grobs[[index]]
+  tg<-yaxis$children[[2]]
+  tg$grobs[[1]]$x<-unit(1,"npc")-tg$grobs[[1]]$x
+  tg$grobs[[2]]<-hinvert_title_grob(tg$grobs[[2]])
+  max_col<-max(c(tg$layout$l,tg$layout$r))
+  tg$layout$l<-max_col+1-tg$layout$l
+  tg$layout$r<-max_col+1-tg$layout$r
+  swap<-tg$layout$l>tg$layout$r
+  tmp<-tg$layout$l[swap]
+  tg$layout$l[swap]<-tg$layout$r[swap]
+  tg$layout$r[swap]<-tmp
+  tg$widths<-rev(tg$widths)
+  yaxis$children[[2]]<-tg
+  g1<-gtable::gtable_add_cols(g1,g2$widths[g2$layout[index,]$l],pp$r)
+  g1<-gtable::gtable_add_grob(g1,yaxis,pp$t,pp$r+1,pp$b,pp$r+1,clip="off",name="axis-r")
+  grid::grid.newpage()
+  grid::grid.draw(g1)
+}
 ##########################################################################################
 # REPORT PDF
 ##########################################################################################
