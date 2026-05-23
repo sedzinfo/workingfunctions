@@ -182,6 +182,89 @@ rank_df_to_binary<-function(mydata,items,reverse=TRUE) {
   return(binary)
 }
 ##########################################################################################
+# TRIPLET PAIRS
+##########################################################################################
+#' @title Create Pair Labels from Consecutive Triplets of Items
+#' @description Builds pair labels from items grouped in triplets.
+#'
+#' In simple terms:
+#' items are taken 3 at a time, and for each triplet the function creates
+#' the three pair combinations:
+#' (1,2), (1,3), and (2,3).
+#'
+#' Labels are returned as strings such as \code{"i1i2"}, \code{"i1i3"},
+#' \code{"i2i3"} (or with your chosen separator/prefix).
+#'
+#' @param n Either:
+#' \itemize{
+#'   \item A single integer (total number of items, e.g. \code{15}).
+#'   \item A vector of item indices (e.g. \code{4:18}).
+#' }
+#' @param prefix Character prefix added before each item index.
+#'   Default is \code{"i"}.
+#' @param sep Character separator inserted between the two item labels.
+#'   Default is \code{""}.
+#' @param strict Logical. If \code{TRUE} (default), stop with an error when
+#'   the number of items is not a multiple of 3. If \code{FALSE}, silently
+#'   drops leftover items so only complete triplets are used.
+#'
+#' @return A character vector of pair labels.
+#'
+#' @details
+#' If there are \eqn{T} triplets, output length is \eqn{3T}, because each
+#' triplet contributes exactly 3 pairs.
+#'
+#' For one triplet \code{(a,b,c)}, the generated labels are:
+#' \code{ab}, \code{ac}, \code{bc} (with chosen \code{prefix} and \code{sep}).
+#'
+#' @keywords utility labels triplets pairs
+#' @export
+#'
+#' @examples
+#' # 15 items -> 5 triplets -> 15 pair labels
+#' name_triplet_pairs(15)
+#'
+#' # Custom separator
+#' name_triplet_pairs(6, prefix = "i", sep = "_")
+#' # "i1_i2" "i1_i3" "i2_i3" "i4_i5" "i4_i6" "i5_i6"
+#'
+#' # Start from specific indices
+#' name_triplet_pairs(4:9)
+#' # triplets are (4,5,6) and (7,8,9)
+#'
+#' # Non-multiple of 3 with strict=TRUE -> error
+#' name_triplet_pairs(10, strict = TRUE)
+#'
+#' # Non-multiple of 3 with strict=FALSE -> trims extras
+#' name_triplet_pairs(10, strict = FALSE)
+#'
+#' # Vector input with trimming when needed
+#' name_triplet_pairs(4:18, strict = FALSE)
+name_triplet_pairs<-function(n,prefix="i",sep="",strict=TRUE) {
+  if (length(n)==1L) {
+    if (n %% 3 != 0) {
+      if (strict) stop("n must be a multiple of 3") else n<-n-(n %% 3)
+    }
+    items<-seq_len(n)
+  } else {
+    # if a vector of indices is passed (e.g.,c(4:18)),use it directly
+    items<-n
+    if (length(items) %% 3 != 0) {
+      if (strict) stop("length(items) must be a multiple of 3") 
+      else items<-items[seq_len(length(items)-(length(items) %% 3))]
+    }
+  }
+  # split into triplets and make pair labels
+  triplets<-split(items,ceiling(seq_along(items) / 3))
+  out<-unlist(lapply(triplets,function(g) {
+    if (length(g)<3) return(character(0))
+    # columns are c(1,2),c(1,3),c(2,3)
+    pairs<-combn(g,2)
+    paste0(prefix,pairs[1,],sep,prefix,pairs[2,])
+  }),use.names=FALSE)
+  out
+}
+##########################################################################################
 # RANK BINARY TO TRIPLETS
 ##########################################################################################
 #' @title Convert thurstonian binary triplets to scale
@@ -408,8 +491,10 @@ compute_ability<-function(response,eta,gamma,lambda,psi,plot=FALSE,map=compute_m
 #' @keywords IRT Thurstonian
 #' @export
 #' @examples
-#' gamma<-c(0.556,-1.253,-1.729,0.618,0.937,0.295,-0.672,-1.127,-0.446,0.632,1.147,0.498)
-#' psi<-c(2.172,1.883,2.055,1.869,2.231,2.100,1.762,1.803,1.565,1.892,1.794,1.686)
+#' gamma<-c(0.556,-1.253,-1.729,0.618,0.937,0.295,
+#'         -0.672,-1.127,-0.446,0.632,1.147,0.498)
+#' psi<-c(2.172,1.883,2.055,1.869,2.231,2.100,
+#'        1.762,1.803,1.565,1.892,1.794,1.686)
 #' lambda<-c(1.082,1.082,-1.297,-1.297,0.802,0.802,1.083,1.083)
 #' gamma<-gamma[response_dimension(c(1:12),3,c(1,2))]
 #' psi<-psi[response_dimension(c(1:12),3,c(1,2))]
@@ -639,7 +724,7 @@ score_tirt_pattern<-function(pattern,Lambda,theta_diag,tau,Psi,nu=NULL,init=NULL
   s<-sqrt(theta_diag[obs])
   th<-tau[obs]-nu[obs]
   # iPsi<-solve(Psi)
-  iPsi<-my_solve(Psi)
+  iPsi<-compute_solve(Psi)
   nll<-function(eta) {
     z <-(as.numeric(L %*% eta) - th) / s
     p <-pmin(pmax(pnorm(z), 1e-15), 1 - 1e-15)
@@ -712,24 +797,24 @@ score_tirt_pattern<-function(pattern,Lambda,theta_diag,tau,Psi,nu=NULL,init=NULL
 #' A <- matrix(c(2, 1,
 #' 1, 3), nrow = 2, byrow = TRUE)
 #' b <- c(1, 2)
-#' x <- my_solve(A, b)
+#' x <- compute_solve(A, b)
 #' x
 #' # Check: A %% x should equal b
 #' A %% x
 #'
 #' # Example 2: solve A X = B (multiple right-hand sides)
 #' B <- cbind(c(1, 2), c(0, 1))
-#' X <- my_solve(A, B)
+#' X <- compute_solve(A, B)
 #' X
 #' # Check: A %% X should equal B
 #' A %% X
 #'
 #' # Example 3: inverse of A (when b is omitted)
-#' A_inv <- my_solve(A)
+#' A_inv <- compute_solve(A)
 #' A_inv
 #' # Check: A %% A_inv should be identity
 #' A %% A_inv
-my_solve <- function(a, b) {
+compute_solve <- function(a, b) {
   a <- as.matrix(a)
   n <- nrow(a)
   if (ncol(a) != n) stop("'a' must be square")
@@ -883,7 +968,171 @@ score_tirt<-function(patterns, Lambda, theta_diag, tau, Psi, nu=NULL) {
 #   cat("Indicator intercept (nu) max abs:",
 #       if (is.null(est$nu)) 0 else max(abs(as.numeric(est$nu))), "\n")
 # }
-
+##########################################################################################
+# CHECK HEYWOOD CASES AND MODEL ISSUES
+##########################################################################################
+#' @title Check for Heywood Cases and Related SEM Estimation Problems
+#' @description Screens a fitted lavaan model for common warning signs such as
+#'   negative variances, impossible standardized values, unusually large
+#'   standard errors, and convergence failure.
+#'
+#'   In simple terms:
+#'   this is a quick model health check. It tells you whether your solution
+#'   contains suspicious estimates that often indicate misspecification,
+#'   weak identification, or numerical instability.
+#'
+#' @param fit_model A fitted lavaan model object (for example, from
+#'   \code{lavaan::cfa()}, \code{lavaan::sem()}, or related wrappers).
+#' @param verbose Logical. If \code{TRUE} (default), prints diagnostic sections
+#'   and a summary to the console. If \code{FALSE}, only returns results.
+#'
+#' @return An invisible list with:
+#' \itemize{
+#'   \item \code{has_issues}: Logical, \code{TRUE} if any issue was detected.
+#'   \item \code{issues}: Named list of detected issue tables/messages.
+#'   \item \code{converged}: Logical convergence flag from
+#'     \code{lavaan::lavInspect(fit_model, "converged")}.
+#' }
+#'
+#' @details
+#' The function checks:
+#' \itemize{
+#'   \item Negative variances (\code{~~} with \code{lhs == rhs} and estimate < 0).
+#'   \item Negative residual variances in Thurstonian style parameters
+#'     (\code{~*~} with estimate < 0).
+#'   \item Standardized loadings outside [-1, 1].
+#'   \item Standardized correlations outside [-1, 1].
+#'   \item Extremely large standard errors (\code{se > 10}).
+#'   \item Non-convergence.
+#' }
+#'
+#' A Heywood case usually refers to impossible estimates like negative
+#' variances or standardized loadings greater than 1 in absolute value.
+#'
+#' @keywords lavaan sem cfa diagnostics heywood
+#' @export
+#'
+#' @examples
+#' library(lavaan)
+#'
+#' # Example model
+#' HS.model <- '
+#'   visual  =~ x1 + x2 + x3
+#'   textual =~ x4 + x5 + x6
+#'   speed   =~ x7 + x8 + x9
+#' '
+#'
+#' fit <- cfa(HS.model, data = HolzingerSwineford1939)
+#'
+#' # Verbose diagnostic output
+#' chk <- check_heywood(fit, verbose = TRUE)
+#'
+#' # Programmatic use
+#' check_heywood(fit, verbose = TRUE)
+check_heywood<-function(fit_model,verbose=TRUE) {
+  # Initialize results
+  issues<-list()
+  has_issues<-FALSE
+  
+  # Get parameter estimates
+  params<-lavaan::parameterEstimates(fit_model)
+  std<-lavaan::standardizedSolution(fit_model)
+  
+  # 1. Check for negative variances (standard lavaan)
+  neg_var<-params[params$op == "~~" & params$lhs == params$rhs & params$est < 0,]
+  if (nrow(neg_var) > 0) {
+    issues$negative_variances<-neg_var
+    has_issues<-TRUE
+    if (verbose) {
+      cat("\n=== NEGATIVE VARIANCES (~~) ===\n")
+      print(neg_var[,c("lhs","op","rhs","est","se","pvalue")])
+    }
+  }
+  
+  # 2. Check for negative residual variances (Thurstonian ~*~)
+  neg_resid<-params[params$op == "~*~" & params$est < 0,]
+  if (nrow(neg_resid) > 0) {
+    issues$negative_residuals<-neg_resid
+    has_issues<-TRUE
+    if (verbose) {
+      cat("\n=== NEGATIVE RESIDUAL VARIANCES (~*~) ===\n")
+      print(neg_resid[,c("lhs","op","rhs","est","se","pvalue")])
+    }
+  }
+  
+  # 3. Check for standardized loadings > 1 or < -1
+  problem_loadings<-std[std$op == "=~" & abs(std$est.std) > 1,]
+  if (nrow(problem_loadings) > 0) {
+    issues$extreme_loadings<-problem_loadings
+    has_issues<-TRUE
+    if (verbose) {
+      cat("\n=== STANDARDIZED LOADINGS > 1 ===\n")
+      print(problem_loadings[,c("lhs","op","rhs","est.std","pvalue")])
+    }
+  }
+  
+  # 4. Check for correlations outside [-1,1]
+  extreme_cors<-std[std$op == "~~" & std$lhs != std$rhs & abs(std$est.std) > 1,]
+  if (nrow(extreme_cors) > 0) {
+    issues$extreme_correlations<-extreme_cors
+    has_issues<-TRUE
+    if (verbose) {
+      cat("\n=== CORRELATIONS OUTSIDE [-1,1] ===\n")
+      print(extreme_cors[,c("lhs","op","rhs","est.std","pvalue")])
+    }
+  }
+  
+  # 5. Check for extreme standard errors (might indicate identification issues)
+  extreme_se<-params[!is.na(params$se) & params$se > 10,]
+  if (nrow(extreme_se) > 0) {
+    issues$extreme_se<-extreme_se
+    has_issues<-TRUE
+    if (verbose) {
+      cat("\n=== EXTREME STANDARD ERRORS (> 10) ===\n")
+      print(extreme_se[,c("lhs","op","rhs","est","se","pvalue")])
+    }
+  }
+  
+  # 6. Check convergence
+  converged<-lavaan::lavInspect(fit_model,"converged")
+  if (!converged) {
+    issues$convergence<-"Model did not converge"
+    has_issues<-TRUE
+    if (verbose) {
+      cat("\n=== CONVERGENCE ISSUE ===\n")
+      cat("Model did not converge properly!\n")
+    }
+  }
+  
+  # Summary
+  if (verbose) {
+    cat("\n=== SUMMARY ===\n")
+    if (has_issues) {
+      cat("⚠️  Issues found:\n")
+      if (!is.null(issues$negative_variances)) 
+        cat(sprintf(" -%d negative variance(s) (~~)\n",nrow(issues$negative_variances)))
+      if (!is.null(issues$negative_residuals)) 
+        cat(sprintf(" -%d negative residual variance(s) (~*~)\n",nrow(issues$negative_residuals)))
+      if (!is.null(issues$extreme_loadings)) 
+        cat(sprintf(" -%d extreme standardized loading(s)\n",nrow(issues$extreme_loadings)))
+      if (!is.null(issues$extreme_correlations)) 
+        cat(sprintf(" -%d extreme correlation(s)\n",nrow(issues$extreme_correlations)))
+      if (!is.null(issues$extreme_se)) 
+        cat(sprintf(" -%d extreme standard error(s)\n",nrow(issues$extreme_se)))
+      if (!is.null(issues$convergence)) 
+        cat(" -Convergence issue\n")
+    } else {
+      cat("✓ No Heywood cases or major issues detected!\n")
+    }
+  }
+  
+  # Return issues list invisibly
+  invisible(list(
+    has_issues=has_issues,
+    issues=issues,
+    converged=converged
+  ))
+}
 
 
 
