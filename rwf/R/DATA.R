@@ -147,57 +147,65 @@
 #' @source researchpy repo
 "df_sexual_comp"
 
-#' Personality Dataset
+#' Big Five Inventory (BFI-44) Personality Dataset
 #'
-#' A dataset containing personality test results.
+#' Responses from 433 participants to the Big Five Inventory (BFI-44), a
+#' widely used measure of the five major dimensions of personality: Extraversion
+#' (E), Agreeableness (A), Conscientiousness (C), Neuroticism (N), and Openness
+#' to Experience (O). Items are rated on a 1-6 Likert scale. Reverse-scored
+#' items are marked with (R).
 #'
-#' @format A data frame with 22 rows and 44 variables:
+#' @format A data frame with 433 rows and 44 variables:
 #' \describe{
-#'   \item{pers01}{Personality item 1}
-#'   \item{pers02}{Personality item 2}
-#'   \item{pers03}{Personality item 3}
-#'   \item{pers04}{Personality item 4}
-#'   \item{pers05}{Personality item 5}
-#'   \item{pers06}{Personality item 6}
-#'   \item{pers07}{Personality item 7}
-#'   \item{pers08}{Personality item 8}
-#'   \item{pers09}{Personality item 9}
-#'   \item{pers10}{Personality item 10}
-#'   \item{pers11}{Personality item 11}
-#'   \item{pers12}{Personality item 12}
-#'   \item{pers13}{Personality item 13}
-#'   \item{pers14}{Personality item 14}
-#'   \item{pers15}{Personality item 15}
-#'   \item{pers16}{Personality item 16}
-#'   \item{pers17}{Personality item 17}
-#'   \item{pers18}{Personality item 18}
-#'   \item{pers19}{Personality item 19}
-#'   \item{pers20}{Personality item 20}
-#'   \item{pers21}{Personality item 21}
-#'   \item{pers22}{Personality item 22}
-#'   \item{pers23}{Personality item 23}
-#'   \item{pers24}{Personality item 24}
-#'   \item{pers25}{Personality item 25}
-#'   \item{pers26}{Personality item 26}
-#'   \item{pers27}{Personality item 27}
-#'   \item{pers28}{Personality item 28}
-#'   \item{pers29}{Personality item 29}
-#'   \item{pers30}{Personality item 30}
-#'   \item{pers31}{Personality item 31}
-#'   \item{pers32}{Personality item 32}
-#'   \item{pers33}{Personality item 33}
-#'   \item{pers34}{Personality item 34}
-#'   \item{pers35}{Personality item 35}
-#'   \item{pers36}{Personality item 36}
-#'   \item{pers37}{Personality item 37}
-#'   \item{pers38}{Personality item 38}
-#'   \item{pers39}{Personality item 39}
-#'   \item{pers40}{Personality item 40}
-#'   \item{pers41}{Personality item 41}
-#'   \item{pers42}{Personality item 42}
-#'   \item{pers43}{Personality item 43}
-#'   \item{pers44}{Personality item 44}
+#'   \item{pers01}{[E] Is talkative}
+#'   \item{pers02}{[A-R] Tends to find fault with others}
+#'   \item{pers03}{[C] Does a thorough job}
+#'   \item{pers04}{[N] Is depressed, blue}
+#'   \item{pers05}{[O] Is original, comes up with new ideas}
+#'   \item{pers06}{[E-R] Is reserved}
+#'   \item{pers07}{[A] Is helpful and unselfish with others}
+#'   \item{pers08}{[C-R] Can be somewhat careless}
+#'   \item{pers09}{[N-R] Is relaxed, handles stress well}
+#'   \item{pers10}{[O] Is curious about many different things}
+#'   \item{pers11}{[E] Is full of energy}
+#'   \item{pers12}{[A-R] Starts quarrels with others}
+#'   \item{pers13}{[C] Is a reliable worker}
+#'   \item{pers14}{[N] Can be tense}
+#'   \item{pers15}{[O] Is ingenious, a deep thinker}
+#'   \item{pers16}{[E] Generates a lot of enthusiasm}
+#'   \item{pers17}{[A] Has a forgiving nature}
+#'   \item{pers18}{[C-R] Tends to be disorganized}
+#'   \item{pers19}{[N] Worries a lot}
+#'   \item{pers20}{[O] Has an active imagination}
+#'   \item{pers21}{[E-R] Tends to be quiet}
+#'   \item{pers22}{[A] Is generally trusting}
+#'   \item{pers23}{[C-R] Tends to be lazy}
+#'   \item{pers24}{[N-R] Is emotionally stable, not easily upset}
+#'   \item{pers25}{[O] Is inventive}
+#'   \item{pers26}{[E] Has an assertive personality}
+#'   \item{pers27}{[A-R] Can be cold and aloof}
+#'   \item{pers28}{[C] Perseveres until the task is finished}
+#'   \item{pers29}{[N] Can be moody}
+#'   \item{pers30}{[O] Values artistic, aesthetic experiences}
+#'   \item{pers31}{[E-R] Is sometimes shy, inhibited}
+#'   \item{pers32}{[A] Is considerate and kind to almost everyone}
+#'   \item{pers33}{[C] Does things efficiently}
+#'   \item{pers34}{[N-R] Remains calm in tense situations}
+#'   \item{pers35}{[O-R] Prefers work that is routine}
+#'   \item{pers36}{[E] Is outgoing, sociable}
+#'   \item{pers37}{[A-R] Is sometimes rude to others}
+#'   \item{pers38}{[C] Makes plans and follows through with them}
+#'   \item{pers39}{[N] Gets nervous easily}
+#'   \item{pers40}{[O] Likes to reflect, play with ideas}
+#'   \item{pers41}{[O-R] Has few artistic interests}
+#'   \item{pers42}{[A] Likes to cooperate with others}
+#'   \item{pers43}{[C-R] Is easily distracted}
+#'   \item{pers44}{[O] Is sophisticated in art, music, or literature}
 #' }
+#' @references John, O. P., & Srivastava, S. (1999). The Big Five trait taxonomy:
+#'   History, measurement, and theoretical perspectives. In L. A. Pervin & O. P.
+#'   John (Eds.), \emph{Handbook of personality: Theory and research} (2nd ed.,
+#'   pp. 102-138). Guilford Press.
 #' @examples
 #' data(df_personality)
 #' head(df_personality)
@@ -398,158 +406,158 @@
 #' @format A data frame with 1010 rows and 151 variables. All preference and
 #'   personality items are rated on a 1-5 Likert scale (1=strongly disagree /
 #'   not interested, 5=strongly agree / very interested) unless otherwise noted.
-#' \describe{
-#'   \item{Participant Number}{Unique participant identifier}
-#'   \item{Music}{Interest in music generally}
-#'   \item{Slow songs or fast songs}{Preference for slow vs fast songs}
-#'   \item{Dance}{Interest in dance music}
-#'   \item{Folk}{Interest in folk music}
-#'   \item{Country}{Interest in country music}
-#'   \item{Classical music}{Interest in classical music}
-#'   \item{Musical}{Interest in musicals}
-#'   \item{Pop}{Interest in pop music}
-#'   \item{Rock}{Interest in rock music}
-#'   \item{Metal or Hardrock}{Interest in metal/hardrock}
-#'   \item{Punk}{Interest in punk music}
-#'   \item{Hiphop, Rap}{Interest in hiphop/rap}
-#'   \item{Reggae, Ska}{Interest in reggae/ska}
-#'   \item{Swing, Jazz}{Interest in swing/jazz}
-#'   \item{Rock n roll}{Interest in rock n roll}
-#'   \item{Alternative}{Interest in alternative music}
-#'   \item{Latino}{Interest in Latino music}
-#'   \item{Techno, Trance}{Interest in techno/trance}
-#'   \item{Opera}{Interest in opera}
-#'   \item{Movies}{Interest in movies generally}
-#'   \item{Horror}{Interest in horror films}
-#'   \item{Thriller}{Interest in thrillers}
-#'   \item{Comedy}{Interest in comedy films}
-#'   \item{Romantic}{Interest in romantic films}
-#'   \item{Sci-fi}{Interest in sci-fi films}
-#'   \item{War}{Interest in war films}
-#'   \item{Fantasy/Fairy tales}{Interest in fantasy films}
-#'   \item{Animated}{Interest in animated films}
-#'   \item{Documentary}{Interest in documentaries}
-#'   \item{Western}{Interest in westerns}
-#'   \item{Action}{Interest in action films}
-#'   \item{History}{Interest in history}
-#'   \item{Psychology}{Interest in psychology}
-#'   \item{Politics}{Interest in politics}
-#'   \item{Mathematics}{Interest in mathematics}
-#'   \item{Physics}{Interest in physics}
-#'   \item{Internet}{Interest in internet}
-#'   \item{PC}{Interest in computers}
-#'   \item{Economy Management}{Interest in economy/management}
-#'   \item{Biology}{Interest in biology}
-#'   \item{Chemistry}{Interest in chemistry}
-#'   \item{Reading}{Interest in reading}
-#'   \item{Geography}{Interest in geography}
-#'   \item{Foreign languages}{Interest in foreign languages}
-#'   \item{Medicine}{Interest in medicine}
-#'   \item{Law}{Interest in law}
-#'   \item{Cars}{Interest in cars}
-#'   \item{Art exhibitions}{Interest in art exhibitions}
-#'   \item{Religion}{Interest in religion}
-#'   \item{Countryside, outdoors}{Interest in countryside/outdoors}
-#'   \item{Dancing}{Interest in dancing}
-#'   \item{Musical instruments}{Interest in playing musical instruments}
-#'   \item{Writing}{Interest in writing}
-#'   \item{Passive sport}{Interest in watching sports}
-#'   \item{Active sport}{Interest in playing sports}
-#'   \item{Gardening}{Interest in gardening}
-#'   \item{Celebrities}{Interest in celebrities}
-#'   \item{Shopping}{Interest in shopping}
-#'   \item{Science and technology}{Interest in science and technology}
-#'   \item{Theatre}{Interest in theatre}
-#'   \item{Fun with friends}{Enjoyment of socialising with friends}
-#'   \item{Adrenaline sports}{Interest in adrenaline sports}
-#'   \item{Pets}{Interest in pets}
-#'   \item{Flying}{Fear of flying}
-#'   \item{Storm}{Fear of storms}
-#'   \item{Darkness}{Fear of darkness}
-#'   \item{Heights}{Fear of heights}
-#'   \item{Spiders}{Fear of spiders}
-#'   \item{Snakes}{Fear of snakes}
-#'   \item{Rats}{Fear of rats}
-#'   \item{Ageing}{Fear of ageing}
-#'   \item{Dangerous dogs}{Fear of dangerous dogs}
-#'   \item{Fear of public speaking}{Fear of public speaking}
-#'   \item{Smoking}{Smoking behaviour/attitude}
-#'   \item{Alcohol}{Alcohol consumption/attitude}
-#'   \item{Healthy eating}{Attitude toward healthy eating}
-#'   \item{Daily events}{Attitude toward planning daily events}
-#'   \item{Prioritising workload}{Ability to prioritise workload}
-#'   \item{Writing notes}{Habit of writing notes}
-#'   \item{Workaholism}{Tendency toward workaholism}
-#'   \item{Thinking ahead}{Tendency to think ahead}
-#'   \item{Final judgement}{Tendency to make final judgements}
-#'   \item{Reliability}{Self-rated reliability}
-#'   \item{Keeping promises}{Tendency to keep promises}
-#'   \item{Loss of interest}{Tendency to lose interest}
-#'   \item{Friends versus money}{Attitude toward friends vs money}
-#'   \item{Funniness}{Self-rated funniness}
-#'   \item{Fake}{Tendency to be fake}
-#'   \item{Criminal damage}{Attitude toward criminal damage}
-#'   \item{Decision making}{Decision-making style}
-#'   \item{Elections}{Attitude toward elections}
-#'   \item{Self-criticism}{Tendency toward self-criticism}
-#'   \item{Judgment calls}{Tendency to make judgment calls}
-#'   \item{Hypochondria}{Tendency toward hypochondria}
-#'   \item{Empathy}{Level of empathy}
-#'   \item{Eating to survive}{Attitude toward eating}
-#'   \item{Giving}{Tendency to give to others}
-#'   \item{Compassion to animals}{Compassion toward animals}
-#'   \item{Borrowed stuff}{Attitude toward returning borrowed items}
-#'   \item{Loneliness}{Tendency to feel lonely}
-#'   \item{Cheating in school}{Attitude toward cheating}
-#'   \item{Health}{Self-rated health}
-#'   \item{Changing the past}{Desire to change the past}
-#'   \item{God}{Belief in God}
-#'   \item{Dreams}{Belief in dreams}
-#'   \item{Charity}{Attitude toward charity}
-#'   \item{Number of friends}{Number of friends}
-#'   \item{Punctuality}{Self-rated punctuality}
-#'   \item{Lying}{Tendency to lie}
-#'   \item{Waiting}{Attitude toward waiting}
-#'   \item{New environment}{Comfort in new environments}
-#'   \item{Mood swings}{Tendency to have mood swings}
-#'   \item{Appearence and gestures}{Attention to appearance and gestures}
-#'   \item{Socializing}{Enjoyment of socializing}
-#'   \item{Achievements}{Drive for achievements}
-#'   \item{Responding to a serious letter}{Tendency to respond to serious letters}
-#'   \item{Children}{Attitude toward children}
-#'   \item{Assertiveness}{Level of assertiveness}
-#'   \item{Getting angry}{Tendency to get angry}
-#'   \item{Knowing the right people}{Value placed on knowing the right people}
-#'   \item{Public speaking}{Comfort with public speaking}
-#'   \item{Unpopularity}{Attitude toward unpopularity}
-#'   \item{Life struggles}{Attitude toward life struggles}
-#'   \item{Happiness in life}{Self-rated happiness}
-#'   \item{Energy levels}{Self-rated energy levels}
-#'   \item{Small - big dogs}{Preference for small vs big dogs}
-#'   \item{Personality}{Self-rated personality}
-#'   \item{Finding lost valuables}{Tendency to return lost valuables}
-#'   \item{Getting up}{Ease of getting up in the morning}
-#'   \item{Interests or hobbies}{Number of interests or hobbies}
-#'   \item{Parents' advice}{Attitude toward parents' advice}
-#'   \item{Questionnaires or polls}{Attitude toward questionnaires}
-#'   \item{Internet usage}{Hours of internet usage}
-#'   \item{Finances}{Self-rated financial management}
-#'   \item{Shopping centres}{Attitude toward shopping centres}
-#'   \item{Branded clothing}{Attitude toward branded clothing}
-#'   \item{Entertainment spending}{Spending on entertainment}
-#'   \item{Spending on looks}{Spending on looks}
-#'   \item{Spending on gadgets}{Spending on gadgets}
-#'   \item{Spending on healthy eating}{Spending on healthy eating}
-#'   \item{Age}{Age in years}
-#'   \item{Height}{Height in cm}
-#'   \item{Weight}{Weight in kg}
-#'   \item{Number of siblings}{Number of siblings}
-#'   \item{Gender}{1=Female, 2=Male}
-#'   \item{Left - right handed}{1=Right, 2=Left}
-#'   \item{Education}{1=Primary, 2=Secondary, 3=College/University, 4=Masters, 5=Doctorate}
-#'   \item{Only child}{1=Yes, 2=No}
-#'   \item{Village - town}{1=Village, 2=City}
-#'   \item{House - block of flats}{1=House, 2=Block of flats}
+#' \itemize{
+#'   \item \strong{Participant Number}: Unique participant identifier
+#'   \item \strong{Music}: Interest in music generally
+#'   \item \strong{Slow songs or fast songs}: Preference for slow vs fast songs
+#'   \item \strong{Dance}: Interest in dance music
+#'   \item \strong{Folk}: Interest in folk music
+#'   \item \strong{Country}: Interest in country music
+#'   \item \strong{Classical music}: Interest in classical music
+#'   \item \strong{Musical}: Interest in musicals
+#'   \item \strong{Pop}: Interest in pop music
+#'   \item \strong{Rock}: Interest in rock music
+#'   \item \strong{Metal or Hardrock}: Interest in metal/hardrock
+#'   \item \strong{Punk}: Interest in punk music
+#'   \item \strong{Hiphop, Rap}: Interest in hiphop/rap
+#'   \item \strong{Reggae, Ska}: Interest in reggae/ska
+#'   \item \strong{Swing, Jazz}: Interest in swing/jazz
+#'   \item \strong{Rock n roll}: Interest in rock n roll
+#'   \item \strong{Alternative}: Interest in alternative music
+#'   \item \strong{Latino}: Interest in Latino music
+#'   \item \strong{Techno, Trance}: Interest in techno/trance
+#'   \item \strong{Opera}: Interest in opera
+#'   \item \strong{Movies}: Interest in movies generally
+#'   \item \strong{Horror}: Interest in horror films
+#'   \item \strong{Thriller}: Interest in thrillers
+#'   \item \strong{Comedy}: Interest in comedy films
+#'   \item \strong{Romantic}: Interest in romantic films
+#'   \item \strong{Sci-fi}: Interest in sci-fi films
+#'   \item \strong{War}: Interest in war films
+#'   \item \strong{Fantasy/Fairy tales}: Interest in fantasy films
+#'   \item \strong{Animated}: Interest in animated films
+#'   \item \strong{Documentary}: Interest in documentaries
+#'   \item \strong{Western}: Interest in westerns
+#'   \item \strong{Action}: Interest in action films
+#'   \item \strong{History}: Interest in history
+#'   \item \strong{Psychology}: Interest in psychology
+#'   \item \strong{Politics}: Interest in politics
+#'   \item \strong{Mathematics}: Interest in mathematics
+#'   \item \strong{Physics}: Interest in physics
+#'   \item \strong{Internet}: Interest in internet
+#'   \item \strong{PC}: Interest in computers
+#'   \item \strong{Economy Management}: Interest in economy/management
+#'   \item \strong{Biology}: Interest in biology
+#'   \item \strong{Chemistry}: Interest in chemistry
+#'   \item \strong{Reading}: Interest in reading
+#'   \item \strong{Geography}: Interest in geography
+#'   \item \strong{Foreign languages}: Interest in foreign languages
+#'   \item \strong{Medicine}: Interest in medicine
+#'   \item \strong{Law}: Interest in law
+#'   \item \strong{Cars}: Interest in cars
+#'   \item \strong{Art exhibitions}: Interest in art exhibitions
+#'   \item \strong{Religion}: Interest in religion
+#'   \item \strong{Countryside, outdoors}: Interest in countryside/outdoors
+#'   \item \strong{Dancing}: Interest in dancing
+#'   \item \strong{Musical instruments}: Interest in playing musical instruments
+#'   \item \strong{Writing}: Interest in writing
+#'   \item \strong{Passive sport}: Interest in watching sports
+#'   \item \strong{Active sport}: Interest in playing sports
+#'   \item \strong{Gardening}: Interest in gardening
+#'   \item \strong{Celebrities}: Interest in celebrities
+#'   \item \strong{Shopping}: Interest in shopping
+#'   \item \strong{Science and technology}: Interest in science and technology
+#'   \item \strong{Theatre}: Interest in theatre
+#'   \item \strong{Fun with friends}: Enjoyment of socialising with friends
+#'   \item \strong{Adrenaline sports}: Interest in adrenaline sports
+#'   \item \strong{Pets}: Interest in pets
+#'   \item \strong{Flying}: Fear of flying
+#'   \item \strong{Storm}: Fear of storms
+#'   \item \strong{Darkness}: Fear of darkness
+#'   \item \strong{Heights}: Fear of heights
+#'   \item \strong{Spiders}: Fear of spiders
+#'   \item \strong{Snakes}: Fear of snakes
+#'   \item \strong{Rats}: Fear of rats
+#'   \item \strong{Ageing}: Fear of ageing
+#'   \item \strong{Dangerous dogs}: Fear of dangerous dogs
+#'   \item \strong{Fear of public speaking}: Fear of public speaking
+#'   \item \strong{Smoking}: Smoking behaviour/attitude
+#'   \item \strong{Alcohol}: Alcohol consumption/attitude
+#'   \item \strong{Healthy eating}: Attitude toward healthy eating
+#'   \item \strong{Daily events}: Attitude toward planning daily events
+#'   \item \strong{Prioritising workload}: Ability to prioritise workload
+#'   \item \strong{Writing notes}: Habit of writing notes
+#'   \item \strong{Workaholism}: Tendency toward workaholism
+#'   \item \strong{Thinking ahead}: Tendency to think ahead
+#'   \item \strong{Final judgement}: Tendency to make final judgements
+#'   \item \strong{Reliability}: Self-rated reliability
+#'   \item \strong{Keeping promises}: Tendency to keep promises
+#'   \item \strong{Loss of interest}: Tendency to lose interest
+#'   \item \strong{Friends versus money}: Attitude toward friends vs money
+#'   \item \strong{Funniness}: Self-rated funniness
+#'   \item \strong{Fake}: Tendency to be fake
+#'   \item \strong{Criminal damage}: Attitude toward criminal damage
+#'   \item \strong{Decision making}: Decision-making style
+#'   \item \strong{Elections}: Attitude toward elections
+#'   \item \strong{Self-criticism}: Tendency toward self-criticism
+#'   \item \strong{Judgment calls}: Tendency to make judgment calls
+#'   \item \strong{Hypochondria}: Tendency toward hypochondria
+#'   \item \strong{Empathy}: Level of empathy
+#'   \item \strong{Eating to survive}: Attitude toward eating
+#'   \item \strong{Giving}: Tendency to give to others
+#'   \item \strong{Compassion to animals}: Compassion toward animals
+#'   \item \strong{Borrowed stuff}: Attitude toward returning borrowed items
+#'   \item \strong{Loneliness}: Tendency to feel lonely
+#'   \item \strong{Cheating in school}: Attitude toward cheating
+#'   \item \strong{Health}: Self-rated health
+#'   \item \strong{Changing the past}: Desire to change the past
+#'   \item \strong{God}: Belief in God
+#'   \item \strong{Dreams}: Belief in dreams
+#'   \item \strong{Charity}: Attitude toward charity
+#'   \item \strong{Number of friends}: Number of friends
+#'   \item \strong{Punctuality}: Self-rated punctuality
+#'   \item \strong{Lying}: Tendency to lie
+#'   \item \strong{Waiting}: Attitude toward waiting
+#'   \item \strong{New environment}: Comfort in new environments
+#'   \item \strong{Mood swings}: Tendency to have mood swings
+#'   \item \strong{Appearence and gestures}: Attention to appearance and gestures
+#'   \item \strong{Socializing}: Enjoyment of socializing
+#'   \item \strong{Achievements}: Drive for achievements
+#'   \item \strong{Responding to a serious letter}: Tendency to respond to serious letters
+#'   \item \strong{Children}: Attitude toward children
+#'   \item \strong{Assertiveness}: Level of assertiveness
+#'   \item \strong{Getting angry}: Tendency to get angry
+#'   \item \strong{Knowing the right people}: Value placed on knowing the right people
+#'   \item \strong{Public speaking}: Comfort with public speaking
+#'   \item \strong{Unpopularity}: Attitude toward unpopularity
+#'   \item \strong{Life struggles}: Attitude toward life struggles
+#'   \item \strong{Happiness in life}: Self-rated happiness
+#'   \item \strong{Energy levels}: Self-rated energy levels
+#'   \item \strong{Small - big dogs}: Preference for small vs big dogs
+#'   \item \strong{Personality}: Self-rated personality
+#'   \item \strong{Finding lost valuables}: Tendency to return lost valuables
+#'   \item \strong{Getting up}: Ease of getting up in the morning
+#'   \item \strong{Interests or hobbies}: Number of interests or hobbies
+#'   \item \strong{Parents' advice}: Attitude toward parents' advice
+#'   \item \strong{Questionnaires or polls}: Attitude toward questionnaires
+#'   \item \strong{Internet usage}: Hours of internet usage
+#'   \item \strong{Finances}: Self-rated financial management
+#'   \item \strong{Shopping centres}: Attitude toward shopping centres
+#'   \item \strong{Branded clothing}: Attitude toward branded clothing
+#'   \item \strong{Entertainment spending}: Spending on entertainment
+#'   \item \strong{Spending on looks}: Spending on looks
+#'   \item \strong{Spending on gadgets}: Spending on gadgets
+#'   \item \strong{Spending on healthy eating}: Spending on healthy eating
+#'   \item \strong{Age}: Age in years
+#'   \item \strong{Height}: Height in cm
+#'   \item \strong{Weight}: Weight in kg
+#'   \item \strong{Number of siblings}: Number of siblings
+#'   \item \strong{Gender}: 1=Female, 2=Male
+#'   \item \strong{Left - right handed}: 1=Right, 2=Left
+#'   \item \strong{Education}: 1=Primary, 2=Secondary, 3=College/University, 4=Masters, 5=Doctorate
+#'   \item \strong{Only child}: 1=Yes, 2=No
+#'   \item \strong{Village - town}: 1=Village, 2=City
+#'   \item \strong{House - block of flats}: 1=House, 2=Block of flats
 #' }
 #' @source Collected from students of Statistics at FSEV UK. Available on Kaggle.
 #' @examples

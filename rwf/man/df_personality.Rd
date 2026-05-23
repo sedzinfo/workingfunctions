@@ -3,64 +3,74 @@
 \docType{data}
 \name{df_personality}
 \alias{df_personality}
-\title{Personality Dataset}
+\title{Big Five Inventory (BFI-44) Personality Dataset}
 \format{
-A data frame with 22 rows and 44 variables:
+A data frame with 433 rows and 44 variables:
 \describe{
-  \item{pers01}{Personality item 1}
-  \item{pers02}{Personality item 2}
-  \item{pers03}{Personality item 3}
-  \item{pers04}{Personality item 4}
-  \item{pers05}{Personality item 5}
-  \item{pers06}{Personality item 6}
-  \item{pers07}{Personality item 7}
-  \item{pers08}{Personality item 8}
-  \item{pers09}{Personality item 9}
-  \item{pers10}{Personality item 10}
-  \item{pers11}{Personality item 11}
-  \item{pers12}{Personality item 12}
-  \item{pers13}{Personality item 13}
-  \item{pers14}{Personality item 14}
-  \item{pers15}{Personality item 15}
-  \item{pers16}{Personality item 16}
-  \item{pers17}{Personality item 17}
-  \item{pers18}{Personality item 18}
-  \item{pers19}{Personality item 19}
-  \item{pers20}{Personality item 20}
-  \item{pers21}{Personality item 21}
-  \item{pers22}{Personality item 22}
-  \item{pers23}{Personality item 23}
-  \item{pers24}{Personality item 24}
-  \item{pers25}{Personality item 25}
-  \item{pers26}{Personality item 26}
-  \item{pers27}{Personality item 27}
-  \item{pers28}{Personality item 28}
-  \item{pers29}{Personality item 29}
-  \item{pers30}{Personality item 30}
-  \item{pers31}{Personality item 31}
-  \item{pers32}{Personality item 32}
-  \item{pers33}{Personality item 33}
-  \item{pers34}{Personality item 34}
-  \item{pers35}{Personality item 35}
-  \item{pers36}{Personality item 36}
-  \item{pers37}{Personality item 37}
-  \item{pers38}{Personality item 38}
-  \item{pers39}{Personality item 39}
-  \item{pers40}{Personality item 40}
-  \item{pers41}{Personality item 41}
-  \item{pers42}{Personality item 42}
-  \item{pers43}{Personality item 43}
-  \item{pers44}{Personality item 44}
+  \item{pers01}{[E] Is talkative}
+  \item{pers02}{[A-R] Tends to find fault with others}
+  \item{pers03}{[C] Does a thorough job}
+  \item{pers04}{[N] Is depressed, blue}
+  \item{pers05}{[O] Is original, comes up with new ideas}
+  \item{pers06}{[E-R] Is reserved}
+  \item{pers07}{[A] Is helpful and unselfish with others}
+  \item{pers08}{[C-R] Can be somewhat careless}
+  \item{pers09}{[N-R] Is relaxed, handles stress well}
+  \item{pers10}{[O] Is curious about many different things}
+  \item{pers11}{[E] Is full of energy}
+  \item{pers12}{[A-R] Starts quarrels with others}
+  \item{pers13}{[C] Is a reliable worker}
+  \item{pers14}{[N] Can be tense}
+  \item{pers15}{[O] Is ingenious, a deep thinker}
+  \item{pers16}{[E] Generates a lot of enthusiasm}
+  \item{pers17}{[A] Has a forgiving nature}
+  \item{pers18}{[C-R] Tends to be disorganized}
+  \item{pers19}{[N] Worries a lot}
+  \item{pers20}{[O] Has an active imagination}
+  \item{pers21}{[E-R] Tends to be quiet}
+  \item{pers22}{[A] Is generally trusting}
+  \item{pers23}{[C-R] Tends to be lazy}
+  \item{pers24}{[N-R] Is emotionally stable, not easily upset}
+  \item{pers25}{[O] Is inventive}
+  \item{pers26}{[E] Has an assertive personality}
+  \item{pers27}{[A-R] Can be cold and aloof}
+  \item{pers28}{[C] Perseveres until the task is finished}
+  \item{pers29}{[N] Can be moody}
+  \item{pers30}{[O] Values artistic, aesthetic experiences}
+  \item{pers31}{[E-R] Is sometimes shy, inhibited}
+  \item{pers32}{[A] Is considerate and kind to almost everyone}
+  \item{pers33}{[C] Does things efficiently}
+  \item{pers34}{[N-R] Remains calm in tense situations}
+  \item{pers35}{[O-R] Prefers work that is routine}
+  \item{pers36}{[E] Is outgoing, sociable}
+  \item{pers37}{[A-R] Is sometimes rude to others}
+  \item{pers38}{[C] Makes plans and follows through with them}
+  \item{pers39}{[N] Gets nervous easily}
+  \item{pers40}{[O] Likes to reflect, play with ideas}
+  \item{pers41}{[O-R] Has few artistic interests}
+  \item{pers42}{[A] Likes to cooperate with others}
+  \item{pers43}{[C-R] Is easily distracted}
+  \item{pers44}{[O] Is sophisticated in art, music, or literature}
 }
 }
 \usage{
 df_personality
 }
 \description{
-A dataset containing personality test results.
+Responses from 433 participants to the Big Five Inventory (BFI-44), a
+widely used measure of the five major dimensions of personality: Extraversion
+(E), Agreeableness (A), Conscientiousness (C), Neuroticism (N), and Openness
+to Experience (O). Items are rated on a 1-6 Likert scale. Reverse-scored
+items are marked with (R).
 }
 \examples{
 data(df_personality)
 head(df_personality)
+}
+\references{
+John, O. P., & Srivastava, S. (1999). The Big Five trait taxonomy:
+  History, measurement, and theoretical perspectives. In L. A. Pervin & O. P.
+  John (Eds.), \emph{Handbook of personality: Theory and research} (2nd ed.,
+  pp. 102-138). Guilford Press.
 }
 \keyword{datasets}
