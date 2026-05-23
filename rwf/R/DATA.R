@@ -317,7 +317,12 @@
 #'   \item{O8}{I use difficult words.}
 #'   \item{O9}{I spend time reflecting on things.}
 #'   \item{O10}{I am full of ideas.}
-#'   \item{race}{Race/ethnic background (1-13, 0=missing)}
+#'   \item{E1 to E10}{Extraversion items}
+#'   \item{N1 to N10}{Neuroticism items}
+#'   \item{A1 to A10}{Agreeableness items}
+#'   \item{C1 to C10}{Conscientiousness items}
+#'   \item{O1 to O10}{Openness to experience items}
+#'   \item{race}{Race/ethnic background (1–13, 0=missing)}
 #'   \item{age}{Age (integer; only responses from participants 13 and older included)}
 #'   \item{engnat}{Is English your native language? (1=Yes, 2=No, 0=missing)}
 #'   \item{gender}{1=Male, 2=Female, 3=Other, 0=missing}

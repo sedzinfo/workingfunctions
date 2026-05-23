@@ -449,34 +449,34 @@ compute_map<-function(eta,mean=0,sd=1) {
   map<-prior_density/sum(prior_density)    # after division sum(AXr)=1
   return(map)
 }
-##########################################################################################
-# GET DATA FROM OUTPUT MODEL
-##########################################################################################
-#' @title Simulate prior distribution
-#' @param model mplus thurstonian cfa model with 3 traits
-#' @import MplusAutomation
-#' @keywords IRT Thurstonian
-#' @export
-get_mplus_thu_3t<-function(model) {
-  names_model<-model$parameters$unstandardized[model$parameters$unstandardized$paramHeader %in% "Residual.Variances",]$param
-  psi<-model$parameters$unstandardized[model$parameters$unstandardized$paramHeader %in% "Residual.Variances",]$est #PSI
-  gamma<-model$parameters$unstandardized[model$parameters$unstandardized$paramHeader %in% "Thresholds",]$est #GAMMA
-  l1<-model$parameters$unstandardized[model$parameters$unstandardized$paramHeader %in% "TRAIT1.BY",]$est # LAMBDA
-  l2<-model$parameters$unstandardized[model$parameters$unstandardized$paramHeader %in% "TRAIT2.BY",]$est # LAMBDA
-  l3<-model$parameters$unstandardized[model$parameters$unstandardized$paramHeader %in% "TRAIT3.BY",]$est # LAMBDA
-  items<-length(names_model)
-  d1<-model$savedata[,response_dimension(c(1:items),3,c(1,2))]
-  d2<-model$savedata[,response_dimension(c(1:items),3,c(1,3))]
-  d3<-model$savedata[,response_dimension(c(1:items),3,c(2,3))]
-  g1<-gamma[response_dimension(c(1:items),3,c(1,2))]
-  g2<-gamma[response_dimension(c(1:items),3,c(1,3))]
-  g3<-gamma[response_dimension(c(1:items),3,c(2,3))]
-  psi1<-psi[response_dimension(c(1:items),3,c(1,2))]
-  psi2<-psi[response_dimension(c(1:items),3,c(1,3))]
-  psi3<-psi[response_dimension(c(1:items),3,c(2,3))]
-  result<-list(names_model=names_model,psi=psi,gamma=gamma,l1=l1,l2=l2,l3=l3,d1=d1,d2=d2,d3=d3,g1=g1,g2=g2,g3=g3,psi1=psi1,psi2=psi2,psi3=psi3)
-  return(result)
-}
+# ##########################################################################################
+# # GET DATA FROM OUTPUT MODEL
+# ##########################################################################################
+# #' @title Simulate prior distribution
+# #' @param model mplus thurstonian cfa model with 3 traits
+# #' @import MplusAutomation
+# #' @keywords IRT Thurstonian
+# #' @export
+# get_mplus_thu_3t<-function(model) {
+#   names_model<-model$parameters$unstandardized[model$parameters$unstandardized$paramHeader %in% "Residual.Variances",]$param
+#   psi<-model$parameters$unstandardized[model$parameters$unstandardized$paramHeader %in% "Residual.Variances",]$est #PSI
+#   gamma<-model$parameters$unstandardized[model$parameters$unstandardized$paramHeader %in% "Thresholds",]$est #GAMMA
+#   l1<-model$parameters$unstandardized[model$parameters$unstandardized$paramHeader %in% "TRAIT1.BY",]$est # LAMBDA
+#   l2<-model$parameters$unstandardized[model$parameters$unstandardized$paramHeader %in% "TRAIT2.BY",]$est # LAMBDA
+#   l3<-model$parameters$unstandardized[model$parameters$unstandardized$paramHeader %in% "TRAIT3.BY",]$est # LAMBDA
+#   items<-length(names_model)
+#   d1<-model$savedata[,response_dimension(c(1:items),3,c(1,2))]
+#   d2<-model$savedata[,response_dimension(c(1:items),3,c(1,3))]
+#   d3<-model$savedata[,response_dimension(c(1:items),3,c(2,3))]
+#   g1<-gamma[response_dimension(c(1:items),3,c(1,2))]
+#   g2<-gamma[response_dimension(c(1:items),3,c(1,3))]
+#   g3<-gamma[response_dimension(c(1:items),3,c(2,3))]
+#   psi1<-psi[response_dimension(c(1:items),3,c(1,2))]
+#   psi2<-psi[response_dimension(c(1:items),3,c(1,3))]
+#   psi3<-psi[response_dimension(c(1:items),3,c(2,3))]
+#   result<-list(names_model=names_model,psi=psi,gamma=gamma,l1=l1,l2=l2,l3=l3,d1=d1,d2=d2,d3=d3,g1=g1,g2=g2,g3=g3,psi1=psi1,psi2=psi2,psi3=psi3)
+#   return(result)
+# }
 
 
 

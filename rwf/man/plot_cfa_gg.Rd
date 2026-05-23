@@ -45,8 +45,8 @@ df<-lavaan::simulateData(model=model,model.type="cfa",
                              return.type="data.frame",sample.nobs=100)
 df<-generate_missing(df)
 fit<-lavaan::cfa(model,data=df,missing="ML")
-plots<-plot_cfa_gg(fit,what="std")
-plots<-plot_cfa_gg(fit,what="std",layout="tree")
-plots<-plot_cfa_gg(fit,what="std",layout="circle")
-plots<-plot_cfa_gg(fit,what="std",layout="spring")
+plot_cfa_gg(fit,what="std")
+plot_cfa_gg(fit,what="std",layout="tree")
+plot_cfa_gg(fit,what="std",layout="circle")
+plot_cfa_gg(fit,what="std",layout="spring")
 }

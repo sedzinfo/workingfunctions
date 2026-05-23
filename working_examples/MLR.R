@@ -49,7 +49,7 @@ pred<-predict(xgb_model,testTask)
 pred$data$response<-round(pred$data$response,0)
 proportion_accurate(pred$data$truth,pred$data$response)
 confusion_matrix_percent(pred$data$truth,pred$data$response)
-xgb<-xgboost::xgb.train(params=tuned_params$x,data=ttd$xbg$fold1$train,nthread=8,nrounds=100,watchlist=ttd$xbg$fold1$watchlist)
+xgb<-xgboost::xgb.train(params=utils::modifyList(tuned_params$x,list(nthread=8)),data=ttd$xbg$fold1$train,nrounds=100,evals=ttd$xbg$fold1$evals)
 report_xgboost(xgb_model$learner.model,ttd$xbg$fold1)
 ##########################################################################################
 # CLASSIFICATION

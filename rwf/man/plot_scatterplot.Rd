@@ -2,7 +2,7 @@
 % Please edit documentation in R/GLM_LINEAR_REGRESSION.R
 \name{plot_scatterplot}
 \alias{plot_scatterplot}
-\title{Plot plot_scatterplot}
+\title{Scatter plots for all variable pairs in a data frame}
 \usage{
 plot_scatterplot(
   df,
@@ -17,45 +17,65 @@ plot_scatterplot(
 )
 }
 \arguments{
-\item{df}{dataframe if dataframe consists of 2 collumns the second collumn is the outcome and the first collumn is the predictor}
+\item{df}{A data frame of numeric variables. When \code{df} has exactly two
+columns the first is treated as the predictor and the second as the
+outcome.}
 
-\item{method}{smoothing method, "auto", "lm", "glm", "gam", "loess" or a function, 
-e.g. MASS::rlm or mgcv::gam, stats::lm, or stats::loess}
+\item{method}{Smoothing method passed to \code{geom_smooth}. Accepts
+\code{"lm"}, \code{"glm"}, \code{"gam"}, \code{"loess"}, or a function
+such as \code{MASS::rlm}. Default \code{lm}.}
 
-\item{formula}{formula used in smoothing function for geom_smooth}
+\item{formula}{Formula passed to \code{geom_smooth}. Default \code{y ~ x}.
+When a non-default formula is supplied the caption shows only pairwise n.}
 
-\item{base_size}{base font size}
+\item{base_size}{Base font size in pt passed to \code{theme_bw}. Default
+\code{10}.}
 
-\item{coord_equal}{if TRUE axes maintain equal scale}
+\item{coord_equal}{Logical. If \code{TRUE} both axes share the same scale
+and limits. Default \code{FALSE}.}
 
-\item{all_orders}{if TRUE the order of combination is considered}
+\item{all_orders}{Logical. If \code{TRUE} both (X, Y) and (Y, X) orderings
+are plotted for each pair. Default \code{FALSE}.}
 
-\item{title}{Plot title}
+\item{title}{Character. Plot title applied to every panel. Default \code{""}.}
 
-\item{combinations}{dataframe if not NULL user can provide a dataframe for variable combinations for x and y axis . First column represents x and second column represents y}
+\item{combinations}{A two-column data frame specifying which pairs to plot.
+Column 1 is the x-variable name, column 2 is the y-variable name. When
+\code{NULL} (default) all pairs are derived automatically from \code{df}.}
 
-\item{string_aes}{if TRUE string_aes function is used for names}
+\item{string_aes}{Logical. If \code{TRUE} variable names are passed through
+\code{string_aes()} to clean axis labels. Default \code{TRUE}.}
+}
+\value{
+A named list of ggplot objects, one per variable pair. Names follow
+  the pattern \code{"x_y"}.
 }
 \description{
-Plot plot_scatterplot
+Generates a scatter plot with a smoothing line and marginal
+  histograms for every pair of numeric columns in \code{df}. Each plot
+  includes Pearson r, explained variance, the regression equation, and the
+  regression angle in its caption (when the default \code{y ~ x} formula is
+  used).
+
+  When the number of pairs exceeds four times the available CPU cores the
+  plots are produced in parallel via \code{future.apply}, otherwise
+  sequentially.
 }
 \examples{
-result<-plot_scatterplot(df=mtcars,title="",coord_equal=TRUE,base_size=10)
-plot_multiplot(plotlist=result[1:12],cols=4)
-plot_scatterplot(df=mtcars[,1:2],base_size=10,coord_equal=TRUE,all_orders=FALSE)
-plot_scatterplot(df=mtcars[,1:2],base_size=10,coord_equal=FALSE,all_orders=FALSE)
-plot_scatterplot(df=mtcars,base_size=10,coord_equal=TRUE,all_orders=FALSE,
+result <- plot_scatterplot(df=mtcars, title="", coord_equal=TRUE, base_size=10)
+plot_multiplot(plotlist=result[1:12], cols=4)
+
+# Two-column data frame: first column = predictor, second = outcome
+plot_scatterplot(df=mtcars[,1:2], base_size=10, coord_equal=TRUE, all_orders=FALSE)
+
+# Custom variable pairs
+plot_scatterplot(df=mtcars, base_size=10, coord_equal=TRUE,
                  combinations=data.frame(x=c("mpg","mpg","mpg"),
-                                         y=c("cyl","hp","mpg")))
-plot_scatterplot(df=mtcars,base_size=10,coord_equal=TRUE,all_orders=TRUE,
-                 combinations=data.frame(x=c("mpg"),y=c("cyl")))
-x<-rnorm(1000)
-y<-x+rnorm(x,sd=.1)
-plot_scatterplot(df=data.frame(x,y),title="Random Simulation",coord_equal=TRUE)
-df<-data.frame(matrix(-.999,ncol=2,nrow=2))
-correlation_martix<-as.matrix(df)
-diag(correlation_martix)<-1
-df<-generate_correlation_matrix(correlation_martix,nrows=1000)
-plot_scatterplot(df,title="Simulation of -.999 Correlation",coord_equal=TRUE,base_size=20)
+                                         y=c("cyl","hp","disp")))
+
+# Simulated near-perfect correlation
+x <- rnorm(1000)
+y <- x + rnorm(x, sd=.1)
+plot_scatterplot(df=data.frame(x,y), title="Random Simulation", coord_equal=TRUE)
 }
 \keyword{regression}
