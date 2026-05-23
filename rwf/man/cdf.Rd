@@ -95,10 +95,6 @@ df<-data.frame(infert,
                     length.out=nrow(infert)))
 cdf(df=df)
 }
-\seealso{
-\code{\link[base]{str}}, \code{\link[base]{summary}},
-  \code{\link[skimr]{skim}}, \code{\link[DataExplorer]{profile_missing}}
-}
 \keyword{dataframe}
 \keyword{diagnostics}
 \keyword{missing-values}

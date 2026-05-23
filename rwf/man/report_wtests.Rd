@@ -2,7 +2,7 @@
 % Please edit documentation in R/GLM_MEANS.R
 \name{report_wtests}
 \alias{report_wtests}
-\title{Wilcoxon test}
+\title{Run Pairwise Wilcoxon Tests and Return a Reporting Table}
 \usage{
 report_wtests(df, dv, iv, file = NULL, ...)
 }
@@ -17,62 +17,65 @@ variables.}
 variables.}
 
 \item{file}{output filename}
-
-\item{...}{
-  Arguments passed on to \code{\link[stats:wilcox.test]{stats::wilcox.test}}
-  \describe{
-    \item{\code{x}}{numeric vector of data values.  Non-finite (e.g., infinite or
-    missing) values will be omitted.}
-    \item{\code{y}}{an optional numeric vector of data values: as with \code{x}
-    non-finite values will be omitted.}
-    \item{\code{alternative}}{a character string specifying the alternative
-    hypothesis, must be one of \code{"two.sided"} (default),
-    \code{"greater"} or \code{"less"}.  You can specify just the initial
-    letter.}
-    \item{\code{mu}}{a number specifying an optional parameter used to form the
-    null hypothesis.  See \sQuote{Details}.}
-    \item{\code{paired}}{a logical indicating whether you want a paired test.}
-    \item{\code{exact}}{a logical indicating whether an exact p-value
-    should be computed.}
-    \item{\code{correct}}{a logical indicating whether to apply continuity
-    correction in the normal approximation for the p-value, or an
-    integer \eqn{k} between 0 and 3 giving the number of correction
-    terms to use from the Edgeworth series for the normal approximation.}
-    \item{\code{conf.int}}{a logical indicating whether a confidence interval
-    should be computed.}
-    \item{\code{conf.level}}{confidence level of the interval.}
-    \item{\code{tol.root}}{(when \code{conf.int} is true:) a positive numeric
-    tolerance, used in \code{\link[stats]{uniroot}(*, tol=tol.root)} calls.}
-    \item{\code{digits.rank}}{a number; if finite, \code{\link{rank}(\link{signif}(r, digits.rank))}
-    will be used to compute ranks for the test statistic instead of (the
-    default) \code{rank(r)}.}
-    \item{\code{formula}}{a formula of the form \code{lhs ~ rhs} where \code{lhs}
-    is a numeric variable giving the data values and \code{rhs} either
-    \code{1} for a one-sample or paired test or a factor
-    with two levels giving the corresponding groups. If \code{lhs} is of
-    class \code{"\link[stats]{Pair}"} and \code{rhs} is \code{1}, a paired test
-    is done, see Examples.}
-    \item{\code{data}}{an optional matrix or data frame (or similar: see
-    \code{\link[stats]{model.frame}}) containing the variables in the
-    formula \code{formula}.  By default the variables are taken from
-    \code{environment(formula)}.}
-    \item{\code{subset}}{an optional vector specifying a subset of observations
-    to be used.}
-    \item{\code{na.action}}{a function which indicates what should happen when
-    the data contain \code{\link{NA}}s.}
-  }}
 }
 \description{
-Wilcoxon test
+Performs Wilcoxon rank-sum tests for each selected dependent
+variable against each selected independent variable, across all pairwise
+level combinations of the independent variable. Also computes descriptive
+statistics, effect sizes, Bartlett homogeneity results, and Bonferroni
+adjustment.
+
+In simple terms:
+this function builds a full nonparametric comparison table, similar to
+report_ttests, but using wilcox.test for group differences.
+}
+\details{
+Missing values are removed per analysis pair using complete cases on the
+current dependent and independent variables.
+
+For each independent variable, all pairwise level combinations are tested
+using utils::combn.
+
+The function calls stats::wilcox.test with conf.int = TRUE and forwards
+additional arguments through ....
+
+The function also calls report_dataframe to generate a formatted report.
 }
 \examples{
-report_wtests(df=df_insurance,dv=which("charges"==names(df_insurance)),iv=c(2))
-report_wtests(df=df_insurance,dv=which("charges"==names(df_insurance)),iv=c(4))
-report_wtests(df=df_insurance,dv=which("charges"==names(df_insurance)),iv=c(2,4))
-report_wtests(df=df_insurance,dv=which("charges"==names(df_insurance)),iv=c(2,4),alternative="two.sided")
-report_wtests(df=df_insurance,dv=which("charges"==names(df_insurance)),iv=c(2,4),alternative="less")
-report_wtests(df=df_insurance,dv=which("charges"==names(df_insurance)),iv=c(2,4),alternative="greater")
-report_wtests(df=df_insurance,dv=which("charges"==names(df_insurance)),iv=c(2,4),var.equal=TRUE)
-report_wtests(df=df_insurance,dv=which("charges"==names(df_insurance)),iv=c(2,4),var.equal=TRUE,file="wilcoxontest")
+report_wtests(df=df_insurance,
+              dv=which("charges"==names(df_insurance)),
+              iv=c(2))
+report_wtests(df=df_insurance,
+              dv=which("charges"==names(df_insurance)),
+              iv=c(4))
+report_wtests(df=df_insurance,
+              dv=which("charges"==names(df_insurance)),
+              iv=c(2,4))
+report_wtests(df=df_insurance,
+              dv=which("charges"==names(df_insurance)),
+              iv=c(2,4),
+              alternative="two.sided")
+report_wtests(df=df_insurance,
+              dv=which("charges"==names(df_insurance)),
+              iv=c(2,4),
+              alternative="less")
+report_wtests(df=df_insurance,
+              dv=which("charges"==names(df_insurance)),
+              iv=c(2,4),
+              alternative="greater")
+report_wtests(df=df_insurance,
+              dv=which("charges"==names(df_insurance)),
+              iv=c(2,4),
+              var.equal=TRUE)
+report_wtests(df=df_insurance,
+              dv=which("charges"==names(df_insurance)),
+              iv=c(2,4),
+              var.equal=TRUE,
+              file="wilcoxontest")
 }
-\keyword{ANOVA}
+\keyword{effect-size}
+\keyword{inference}
+\keyword{nonparametric}
+\keyword{pairwise}
+\keyword{reporting}
+\keyword{wilcoxon}

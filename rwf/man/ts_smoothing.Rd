@@ -35,13 +35,20 @@ returns plot
 \examples{
 ts_data<-ts(UKDriverDeaths,start=1969,end=1984,frequency=12)
 par(mfrow=c(2,2))
-ts_smoothing(ts_data,start=.01,stop=2,step=.01,title="Driver Deaths in UK",type="default")
-ts_smoothing(ts_data,start=.01,stop=2,step=.01,title="Driver Deaths in UK",type="polynomial")
-ts_smoothing(ts_data,start=.01,stop=2,step=.01,title="Driver Deaths in UK",type="linear")
-ts_smoothing(ts_data,start=.01,stop=2,step=.01,title="Driver Deaths in UK",type="kernel")
-ts_smoothing(ts_data,start=.01,stop=2,step=.01,title="Driver Deaths in UK",type="lowess")
-ts_smoothing(ts_data,start=.01,stop=2,step=.01,title="Driver Deaths in UK",type="friedman")
-ts_smoothing(ts_data,start=.01,stop=2,step=.01,title="Driver Deaths in UK",type="splines")
+ts_smoothing(ts_data,start=.01,stop=2,step=.01,
+             title="Driver Deaths in UK",type="default")
+ts_smoothing(ts_data,start=.01,stop=2,step=.01,
+             title="Driver Deaths in UK",type="polynomial")
+ts_smoothing(ts_data,start=.01,stop=2,step=.01,
+             title="Driver Deaths in UK",type="linear")
+ts_smoothing(ts_data,start=.01,stop=2,step=.01,
+             title="Driver Deaths in UK",type="kernel")
+ts_smoothing(ts_data,start=.01,stop=2,step=.01,
+             title="Driver Deaths in UK",type="lowess")
+ts_smoothing(ts_data,start=.01,stop=2,step=.01,
+             title="Driver Deaths in UK",type="friedman")
+ts_smoothing(ts_data,start=.01,stop=2,step=.01,
+             title="Driver Deaths in UK",type="splines")
 }
 \keyword{series}
 \keyword{time}

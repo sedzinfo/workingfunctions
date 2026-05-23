@@ -70,11 +70,6 @@ df<-data.frame(infert,
                     length.out=nrow(infert)))
 cdff(df=df)
 }
-\seealso{
-\code{\link{cdf}} for the original with natural sort ordering,
-  \code{\link[base]{str}}, \code{\link[base]{summary}},
-  \code{\link[skimr]{skim}}
-}
 \keyword{dataframe}
 \keyword{diagnostics}
 \keyword{missing-values}

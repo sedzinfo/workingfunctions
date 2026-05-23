@@ -102,13 +102,20 @@ plot_acf<-function(df,lag.max=length(df),base_size=10,title="") {
 #' @examples
 #' ts_data<-ts(UKDriverDeaths,start=1969,end=1984,frequency=12)
 #' par(mfrow=c(2,2))
-#' ts_smoothing(ts_data,start=.01,stop=2,step=.01,title="Driver Deaths in UK",type="default")
-#' ts_smoothing(ts_data,start=.01,stop=2,step=.01,title="Driver Deaths in UK",type="polynomial")
-#' ts_smoothing(ts_data,start=.01,stop=2,step=.01,title="Driver Deaths in UK",type="linear")
-#' ts_smoothing(ts_data,start=.01,stop=2,step=.01,title="Driver Deaths in UK",type="kernel")
-#' ts_smoothing(ts_data,start=.01,stop=2,step=.01,title="Driver Deaths in UK",type="lowess")
-#' ts_smoothing(ts_data,start=.01,stop=2,step=.01,title="Driver Deaths in UK",type="friedman")
-#' ts_smoothing(ts_data,start=.01,stop=2,step=.01,title="Driver Deaths in UK",type="splines")
+#' ts_smoothing(ts_data,start=.01,stop=2,step=.01,
+#'              title="Driver Deaths in UK",type="default")
+#' ts_smoothing(ts_data,start=.01,stop=2,step=.01,
+#'              title="Driver Deaths in UK",type="polynomial")
+#' ts_smoothing(ts_data,start=.01,stop=2,step=.01,
+#'              title="Driver Deaths in UK",type="linear")
+#' ts_smoothing(ts_data,start=.01,stop=2,step=.01,
+#'              title="Driver Deaths in UK",type="kernel")
+#' ts_smoothing(ts_data,start=.01,stop=2,step=.01,
+#'              title="Driver Deaths in UK",type="lowess")
+#' ts_smoothing(ts_data,start=.01,stop=2,step=.01,
+#'              title="Driver Deaths in UK",type="friedman")
+#' ts_smoothing(ts_data,start=.01,stop=2,step=.01,
+#'              title="Driver Deaths in UK",type="splines")
 ts_smoothing<-function(df,start=.01,stop=2,step=.001,title="",type="kernel") {
   if(length(df)>0 & is.na(df)[1]==FALSE) {
     plot(df,type="l",ylab="",xlab="Time index",main=paste(paste(string_aes(type),"Smoothing"),title),lwd=1)

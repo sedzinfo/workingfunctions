@@ -61,9 +61,6 @@
 #'   representations — natural sort ordering is not guaranteed for mixed
 #'   alphanumeric strings.
 #'
-#' @seealso \code{\link[base]{str}}, \code{\link[base]{summary}},
-#'   \code{\link[skimr]{skim}}, \code{\link[DataExplorer]{profile_missing}}
-#'
 #' @import future.apply
 #' @importFrom future availableCores plan multisession sequential
 #' @importFrom openxlsx createWorkbook saveWorkbook
@@ -177,10 +174,6 @@ cdf<-function(df,name_length=(getOption("width")/3),digits=2,nuniques=0,parralel
 #'   on character representations. Unlike \code{\link{cdf}}, mixed alphanumeric
 #'   ordering (e.g. \code{"V1"} < \code{"V10"} < \code{"V2"}) is \emph{not}
 #'   guaranteed — lexicographic order is used instead.
-#'
-#' @seealso \code{\link{cdf}} for the original with natural sort ordering,
-#'   \code{\link[base]{str}}, \code{\link[base]{summary}},
-#'   \code{\link[skimr]{skim}}
 #'
 #' @import future.apply
 #' @importFrom future availableCores plan multisession sequential

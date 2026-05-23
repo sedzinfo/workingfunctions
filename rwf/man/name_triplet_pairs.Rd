@@ -50,14 +50,10 @@ name_triplet_pairs(15)
 
 # Custom separator
 name_triplet_pairs(6, prefix = "i", sep = "_")
-# "i1_i2" "i1_i3" "i2_i3" "i4_i5" "i4_i6" "i5_i6"
 
 # Start from specific indices
 name_triplet_pairs(4:9)
 # triplets are (4,5,6) and (7,8,9)
-
-# Non-multiple of 3 with strict=TRUE -> error
-name_triplet_pairs(10, strict = TRUE)
 
 # Non-multiple of 3 with strict=FALSE -> trims extras
 name_triplet_pairs(10, strict = FALSE)

@@ -1,21 +1,92 @@
 ##########################################################################################
 # T TEST
 ##########################################################################################
-#' @title T test
+#' @title Run Pairwise t-tests and Return a Reporting Table
+#' @description Performs t-tests for each selected dependent variable against
+#' each selected independent variable, across all pairwise level combinations
+#' of the independent variable. Also computes descriptive statistics,
+#' effect sizes, Bartlett homogeneity test results, and Bonferroni adjustment.
+#'
+#' In simple terms:
+#' this function creates a full t-test report table you can export or use in
+#' downstream summaries.
 #' @param file output filename
 #' @inheritParams plot_oneway_diagnostics
 #' @inheritDotParams stats::t.test
 #' @importFrom stats t.test formula
-#' @keywords ANOVA
-#' @export
+#' @return A data frame where each row is one pairwise group comparison for one
+#' dependent-independent variable combination. Returned columns mean:
+#'
+#' \itemize{
+#'   \item DV: Name stored in the DV column by the current implementation.
+#'   Note: this currently contains the independent variable name.
+#'   \item IV: Name stored in the IV column by the current implementation.
+#'   Note: this currently contains the dependent variable name.
+#'   \item level1: First group level being compared.
+#'   \item level2: Second group level being compared.
+#'   \item n1: Sample size in level1.
+#'   \item n2: Sample size in level2.
+#'   \item t: t statistic from t.test.
+#'   \item df: Degrees of freedom for the t statistic.
+#'   \item p: p-value from t.test.
+#'   \item CI_l: Lower confidence interval bound for the mean difference.
+#'   \item CI_u: Upper confidence interval bound for the mean difference.
+#'   \item alternative: Alternative hypothesis used by t.test.
+#'   \item method: Test label from t.test (for example Welch Two Sample t-test).
+#'   \item mean1: Mean of the dependent variable in level1.
+#'   \item mean2: Mean of the dependent variable in level2.
+#'   \item sd1: Standard deviation in level1.
+#'   \item sd2: Standard deviation in level2.
+#'   \item sd_pooled: Pooled standard deviation,
+#'   sqrt((sd1^2 + sd2^2) / 2).
+#'   \item d: Cohen d effect size, abs(mean2 - mean1) / sd_pooled.
+#'   \item r: Effect-size r derived from d using the function formula.
+#'   \item k_squared[bartlett]: Bartlett test statistic for equal variances.
+#'   \item df[bartlett]: Degrees of freedom of Bartlett test.
+#'   \item p[bartlett]: p-value of Bartlett test.
+#'   Small values suggest heteroscedasticity.
+#'   \item bonferroni_p: Bonferroni-adjusted alpha threshold computed for the
+#'   number of tests in the output table.
+#'   \item significant: Logical-like character flag (TRUE/FALSE) indicating
+#'   whether p is below bonferroni_p.
+#' }
+#'
+#' @details
+#' Missing values are removed per analysis pair using complete cases on the
+#' current dependent and independent variables.
+#'
+#' For each independent variable, all pairwise level combinations are tested
+#' using utils::combn.
+#'
+#' The function also calls report_dataframe to generate a formatted report.
+#'
+#' @keywords t-test pairwise inference effect-size reporting
 #' @examples
-#' report_ttests(df=df_insurance,dv=which("charges"==names(df_insurance)),iv=c(2))
-#' report_ttests(df=df_insurance,dv=which("charges"==names(df_insurance)),iv=c(4))
-#' report_ttests(df=df_insurance,dv=which("charges"==names(df_insurance)),iv=c(2,4))
-#' report_ttests(df=df_insurance,dv=which("charges"==names(df_insurance)),iv=c(2,4),alternative="two.sided")
-#' report_ttests(df=df_insurance,dv=which("charges"==names(df_insurance)),iv=c(2,4),alternative="less")
-#' report_ttests(df=df_insurance,dv=which("charges"==names(df_insurance)),iv=c(2,4),alternative="greater")
-#' report_ttests(df=df_insurance,dv=which("charges"==names(df_insurance)),iv=c(2,4),var.equal=TRUE)
+#' report_ttests(df=df_insurance,
+#'               dv=which("charges"==names(df_insurance)),
+#'               iv=c(2))
+#' report_ttests(df=df_insurance,
+#'               dv=which("charges"==names(df_insurance)),
+#'               iv=c(4))
+#' report_ttests(df=df_insurance,
+#'               dv=which("charges"==names(df_insurance)),
+#'               iv=c(2,4))
+#' report_ttests(df=df_insurance,
+#'               dv=which("charges"==names(df_insurance)),
+#'               iv=c(2,4),
+#'               alternative="two.sided")
+#' report_ttests(df=df_insurance,
+#'               dv=which("charges"==names(df_insurance)),
+#'               iv=c(2,4),
+#'               alternative="less")
+#' report_ttests(df=df_insurance,
+#'               dv=which("charges"==names(df_insurance)),
+#'               iv=c(2,4),
+#'               alternative="greater")
+#' report_ttests(df=df_insurance,
+#'               dv=which("charges"==names(df_insurance)),
+#'               iv=c(2,4),
+#'               var.equal=TRUE)
 #' report_ttests(df=mtcars,dv=1:7,iv=8:10,var.equal=TRUE,file="ttest")
 report_ttests<-function(df,dv,iv,file=NULL,...) {
   
@@ -114,22 +185,102 @@ report_ttests<-function(df,dv,iv,file=NULL,...) {
 ##########################################################################################
 # WILCOXON TEST
 ##########################################################################################
-#' @title Wilcoxon test
+#' @title Run Pairwise Wilcoxon Tests and Return a Reporting Table
+#' @description Performs Wilcoxon rank-sum tests for each selected dependent
+#' variable against each selected independent variable, across all pairwise
+#' level combinations of the independent variable. Also computes descriptive
+#' statistics, effect sizes, Bartlett homogeneity results, and Bonferroni
+#' adjustment.
+#'
+#' In simple terms:
+#' this function builds a full nonparametric comparison table, similar to
+#' report_ttests, but using wilcox.test for group differences.
+#'
 #' @param file output filename
 #' @inheritParams plot_oneway_diagnostics
 #' @inheritDotParams stats::wilcox.test
+#' #' @return A data frame where each row is one pairwise level comparison for one
+#' dependent-independent variable combination. Returned columns mean:
+#'
+#' \itemize{
+#'   \item DV: Name stored in the DV column by the current implementation.
+#'   Note: this currently contains the independent variable name.
+#'   \item IV: Name stored in the IV column by the current implementation.
+#'   Note: this currently contains the dependent variable name.
+#'   \item level1: First group level being compared.
+#'   \item level2: Second group level being compared.
+#'   \item n1: Sample size in level1.
+#'   \item n2: Sample size in level2.
+#'   \item W: Wilcoxon test statistic from wilcox.test.
+#'   \item p: p-value from wilcox.test.
+#'   \item CI_l: Lower confidence interval bound from wilcox.test.
+#'   \item CI_u: Upper confidence interval bound from wilcox.test.
+#'   \item alternative: Alternative hypothesis used by wilcox.test.
+#'   \item method: Test label from wilcox.test.
+#'   \item mean1: Mean of the dependent variable in level1.
+#'   \item mean2: Mean of the dependent variable in level2.
+#'   \item sd1: Standard deviation in level1.
+#'   \item sd2: Standard deviation in level2.
+#'   \item sd_pooled: Pooled standard deviation,
+#'   sqrt((sd1^2 + sd2^2) / 2).
+#'   \item d: Cohen d effect size, abs(mean2 - mean1) / sd_pooled.
+#'   \item r: Wilcoxon effect size from rstatix::wilcox_effsize.
+#'   \item k_squared[bartlett]: Bartlett test statistic for equal variances.
+#'   \item df[bartlett]: Degrees of freedom of Bartlett test.
+#'   \item p[bartlett]: p-value of Bartlett test.
+#'   Small values suggest heteroscedasticity.
+#'   \item bonferroni_p: Bonferroni-adjusted alpha threshold computed for the
+#'   number of tests in the output table.
+#'   \item significant: Logical-like character flag (TRUE/FALSE) indicating
+#'   whether p is below bonferroni_p.
+#' }
+#'
+#' @details
+#' Missing values are removed per analysis pair using complete cases on the
+#' current dependent and independent variables.
+#'
+#' For each independent variable, all pairwise level combinations are tested
+#' using utils::combn.
+#'
+#' The function calls stats::wilcox.test with conf.int = TRUE and forwards
+#' additional arguments through ....
+#'
+#' The function also calls report_dataframe to generate a formatted report.
 #' @importFrom stats wilcox.test formula sd
-#' @keywords ANOVA
+#'
+#' @keywords wilcoxon nonparametric pairwise inference effect-size reporting
 #' @export
 #' @examples
-#' report_wtests(df=df_insurance,dv=which("charges"==names(df_insurance)),iv=c(2))
-#' report_wtests(df=df_insurance,dv=which("charges"==names(df_insurance)),iv=c(4))
-#' report_wtests(df=df_insurance,dv=which("charges"==names(df_insurance)),iv=c(2,4))
-#' report_wtests(df=df_insurance,dv=which("charges"==names(df_insurance)),iv=c(2,4),alternative="two.sided")
-#' report_wtests(df=df_insurance,dv=which("charges"==names(df_insurance)),iv=c(2,4),alternative="less")
-#' report_wtests(df=df_insurance,dv=which("charges"==names(df_insurance)),iv=c(2,4),alternative="greater")
-#' report_wtests(df=df_insurance,dv=which("charges"==names(df_insurance)),iv=c(2,4),var.equal=TRUE)
-#' report_wtests(df=df_insurance,dv=which("charges"==names(df_insurance)),iv=c(2,4),var.equal=TRUE,file="wilcoxontest")
+#' report_wtests(df=df_insurance,
+#'               dv=which("charges"==names(df_insurance)),
+#'               iv=c(2))
+#' report_wtests(df=df_insurance,
+#'               dv=which("charges"==names(df_insurance)),
+#'               iv=c(4))
+#' report_wtests(df=df_insurance,
+#'               dv=which("charges"==names(df_insurance)),
+#'               iv=c(2,4))
+#' report_wtests(df=df_insurance,
+#'               dv=which("charges"==names(df_insurance)),
+#'               iv=c(2,4),
+#'               alternative="two.sided")
+#' report_wtests(df=df_insurance,
+#'               dv=which("charges"==names(df_insurance)),
+#'               iv=c(2,4),
+#'               alternative="less")
+#' report_wtests(df=df_insurance,
+#'               dv=which("charges"==names(df_insurance)),
+#'               iv=c(2,4),
+#'               alternative="greater")
+#' report_wtests(df=df_insurance,
+#'               dv=which("charges"==names(df_insurance)),
+#'               iv=c(2,4),
+#'               var.equal=TRUE)
+#' report_wtests(df=df_insurance,
+#'               dv=which("charges"==names(df_insurance)),
+#'               iv=c(2,4),
+#'               var.equal=TRUE,
+#'               file="wilcoxontest")
 report_wtests<-function(df,dv,iv,file=NULL,...) {
   comment<-list(DV="dependent variable",
                 IV="independent variable",

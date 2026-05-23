@@ -4,28 +4,28 @@
 \alias{score_tirt}
 \title{Score Multiple Thurstonian IRT Response Patterns (MAP / EBM)}
 \usage{
-score_tirt(patterns, Lambda, theta_diag, tau, Psi, nu = NULL)
+score_tirt(patterns, lambda, theta_diag, tau, Psi, nu = NULL)
 }
 \arguments{
 \item{patterns}{A matrix or data.frame of response patterns
 (rows = respondents, columns = pair/items).}
 
-\item{Lambda}{Loading matrix (rows = pair/items, columns = latent traits).}
+\item{lambda}{Loading matrix (rows = pair/items, columns = latent traits).}
 
 \item{theta_diag}{Numeric vector of residual variances aligned to
-rows of Lambda.}
+rows of lambda.}
 
-\item{tau}{Numeric vector of thresholds aligned to rows of Lambda.}
+\item{tau}{Numeric vector of thresholds aligned to rows of lambda.}
 
 \item{Psi}{Latent covariance matrix (traits x traits).}
 
 \item{nu}{Optional numeric vector of indicator intercepts aligned to rows
-of Lambda. If NULL, zeros are used in score_tirt_pattern.}
+of lambda. If NULL, zeros are used in score_tirt_pattern.}
 }
 \value{
 A numeric matrix of latent scores:
   rows correspond to respondents in patterns,
-  columns correspond to traits in colnames(Lambda).
+  columns correspond to traits in colnames(lambda).
 }
 \description{
 Scores many respondents at once using Thurstonian IRT
@@ -34,18 +34,19 @@ Scores many respondents at once using Thurstonian IRT
 
   In simple terms:
   this function applies score_tirt_pattern to every respondent, after first
-  checking and aligning item columns so they match Lambda row order.
+  checking and aligning item columns so they match lambda row order.
 }
 \details{
 Name alignment is the key safeguard:
-if both rownames(Lambda) and colnames(patterns) are present,
-patterns is reordered to match Lambda row order before scoring.
+if both rownames(lambda) and colnames(patterns) are present,
+patterns is reordered to match lambda row order before scoring.
 
-If required Lambda names are missing from patterns, the function stops
+If required lambda names are missing from patterns, the function stops
 with an informative error. If names are unavailable, positional alignment
 is assumed and a warning is issued.
 }
 \examples{
+#' \dontrun{
 library(thurstonianIRT)
 data("triplets")
 # define the blocks of items
@@ -67,7 +68,7 @@ triplets_long <- make_TIRT_data(
 fit <- fit_TIRT_lavaan(triplets_long)
 pars <- extract_tirt_params(fit)
 patterns<-as.matrix(triplets)
-score_tirt(patterns,Lambda=pars$Lambda,theta_diag=pars$theta_diag,
+score_tirt(patterns,lambda=pars$lambda,theta_diag=pars$theta_diag,
            tau=pars$tau,Psi=pars$Psi,nu=NULL)
 # Check same scores from thurstonianIRT package
 triplets_long <- make_TIRT_data(data = triplets,
@@ -77,10 +78,11 @@ triplets_long <- make_TIRT_data(data = triplets,
                                 family = "bernoulli", 
                                 range = c(0, 1))
 scores_thurstonianIRT<-predict(fit)
-scores<-score_tirt(patterns,Lambda=pars$Lambda,theta_diag=pars$theta_diag,
+scores<-score_tirt(patterns,lambda=pars$lambda,theta_diag=pars$theta_diag,
         tau=pars$tau,Psi=pars$Psi,nu=NULL)
 head(reshape2::recast(scores_thurstonianIRT,formula=id~trait,id.var=1:2))
 head(scores)
+}
 }
 \keyword{ebm}
 \keyword{irt}

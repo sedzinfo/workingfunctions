@@ -106,7 +106,7 @@ generate_comparisons_matrix<-function(items) {
   return(result)
 }
 ##########################################################################################
-# GENERATE MATRIX LAMBDA HAT
+# GENERATE MATRIX lambda HAT
 ##########################################################################################
 #' @title Generate matrix lambda for spesified number of comparisons
 #' @inheritParams generate_matrix_A
@@ -226,14 +226,10 @@ rank_df_to_binary<-function(mydata,items,reverse=TRUE) {
 #'
 #' # Custom separator
 #' name_triplet_pairs(6, prefix = "i", sep = "_")
-#' # "i1_i2" "i1_i3" "i2_i3" "i4_i5" "i4_i6" "i5_i6"
 #'
 #' # Start from specific indices
 #' name_triplet_pairs(4:9)
 #' # triplets are (4,5,6) and (7,8,9)
-#'
-#' # Non-multiple of 3 with strict=TRUE -> error
-#' name_triplet_pairs(10, strict = TRUE)
 #'
 #' # Non-multiple of 3 with strict=FALSE -> trims extras
 #' name_triplet_pairs(10, strict = FALSE)
@@ -602,6 +598,7 @@ compute_map<-function(eta,mean=0,sd=1) {
 #' @export
 #'
 #' @examples
+#' \dontrun{
 #' library(thurstonianIRT)
 #' data("triplets")
 #' # define the blocks of items
@@ -622,12 +619,13 @@ compute_map<-function(eta,mean=0,sd=1) {
 #' # fit the data using lavaan
 #' fit <- fit_TIRT_lavaan(triplets_long)
 #' pars <- extract_tirt_params(fit)
+#' }
 extract_tirt_params<-function(fit_lavaan_obj) {
   est<-lavaan::lavInspect(fit_lavaan_obj$fit, "est")
-  Lambda<-est$lambda
-  ind<-rownames(Lambda)
+  lambda<-est$lambda
+  ind<-rownames(lambda)
   
-  # residual variances -- align to Lambda by indicator name
+  # residual variances -- align to lambda by indicator name
   theta_diag<-diag(est$theta)
   if(!is.null(names(theta_diag))) {
     theta_diag<-theta_diag[ind]
@@ -650,7 +648,7 @@ extract_tirt_params<-function(fit_lavaan_obj) {
       nu_vec<-nu_named[ind]
     }
   }
-  list(Lambda=Lambda,theta_diag=theta_diag,tau=tau_vec,nu=nu_vec,Psi=est$psi)
+  list(lambda=lambda,theta_diag=theta_diag,tau=tau_vec,nu=nu_vec,Psi=est$psi)
 }
 ##########################################################################################
 # SCORE RESPONSE PATTERN
@@ -664,32 +662,36 @@ extract_tirt_params<-function(fit_lavaan_obj) {
 #'
 #' @param pattern Numeric vector of observed responses for one person, typically
 #' coded 0/1, with optional NA values for missing responses. Its order must
-#' match the row order of Lambda (or be pre-aligned before calling).
-#' @param Lambda Matrix of factor loadings with rows as observed indicators and
+#' match the row order of lambda (or be pre-aligned before calling).
+#' @param lambda Matrix of factor loadings with rows as observed indicators and
 #' columns as latent traits.
 #' @param theta_diag Numeric vector of residual variances (diagonal of theta),
-#' aligned to rows of Lambda.
-#' @param tau Numeric vector of thresholds, aligned to rows of Lambda.
+#' aligned to rows of lambda.
+#' @param tau Numeric vector of thresholds, aligned to rows of lambda.
 #' @param Psi Latent covariance matrix (traits x traits), positive definite.
 #' @param nu Optional numeric vector of indicator intercepts aligned to rows of
-#' Lambda. If NULL, a zero vector is used.
+#' lambda. If NULL, a zero vector is used.
 #' @param init Optional numeric vector of starting values for optimization.
 #' If NULL, starts at zeros.
 #' @param control Named list of control arguments passed to optim, merged with
 #' defaults reltol = 1e-10 and maxit = 500.
 #'
 #' @return Named numeric vector of latent trait MAP estimates, with names taken
-#' from colnames(Lambda).
+#' from colnames(lambda).
 #'
 #' @details The function maximizes the posterior:
 #' likelihood from a probit measurement model plus a multivariate normal
 #' prior on traits with covariance Psi. Optimization uses BFGS via optim
 #' with an analytic gradient.
 #'
+#' @importFrom stats optim
+#' @importFrom utils modifyList
+#' 
 #' @keywords tirt irt map ebm scoring
 #' @export
 #'
 #' @examples
+#' #' \dontrun{
 #' library(thurstonianIRT)
 #' data("triplets")
 #' # define the blocks of items
@@ -711,15 +713,16 @@ extract_tirt_params<-function(fit_lavaan_obj) {
 #' fit <- fit_TIRT_lavaan(triplets_long)
 #' pars <- extract_tirt_params(fit)
 #' pattern<-as.numeric(triplets[1,])
-#' score_tirt_pattern(pattern,Lambda=pars$Lambda,theta_diag=pars$theta_diag,
+#' score_tirt_pattern(pattern,lambda=pars$lambda,theta_diag=pars$theta_diag,
 #'                    tau=pars$tau,Psi=pars$Psi,nu=NULL,init=NULL,
 #'                    control=list())
-score_tirt_pattern<-function(pattern,Lambda,theta_diag,tau,Psi,nu=NULL,init=NULL,control=list()) {
-  n_traits<-ncol(Lambda)
+#' }
+score_tirt_pattern<-function(pattern,lambda,theta_diag,tau,Psi,nu=NULL,init=NULL,control=list()) {
+  n_traits<-ncol(lambda)
   if (is.null(nu)) 
-    nu<-rep(0,nrow(Lambda))
+    nu<-rep(0,nrow(lambda))
   obs<-!is.na(pattern)
-  L<-Lambda[obs, , drop=FALSE]
+  L<-lambda[obs, , drop=FALSE]
   y<-as.numeric(pattern[obs])
   s<-sqrt(theta_diag[obs])
   th<-tau[obs]-nu[obs]
@@ -735,16 +738,16 @@ score_tirt_pattern<-function(pattern,Lambda,theta_diag,tau,Psi,nu=NULL,init=NULL
   gnll<-function(eta) {
     z<-(as.numeric(L %*% eta) - th) / s
     p<-pmin(pmax(pnorm(z), 1e-15), 1 - 1e-15)
-    phi<-dnorm(z)
+    phi<-stats::dnorm(z)
     w<-(y - p) * phi / (p * (1 - p)) / s
     -(as.numeric(crossprod(L, w)) - as.numeric(iPsi %*% eta))
   }
   
   if (is.null(init)) init<-rep(0, n_traits)
-  ctrl<-modifyList(list(reltol=1e-10, maxit=500), control)
+  ctrl<-utils::modifyList(list(reltol=1e-10, maxit=500), control)
   
-  res<-optim(init,nll,gr=gnll,hessian=TRUE,method="BFGS",control=ctrl)
-  setNames(res$par, colnames(Lambda))
+  res<-stats::optim(init,nll,gr=gnll,hessian=TRUE,method="BFGS",control=ctrl)
+  setNames(res$par, colnames(lambda))
 }
 ##########################################################################################
 # SOLVE
@@ -859,34 +862,35 @@ compute_solve <- function(a, b) {
 #'
 #'   In simple terms:
 #'   this function applies score_tirt_pattern to every respondent, after first
-#'   checking and aligning item columns so they match Lambda row order.
+#'   checking and aligning item columns so they match lambda row order.
 #'
 #' @param patterns A matrix or data.frame of response patterns
 #'   (rows = respondents, columns = pair/items).
-#' @param Lambda Loading matrix (rows = pair/items, columns = latent traits).
+#' @param lambda Loading matrix (rows = pair/items, columns = latent traits).
 #' @param theta_diag Numeric vector of residual variances aligned to
-#'   rows of Lambda.
-#' @param tau Numeric vector of thresholds aligned to rows of Lambda.
+#'   rows of lambda.
+#' @param tau Numeric vector of thresholds aligned to rows of lambda.
 #' @param Psi Latent covariance matrix (traits x traits).
 #' @param nu Optional numeric vector of indicator intercepts aligned to rows
-#'   of Lambda. If NULL, zeros are used in score_tirt_pattern.
+#'   of lambda. If NULL, zeros are used in score_tirt_pattern.
 #'
 #' @return A numeric matrix of latent scores:
 #'   rows correspond to respondents in patterns,
-#'   columns correspond to traits in colnames(Lambda).
+#'   columns correspond to traits in colnames(lambda).
 #'
 #' @details
 #' Name alignment is the key safeguard:
-#' if both rownames(Lambda) and colnames(patterns) are present,
-#' patterns is reordered to match Lambda row order before scoring.
+#' if both rownames(lambda) and colnames(patterns) are present,
+#' patterns is reordered to match lambda row order before scoring.
 #'
-#' If required Lambda names are missing from patterns, the function stops
+#' If required lambda names are missing from patterns, the function stops
 #' with an informative error. If names are unavailable, positional alignment
 #' is assumed and a warning is issued.
 #'
 #' @keywords tirt irt scoring map ebm
 #' @export
 #' @examples
+#' #' \dontrun{
 #' library(thurstonianIRT)
 #' data("triplets")
 #' # define the blocks of items
@@ -908,7 +912,7 @@ compute_solve <- function(a, b) {
 #' fit <- fit_TIRT_lavaan(triplets_long)
 #' pars <- extract_tirt_params(fit)
 #' patterns<-as.matrix(triplets)
-#' score_tirt(patterns,Lambda=pars$Lambda,theta_diag=pars$theta_diag,
+#' score_tirt(patterns,lambda=pars$lambda,theta_diag=pars$theta_diag,
 #'            tau=pars$tau,Psi=pars$Psi,nu=NULL)
 #' # Check same scores from thurstonianIRT package
 #' triplets_long <- make_TIRT_data(data = triplets,
@@ -918,32 +922,33 @@ compute_solve <- function(a, b) {
 #'                                 family = "bernoulli", 
 #'                                 range = c(0, 1))
 #' scores_thurstonianIRT<-predict(fit)
-#' scores<-score_tirt(patterns,Lambda=pars$Lambda,theta_diag=pars$theta_diag,
+#' scores<-score_tirt(patterns,lambda=pars$lambda,theta_diag=pars$theta_diag,
 #'         tau=pars$tau,Psi=pars$Psi,nu=NULL)
 #' head(reshape2::recast(scores_thurstonianIRT,formula=id~trait,id.var=1:2))
 #' head(scores)
-score_tirt<-function(patterns, Lambda, theta_diag, tau, Psi, nu=NULL) {
+#' }
+score_tirt<-function(patterns, lambda, theta_diag, tau, Psi, nu=NULL) {
   patterns<-as.matrix(patterns)
   
-  # align columns to Lambda rows by name -- the critical step
-  if (is.null(rownames(Lambda)) || is.null(colnames(patterns))) {
-    warning("Lambda rows or pattern columns are unnamed; assuming positional alignment.")
+  # align columns to lambda rows by name -- the critical step
+  if (is.null(rownames(lambda)) || is.null(colnames(patterns))) {
+    warning("lambda rows or pattern columns are unnamed; assuming positional alignment.")
   } else {
-    miss<-setdiff(rownames(Lambda), colnames(patterns))
+    miss<-setdiff(rownames(lambda), colnames(patterns))
     if (length(miss) > 0) {
-      stop("Pair names in Lambda not found in patterns:\n  ",
+      stop("Pair names in lambda not found in patterns:\n  ",
            paste(miss, collapse=", "))
     }
-    patterns<-patterns[, rownames(Lambda), drop=FALSE]
+    patterns<-patterns[, rownames(lambda), drop=FALSE]
   }
   
   scores<-t(apply(patterns,1,score_tirt_pattern,
-                  Lambda=Lambda,
+                  lambda=lambda,
                   theta_diag=theta_diag,
                   tau=tau,
                   Psi=Psi,
                   nu=nu))
-  colnames(scores)<-colnames(Lambda)
+  colnames(scores)<-colnames(lambda)
   scores
 }
 ##########################################################################################
@@ -951,7 +956,7 @@ score_tirt<-function(patterns, Lambda, theta_diag, tau, Psi, nu=NULL) {
 ##########################################################################################
 # tirt_diagnose<-function(fit_lavaan_obj, df_rank) {
 #   est<-lavaan::lavInspect(fit_lavaan_obj$fit, "est")
-#   cat("Lambda rows  (first 5):", head(rownames(est$lambda), 5), "\n")
+#   cat("lambda rows  (first 5):", head(rownames(est$lambda), 5), "\n")
 #   cat("Tau    rows  (first 5):", head(rownames(est$tau),    5), "\n")
 #   cat("Theta  rows  (first 5):", head(rownames(est$theta),  5), "\n")
 #   cat("df_rank cols (first 5):", head(colnames(df_rank),    5), "\n\n")

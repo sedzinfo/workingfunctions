@@ -6,7 +6,7 @@
 \usage{
 score_tirt_pattern(
   pattern,
-  Lambda,
+  lambda,
   theta_diag,
   tau,
   Psi,
@@ -18,20 +18,20 @@ score_tirt_pattern(
 \arguments{
 \item{pattern}{Numeric vector of observed responses for one person, typically
 coded 0/1, with optional NA values for missing responses. Its order must
-match the row order of Lambda (or be pre-aligned before calling).}
+match the row order of lambda (or be pre-aligned before calling).}
 
-\item{Lambda}{Matrix of factor loadings with rows as observed indicators and
+\item{lambda}{Matrix of factor loadings with rows as observed indicators and
 columns as latent traits.}
 
 \item{theta_diag}{Numeric vector of residual variances (diagonal of theta),
-aligned to rows of Lambda.}
+aligned to rows of lambda.}
 
-\item{tau}{Numeric vector of thresholds, aligned to rows of Lambda.}
+\item{tau}{Numeric vector of thresholds, aligned to rows of lambda.}
 
 \item{Psi}{Latent covariance matrix (traits x traits), positive definite.}
 
 \item{nu}{Optional numeric vector of indicator intercepts aligned to rows of
-Lambda. If NULL, a zero vector is used.}
+lambda. If NULL, a zero vector is used.}
 
 \item{init}{Optional numeric vector of starting values for optimization.
 If NULL, starts at zeros.}
@@ -41,7 +41,7 @@ defaults reltol = 1e-10 and maxit = 500.}
 }
 \value{
 Named numeric vector of latent trait MAP estimates, with names taken
-from colnames(Lambda).
+from colnames(lambda).
 }
 \description{
 Computes the maximum a posteriori (MAP), also called empirical
@@ -57,6 +57,7 @@ prior on traits with covariance Psi. Optimization uses BFGS via optim
 with an analytic gradient.
 }
 \examples{
+#' \dontrun{
 library(thurstonianIRT)
 data("triplets")
 # define the blocks of items
@@ -78,9 +79,10 @@ triplets_long <- make_TIRT_data(
 fit <- fit_TIRT_lavaan(triplets_long)
 pars <- extract_tirt_params(fit)
 pattern<-as.numeric(triplets[1,])
-score_tirt_pattern(pattern,Lambda=pars$Lambda,theta_diag=pars$theta_diag,
+score_tirt_pattern(pattern,lambda=pars$lambda,theta_diag=pars$theta_diag,
                    tau=pars$tau,Psi=pars$Psi,nu=NULL,init=NULL,
                    control=list())
+}
 }
 \keyword{ebm}
 \keyword{irt}
