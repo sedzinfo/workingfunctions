@@ -2,31 +2,55 @@
 % Please edit documentation in R/GLM_ANOVA_PLOT.R
 \name{plot_oneway_diagnostics}
 \alias{plot_oneway_diagnostics}
-\title{Plot one way diagnostics}
+\title{Diagnostic plots for one-way ANOVA models}
 \usage{
 plot_oneway_diagnostics(df, dv, iv, base_size = 10)
 }
 \arguments{
-\item{df}{dataframe}
+\item{df}{A data frame containing both the independent and dependent
+variables.}
 
-\item{dv}{index of continous variables}
+\item{dv}{Integer vector of column indices for the continuous dependent
+variables.}
 
-\item{iv}{index of factors}
+\item{iv}{Integer vector of column indices for the categorical independent
+variables.}
 
-\item{base_size}{base font size}
+\item{base_size}{Base font size in pt passed to \code{theme_bw}. Default
+\code{10}.}
+}
+\value{
+A named list of ggplot objects (one 6-panel plot per IV-DV pair),
+  named \code{"iv_dv"}.
 }
 \description{
-Plot one way diagnostics
-}
-\note{
-Residuals vs Fitted should be equally spread horizontally otherwize the assumption of equality of variances is violated \cr
-Normal QQ should show values in the diagonal otherwise the assumption of normality is violated
+For every combination of independent variable (IV) and dependent
+  variable (DV), fits a linear model and produces a 6-panel diagnostic plot
+  via \code{ggfortify::autoplot}: Residuals vs Fitted, Normal Q-Q, Scale-Location,
+  Cook's Distance, Residuals vs Leverage, and Cook's Distance vs Leverage.
+
+  \strong{Interpretation:}
+  \itemize{
+    \item \emph{Residuals vs Fitted} — points should be randomly scattered
+      with no pattern; a funnel shape indicates heteroscedasticity.
+    \item \emph{Normal Q-Q} — points should follow the diagonal; large
+      deviations indicate non-normality.
+  }
+
+  When the number of IV-DV combinations exceeds four times the available CPU
+  cores the plots are produced in parallel via \code{future.apply}, otherwise
+  sequentially.
 }
 \examples{
-nrows=1000
-df<-data.frame(generate_factor(vector=LETTERS[1:5],nrows=nrows,ncols=10,type="random"),
-               generate_data(nrows=nrows,ncols=5,type="normal"))
-result<-plot_oneway_diagnostics(df=df,dv=11:15,iv=1:10)
-plot_oneway_diagnostics(df=mtcars,dv=1:2,iv=9:10)
+nrows <- 1000
+df <- data.frame(generate_factor(vector=LETTERS[1:5], nrows=nrows, ncols=10, type="random"),
+                 generate_data(nrows=nrows, ncols=5, type="normal"))
+result <- plot_oneway_diagnostics(df=df, dv=11:15, iv=1:10)
+
+# Single DV, multiple IVs
+plot_oneway_diagnostics(df=mtcars, dv=1, iv=9:10)
+
+# Multiple DVs and IVs
+plot_oneway_diagnostics(df=mtcars, dv=1:2, iv=9:10)
 }
 \keyword{ANOVA}

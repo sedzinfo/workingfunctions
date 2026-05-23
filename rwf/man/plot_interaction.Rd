@@ -2,7 +2,7 @@
 % Please edit documentation in R/GLM_ANOVA_PLOT.R
 \name{plot_interaction}
 \alias{plot_interaction}
-\title{Plot two way interaction graphs}
+\title{Plot two-way interaction graphs for all IV pair and DV combinations}
 \usage{
 plot_interaction(
   df,
@@ -16,36 +16,62 @@ plot_interaction(
 )
 }
 \arguments{
-\item{df}{dataframe}
+\item{df}{A data frame containing both the independent and dependent
+variables.}
 
-\item{dv}{index of continous variables}
+\item{dv}{Integer vector of column indices for the continuous dependent
+variables.}
 
-\item{iv}{index of factors}
+\item{iv}{Integer vector of column indices for the categorical independent
+variables. Columns are coerced to factors automatically.}
 
-\item{base_size}{base font size}
+\item{base_size}{Base font size in pt passed to \code{theme_bw}. Default
+\code{20}.}
 
-\item{type}{error bar type to display (1) "se" for standard error (2) "ci" for confidence interval (3) "sd" for standard deviation (4) "" for no error bar}
+\item{type}{Type of error bar to display. One of \code{"se"} (standard
+error), \code{"ci"} (95\% confidence interval), \code{"sd"} (standard
+deviation), or \code{""} (no error bars). Default \code{"se"}.}
 
-\item{order_factor}{if TRUE it will sort the categorical axis by the continous variable value}
+\item{order_factor}{Logical. If \code{TRUE} factor levels on the x-axis are
+sorted by the group mean of the DV (descending). Default \code{TRUE}.}
 
-\item{title}{plot title}
+\item{title}{Character. Plot title applied to every panel. Default \code{""}.}
 
-\item{note}{footnote}
+\item{note}{Character. Caption / footnote appended to every panel. Default
+\code{""}.}
+}
+\value{
+A named list with three elements:
+  \itemize{
+    \item \code{plot_data} — named list of summary data frames (one per
+      IV1-IV2-DV combination) as returned by \code{Rmisc::summarySE}.
+    \item \code{plot_data_df} — single data frame combining all summary
+      data frames row-wise.
+    \item \code{plots} — named list of ggplot objects (one per combination).
+  }
+  All list elements are named \code{"iv1_iv2_dv"}.
 }
 \description{
-Plot two way interaction graphs
+For every unique pair of independent variables (IV1 x IV2) and
+  every dependent variable (DV), produces a line-and-point interaction plot
+  with group means on the y-axis. IV1 levels appear on the x-axis (flipped)
+  and IV2 levels are represented by colour and line group. Optional error
+  bars and per-group sample size annotations are included.
+
+  When the number of combinations exceeds four times the available CPU cores
+  the plots are produced in parallel via \code{future.apply}, otherwise
+  sequentially.
 }
 \examples{
-nrows=1000
-df<-data.frame(generate_factor(vector=LETTERS[1:5],nrows=nrows,ncols=10,type="random"),
-               generate_data(nrows=nrows,ncols=5,type="normal"))
-#result<-plot_interaction(df=df,dv=11:15,iv=1:10)
-plot_interaction(df=mtcars,dv=2:3,iv=8:9,base_size=20,title="",type="se")
-plot_interaction(df=mtcars,dv=2,iv=8:9,base_size=20,title="",type="se")
-plot_interaction(df=mtcars,dv=2:3,iv=8:9,base_size=20,title="",type="ci")
-plot_interaction(df=mtcars,dv=2:3,iv=9:10,base_size=20,title="",type="ci")
-plot_interaction(df=mtcars,dv=2:3,iv=9:10,base_size=20,title="",type="sd")
-plot_interaction(df=mtcars,dv=2,iv=9:10,base_size=20,
-                 title="",type="",order_factor=FALSE)
+# Single DV, two IVs
+plot_interaction(df=mtcars, dv=2, iv=8:9, base_size=20, type="se")
+
+# Multiple DVs, two IVs
+plot_interaction(df=mtcars, dv=2:3, iv=8:9, base_size=20, type="se")
+plot_interaction(df=mtcars, dv=2:3, iv=8:9, base_size=20, type="ci")
+plot_interaction(df=mtcars, dv=2:3, iv=9:10, base_size=20, type="sd")
+
+# No error bars, unordered factor axis
+plot_interaction(df=mtcars, dv=2, iv=9:10, base_size=20, type="", order_factor=FALSE)
 }
 \keyword{ANOVA}

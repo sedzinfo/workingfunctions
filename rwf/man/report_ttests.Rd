@@ -7,11 +7,14 @@
 report_ttests(df, dv, iv, file = NULL, ...)
 }
 \arguments{
-\item{df}{dataframe}
+\item{df}{A data frame containing both the independent and dependent
+variables.}
 
-\item{dv}{index of continous variables}
+\item{dv}{Integer vector of column indices for the continuous dependent
+variables.}
 
-\item{iv}{index of factors}
+\item{iv}{Integer vector of column indices for the categorical independent
+variables.}
 
 \item{file}{output filename}
 

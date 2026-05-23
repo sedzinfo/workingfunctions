@@ -2,7 +2,7 @@
 % Please edit documentation in R/GLM_ANOVA_PLOT.R
 \name{plot_oneway}
 \alias{plot_oneway}
-\title{Plot means with standard error for every level in a dataframe}
+\title{Plot group means with error bars for all IV-DV combinations}
 \usage{
 plot_oneway(
   df,
@@ -17,40 +17,74 @@ plot_oneway(
 )
 }
 \arguments{
-\item{df}{dataframe}
+\item{df}{A data frame containing both the independent and dependent
+variables.}
 
-\item{dv}{index of continous variables}
+\item{dv}{Integer vector of column indices for the continuous dependent
+variables.}
 
-\item{iv}{index of factors}
+\item{iv}{Integer vector of column indices for the categorical independent
+variables. Columns are coerced to factors automatically.}
 
-\item{base_size}{base font size}
+\item{base_size}{Base font size in pt passed to \code{theme_bw}. Default
+\code{20}.}
 
-\item{type}{error bar type to display (1) "se" for standard error (2) "ci" for confidence interval (3) "sd" for standard deviation (4) "" for no error bar}
+\item{type}{Type of error bar to display. One of \code{"se"} (standard
+error), \code{"ci"} (95\% confidence interval), \code{"sd"} (standard
+deviation), or \code{""} (no error bars). Default \code{"se"}.}
 
-\item{order_factor}{if TRUE it will sort the categorical axis by the continous variable value}
+\item{order_factor}{Logical. If \code{TRUE} factor levels on the x-axis are
+sorted by the group mean of the DV (descending). Default \code{TRUE}.}
 
-\item{title}{plot title}
+\item{title}{Character. Plot title applied to every panel. Default \code{""}.}
 
-\item{note}{footnote}
+\item{note}{Character. Caption / footnote appended to every panel. Default
+\code{""}.}
 
-\item{width}{wrap width for x title}
+\item{width}{Integer. Character width at which long axis labels are wrapped.
+Default \code{60}.}
+}
+\value{
+A named list with three elements:
+  \itemize{
+    \item \code{plot_data} — named list of summary data frames (one per
+      IV-DV pair) as returned by \code{Rmisc::summarySE}.
+    \item \code{plot_data_df} — single data frame combining all summary
+      data frames row-wise.
+    \item \code{plots} — named list of ggplot objects (one per IV-DV pair).
+  }
+  All list elements are named \code{"iv_dv"}.
 }
 \description{
-Plot means with standard error for every level in a dataframe
+For every combination of independent variable (IV) and dependent
+  variable (DV) supplied, produces a horizontal dot plot of group means with
+  optional error bars (standard error, confidence interval, or standard
+  deviation). Sample size per group is annotated on each panel.
+
+  When the number of IV-DV combinations exceeds four times the available CPU
+  cores the plots are produced in parallel via \code{future.apply}, otherwise
+  sequentially.
 }
 \examples{
-nrows=1000
-df<-data.frame(generate_factor(vector=LETTERS[1:5],nrows=nrows,ncols=10,type="random"),
-               generate_data(nrows=nrows,ncols=5,type="normal"))
-result<-plot_oneway(df=df,dv=11:15,iv=1:10)
-plot_oneway(df=mtcars,dv=2,iv=9)
-plot_oneway(df=mtcars,dv=2,iv=9:10)
-plot_oneway(df=mtcars,dv=2:3,iv=10)
-plot_oneway(df=mtcars,dv=2:3,iv=9:10)
-plot_oneway(df=mtcars,dv=2:3,iv=9:10,type="se")
-plot_oneway(df=mtcars,dv=2:3,iv=9:10,type="ci")
-plot_oneway(df=mtcars,dv=2:3,iv=9:10,type="sd")
-plot_oneway(df=mtcars,dv=2:3,iv=9:10,type="",order_factor=FALSE)
-plot_oneway(df=mtcars,dv=2:3,iv=9:10,type="",order_factor=TRUE)
+nrows <- 1000
+df <- data.frame(generate_factor(vector=LETTERS[1:5], nrows=nrows, ncols=10, type="random"),
+                 generate_data(nrows=nrows, ncols=5, type="normal"))
+result <- plot_oneway(df=df, dv=11:15, iv=1:10)
+
+# Single IV, single DV
+plot_oneway(df=mtcars, dv=2, iv=9)
+
+# Multiple IVs and DVs
+plot_oneway(df=mtcars, dv=2:3, iv=9:10)
+
+# Error bar types
+plot_oneway(df=mtcars, dv=2:3, iv=9:10, type="se")
+plot_oneway(df=mtcars, dv=2:3, iv=9:10, type="ci")
+plot_oneway(df=mtcars, dv=2:3, iv=9:10, type="sd")
+plot_oneway(df=mtcars, dv=2:3, iv=9:10, type="")
+
+# Factor ordering
+plot_oneway(df=mtcars, dv=2:3, iv=9:10, type="", order_factor=FALSE)
+plot_oneway(df=mtcars, dv=2:3, iv=9:10, type="", order_factor=TRUE)
 }
 \keyword{ANOVA}
