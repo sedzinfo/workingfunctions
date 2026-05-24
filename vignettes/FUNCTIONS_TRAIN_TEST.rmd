@@ -5,7 +5,10 @@ output:
   html_document:
     css: styles.css
     toc: true
-    toc_depth: 2
+    toc_depth: 3
+    toc_float:
+      collapsed: false
+      smooth_scroll: true
     theme: readable
 vignette: >
   %\VignetteIndexEntry{FUNCTIONS TRAIN TEST}

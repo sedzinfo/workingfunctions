@@ -6,6 +6,9 @@ output:
     css: styles.css
     toc: true
     toc_depth: 2
+    toc_float:
+      collapsed: false
+      smooth_scroll: true
     theme: readable
 vignette: >
   %\VignetteIndexEntry{GLM_MEANS}
@@ -27,28 +30,48 @@ options(future.show.progress = FALSE)
 library(rwf)
 ```
 
-This shows the output of report_ttests and report_wtests functions from rwf.  
-Installation instructions for rwf can be found [here](https://github.com/sedzinfo/rwf)
+## Description
 
-These functions perform t tests and wilcoxon tests for all possible combinations of levels of the independent variables.
+This vignette demonstrates mean comparison functions from the `rwf` package — `report_ttests` and `report_wtests`. Both functions run pairwise comparisons across all combinations of independent variable levels and return a structured table with test statistics, effect sizes, confidence intervals, and Bonferroni-adjusted significance flags.
 
-# Data
-Format: A data frame with 19 rows and 7 variables:  
-age: Age of the individual  
-sex: Sex of the individual (e.g., male, female)  
-bmi: Body Mass Index of the individual  
-children: Number of children covered by the insurance  
-smoker: Smoking status (yes or no)  
-region: Region where the individual resides (e.g., southwest, southeast, northwest, northeast)  
-charges: Insurance charges  
-Source: researchpy repo  
+- Use `report_ttests` when data meet the normality assumption (parametric).
+- Use `report_wtests` when data are ordinal or normality cannot be assumed (non-parametric).
+
+Installation instructions for rwf can be found on the [rwf GitHub repository](https://github.com/sedzinfo/rwf)
+
+## Data
+
+The `df_insurance` dataset is used throughout this vignette. It contains insurance data for 1338 individuals with the following variables:
+
+Format: A data frame with 1338 rows and 7 variables:
+
+- **age**: Age of the individual
+- **sex**: Sex of the individual (male/female)
+- **bmi**: Body Mass Index
+- **children**: Number of children covered by the insurance
+- **smoker**: Smoking status (yes/no)
+- **region**: Region of residence (southwest, southeast, northwest, northeast)
+- **charges**: Medical insurance charges billed
+
+Source: researchpy repo
 
 ```{r, data}
 head(df_insurance)
 cdf(df_insurance)
 ```
 
-# T TEST
+## T-Test
+
+`report_ttests` runs independent-samples t-tests for all pairwise combinations of levels of the specified independent variable(s) against a dependent variable. When multiple IVs are provided, it tests all level combinations across variables.
+
+The calls below demonstrate the key options:
+
+- **Single IV** (`iv = 2`, sex): one pairwise comparison (male vs. female).
+- **Single IV** (`iv = 4`, children): pairwise comparisons across all child-count groups.
+- **Multiple IVs** (`iv = c(2,4)`): all combinations of sex and children levels tested simultaneously.
+- **`alternative`**: controls the direction of the hypothesis — `"two.sided"` (default), `"less"`, or `"greater"`.
+- **`var.equal = TRUE`**: uses Student's t-test assuming equal variances; default (`FALSE`) uses Welch's t-test which does not assume equal variances and is generally safer.
+
 ```{r, report_ttests}
 report_ttests(df=df_insurance,dv=7,iv=c(2))
 report_ttests(df=df_insurance,dv=7,iv=c(4))
@@ -94,7 +117,12 @@ report_ttests(df=df_insurance,dv=7,iv=c(2,4),var.equal=TRUE)
 |bonferroni_p        |bonferroni adjusted critical value for a=0.05|
 |significant         |if TRUE result is significant after bonferroni adjustment|
 
-# WILCOXON TEST
+## Wilcoxon Test
+
+`report_wtests` runs the Wilcoxon rank-sum test (Mann-Whitney U), the non-parametric equivalent of the independent-samples t-test. It makes no assumption about the distribution of the data and compares group medians via rank ordering. Use it when the normality assumption is violated or the outcome is ordinal.
+
+The calls mirror those in the T-Test section exactly, allowing direct comparison of parametric and non-parametric results on the same data. The key difference in the output is the **W statistic** (Wilcoxon rank-sum) in place of t, and the absence of pooled standard deviation as a meaningful quantity under rank-based testing.
+
 ```{r, report_wtests}
 report_wtests(df=df_insurance,dv=7,iv=c(2))
 report_wtests(df=df_insurance,dv=7,iv=c(4))

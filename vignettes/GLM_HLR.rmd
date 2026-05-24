@@ -1,34 +1,20 @@
 ---
-title: "HLR"
+title: "GLM HLR"
 author: "Dimitrios Zacharatos"
-output: rmarkdown::html_vignette
+output:
+  html_document:
+    css: styles.css
+    toc: true
+    toc_depth: 2
+    toc_float:
+      collapsed: false
+      smooth_scroll: true
+    theme: readable
 vignette: >
-  %\VignetteIndexEntry{HLR}
+  %\VignetteIndexEntry{GLM HLR}
   %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8}
 ---
-
-<style>
-body { max-width: 95%; margin: 0 auto; padding: 0; } 
-.container { width: 100%; max-width: none; } 
-/* Example for wider tables */ 
-table { width: 80%; table-layout: fixed; } 
-th, td { padding: 8px; text-align: left; } 
-/* Styling for input code */
-pre { 
-  background-color: #f4f4f4; /* Light gray background for input */
-  border-left: 5px solid #007ACC; /* Blue border */
-  padding: 10px;
-  font-size: 20px !important;
-}
-/* Styling for output */
-pre.r-output {
-  background-color: #e8f5e9; /* Light green background for output */
-  border-left: 5px solid #388E3C; /* Green border */
-  padding: 10px;
-  font-size: 15px !important;
-}
-</style>
 
 ```{r options,echo=FALSE,warning=FALSE,message=FALSE}
 options(future.show.progress=FALSE)
@@ -44,10 +30,26 @@ knitr::knit_hooks$set(output=hook_output)
 library(rwf)
 ```
 
-This shows the output of HLR function from rwf.  
-Installation instructions of rwf can be found here https://github.com/sedzinfo/rwf
+## Description
+
+This vignette demonstrates Hierarchical Linear Regression (HLR) using the `report_hlr` function from the `rwf` package. HLR builds regression models in sequential steps (blocks), adding predictors at each step. This lets you assess how much additional variance each new set of predictors explains beyond what earlier predictors already account for — measured as the change in R² (ΔR²).
+
+Installation instructions for rwf can be found on the [rwf GitHub repository](https://github.com/sedzinfo/rwf)
 
 ## Report HLR
+
+`report_hlr` fits a series of hierarchical regression models and returns a structured report with model fit statistics (R², adjusted R², F-change, ΔR²), standardized and unstandardized regression coefficients, and significance tests at each step.
+
+The example uses the built-in `infert` dataset, which records infertility after induced and spontaneous abortions. The arguments specify:
+
+- `df = infert`: the dataset.
+- `corlist = 8`: column index of the continuous predictor(s) to include.
+- `factorlist = 1`: column index of categorical predictor(s) treated as factors.
+- `predictor = "case"`: the outcome variable (case/control status).
+- `random_effect = "case"`: the variable used as a random effect in the mixed model comparison.
+
+The ΔR² column in the output tells you whether each block of predictors significantly improved model fit — a key quantity when building theoretically motivated regression models step by step.
+
 ```{r clear_text}
 result<-report_hlr(df=infert,corlist=8,factorlist=1,predictor="case",random_effect="case")
 result

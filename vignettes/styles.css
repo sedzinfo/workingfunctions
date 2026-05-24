@@ -45,8 +45,25 @@ pre.r-output {
 }
 
 /* Optional: Override common container restrictions */
-.main-container, .rmd-container { 
+.main-container, .rmd-container {
   width: 100% !important;
   max-width: 100% !important;
+}
+
+/* Wider floating TOC */
+#TOC {
+  width: 350px !important;
+}
+
+.tocify {
+  width: 350px !important;
+}
+
+.col-xs-12.col-sm-4.col-md-3 {
+  width: 350px !important;
+}
+
+.col-xs-12.col-sm-8.col-md-9 {
+  margin-left: 290px;
 }
 </style>
