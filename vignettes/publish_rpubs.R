@@ -17,7 +17,7 @@ library(rmarkdown)
 
 RPUBS_USER <- "sedzinfo"
 IDS_FILE   <- file.path(dirname(rstudioapi::getSourceEditorContext()$path), "rpubs_ids.rds")
-files      <- list.files(gsub("rpubs_ids.rds","",IDS_FILE),pattern=".rmd")
+files      <- list.files(gsub("/rpubs_ids.rds","",IDS_FILE),pattern=".rmd")
 
 DOCS<-list()
 for(i in files) {
@@ -69,6 +69,9 @@ claim_slug <- function(continue_url, slug, title) {
 rpubs_url <- function(slug) {
   paste0("https://rpubs.com/", RPUBS_USER, "/", slug)
 }
+
+# rsconnect uses the title as a .dcf filename; strip characters that become path separators.
+safe_title <- function(title) gsub('[/\\\\:*?"<>|]', "-", title)
 ##########################################################################################
 # PHASE 1: first publish
 ##########################################################################################
@@ -96,12 +99,12 @@ publish_first <- function(key, slug=NULL, title=NULL) {
   html   <- knit_to_html(rmd)
   
   cat("  Uploading HTML to RPubs...\n")
-  result <- rsconnect::rpubsUpload(title=title, htmlFile=html, id=NULL)
-  
+  result <- rsconnect::rpubsUpload(title=safe_title(title), contentFile=html, originalDoc=rmd, id=NULL)
+
   ids        <- load_ids()
   ids[[key]] <- result$id
   save_ids(ids)
-  
+
   cat("  Claiming slug:", slug, "...\n")
   ok <- claim_slug(result$continueUrl, slug=slug, title=title)
   
@@ -115,8 +118,8 @@ publish_first <- function(key, slug=NULL, title=NULL) {
   }
   
   invisible(list(id=result$id, url=rpubs_url(slug)))
+  return(result$id)
 }
-
 ##########################################################################################
 # PHASE 2: update an already-published document
 ##########################################################################################
@@ -137,7 +140,7 @@ publish_doc <- function(key, title=NULL) {
   cat("\n[", key, "]\n")
   html   <- knit_to_html(rmd)
   cat("  Updating RPubs (ID:", ids[[key]], ")...\n")
-  rsconnect::rpubsUpload(title=title, htmlFile=html, id=ids[[key]])
+  rsconnect::rpubsUpload(title=safe_title(title), contentFile=html, originalDoc=rmd, id=ids[[key]])
   cat("  Updated:", rpubs_url(doc$slug), "\n")
   invisible(rpubs_url(doc$slug))
 }
@@ -200,3 +203,12 @@ list_docs <- function() {
 #   https://rpubs.com/sedzinfo/nlp
 #   https://rpubs.com/sedzinfo/ocean
 ##########################################################################################
+
+for(i in names(DOCS)){
+  DOCS[[i]]$id<-publish_first(key=i)
+}
+
+
+
+
+
