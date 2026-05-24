@@ -52,15 +52,15 @@ pre.r-output {
 
 /* Wider floating TOC */
 #TOC {
-  width: 350px !important;
+  width: 280px !important;
 }
 
 .tocify {
-  width: 350px !important;
+  width: 280px !important;
 }
 
 .col-xs-12.col-sm-4.col-md-3 {
-  width: 350px !important;
+  width: 280px !important;
 }
 
 .col-xs-12.col-sm-8.col-md-9 {

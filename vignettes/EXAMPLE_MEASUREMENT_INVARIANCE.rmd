@@ -6,7 +6,13 @@ output:
     css: styles.css
     toc: true
     toc_depth: 2
+    toc_float:
+      collapsed: false
+      smooth_scroll: true
     theme: readable
+  pdf_document:
+    toc: true
+    toc_depth: '2'
 vignette: >
   %\VignetteIndexEntry{Measurement invariance}
   %\VignetteEngine{knitr::rmarkdown}
