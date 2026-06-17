@@ -2,17 +2,29 @@
 % Please edit documentation in R/GLM_RELIABILITY.R
 \name{mean_sd_alpha}
 \alias{mean_sd_alpha}
-\title{Mean and SD}
+\title{Mean and SD of scale scores}
 \usage{
 mean_sd_alpha(df, divisor = NULL)
 }
 \arguments{
-\item{df}{dataframe with one dimension}
+\item{df}{A data frame whose columns are the items of a single scale. All
+columns must be numeric.}
 
-\item{divisor}{number to use for dividing the rowsums}
+\item{divisor}{Numeric scalar used to divide the row sum before computing
+the mean and SD. When \code{NULL} (default) row means are used instead.}
+}
+\value{
+A one-row data frame with columns \code{MEAN} and \code{SD}
+  containing the mean and standard deviation of the scale scores across
+  respondents.
 }
 \description{
-Mean and SD
+Computes the mean and standard deviation of respondent scale
+  scores. When \code{divisor} is \code{NULL} the scale score is the row
+  mean across items. When \code{divisor} is supplied the scale score is the
+  row sum divided by \code{divisor}, which is useful when scores need to be
+  expressed on a custom metric (e.g. dividing a sum score by the maximum
+  possible score to obtain a proportion).
 }
 \examples{
 set.seed(12345)

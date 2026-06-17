@@ -2,22 +2,49 @@
 % Please edit documentation in R/EXPLORE_DESCRIPTIVES.R
 \name{compute_aggregate}
 \alias{compute_aggregate}
-\title{Descriptive statistics}
+\title{Aggregate descriptive statistics by group}
 \usage{
 compute_aggregate(df, iv, file = NULL)
 }
 \arguments{
-\item{df}{dataframe}
+\item{df}{A data frame containing the variables of interest. All numeric
+columns that are not listed in \code{iv} are summarised.}
 
-\item{iv}{index of independent variables}
+\item{iv}{Integer vector of column indices identifying the grouping
+variables used to stratify the output.}
 
-\item{file}{output filename}
+\item{file}{Character string naming the output Excel file (without
+extension). When \code{NULL} (default) no file is written.}
+}
+\value{
+A data frame in long format with one row per statistic per group
+  combination. The first column is \code{statistic} (see below), followed
+  by the grouping variable columns, and then one column per numeric
+  variable in \code{df}. The \code{statistic} column takes the following
+  values:
+  \describe{
+    \item{mean}{Arithmetic mean.}
+    \item{SD}{Standard deviation.}
+    \item{median}{Median.}
+    \item{mad}{Median absolute deviation.}
+    \item{trimmed mean}{50\% trimmed mean.}
+    \item{N}{Number of non-missing observations.}
+    \item{min}{Minimum observed value.}
+    \item{max}{Maximum observed value.}
+    \item{range}{Difference between maximum and minimum.}
+    \item{skewness}{Skewness; deviations from 0 indicate departure from symmetry.}
+    \item{kurtosis}{Excess kurtosis; deviations from 0 indicate departure from normality.}
+    \item{IQR}{Interquartile range (Q0.75 - Q0.25).}
+    \item{SE}{Standard error of the mean.}
+  }
 }
 \description{
-uses plyr
-}
-\details{
-returns xlsx
+Computes a comprehensive set of descriptive statistics for all
+  numeric columns in a data frame, stratified by one or more grouping
+  variables. Unlike \code{\link{compute_descriptives}}, this function
+  operates on every numeric column simultaneously and returns results in a
+  long format where each row corresponds to one statistic for one group
+  combination. Results can be exported to an Excel file.
 }
 \examples{
 compute_aggregate(df=mtcars,iv=9)

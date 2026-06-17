@@ -2,7 +2,7 @@
 % Please edit documentation in R/EXPLORE_DESCRIPTIVES.R
 \name{plot_response_frequencies}
 \alias{plot_response_frequencies}
-\title{Plot response frequencies}
+\title{Horizontal bar charts of response frequencies}
 \usage{
 plot_response_frequencies(
   df,
@@ -14,20 +14,34 @@ plot_response_frequencies(
 )
 }
 \arguments{
-\item{df}{dataframe}
+\item{df}{A data frame containing the variables to plot.}
 
-\item{factor_index}{index of factors}
+\item{factor_index}{Integer vector of column indices identifying the
+variables to plot.}
 
-\item{base_size}{base font size}
+\item{base_size}{Base font size passed to \code{theme_bw()}. Default is
+\code{10}.}
 
-\item{title}{plot title}
+\item{title}{Character string prepended to each plot title. Default is
+\code{""}.}
 
-\item{width}{Numeric, wrap width for x-axis title}
+\item{width}{Integer controlling the character wrap width applied to the
+variable name in the plot title. Default is \code{100}.}
 
-\item{reorder}{Logical, whether to reorder factors based on frequency}
+\item{reorder}{Logical. When \code{TRUE} bars are ordered by frequency in
+ascending order (longest bar at the top). When \code{FALSE} (default)
+the original level order is preserved.}
+}
+\value{
+A named list of \code{ggplot} objects, one per variable, named by
+  the column name. Each plot is a horizontal bar chart with counts on the
+  x-axis and total observations shown in the caption.
 }
 \description{
-Plot response frequencies
+Creates one horizontal bar chart per variable showing the
+  frequency count of each observed level. Missing values are excluded
+  before tabulation. Variables with no valid observations are silently
+  dropped from the output.
 }
 \examples{
 plot_response_frequencies(df=mtcars,factor_index=1:10)

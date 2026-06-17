@@ -7,19 +7,47 @@
 compute_descriptives(df, dv, iv = NULL, file = NULL)
 }
 \arguments{
-\item{df}{dataframe}
+\item{df}{A data frame containing the variables of interest.}
 
-\item{dv}{index of dependent variables}
+\item{dv}{Integer vector of column indices identifying the dependent
+(continuous) variables to summarise.}
 
-\item{iv}{index of independent variables}
+\item{iv}{Integer vector of column indices identifying the independent
+(grouping) variables used to stratify the output. When \code{NULL}
+(default) the statistics are computed on the full sample.}
 
-\item{file}{output filename}
+\item{file}{Character string naming the output Excel file (without
+extension). When \code{NULL} (default) no file is written.}
+}
+\value{
+A data frame with one row per variable (and per group level when
+  \code{iv} is supplied) containing the following columns:
+  \describe{
+    \item{factor}{Name of the grouping variable (\code{iv} only).}
+    \item{levels}{Level of the grouping variable (\code{iv} only).}
+    \item{variable}{Name of the dependent variable.}
+    \item{n}{Sample size (non-missing observations).}
+    \item{mean}{Arithmetic mean.}
+    \item{sd}{Standard deviation.}
+    \item{median}{Median.}
+    \item{trimmed}{10\% trimmed mean.}
+    \item{mad}{Median absolute deviation.}
+    \item{min}{Minimum observed value.}
+    \item{max}{Maximum observed value.}
+    \item{range}{Difference between maximum and minimum.}
+    \item{skew}{Skewness; deviations from 0 indicate departure from symmetry.}
+    \item{kurtosis}{Excess kurtosis; deviations from 0 indicate departure from normality.}
+    \item{se}{Standard error of the mean.}
+    \item{IQR}{Interquartile range (Q0.75 - Q0.25).}
+    \item{Q0.1, Q0.25, Q0.5, Q0.75, Q0.9}{Percentiles at 10, 25, 50, 75, and 90.}
+  }
 }
 \description{
-uses psych
-}
-\details{
-returns xlsx
+Computes a comprehensive set of descriptive statistics for one
+  or more continuous variables, optionally stratified by one or more
+  grouping (independent) variables. When \code{iv} is supplied the
+  statistics are computed separately for each combination of dependent and
+  independent variable levels. Results can be exported to an Excel file.
 }
 \examples{
 compute_descriptives(df=mtcars,dv=1:5)

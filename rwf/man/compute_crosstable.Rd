@@ -2,19 +2,42 @@
 % Please edit documentation in R/EXPLORE_DESCRIPTIVES.R
 \name{compute_crosstable}
 \alias{compute_crosstable}
-\title{Compute crosstables}
+\title{Pairwise cross-tabulation of categorical variables}
 \usage{
 compute_crosstable(df, factor_index = NULL, combinations = NULL)
 }
 \arguments{
-\item{df}{dataframe}
+\item{df}{A data frame containing the variables to cross-tabulate.}
 
-\item{factor_index}{index of factors}
+\item{factor_index}{Integer vector of column indices. When provided and
+\code{combinations} is \code{NULL}, all unique pairwise combinations of
+the selected columns are computed (self-pairs and duplicate pairs are
+excluded).}
 
-\item{combinations}{index of comparisons}
+\item{combinations}{A data frame with two character columns named
+\code{index1} and \code{index2}, each row specifying one variable pair to
+cross-tabulate. Takes precedence over \code{factor_index}.}
+}
+\value{
+A data frame with one row per combination of variable-pair levels,
+  containing the following columns:
+  \describe{
+    \item{f1}{Name of the first variable.}
+    \item{f2}{Name of the second variable.}
+    \item{l1}{Level of the first variable.}
+    \item{l2}{Level of the second variable.}
+    \item{Frequency}{Observed count for the \code{l1} × \code{l2} cell.}
+    \item{Percent}{Cell count as a percentage of all observations in that
+      variable pair (\code{Frequency / total * 100}).}
+  }
+  Variable pairs with zero total observations are silently dropped.
 }
 \description{
-Compute crosstables
+Computes contingency tables (frequency counts and percentages)
+  for pairs of categorical variables. Variable pairs can be supplied
+  explicitly via \code{combinations}, or all unique pairs within a set of
+  columns can be generated automatically via \code{factor_index}. A progress
+  bar is displayed during computation.
 }
 \examples{
 combinations<-data.frame(index1=c("vs","am","gear"),index2=c("cyl","cyl","cyl"))

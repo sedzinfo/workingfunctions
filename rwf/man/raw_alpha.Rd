@@ -2,15 +2,25 @@
 % Please edit documentation in R/GLM_RELIABILITY.R
 \name{raw_alpha}
 \alias{raw_alpha}
-\title{Raw alpha}
+\title{Cronbach's alpha (raw)}
 \usage{
 raw_alpha(df)
 }
 \arguments{
-\item{df}{dataframe with one dimension}
+\item{df}{A data frame whose columns are the items of a single scale. All
+columns must be numeric.}
+}
+\value{
+A single numeric value: Cronbach's alpha for the scale. Values above
+  0.70 are generally considered acceptable for research purposes.
 }
 \description{
-Raw alpha
+Computes Cronbach's alpha directly from the covariance matrix
+  of a unidimensional set of items using the formula
+  \eqn{\alpha = \frac{k}{k-1}\left(1 - \frac{\sum\text{diag}(\Sigma)}{\sum\Sigma}\right)},
+  where \eqn{k} is the number of items and \eqn{\Sigma} is the covariance
+  matrix. Pairwise complete observations are used so that missing data on
+  individual items does not discard entire rows.
 }
 \examples{
 set.seed(12345)

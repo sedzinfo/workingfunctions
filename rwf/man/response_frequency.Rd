@@ -2,7 +2,7 @@
 % Please edit documentation in R/EXPLORE_DESCRIPTIVES.R
 \name{response_frequency}
 \alias{response_frequency}
-\title{Response frequencies}
+\title{Response frequency table for ordinal or Likert-scale variables}
 \usage{
 response_frequency(
   df,
@@ -13,21 +13,48 @@ response_frequency(
 )
 }
 \arguments{
-\item{df}{dataframe}
+\item{df}{A data frame whose columns are the ordinal variables to tabulate.}
 
-\item{max}{maximum score}
+\item{max}{Integer. Maximum number of unique response options allowed before
+the function returns \code{NULL}. Use this to prevent accidentally
+tabulating continuous variables. Default is \code{10}.}
 
-\item{uniqueitems}{number of unique items}
+\item{uniqueitems}{Vector of all valid response values (e.g. \code{1:5} for
+a 5-point Likert scale). When \code{NULL} (default) the unique values
+observed in \code{df} are used.}
 
-\item{type}{"frequency" "proportion" "percent" "all"}
+\item{type}{Character string controlling the metric returned. One of
+\code{"frequency"} (raw counts), \code{"proportion"} (counts divided by
+valid responses), \code{"percent"} (proportion multiplied by 100, default),
+or \code{"all"} (all three metrics stacked row-wise).}
 
-\item{file}{output filename}
+\item{file}{Character string naming the output Excel file (without
+extension). When \code{NULL} (default) no file is written.}
+}
+\value{
+A data frame with one row per variable (three rows per variable when
+  \code{type = "all"}) containing the following columns:
+  \describe{
+    \item{type}{\code{"Frequency"}, \code{"Proportion"}, or \code{"Percent"}.}
+    \item{variable}{Name of the column from \code{df}.}
+    \item{(response columns)}{One column per value in \code{uniqueitems},
+      named by the response value, containing the frequency, proportion, or
+      percent of respondents who chose that category.}
+    \item{miss}{Observations with values outside \code{uniqueitems}. For
+      proportions this is the missing rate; for percent it is the missing
+      percentage.}
+    \item{responses}{Total number of valid (non-missing) responses.}
+  }
+  Returns \code{NULL} if the number of unique values exceeds \code{max}.
 }
 \description{
-returns count proportion percent
-}
-\details{
-returns dataframe
+Tabulates how often each response category was chosen for one
+  or more ordinal variables (e.g. Likert scale items). For each variable the
+  function returns the count, proportion, or percentage of respondents who
+  selected each response option, along with the number of missing or
+  out-of-range responses. The function is a guard against accidental use on
+  continuous variables: if the number of unique values exceeds \code{max} the
+  function returns \code{NULL}.
 }
 \examples{
 response_frequency(mtcars[,c("gear","carb")],uniqueitems=1:8,type="frequency")

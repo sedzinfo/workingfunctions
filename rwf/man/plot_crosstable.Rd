@@ -2,7 +2,7 @@
 % Please edit documentation in R/EXPLORE_DESCRIPTIVES.R
 \name{plot_crosstable}
 \alias{plot_crosstable}
-\title{Plot crosstables}
+\title{Bubble plots for pairwise cross-tabulations}
 \usage{
 plot_crosstable(
   df,
@@ -15,22 +15,42 @@ plot_crosstable(
 )
 }
 \arguments{
-\item{df}{dataframe}
+\item{df}{A data frame containing the variables to plot.}
 
-\item{factor_index}{index of factors}
+\item{factor_index}{Integer vector of column indices. When
+\code{combinations} is \code{NULL}, all unique pairwise combinations of
+the selected columns are plotted (self-pairs and duplicate pairs are
+excluded).}
 
-\item{combinations}{index of comparisons}
+\item{combinations}{A data frame with two character columns named
+\code{index1} and \code{index2}, each row specifying one variable pair to
+plot. Takes precedence over \code{factor_index}.}
 
-\item{shape}{shape of points}
+\item{shape}{Integer specifying the ggplot2 point shape. Default is
+\code{16} (filled circle).}
 
-\item{angle}{angle of xaxis labels}
+\item{angle}{Numeric angle (in degrees) for x-axis tick labels. Default is
+\code{0}.}
 
-\item{base_size}{base font size}
+\item{base_size}{Base font size passed to \code{theme_bw()}. Default is
+\code{10}.}
 
-\item{title}{plot title}
+\item{title}{Character string used as the plot title. Default is \code{""}.}
+}
+\value{
+A named list of \code{ggplot} objects, one per variable pair. Each
+  element is named \code{"var1_var2"} and shows a bubble chart with cell
+  frequency as the point size, frequency counts as text labels, and total
+  observations in the caption. Variable pairs with zero total observations
+  are silently dropped.
 }
 \description{
-Plot crosstables
+Creates a bubble (point) plot for each pair of categorical
+  variables where point size encodes cell frequency and point colour
+  encodes the levels of the first variable. Variable pairs can be supplied
+  explicitly via \code{combinations}, or generated automatically from all
+  unique pairs within \code{factor_index}. A progress bar is displayed
+  during computation.
 }
 \examples{
 combinations<-data.frame(index1=c("vs","am","gear"),index2=c("cyl","cyl","cyl"))

@@ -2,7 +2,7 @@
 % Please edit documentation in R/GLM_RELIABILITY.R
 \name{report_alpha}
 \alias{report_alpha}
-\title{Estimate alpha for several dimensions and export results to xlsx}
+\title{Cronbach's alpha reliability report for multiple scales}
 \usage{
 report_alpha(
   df,
@@ -16,24 +16,62 @@ report_alpha(
 )
 }
 \arguments{
-\item{df}{dataframe}
+\item{df}{A data frame containing all item columns.}
 
-\item{key}{index of trait names and items constituting a trait}
+\item{key}{A named list where each name is a scale label and each element
+is a character vector of item column names belonging to that scale,
+e.g. \code{list(f1 = c("X1","X2","X3"))}. When \code{NULL} (default)
+all columns in \code{df} are treated as a single scale named
+\code{"dimension"}.}
 
-\item{questions}{trait names and items constituting a trait}
+\item{questions}{A named list (same structure as \code{key}) of question
+label strings to append to item names in the output tables. When
+\code{NULL} (default) only column names are used.}
 
-\item{reverse}{index of trait names and index for reversal}
+\item{reverse}{A named list (same structure as \code{key}) of numeric sign
+vectors (\code{1} = keep, \code{-1} = reverse) passed to
+\code{psych::reverse.code()}. When \code{NULL} (default) no reversal is
+applied.}
 
-\item{mini}{minimum rating in scale if NULL reversal will be performed using the empirical minimum}
+\item{mini}{Numeric scalar specifying the minimum possible scale rating
+used for item reversal. When \code{NULL} (default) the empirical minimum
+is used.}
 
-\item{maxi}{maximum rating in scale if NULL reversal will be performed using the empirical maximum}
+\item{maxi}{Numeric scalar specifying the maximum possible scale rating
+used for item reversal. When \code{NULL} (default) the empirical maximum
+is used.}
 
-\item{file}{output filename}
+\item{file}{Character string naming the output Excel file (without
+extension). When \code{NULL} (default) no file is written. The workbook
+contains four sheets: total statistics, bootstrap CIs (if requested),
+item statistics, and alpha-if-item-removed.}
 
-\item{...}{arguments passed to psych::alpha}
+\item{...}{Additional arguments passed to \code{psych::alpha()}, such as
+\code{cumulative}, \code{n.iter} (bootstrap iterations), or
+\code{check.keys}.}
+}
+\value{
+A named list with the following elements:
+  \describe{
+    \item{result_total}{Scale-level statistics including raw alpha, standardised
+      alpha, Guttman's Lambda 6, average inter-item correlation, signal-to-noise
+      ratio, mean, SD, Kaiser criterion, and alpha classification.}
+    \item{result_boot}{Bootstrap confidence intervals for alpha (only populated
+      when \code{n.iter > 1} is passed via \code{...}).}
+    \item{result_item_statistics}{Item-level statistics including corrected and
+      uncorrected item-total correlations, item mean and SD, and response
+      frequencies.}
+    \item{result_dropped}{Alpha-if-item-removed statistics for each item within
+      each scale.}
+  }
 }
 \description{
-Uses an arbitrary input
+Computes Cronbach's alpha and a comprehensive set of
+  item-level reliability statistics for one or more scales using
+  \code{psych::alpha()}. Supports item reversal, bootstrap confidence
+  intervals, and optional Excel export. Scales are classified by their
+  alpha value (Unacceptable < 0.60, Acceptable 0.60–0.70, Good and
+  Acceptable 0.70–0.80, Good 0.80–0.90, Excellent > 0.90).
 }
 \examples{
 set.seed(12345)

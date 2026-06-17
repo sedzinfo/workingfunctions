@@ -2,15 +2,24 @@
 % Please edit documentation in R/GLM_RELIABILITY.R
 \name{key_to_cfa_model}
 \alias{key_to_cfa_model}
-\title{Converts key to cfa model spesification}
+\title{Convert a key list to a lavaan CFA model string}
 \usage{
 key_to_cfa_model(key)
 }
 \arguments{
-\item{key}{index of trait names and items constituring a trait}
+\item{key}{A named list where each name is a factor (trait) label and each
+element is a character vector of item column names belonging to that
+factor, e.g. \code{list(f1 = c("x1","x2","x3"), f2 = c("x4","x5","x6"))}.}
+}
+\value{
+A single character string containing the full lavaan model
+  specification with one factor definition per line.
 }
 \description{
-This function uses the key spesification used in report_alpha function and converts the key to a cfa model spesification
+Converts the named list key format used by
+  \code{\link{report_alpha}} into a lavaan model syntax string suitable for
+  passing directly to \code{lavaan::cfa()}. Each list element becomes one
+  factor definition line of the form \code{factorname =~ item1+item2+...}.
 }
 \examples{
 population_model<-'t1=~x1+.5*x2+.5*x3

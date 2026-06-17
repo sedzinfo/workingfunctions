@@ -2,17 +2,36 @@
 % Please edit documentation in R/GLM_RELIABILITY.R
 \name{extract_components}
 \alias{extract_components}
-\title{Extract variance components from model}
+\title{Extract and plot variance components from a mixed model}
 \usage{
 extract_components(model, title = "")
 }
 \arguments{
-\item{model}{model containing variance components}
+\item{model}{A mixed model object returned by \code{mixlm::lm()}. The model
+must include random effects specified with \code{r()} so that variance
+components are available via \code{mixlm::Anova()}.}
 
-\item{title}{plot title}
+\item{title}{Character string used as the plot title. Default is \code{""}.}
+}
+\value{
+A named list with two elements:
+  \describe{
+    \item{components}{A data frame with one row per variance component
+      containing columns \code{component} (effect name), \code{VC}
+      (estimated variance component), and \code{vc_percent} (percentage of
+      total absolute variance explained by that component).}
+    \item{plot}{A \code{ggplot} horizontal bar chart displaying
+      \code{vc_percent} for each component, with a line and points
+      overlaid to show the profile across components.}
+  }
 }
 \description{
-Extract variance components from model
+Extracts variance components from a mixed linear model fitted
+  with \code{mixlm::lm()} and computes each component's percentage
+  contribution to total variance. Results are returned as both a summary
+  data frame and a horizontal bar chart, making it easy to identify which
+  sources of variance (e.g. person, item, time, interactions) dominate the
+  measurement design.
 }
 \examples{
 design<-expand.grid(time=1:3,item=1:3,person=1:10)

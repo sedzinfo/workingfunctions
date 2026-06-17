@@ -2,22 +2,37 @@
 % Please edit documentation in R/EXPLORE_DESCRIPTIVES.R
 \name{compute_frequencies}
 \alias{compute_frequencies}
-\title{Frequencies by levels}
+\title{Frequency table for categorical variables}
 \usage{
 compute_frequencies(df, ordered = TRUE, file = NULL)
 }
 \arguments{
-\item{df}{dataframe}
+\item{df}{A data frame whose columns are the categorical variables to
+tabulate. All columns are processed regardless of class.}
 
-\item{ordered}{if TRUE it will output frequencies in descending order}
+\item{ordered}{Logical. When \code{TRUE} (default) the rows within each
+variable are sorted by frequency in descending order.}
 
-\item{file}{output filename}
+\item{file}{Character string naming the output Excel file (without
+extension). When \code{NULL} (default) no file is written.}
+}
+\value{
+A data frame in long format with one row per observed level per
+  variable, containing the following columns:
+  \describe{
+    \item{variable}{Name of the column from \code{df}.}
+    \item{Observation}{Observed level (category label).}
+    \item{Frequency}{Count of observations at that level.}
+    \item{Proportion}{Relative frequency (Frequency / total for that variable).}
+    \item{Percent}{Proportion multiplied by 100.}
+  }
 }
 \description{
-returns frequency proportion percent
-}
-\details{
-returns xlsx
+Computes frequency counts, proportions, and percentages for
+  every column in a data frame. All columns are processed together and the
+  results are stacked into a single long-format table. Missing values are
+  excluded from the frequency counts via \code{table()}. Results can be
+  exported to an Excel file.
 }
 \examples{
 compute_frequencies(df=generate_missing(generate_factor(nrows=10,ncols=10),missing=5))

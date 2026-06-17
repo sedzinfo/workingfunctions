@@ -2,12 +2,40 @@
 # DESCRIPTIVES
 ######################################################################20####################
 #' @title Descriptive statistics
-#' @description uses psych
-#' @details returns xlsx
-#' @param df dataframe
-#' @param dv index of dependent variables
-#' @param iv index of independent variables
-#' @param file output filename
+#' @description Computes a comprehensive set of descriptive statistics for one
+#'   or more continuous variables, optionally stratified by one or more
+#'   grouping (independent) variables. When \code{iv} is supplied the
+#'   statistics are computed separately for each combination of dependent and
+#'   independent variable levels. Results can be exported to an Excel file.
+#' @param df A data frame containing the variables of interest.
+#' @param dv Integer vector of column indices identifying the dependent
+#'   (continuous) variables to summarise.
+#' @param iv Integer vector of column indices identifying the independent
+#'   (grouping) variables used to stratify the output. When \code{NULL}
+#'   (default) the statistics are computed on the full sample.
+#' @param file Character string naming the output Excel file (without
+#'   extension). When \code{NULL} (default) no file is written.
+#' @return A data frame with one row per variable (and per group level when
+#'   \code{iv} is supplied) containing the following columns:
+#'   \describe{
+#'     \item{factor}{Name of the grouping variable (\code{iv} only).}
+#'     \item{levels}{Level of the grouping variable (\code{iv} only).}
+#'     \item{variable}{Name of the dependent variable.}
+#'     \item{n}{Sample size (non-missing observations).}
+#'     \item{mean}{Arithmetic mean.}
+#'     \item{sd}{Standard deviation.}
+#'     \item{median}{Median.}
+#'     \item{trimmed}{10\% trimmed mean.}
+#'     \item{mad}{Median absolute deviation.}
+#'     \item{min}{Minimum observed value.}
+#'     \item{max}{Maximum observed value.}
+#'     \item{range}{Difference between maximum and minimum.}
+#'     \item{skew}{Skewness; deviations from 0 indicate departure from symmetry.}
+#'     \item{kurtosis}{Excess kurtosis; deviations from 0 indicate departure from normality.}
+#'     \item{se}{Standard error of the mean.}
+#'     \item{IQR}{Interquartile range (Q0.75 - Q0.25).}
+#'     \item{Q0.1, Q0.25, Q0.5, Q0.75, Q0.9}{Percentiles at 10, 25, 50, 75, and 90.}
+#'   }
 #' @importFrom plyr rbind.fill
 #' @importFrom psych describe
 #' @keywords descriptives
@@ -68,12 +96,39 @@ compute_descriptives<-function(df,dv,iv=NULL,file=NULL) {
 ##########################################################################################
 # DESCRIPTIVES
 ##########################################################################################
-#' @title Descriptive statistics
-#' @description uses plyr
-#' @details returns xlsx
-#' @param df dataframe
-#' @param iv index of independent variables
-#' @param file output filename
+#' @title Aggregate descriptive statistics by group
+#' @description Computes a comprehensive set of descriptive statistics for all
+#'   numeric columns in a data frame, stratified by one or more grouping
+#'   variables. Unlike \code{\link{compute_descriptives}}, this function
+#'   operates on every numeric column simultaneously and returns results in a
+#'   long format where each row corresponds to one statistic for one group
+#'   combination. Results can be exported to an Excel file.
+#' @param df A data frame containing the variables of interest. All numeric
+#'   columns that are not listed in \code{iv} are summarised.
+#' @param iv Integer vector of column indices identifying the grouping
+#'   variables used to stratify the output.
+#' @param file Character string naming the output Excel file (without
+#'   extension). When \code{NULL} (default) no file is written.
+#' @return A data frame in long format with one row per statistic per group
+#'   combination. The first column is \code{statistic} (see below), followed
+#'   by the grouping variable columns, and then one column per numeric
+#'   variable in \code{df}. The \code{statistic} column takes the following
+#'   values:
+#'   \describe{
+#'     \item{mean}{Arithmetic mean.}
+#'     \item{SD}{Standard deviation.}
+#'     \item{median}{Median.}
+#'     \item{mad}{Median absolute deviation.}
+#'     \item{trimmed mean}{50\% trimmed mean.}
+#'     \item{N}{Number of non-missing observations.}
+#'     \item{min}{Minimum observed value.}
+#'     \item{max}{Maximum observed value.}
+#'     \item{range}{Difference between maximum and minimum.}
+#'     \item{skewness}{Skewness; deviations from 0 indicate departure from symmetry.}
+#'     \item{kurtosis}{Excess kurtosis; deviations from 0 indicate departure from normality.}
+#'     \item{IQR}{Interquartile range (Q0.75 - Q0.25).}
+#'     \item{SE}{Standard error of the mean.}
+#'   }
 #' @importFrom plyr ddply numcolwise
 #' @importFrom stats sd mad
 #' @keywords descriptives
@@ -108,12 +163,27 @@ compute_aggregate<-function(df,iv,file=NULL) {
 ##########################################################################################
 # FREQUENCIES
 ##########################################################################################
-#' @title Frequencies by levels
-#' @description returns frequency proportion percent
-#' @details returns xlsx
-#' @param df dataframe
-#' @param file output filename
-#' @param ordered if TRUE it will output frequencies in descending order
+#' @title Frequency table for categorical variables
+#' @description Computes frequency counts, proportions, and percentages for
+#'   every column in a data frame. All columns are processed together and the
+#'   results are stacked into a single long-format table. Missing values are
+#'   excluded from the frequency counts via \code{table()}. Results can be
+#'   exported to an Excel file.
+#' @param df A data frame whose columns are the categorical variables to
+#'   tabulate. All columns are processed regardless of class.
+#' @param ordered Logical. When \code{TRUE} (default) the rows within each
+#'   variable are sorted by frequency in descending order.
+#' @param file Character string naming the output Excel file (without
+#'   extension). When \code{NULL} (default) no file is written.
+#' @return A data frame in long format with one row per observed level per
+#'   variable, containing the following columns:
+#'   \describe{
+#'     \item{variable}{Name of the column from \code{df}.}
+#'     \item{Observation}{Observed level (category label).}
+#'     \item{Frequency}{Count of observations at that level.}
+#'     \item{Proportion}{Relative frequency (Frequency / total for that variable).}
+#'     \item{Percent}{Proportion multiplied by 100.}
+#'   }
 #' @importFrom plyr rbind.fill
 #' @keywords descriptives
 #' @export
@@ -143,14 +213,41 @@ compute_frequencies<-function(df,ordered=TRUE,file=NULL) {
 ##########################################################################################
 # RESPONSE FREQUENCIES
 ##########################################################################################
-#' @title Response frequencies
-#' @description returns count proportion percent
-#' @details returns dataframe
-#' @param df dataframe
-#' @param max maximum score
-#' @param uniqueitems number of unique items
-#' @param type "frequency" "proportion" "percent" "all"
-#' @param file output filename
+#' @title Response frequency table for ordinal or Likert-scale variables
+#' @description Tabulates how often each response category was chosen for one
+#'   or more ordinal variables (e.g. Likert scale items). For each variable the
+#'   function returns the count, proportion, or percentage of respondents who
+#'   selected each response option, along with the number of missing or
+#'   out-of-range responses. The function is a guard against accidental use on
+#'   continuous variables: if the number of unique values exceeds \code{max} the
+#'   function returns \code{NULL}.
+#' @param df A data frame whose columns are the ordinal variables to tabulate.
+#' @param max Integer. Maximum number of unique response options allowed before
+#'   the function returns \code{NULL}. Use this to prevent accidentally
+#'   tabulating continuous variables. Default is \code{10}.
+#' @param uniqueitems Vector of all valid response values (e.g. \code{1:5} for
+#'   a 5-point Likert scale). When \code{NULL} (default) the unique values
+#'   observed in \code{df} are used.
+#' @param type Character string controlling the metric returned. One of
+#'   \code{"frequency"} (raw counts), \code{"proportion"} (counts divided by
+#'   valid responses), \code{"percent"} (proportion multiplied by 100, default),
+#'   or \code{"all"} (all three metrics stacked row-wise).
+#' @param file Character string naming the output Excel file (without
+#'   extension). When \code{NULL} (default) no file is written.
+#' @return A data frame with one row per variable (three rows per variable when
+#'   \code{type = "all"}) containing the following columns:
+#'   \describe{
+#'     \item{type}{\code{"Frequency"}, \code{"Proportion"}, or \code{"Percent"}.}
+#'     \item{variable}{Name of the column from \code{df}.}
+#'     \item{(response columns)}{One column per value in \code{uniqueitems},
+#'       named by the response value, containing the frequency, proportion, or
+#'       percent of respondents who chose that category.}
+#'     \item{miss}{Observations with values outside \code{uniqueitems}. For
+#'       proportions this is the missing rate; for percent it is the missing
+#'       percentage.}
+#'     \item{responses}{Total number of valid (non-missing) responses.}
+#'   }
+#'   Returns \code{NULL} if the number of unique values exceeds \code{max}.
 #' @keywords descriptives
 #' @export
 #' @examples
@@ -197,10 +294,32 @@ response_frequency<-function(df,max=10,uniqueitems=NULL,type="percent",file=NULL
 ##########################################################################################
 # COMPUTE CROSSTABLE
 ##########################################################################################
-#' @title Compute crosstables
-#' @param df dataframe
-#' @param factor_index index of factors
-#' @param combinations index of comparisons
+#' @title Pairwise cross-tabulation of categorical variables
+#' @description Computes contingency tables (frequency counts and percentages)
+#'   for pairs of categorical variables. Variable pairs can be supplied
+#'   explicitly via \code{combinations}, or all unique pairs within a set of
+#'   columns can be generated automatically via \code{factor_index}. A progress
+#'   bar is displayed during computation.
+#' @param df A data frame containing the variables to cross-tabulate.
+#' @param factor_index Integer vector of column indices. When provided and
+#'   \code{combinations} is \code{NULL}, all unique pairwise combinations of
+#'   the selected columns are computed (self-pairs and duplicate pairs are
+#'   excluded).
+#' @param combinations A data frame with two character columns named
+#'   \code{index1} and \code{index2}, each row specifying one variable pair to
+#'   cross-tabulate. Takes precedence over \code{factor_index}.
+#' @return A data frame with one row per combination of variable-pair levels,
+#'   containing the following columns:
+#'   \describe{
+#'     \item{f1}{Name of the first variable.}
+#'     \item{f2}{Name of the second variable.}
+#'     \item{l1}{Level of the first variable.}
+#'     \item{l2}{Level of the second variable.}
+#'     \item{Frequency}{Observed count for the \code{l1} × \code{l2} cell.}
+#'     \item{Percent}{Cell count as a percentage of all observations in that
+#'       variable pair (\code{Frequency / total * 100}).}
+#'   }
+#'   Variable pairs with zero total observations are silently dropped.
 #' @keywords descriptives
 #' @export
 #' @examples
@@ -245,14 +364,33 @@ compute_crosstable<-function(df,factor_index=NULL,combinations=NULL) {
 ##########################################################################################
 # PLOT CROSSTABLE
 ##########################################################################################
-#' @title Plot crosstables
-#' @param df dataframe
-#' @param factor_index index of factors
-#' @param combinations index of comparisons
-#' @param shape shape of points
-#' @param angle angle of xaxis labels
-#' @param base_size base font size
-#' @param title plot title
+#' @title Bubble plots for pairwise cross-tabulations
+#' @description Creates a bubble (point) plot for each pair of categorical
+#'   variables where point size encodes cell frequency and point colour
+#'   encodes the levels of the first variable. Variable pairs can be supplied
+#'   explicitly via \code{combinations}, or generated automatically from all
+#'   unique pairs within \code{factor_index}. A progress bar is displayed
+#'   during computation.
+#' @param df A data frame containing the variables to plot.
+#' @param factor_index Integer vector of column indices. When
+#'   \code{combinations} is \code{NULL}, all unique pairwise combinations of
+#'   the selected columns are plotted (self-pairs and duplicate pairs are
+#'   excluded).
+#' @param combinations A data frame with two character columns named
+#'   \code{index1} and \code{index2}, each row specifying one variable pair to
+#'   plot. Takes precedence over \code{factor_index}.
+#' @param shape Integer specifying the ggplot2 point shape. Default is
+#'   \code{16} (filled circle).
+#' @param angle Numeric angle (in degrees) for x-axis tick labels. Default is
+#'   \code{0}.
+#' @param base_size Base font size passed to \code{theme_bw()}. Default is
+#'   \code{10}.
+#' @param title Character string used as the plot title. Default is \code{""}.
+#' @return A named list of \code{ggplot} objects, one per variable pair. Each
+#'   element is named \code{"var1_var2"} and shows a bubble chart with cell
+#'   frequency as the point size, frequency counts as text labels, and total
+#'   observations in the caption. Variable pairs with zero total observations
+#'   are silently dropped.
 #' @import ggplot2
 #' @keywords descriptives
 #' @export
@@ -294,11 +432,28 @@ plot_crosstable<-function(df,factor_index,combinations=NULL,shape=16,angle=0,bas
 ##########################################################################################
 # PLOT MOSAIC
 ##########################################################################################
-#' @title Plot mosaic plots
-#' @param df dataframe
-#' @param factor_index index of factors
-#' @param base_size base font size
-#' @param title plot title
+#' @title Mosaic plots for pairwise categorical variables
+#' @description Creates a mosaic plot for every ordered pair of categorical
+#'   variables within \code{factor_index}. In each plot, bar widths represent
+#'   the marginal proportion of the first variable and bar heights represent
+#'   the conditional proportion of the second variable given the first,
+#'   making it straightforward to assess both marginal distributions and
+#'   conditional relationships simultaneously. Rows with missing values are
+#'   excluded pair-wise. A progress bar is displayed during computation.
+#' @param df A data frame containing the variables to plot.
+#' @param factor_index Integer vector of column indices identifying the
+#'   categorical variables. All ordered pairs of distinct columns are plotted.
+#' @param base_size Base font size passed to \code{theme_bw()}. Default is
+#'   \code{10}.
+#' @param title Character string prepended to each plot title. Default is
+#'   \code{""}.
+#' @return A named list of \code{ggplot} objects, one per ordered variable
+#'   pair. Each element is named \code{"var1 var2"} and shows a mosaic chart
+#'   with bar widths proportional to the marginal distribution of \code{var1},
+#'   bar heights proportional to the conditional distribution of \code{var2}
+#'   given \code{var1}, and total complete-case observations in the caption.
+#'   Variables with fewer than two observed levels are handled gracefully by
+#'   adding a placeholder level.
 #' @import ggplot2
 #' @importFrom stats complete.cases na.omit
 #' @keywords descriptives
@@ -352,13 +507,26 @@ plot_mosaic<-function(df,factor_index,base_size=10,title="") {
 ##########################################################################################
 # PLOT RESPONSE FREQUENCY
 ##########################################################################################
-#' @title Plot response frequencies
-#' @param df dataframe
-#' @param factor_index index of factors
-#' @param base_size base font size
-#' @param title plot title
-#' @param width Numeric, wrap width for x-axis title
-#' @param reorder Logical, whether to reorder factors based on frequency
+#' @title Horizontal bar charts of response frequencies
+#' @description Creates one horizontal bar chart per variable showing the
+#'   frequency count of each observed level. Missing values are excluded
+#'   before tabulation. Variables with no valid observations are silently
+#'   dropped from the output.
+#' @param df A data frame containing the variables to plot.
+#' @param factor_index Integer vector of column indices identifying the
+#'   variables to plot.
+#' @param base_size Base font size passed to \code{theme_bw()}. Default is
+#'   \code{10}.
+#' @param title Character string prepended to each plot title. Default is
+#'   \code{""}.
+#' @param width Integer controlling the character wrap width applied to the
+#'   variable name in the plot title. Default is \code{100}.
+#' @param reorder Logical. When \code{TRUE} bars are ordered by frequency in
+#'   ascending order (longest bar at the top). When \code{FALSE} (default)
+#'   the original level order is preserved.
+#' @return A named list of \code{ggplot} objects, one per variable, named by
+#'   the column name. Each plot is a horizontal bar chart with counts on the
+#'   x-axis and total observations shown in the caption.
 #' @import ggplot2
 #' @importFrom stats reorder
 #' @keywords descriptives

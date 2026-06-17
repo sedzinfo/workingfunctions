@@ -2,23 +2,45 @@
 % Please edit documentation in R/GLM_RELIABILITY.R
 \name{plot_mtmm}
 \alias{plot_mtmm}
-\title{Plot multitrait multimethod matrix}
+\title{Multitrait-multimethod (MTMM) matrix plot}
 \usage{
 plot_mtmm(df, key, method, subject, title = "")
 }
 \arguments{
-\item{df}{dataframe}
+\item{df}{A data frame in long format where each row corresponds to one
+subject under one method. Item response columns must be present for all
+traits and methods.}
 
-\item{key}{List index of trait names and items constituring a trait}
+\item{key}{A named list mapping trait names to character vectors of item
+column names, e.g. \code{list(t1 = c("x1","x2","x3"), t2 = c("x4","x5","x6"))}.}
 
-\item{method}{name of dataframe collumn spesifying the method used for the row observed}
+\item{method}{Character string giving the name of the column that identifies
+the measurement method for each row.}
 
-\item{subject}{name of dataframe collumn spesifying subject id}
+\item{subject}{Character string giving the name of the column that identifies
+the subject (used to align scores across methods).}
 
-\item{title}{plot title}
+\item{title}{Character string appended to the plot title. Default is \code{""}.}
+}
+\value{
+A \code{ggplot} object showing a faceted tile plot where rows and
+  columns correspond to traits, facets correspond to method pairs, cell
+  values are correlations (or alpha on the diagonal), and fill colour
+  encodes one of four MTMM relationship types:
+  \describe{
+    \item{monotrait-monomethod (reliability)}{Same trait, same method — Cronbach's alpha.}
+    \item{monotrait-heteromethod (validity)}{Same trait, different methods — convergent validity.}
+    \item{heterotrait-monomethod}{Different traits, same method — discriminant validity within method.}
+    \item{heterotrait-heteromethod}{Different traits, different methods — discriminant validity across methods.}
+  }
 }
 \description{
-Plot multitrait multimethod matrix
+Visualises a Campbell-Fiske multitrait-multimethod matrix as a
+  faceted tile plot. For each trait-method combination the function computes
+  a scale score (row mean of items), calculates Cronbach's alpha (shown on
+  the diagonal), and correlates all scale scores across traits and methods.
+  Each cell is colour-coded by its MTMM classification, making it easy to
+  evaluate convergent and discriminant validity at a glance.
 }
 \examples{
 population_model<-'t1=~x1+.9*x2+.9*x3

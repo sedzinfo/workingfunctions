@@ -1,12 +1,33 @@
 ##########################################################################################
 # PLOT MTMM
 ##########################################################################################
-#' @title Plot multitrait multimethod matrix
-#' @param df dataframe
-#' @param key List index of trait names and items constituring a trait
-#' @param method name of dataframe collumn spesifying the method used for the row observed
-#' @param subject name of dataframe collumn spesifying subject id
-#' @param title plot title
+#' @title Multitrait-multimethod (MTMM) matrix plot
+#' @description Visualises a Campbell-Fiske multitrait-multimethod matrix as a
+#'   faceted tile plot. For each trait-method combination the function computes
+#'   a scale score (row mean of items), calculates Cronbach's alpha (shown on
+#'   the diagonal), and correlates all scale scores across traits and methods.
+#'   Each cell is colour-coded by its MTMM classification, making it easy to
+#'   evaluate convergent and discriminant validity at a glance.
+#' @param df A data frame in long format where each row corresponds to one
+#'   subject under one method. Item response columns must be present for all
+#'   traits and methods.
+#' @param key A named list mapping trait names to character vectors of item
+#'   column names, e.g. \code{list(t1 = c("x1","x2","x3"), t2 = c("x4","x5","x6"))}.
+#' @param method Character string giving the name of the column that identifies
+#'   the measurement method for each row.
+#' @param subject Character string giving the name of the column that identifies
+#'   the subject (used to align scores across methods).
+#' @param title Character string appended to the plot title. Default is \code{""}.
+#' @return A \code{ggplot} object showing a faceted tile plot where rows and
+#'   columns correspond to traits, facets correspond to method pairs, cell
+#'   values are correlations (or alpha on the diagonal), and fill colour
+#'   encodes one of four MTMM relationship types:
+#'   \describe{
+#'     \item{monotrait-monomethod (reliability)}{Same trait, same method — Cronbach's alpha.}
+#'     \item{monotrait-heteromethod (validity)}{Same trait, different methods — convergent validity.}
+#'     \item{heterotrait-monomethod}{Different traits, same method — discriminant validity within method.}
+#'     \item{heterotrait-heteromethod}{Different traits, different methods — discriminant validity across methods.}
+#'   }
 #' @importFrom stats cor
 #' @importFrom reshape2 melt
 #' @importFrom stringr str_split_fixed str_replace
@@ -74,9 +95,16 @@ plot_mtmm<-function(df,key,method,subject,title="") {
 ##########################################################################################
 # KEY TO CFA MODEL
 ##########################################################################################
-#' @title Converts key to cfa model spesification
-#' @description This function uses the key spesification used in report_alpha function and converts the key to a cfa model spesification
-#' @param key index of trait names and items constituring a trait
+#' @title Convert a key list to a lavaan CFA model string
+#' @description Converts the named list key format used by
+#'   \code{\link{report_alpha}} into a lavaan model syntax string suitable for
+#'   passing directly to \code{lavaan::cfa()}. Each list element becomes one
+#'   factor definition line of the form \code{factorname =~ item1+item2+...}.
+#' @param key A named list where each name is a factor (trait) label and each
+#'   element is a character vector of item column names belonging to that
+#'   factor, e.g. \code{list(f1 = c("x1","x2","x3"), f2 = c("x4","x5","x6"))}.
+#' @return A single character string containing the full lavaan model
+#'   specification with one factor definition per line.
 #' @keywords reliability
 #' @export
 #' @examples 
@@ -98,8 +126,17 @@ key_to_cfa_model<-function(key) {
 ##########################################################################################
 # ALPHA
 ##########################################################################################
-#' @title Raw alpha
-#' @param df dataframe with one dimension
+#' @title Cronbach's alpha (raw)
+#' @description Computes Cronbach's alpha directly from the covariance matrix
+#'   of a unidimensional set of items using the formula
+#'   \eqn{\alpha = \frac{k}{k-1}\left(1 - \frac{\sum\text{diag}(\Sigma)}{\sum\Sigma}\right)},
+#'   where \eqn{k} is the number of items and \eqn{\Sigma} is the covariance
+#'   matrix. Pairwise complete observations are used so that missing data on
+#'   individual items does not discard entire rows.
+#' @param df A data frame whose columns are the items of a single scale. All
+#'   columns must be numeric.
+#' @return A single numeric value: Cronbach's alpha for the scale. Values above
+#'   0.70 are generally considered acceptable for research purposes.
 #' @importFrom stats cov
 #' @keywords reliability
 #' @export
@@ -175,9 +212,19 @@ alpha_diagnostics<-function(df) {
 ##########################################################################################
 # MEAN SD
 ##########################################################################################
-#' @title Mean and SD
+#' @title Mean and SD of scale scores
+#' @description Computes the mean and standard deviation of respondent scale
+#'   scores. When \code{divisor} is \code{NULL} the scale score is the row
+#'   mean across items. When \code{divisor} is supplied the scale score is the
+#'   row sum divided by \code{divisor}, which is useful when scores need to be
+#'   expressed on a custom metric (e.g. dividing a sum score by the maximum
+#'   possible score to obtain a proportion).
 #' @inheritParams raw_alpha
-#' @param divisor number to use for dividing the rowsums
+#' @param divisor Numeric scalar used to divide the row sum before computing
+#'   the mean and SD. When \code{NULL} (default) row means are used instead.
+#' @return A one-row data frame with columns \code{MEAN} and \code{SD}
+#'   containing the mean and standard deviation of the scale scores across
+#'   respondents.
 #' @keywords reliability
 #' @export
 #' @examples
@@ -190,24 +237,62 @@ alpha_diagnostics<-function(df) {
 #' mean_sd_alpha(df,divisor=100)
 mean_sd_alpha<-function(df,divisor=NULL) {
   if(is.null(divisor))
-    result<-data.frame(MEAN=mean(rowMeans(df,na.rm=TRUE),na.rm=TRUE),SD=stats::sd(rowMeans(df,na.rm=TRUE),na.rm=TRUE))
+    result<-data.frame(MEAN=mean(rowMeans(df,na.rm=TRUE),na.rm=TRUE),
+                       SD=stats::sd(rowMeans(df,na.rm=TRUE),na.rm=TRUE))
   else
-    result<-data.frame(Mean=mean(rowSums(df,na.rm=TRUE)/divisor,na.rm=TRUE),SD=stats::sd(rowSums(df,na.rm=TRUE)/divisor,na.rm=TRUE))
+    result<-data.frame(Mean=mean(rowSums(df,na.rm=TRUE)/divisor,na.rm=TRUE),
+                       SD=stats::sd(rowSums(df,na.rm=TRUE)/divisor,na.rm=TRUE))
   return(result)
 }
 ##########################################################################################
 # ALPHA OUTPUT
 ##########################################################################################
-#' @title Estimate alpha for several dimensions and export results to xlsx
-#' @description Uses an arbitrary input
-#' @param df dataframe 
-#' @param key index of trait names and items constituting a trait
-#' @param questions trait names and items constituting a trait
-#' @param reverse index of trait names and index for reversal
-#' @param mini minimum rating in scale if NULL reversal will be performed using the empirical minimum
-#' @param maxi maximum rating in scale if NULL reversal will be performed using the empirical maximum
-#' @param file output filename
-#' @param ... arguments passed to psych::alpha
+#' @title Cronbach's alpha reliability report for multiple scales
+#' @description Computes Cronbach's alpha and a comprehensive set of
+#'   item-level reliability statistics for one or more scales using
+#'   \code{psych::alpha()}. Supports item reversal, bootstrap confidence
+#'   intervals, and optional Excel export. Scales are classified by their
+#'   alpha value (Unacceptable < 0.60, Acceptable 0.60–0.70, Good and
+#'   Acceptable 0.70–0.80, Good 0.80–0.90, Excellent > 0.90).
+#' @param df A data frame containing all item columns.
+#' @param key A named list where each name is a scale label and each element
+#'   is a character vector of item column names belonging to that scale,
+#'   e.g. \code{list(f1 = c("X1","X2","X3"))}. When \code{NULL} (default)
+#'   all columns in \code{df} are treated as a single scale named
+#'   \code{"dimension"}.
+#' @param questions A named list (same structure as \code{key}) of question
+#'   label strings to append to item names in the output tables. When
+#'   \code{NULL} (default) only column names are used.
+#' @param reverse A named list (same structure as \code{key}) of numeric sign
+#'   vectors (\code{1} = keep, \code{-1} = reverse) passed to
+#'   \code{psych::reverse.code()}. When \code{NULL} (default) no reversal is
+#'   applied.
+#' @param mini Numeric scalar specifying the minimum possible scale rating
+#'   used for item reversal. When \code{NULL} (default) the empirical minimum
+#'   is used.
+#' @param maxi Numeric scalar specifying the maximum possible scale rating
+#'   used for item reversal. When \code{NULL} (default) the empirical maximum
+#'   is used.
+#' @param file Character string naming the output Excel file (without
+#'   extension). When \code{NULL} (default) no file is written. The workbook
+#'   contains four sheets: total statistics, bootstrap CIs (if requested),
+#'   item statistics, and alpha-if-item-removed.
+#' @param ... Additional arguments passed to \code{psych::alpha()}, such as
+#'   \code{cumulative}, \code{n.iter} (bootstrap iterations), or
+#'   \code{check.keys}.
+#' @return A named list with the following elements:
+#'   \describe{
+#'     \item{result_total}{Scale-level statistics including raw alpha, standardised
+#'       alpha, Guttman's Lambda 6, average inter-item correlation, signal-to-noise
+#'       ratio, mean, SD, Kaiser criterion, and alpha classification.}
+#'     \item{result_boot}{Bootstrap confidence intervals for alpha (only populated
+#'       when \code{n.iter > 1} is passed via \code{...}).}
+#'     \item{result_item_statistics}{Item-level statistics including corrected and
+#'       uncorrected item-total correlations, item mean and SD, and response
+#'       frequencies.}
+#'     \item{result_dropped}{Alpha-if-item-removed statistics for each item within
+#'       each scale.}
+#'   }
 #' @keywords reliability
 #' @export
 #' @examples
@@ -368,9 +453,27 @@ report_alpha<-function(df,key=NULL,questions=NULL,reverse=NULL,mini=NULL,maxi=NU
 ##########################################################################################
 # EXTRACT COMPONENTS
 ##########################################################################################
-#' @title Extract variance components from model
-#' @param model model containing variance components
-#' @param title plot title
+#' @title Extract and plot variance components from a mixed model
+#' @description Extracts variance components from a mixed linear model fitted
+#'   with \code{mixlm::lm()} and computes each component's percentage
+#'   contribution to total variance. Results are returned as both a summary
+#'   data frame and a horizontal bar chart, making it easy to identify which
+#'   sources of variance (e.g. person, item, time, interactions) dominate the
+#'   measurement design.
+#' @param model A mixed model object returned by \code{mixlm::lm()}. The model
+#'   must include random effects specified with \code{r()} so that variance
+#'   components are available via \code{mixlm::Anova()}.
+#' @param title Character string used as the plot title. Default is \code{""}.
+#' @return A named list with two elements:
+#'   \describe{
+#'     \item{components}{A data frame with one row per variance component
+#'       containing columns \code{component} (effect name), \code{VC}
+#'       (estimated variance component), and \code{vc_percent} (percentage of
+#'       total absolute variance explained by that component).}
+#'     \item{plot}{A \code{ggplot} horizontal bar chart displaying
+#'       \code{vc_percent} for each component, with a line and points
+#'       overlaid to show the profile across components.}
+#'   }
 #' @import ggplot2
 #' @keywords reliability
 #' @export
@@ -384,9 +487,12 @@ extract_components<-function(model,title="") {
   vc_percent<-NULL
   res<-mixlm::Anova(model,type="III")
   name_components<-row.names(res$anova)
-  components<-data.frame(component=name_components,VC=res$var.comps,vc_percent=abs(res$var.comps)/sum(abs(res$var.comps),na.rm=TRUE)*100)
+  components<-data.frame(component=name_components,
+                         VC=res$var.comps,
+                         vc_percent=abs(res$var.comps)/sum(abs(res$var.comps),na.rm=TRUE)*100)
   component<-components
-  components$component<-factor(as.character(components$component),levels=as.character(components$component))
+  components$component<-factor(as.character(components$component),
+                               levels=as.character(components$component))
   component_plot<-ggplot(components,aes(x=component,y=vc_percent))+
     geom_bar(stat='identity')+
     geom_line(group=1,color="gray25")+
@@ -400,14 +506,32 @@ extract_components<-function(model,title="") {
 ##########################################################################################
 # SHROUT RELIABILITY
 ##########################################################################################
-#' @title Shrout reliability
-#' @param sperson variance component of participant
-#' @param spersonitem variance component of participant by item interaction
-#' @param stime variance component of time
-#' @param spersontime variance component of participant by time interaction
-#' @param serror variance component of error
-#' @param m m item reports
-#' @param k k time points
+#' @title Shrout-Fleiss reliability coefficients
+#' @description Computes five reliability coefficients from the Shrout and
+#'   Fleiss (1979) framework using variance components extracted from a
+#'   person × item × time mixed model (see \code{\link{extract_components}}).
+#'   The coefficients cover between-person and within-person reliability under
+#'   both fixed and random time designs, and are appropriate for longitudinal
+#'   or repeated-measures measurement studies.
+#' @param sperson Variance component of the person main effect.
+#' @param spersonitem Variance component of the person × item interaction.
+#' @param stime Variance component of the time main effect.
+#' @param spersontime Variance component of the person × time interaction.
+#' @param serror Variance component of residual error.
+#' @param m Number of items (reports) averaged over.
+#' @param k Number of time points averaged over.
+#' @return A data frame with one row per reliability coefficient containing
+#'   columns \code{measure}, \code{result}, and \code{description}:
+#'   \describe{
+#'     \item{r1f}{Between-person reliability of a single measure at fixed time points.}
+#'     \item{r1r}{Between-person reliability of a single measure at random time points (different people, different days).}
+#'     \item{rkf}{Between-person reliability of scores averaged over \code{m} items and \code{k} fixed time points.}
+#'     \item{rkr}{Between-person reliability of scores averaged over \code{k} random time points.}
+#'     \item{rc}{Within-person reliability of change across time points.}
+#'   }
+#' @references Shrout, P. E., & Fleiss, J. L. (1979). Intraclass correlations:
+#'   Uses in assessing rater reliability. \emph{Psychological Bulletin, 86}(2),
+#'   420–428.
 #' @keywords reliability
 #' @export
 #' @examples 

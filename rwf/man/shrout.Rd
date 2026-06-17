@@ -2,27 +2,43 @@
 % Please edit documentation in R/GLM_RELIABILITY.R
 \name{shrout}
 \alias{shrout}
-\title{Shrout reliability}
+\title{Shrout-Fleiss reliability coefficients}
 \usage{
 shrout(sperson, spersonitem, stime, spersontime, serror, m, k)
 }
 \arguments{
-\item{sperson}{variance component of participant}
+\item{sperson}{Variance component of the person main effect.}
 
-\item{spersonitem}{variance component of participant by item interaction}
+\item{spersonitem}{Variance component of the person × item interaction.}
 
-\item{stime}{variance component of time}
+\item{stime}{Variance component of the time main effect.}
 
-\item{spersontime}{variance component of participant by time interaction}
+\item{spersontime}{Variance component of the person × time interaction.}
 
-\item{serror}{variance component of error}
+\item{serror}{Variance component of residual error.}
 
-\item{m}{m item reports}
+\item{m}{Number of items (reports) averaged over.}
 
-\item{k}{k time points}
+\item{k}{Number of time points averaged over.}
+}
+\value{
+A data frame with one row per reliability coefficient containing
+  columns \code{measure}, \code{result}, and \code{description}:
+  \describe{
+    \item{r1f}{Between-person reliability of a single measure at fixed time points.}
+    \item{r1r}{Between-person reliability of a single measure at random time points (different people, different days).}
+    \item{rkf}{Between-person reliability of scores averaged over \code{m} items and \code{k} fixed time points.}
+    \item{rkr}{Between-person reliability of scores averaged over \code{k} random time points.}
+    \item{rc}{Within-person reliability of change across time points.}
+  }
 }
 \description{
-Shrout reliability
+Computes five reliability coefficients from the Shrout and
+  Fleiss (1979) framework using variance components extracted from a
+  person × item × time mixed model (see \code{\link{extract_components}}).
+  The coefficients cover between-person and within-person reliability under
+  both fixed and random time designs, and are appropriate for longitudinal
+  or repeated-measures measurement studies.
 }
 \examples{
 design<-expand.grid(time=1:3,item=1:2,person=1:10)
@@ -33,5 +49,10 @@ result<-extract_components(model)
 vc<-result$components
 shrout(sperson=vc[2,3],spersonitem=vc[5,3],stime=vc[1,3],
        spersontime=vc[4,3],serror=vc[6,3],3,3)
+}
+\references{
+Shrout, P. E., & Fleiss, J. L. (1979). Intraclass correlations:
+  Uses in assessing rater reliability. \emph{Psychological Bulletin, 86}(2),
+  420–428.
 }
 \keyword{reliability}
