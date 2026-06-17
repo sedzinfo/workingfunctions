@@ -2,15 +2,27 @@
 % Please edit documentation in R/FUNCTIONS.R
 \name{dotnames}
 \alias{dotnames}
-\title{Get the names of objects in the arguments}
+\title{Pad a data frame to a target number of rows with NAs}
 \usage{
 dotnames(...)
 }
 \arguments{
-\item{...}{objects}
+\item{df}{A data frame to pad.}
+
+\item{rowsneeded}{Integer target row count. Must be greater than or equal
+to \code{nrow(df)}.}
+
+\item{first}{Logical. When \code{TRUE} (default) \code{NA} rows are
+appended at the bottom; when \code{FALSE} they are prepended at the top.}
+}
+\value{
+A data frame with \code{rowsneeded} rows and the same columns as
+  \code{df}.
 }
 \description{
-Get the names of objects in the arguments
+Extends a data frame to \code{rowsneeded} rows by appending
+  (or prepending) \code{NA}-filled rows. Internal helper used by
+  \code{\link{c_bind}}.
 }
 \author{
 Ananda Mahto

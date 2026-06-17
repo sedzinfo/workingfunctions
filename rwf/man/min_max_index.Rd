@@ -2,15 +2,25 @@
 % Please edit documentation in R/FUNCTIONS.R
 \name{min_max_index}
 \alias{min_max_index}
-\title{Return the minimum and maximum index of a vector}
+\title{Indices of the minimum and maximum values in a vector}
 \usage{
 min_max_index(vector)
 }
 \arguments{
-\item{vector}{Vector}
+\item{vector}{A numeric vector.}
+}
+\value{
+A named list with two elements:
+  \describe{
+    \item{max_index}{Integer vector of positions where the maximum value
+      occurs.}
+    \item{min_index}{Integer vector of positions where the minimum value
+      occurs.}
+  }
 }
 \description{
-Return the minimum and maximum index of a vector
+Returns the positions of the minimum and maximum values in a
+  vector. When there are ties all tied positions are returned.
 }
 \examples{
 vector1<-c(1,2,3,4,5,4,3,2,1)

@@ -2,24 +2,42 @@
 % Please edit documentation in R/EXPLORE_TIME_SERIES.R
 \name{plot_acf}
 \alias{plot_acf}
-\title{Plot autocorrelation function of correlation covariance and partial correlation}
+\title{Autocorrelation, autocovariance, and partial autocorrelation plot}
 \usage{
 plot_acf(df, lag.max = length(df), base_size = 10, title = "")
 }
 \arguments{
-\item{df}{ts object}
+\item{df}{A \code{ts} object containing the time series to analyse.}
 
-\item{lag.max}{maximum lags to include}
+\item{lag.max}{Integer specifying the maximum number of lags to compute.
+Default is \code{length(df)} (all possible lags).}
 
-\item{base_size}{base font size}
+\item{base_size}{Base font size passed to \code{theme_bw()}. Default is
+\code{10}.}
 
-\item{title}{plot title}
+\item{title}{Character string used as the plot title. Default is \code{""}.}
+}
+\value{
+A \code{ggplot} object with three free-scale facets:
+  \describe{
+    \item{Correlation}{Autocorrelation function — measures linear dependence
+      between the series and its own lagged values.}
+    \item{Covariance}{Autocovariance function — the un-normalised version of
+      the ACF.}
+    \item{Partial.Correlation}{Partial autocorrelation function — correlation
+      at each lag after removing the effect of shorter lags, useful for
+      identifying AR model order.}
+  }
+  Each facet includes dashed horizontal lines for the 95\% CI lower bound
+  (blue), mean (black), and upper bound (blue).
 }
 \description{
-uses ggplot
-}
-\details{
-returns plot
+Produces a faceted ggplot2 chart showing the autocorrelation
+  function (ACF), autocovariance function, and partial autocorrelation
+  function (PACF) of a time series side by side. Each facet includes dashed
+  95\% confidence interval lines computed from the distribution of the ACF
+  values, making it easy to identify significant lags and seasonal patterns.
+  Missing values are excluded via \code{na.action = stats::na.exclude}.
 }
 \examples{
 ts_data<-ts(UKDriverDeaths,start=1969,end=1984,frequency=12)

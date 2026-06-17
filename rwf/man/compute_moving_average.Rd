@@ -2,17 +2,28 @@
 % Please edit documentation in R/EXPLORE_TIME_SERIES.R
 \name{compute_moving_average}
 \alias{compute_moving_average}
-\title{Moving Average}
+\title{Centered moving average}
 \usage{
 compute_moving_average(df, w)
 }
 \arguments{
-\item{df}{dataframe}
+\item{df}{A data frame whose columns will be smoothed. All columns should
+be numeric.}
 
-\item{w}{window}
+\item{w}{Integer half-window size. The total window width is \code{2w + 1}.
+For example, \code{w = 5} averages 11 consecutive rows centred on each
+observation.}
+}
+\value{
+A data frame with the same dimensions and column names as \code{df}
+  where each value has been replaced by its centred moving average.
 }
 \description{
-compute moving average
+Smooths every numeric column of a data frame by replacing each
+  value with the mean of a symmetric window of \code{2w + 1} observations
+  (the \code{w} rows before, the row itself, and the \code{w} rows after).
+  At the edges of the series the window is clipped to the available rows,
+  so the average is computed over fewer observations.
 }
 \examples{
 compute_moving_average(df=mtcars,w=5)

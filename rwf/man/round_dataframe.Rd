@@ -2,19 +2,38 @@
 % Please edit documentation in R/FUNCTIONS.R
 \name{round_dataframe}
 \alias{round_dataframe}
-\title{Round dataframe}
+\title{Round numeric columns in a data frame}
 \usage{
 round_dataframe(df, digits = 0, type = "round")
 }
 \arguments{
-\item{df}{dataframe}
+\item{df}{A data frame containing a mix of numeric and non-numeric columns.}
 
-\item{digits}{decimal points to return. It works only with "round" type}
+\item{digits}{Integer number of decimal places. Only used with
+\code{type = "round"} and \code{type = "tenth"}. Default is \code{0}.}
 
-\item{type}{"round" "ceiling" "floor" "tenth"}
+\item{type}{Character string specifying the transformation to apply to
+numeric columns:
+\describe{
+  \item{\code{"round"}}{Round to \code{digits} decimal places using
+    \code{round()} (default).}
+  \item{\code{"ceiling"}}{Round up to the nearest integer using
+    \code{ceiling()}.}
+  \item{\code{"floor"}}{Round down to the nearest integer using
+    \code{floor()}.}
+  \item{\code{"tenth"}}{Divide each value by 10 then round to
+    \code{digits} decimal places — useful for rescaling values that were
+    multiplied by 10 (e.g. converting tenths back to units).}
+}}
+}
+\value{
+A data frame with the same structure as \code{df} where all numeric
+  columns have been rounded or transformed according to \code{type}.
 }
 \description{
-It only processes numeric values in a dataframe
+Applies a rounding or transformation function to every numeric
+  column in a data frame, leaving non-numeric columns (factor, character,
+  etc.) unchanged.
 }
 \examples{
 round_dataframe(df=change_data_type(df=mtcars,type="factor"),digits=0)

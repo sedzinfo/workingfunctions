@@ -2,7 +2,7 @@
 % Please edit documentation in R/FUNCTIONS.R
 \name{remove_nc}
 \alias{remove_nc}
-\title{Replace remove non computable values}
+\title{Replace and remove non-computable values}
 \usage{
 remove_nc(
   df,
@@ -14,28 +14,39 @@ remove_nc(
 )
 }
 \arguments{
-\item{df}{dataframe}
+\item{df}{A data frame to clean.}
 
-\item{value}{replacement}
+\item{value}{The replacement value for all non-computable entries. Default
+is \code{NA}.}
 
-\item{remove_rows}{if TRUE it will remove rows with non computable values}
+\item{remove_rows}{Logical. When \code{TRUE}, rows containing \code{NA}
+after replacement are removed according to the \code{aggressive} setting.
+Default is \code{FALSE}.}
 
-\item{aggressive}{if TRUE it will remove entire row if a single non computable value exists \cr
-if FALSE it will remove row if all values are non computable}
+\item{aggressive}{Logical. Only used when \code{remove_rows = TRUE}.
+\itemize{
+  \item \code{TRUE} — remove a row if \emph{any} value is \code{NA}.
+  \item \code{FALSE} — remove a row only if \emph{all} values are
+    \code{NA}.
+}
+Default is \code{FALSE}.}
 
-\item{remove_cols}{if TRUE it will remove collumns with non computable values}
+\item{remove_cols}{Logical. When \code{TRUE}, columns where \emph{all}
+values are \code{NA} are dropped. Default is \code{FALSE}.}
 
-\item{remove_zero_variance}{if TRUE it will remove collumns with no variance}
+\item{remove_zero_variance}{Logical. Only used when \code{remove_cols =
+TRUE}. When \code{TRUE}, columns with only one unique non-missing value
+(zero variance) are also dropped. Default is \code{FALSE}.}
+}
+\value{
+A data frame with non-computable values replaced and, depending on
+  the flags, rows and/or columns removed.
 }
 \description{
-Replace remove non computable values
-}
-\details{
-Non computable values are NA, NAN, inf and empty cells.
-}
-\note{
-This function internally replaces non computable values with the value choosen 
-      the default value is NA. Then it removes rows and collumns with NA values or zero variance
+Cleans a data frame by replacing non-computable values
+  (\code{NA}, \code{NaN}, \code{Inf}, \code{-Inf}, and empty strings) with
+  a chosen replacement, then optionally drops rows or columns that still
+  contain missing values or have zero variance.
 }
 \examples{
 df<-mtcars

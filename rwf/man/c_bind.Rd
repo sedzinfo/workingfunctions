@@ -2,17 +2,30 @@
 % Please edit documentation in R/FUNCTIONS.R
 \name{c_bind}
 \alias{c_bind}
-\title{cbind dataframes with unequal lengths or row lengths}
+\title{Column-bind data frames or vectors of unequal lengths}
 \usage{
 c_bind(..., first = TRUE)
 }
 \arguments{
-\item{...}{dataframes or vectors to bind}
+\item{...}{Data frames or vectors to column-bind. Names are taken from the
+unevaluated expressions passed (e.g. variable names).}
 
-\item{first}{Logical}
+\item{first}{Logical. When \code{TRUE} (default) \code{NA} padding rows are
+appended at the bottom of shorter inputs; when \code{FALSE} they are
+prepended at the top.}
+}
+\value{
+A data frame with one column per column across all inputs, padded
+  with \code{NA} rows to the length of the longest input. Column names
+  follow the pattern \code{<object_name>} for single-column inputs and
+  \code{<object_name>_<original_colname>} for multi-column inputs.
 }
 \description{
-cbind dataframes with unequal lengths or row lengths
+Combines any number of data frames or vectors side by side,
+  padding shorter inputs with \code{NA} rows so all columns reach the same
+  length. Each input's columns are prefixed with the object's name to avoid
+  duplicate column names. Vectors are coerced to single-column data frames
+  before binding.
 }
 \examples{
 c_bind(rnorm(10),rnorm(11),rnorm(12),rnorm(13))

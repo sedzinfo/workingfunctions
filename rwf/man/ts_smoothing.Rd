@@ -2,7 +2,7 @@
 % Please edit documentation in R/EXPLORE_TIME_SERIES.R
 \name{ts_smoothing}
 \alias{ts_smoothing}
-\title{Smoothing}
+\title{Time series smoothing with multiple bandwidth levels}
 \usage{
 ts_smoothing(
   df,
@@ -14,23 +14,45 @@ ts_smoothing(
 )
 }
 \arguments{
-\item{df}{ts object}
+\item{df}{A \code{ts} object containing the time series to smooth.}
 
-\item{start}{start value}
+\item{start}{Numeric. Starting value of the bandwidth or span sequence.
+Default is \code{0.01}.}
 
-\item{stop}{stop value}
+\item{stop}{Numeric. Ending value of the bandwidth or span sequence.
+Default is \code{2}.}
 
-\item{step}{step}
+\item{step}{Numeric. Increment between bandwidth values. Smaller values
+produce more curves. Default is \code{0.001}.}
 
-\item{title}{plot title}
+\item{title}{Character string appended to the plot title. Default is
+\code{""}.}
 
-\item{type}{"default" "kernel" "lowess" "friedman" "splines" "polynomial" "linear"}
+\item{type}{Character string specifying the smoothing method. One of:
+\describe{
+  \item{\code{"kernel"}}{Gaussian kernel smoother via \code{ksmooth()} — bandwidth controls the smoothing window (default).}
+  \item{\code{"lowess"}}{Locally weighted regression via \code{lowess()} — \code{f} controls the span proportion.}
+  \item{\code{"friedman"}}{Friedman's super-smoother via \code{supsmu()} — span must be in (0, 1).}
+  \item{\code{"splines"}}{Smoothing splines via \code{smooth.spline()} — \code{spar} controls the penalty.}
+  \item{\code{"default"}}{Running mean filter via \code{filter()} — bandwidth rounded to an integer window width.}
+  \item{\code{"polynomial"}}{Fits a centred cubic polynomial trend with and without seasonal (cos/sin) terms via \code{lm()}.}
+  \item{\code{"linear"}}{Fits a simple linear trend via \code{lm()} and draws the regression line.}
+}}
+}
+\value{
+Invisibly returns \code{NULL}. The function is called for its side
+  effect of producing a base R plot.
 }
 \description{
-smoothing for timeseries. uses base plot
-}
-\details{
-returns plot
+Plots a time series and overlays a family of smoothed curves
+  using a chosen smoothing method. For bandwidth-based methods
+  (\code{"kernel"}, \code{"lowess"}, \code{"splines"}, \code{"default"}),
+  a sequence of bandwidth or span values from \code{start} to \code{stop}
+  is swept and each curve is drawn in a different rainbow colour, making
+  it easy to visually select an appropriate smoothing level.
+  \code{"polynomial"} and \code{"linear"} ignore the bandwidth sequence
+  and fit regression-based trend lines instead. The function uses base R
+  graphics and produces a plot as a side effect.
 }
 \examples{
 ts_data<-ts(UKDriverDeaths,start=1969,end=1984,frequency=12)

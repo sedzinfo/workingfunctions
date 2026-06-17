@@ -2,19 +2,35 @@
 % Please edit documentation in R/FUNCTIONS.R
 \name{change_data_type}
 \alias{change_data_type}
-\title{dataframe data type transformations}
+\title{Convert column data types in a data frame}
 \usage{
 change_data_type(df, type)
 }
 \arguments{
-\item{df}{dataframe}
+\item{df}{A data frame whose columns will be converted.}
 
-\item{type}{"character" "numeric" "factor" "factor_character" "character_factor" \cr
-For "factor_character" if factors are found, are converted to characters \cr
-For "character_factor" if characters are found, are converted to factors}
+\item{type}{Character string specifying the conversion to apply:
+\describe{
+  \item{\code{"character"}}{Converts all columns to character, trimming
+    leading and trailing whitespace.}
+  \item{\code{"numeric"}}{Converts all columns to numeric (via character
+    with whitespace trimming). Non-numeric strings become \code{NA}.}
+  \item{\code{"factor"}}{Converts all columns to factor.}
+  \item{\code{"factor_character"}}{Converts only factor columns to
+    character; all other columns are left unchanged.}
+  \item{\code{"character_factor"}}{Converts only character columns to
+    factor; all other columns are left unchanged.}
+}}
+}
+\value{
+A data frame with the same dimensions as \code{df} with column
+  types converted as specified.
 }
 \description{
-dataframe data type transformations
+Converts all or selected columns in a data frame to a
+  specified data type. Whitespace (tabs, carriage returns, newlines) is
+  trimmed automatically when converting to \code{"character"} or
+  \code{"numeric"}.
 }
 \examples{
 cdf(df=change_data_type(df=mtcars,"character"))

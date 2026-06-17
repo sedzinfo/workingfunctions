@@ -1,12 +1,20 @@
 ##########################################################################################
 # PLOTS
 ##########################################################################################
-#' @title Plot timeseries
-#' @details returns plot
-#' @param df ts object
-#' @param base_size base font size
-#' @param ylab y label
-#' @param title plot title
+#' @title Line plot for a time series
+#' @description Converts a \code{ts} object into a ggplot2 line chart with
+#'   semi-transparent points and an overlaid linear trend line. The returned
+#'   \code{ggplot} object can be extended with additional layers (e.g.
+#'   \code{geom_vline()} to mark events).
+#' @param df A \code{ts} object containing the time series to plot.
+#' @param base_size Base font size passed to \code{theme_bw()}. Default is
+#'   \code{10}.
+#' @param ylab Character string for the y-axis label. Default is
+#'   \code{"Count"}.
+#' @param title Character string used as the plot title. Default is \code{""}.
+#' @return A \code{ggplot} object showing the time series as a line with
+#'   points, a linear trend line fitted via \code{lm}, and a caption
+#'   reporting the total number of observations.
 #' @import ggplot2
 #' @keywords time series
 #' @export
@@ -35,13 +43,31 @@ plot_ts<-function(df,base_size=10,ylab="Count",title="") {
 ##########################################################################################
 # PLOT ACF
 ##########################################################################################
-#' @title Plot autocorrelation function of correlation covariance and partial correlation
-#' @description uses ggplot
-#' @details returns plot
-#' @param df ts object
-#' @param lag.max maximum lags to include
-#' @param base_size base font size
-#' @param title plot title
+#' @title Autocorrelation, autocovariance, and partial autocorrelation plot
+#' @description Produces a faceted ggplot2 chart showing the autocorrelation
+#'   function (ACF), autocovariance function, and partial autocorrelation
+#'   function (PACF) of a time series side by side. Each facet includes dashed
+#'   95\% confidence interval lines computed from the distribution of the ACF
+#'   values, making it easy to identify significant lags and seasonal patterns.
+#'   Missing values are excluded via \code{na.action = stats::na.exclude}.
+#' @param df A \code{ts} object containing the time series to analyse.
+#' @param lag.max Integer specifying the maximum number of lags to compute.
+#'   Default is \code{length(df)} (all possible lags).
+#' @param base_size Base font size passed to \code{theme_bw()}. Default is
+#'   \code{10}.
+#' @param title Character string used as the plot title. Default is \code{""}.
+#' @return A \code{ggplot} object with three free-scale facets:
+#'   \describe{
+#'     \item{Correlation}{Autocorrelation function — measures linear dependence
+#'       between the series and its own lagged values.}
+#'     \item{Covariance}{Autocovariance function — the un-normalised version of
+#'       the ACF.}
+#'     \item{Partial.Correlation}{Partial autocorrelation function — correlation
+#'       at each lag after removing the effect of shorter lags, useful for
+#'       identifying AR model order.}
+#'   }
+#'   Each facet includes dashed horizontal lines for the 95\% CI lower bound
+#'   (blue), mean (black), and upper bound (blue).
 #' @import ggplot2
 #' @importFrom Rmisc CI
 #' @importFrom plyr rbind.fill
@@ -54,27 +80,94 @@ plot_ts<-function(df,base_size=10,ylab="Count",title="") {
 plot_acf<-function(df,lag.max=length(df),base_size=10,title="") {
   value<-index<-type<-ci<-NULL
   # ggfortify::autoplot(stats::acf(df,lag.max=10000,type="correlation",plot=FALSE))+theme_bw()+labs(title="")
-  correlation<-stats::acf(df,lag.max=lag.max,plot=FALSE,type="correlation",na.action=stats::na.exclude)
-  covariance<-stats::acf(df,lag.max=lag.max,plot=FALSE,type="covariance",na.action=stats::na.exclude)
-  partial<-stats::acf(df,lag.max=lag.max,plot=FALSE,type="partial",na.action=stats::na.exclude)
-  ci_correlation<-data.frame(type="Correlation",ci=c(Rmisc::CI(correlation$acf,ci=0.95)[[1]],Rmisc::CI(correlation$acf,ci=0.95)[[3]],Rmisc::CI(correlation$acf,ci=0.95)[[2]]))
-  ci_covariance<-data.frame(type="Covariance",ci=c(Rmisc::CI(covariance$acf,ci=0.95)[[1]],Rmisc::CI(covariance$acf,ci=0.95)[[3]],Rmisc::CI(covariance$acf,ci=0.95)[[2]]))
-  ci_partial<-data.frame(type="Partial.Correlation",ci=c(Rmisc::CI(partial$acf,ci=0.95)[[1]],Rmisc::CI(partial$acf,ci=0.95)[[3]],Rmisc::CI(partial$acf,ci=0.95)[[2]]))
-  partial<-stats::acf(df,lag.max=lag.max,plot=FALSE,type="partial",na.action=stats::na.exclude)
-  autocorrelation<-plyr::rbind.fill(data.frame(index=1:nrow(correlation$acf),type="Correlation",value=correlation$acf),
-                                    data.frame(index=1:nrow(covariance$acf),type="Covariance",value=covariance$acf),
-                                    data.frame(index=1:nrow(partial$acf),type="Partial.Correlation",value=partial$acf))
+  correlation<-stats::acf(df,
+                          lag.max=lag.max,
+                          plot=FALSE,
+                          type="correlation",
+                          na.action=stats::na.exclude)
+  covariance<-stats::acf(df,
+                         lag.max=lag.max,
+                         plot=FALSE,
+                         type="covariance",
+                         na.action=stats::na.exclude)
+  partial<-stats::acf(df,
+                      lag.max=lag.max,
+                      plot=FALSE,
+                      type="partial",
+                      na.action=stats::na.exclude)
+  ci_correlation<-data.frame(type="Correlation",
+                             ci=c(Rmisc::CI(correlation$acf,ci=0.95)[[1]],
+                                  Rmisc::CI(correlation$acf,ci=0.95)[[3]],
+                                  Rmisc::CI(correlation$acf,ci=0.95)[[2]]))
+  ci_covariance<-data.frame(type="Covariance",
+                            ci=c(Rmisc::CI(covariance$acf,ci=0.95)[[1]],
+                                 Rmisc::CI(covariance$acf,ci=0.95)[[3]],
+                                 Rmisc::CI(covariance$acf,ci=0.95)[[2]]))
+  ci_partial<-data.frame(type="Partial.Correlation",
+                         ci=c(Rmisc::CI(partial$acf,ci=0.95)[[1]],
+                              Rmisc::CI(partial$acf,ci=0.95)[[3]],
+                              Rmisc::CI(partial$acf,ci=0.95)[[2]]))
+  partial<-stats::acf(df,
+                      lag.max=lag.max,
+                      plot=FALSE,
+                      type="partial",
+                      na.action=stats::na.exclude)
+  autocorrelation<-plyr::rbind.fill(data.frame(index=1:nrow(correlation$acf),
+                                               type="Correlation",
+                                               value=correlation$acf),
+                                    data.frame(index=1:nrow(covariance$acf),
+                                               type="Covariance",
+                                               value=covariance$acf),
+                                    data.frame(index=1:nrow(partial$acf),
+                                               type="Partial.Correlation",
+                                               value=partial$acf))
   plot<-ggplot(autocorrelation,aes(y=value,x=index,color=type,fill=type))+
     geom_line()+
-    geom_hline(data=ci_correlation,aes(yintercept=ci[1]),alpha=.5,colour="blue",linetype="longdash")+
-    geom_hline(data=ci_correlation,aes(yintercept=ci[3]),alpha=.5,colour="black",linetype="longdash")+
-    geom_hline(data=ci_correlation,aes(yintercept=ci[2]),alpha=.5,colour="blue",linetype="longdash")+
-    geom_hline(data=ci_covariance,aes(yintercept=ci[1]),alpha=.5,colour="blue",linetype="longdash")+
-    geom_hline(data=ci_covariance,aes(yintercept=ci[3]),alpha=.5,colour="black",linetype="longdash")+
-    geom_hline(data=ci_covariance,aes(yintercept=ci[2]),alpha=.5,colour="blue",linetype="longdash")+
-    geom_hline(data=ci_partial,aes(yintercept=ci[1]),alpha=.5,colour="blue",linetype="longdash")+
-    geom_hline(data=ci_partial,aes(yintercept=ci[3]),alpha=.5,colour="black",linetype="longdash")+
-    geom_hline(data=ci_partial,aes(yintercept=ci[2]),alpha=.5,colour="blue",linetype="longdash")+
+    geom_hline(data=ci_correlation,
+               aes(yintercept=ci[1]),
+               alpha=.5,
+               colour="blue",
+               linetype="longdash")+
+    geom_hline(data=ci_correlation,
+               aes(yintercept=ci[3]),
+               alpha=.5,
+               colour="black",
+               linetype="longdash")+
+    geom_hline(data=ci_correlation,
+               aes(yintercept=ci[2]),
+               alpha=.5,
+               colour="blue",
+               linetype="longdash")+
+    geom_hline(data=ci_covariance,
+               aes(yintercept=ci[1]),
+               alpha=.5,
+               colour="blue",
+               linetype="longdash")+
+    geom_hline(data=ci_covariance,
+               aes(yintercept=ci[3]),
+               alpha=.5,
+               colour="black",
+               linetype="longdash")+
+    geom_hline(data=ci_covariance,
+               aes(yintercept=ci[2]),
+               alpha=.5,
+               colour="blue",
+               linetype="longdash")+
+    geom_hline(data=ci_partial,
+               aes(yintercept=ci[1]),
+               alpha=.5,
+               colour="blue",
+               linetype="longdash")+
+    geom_hline(data=ci_partial,
+               aes(yintercept=ci[3]),
+               alpha=.5,
+               colour="black",
+               linetype="longdash")+
+    geom_hline(data=ci_partial,
+               aes(yintercept=ci[2]),
+               alpha=.5,
+               colour="blue",
+               linetype="longdash")+
     geom_point(alpha=.1)+
     labs(title=title,x="Lag",y="")+
     facet_grid(type~.,scales="free")+
@@ -85,15 +178,37 @@ plot_acf<-function(df,lag.max=length(df),base_size=10,title="") {
 ##########################################################################################
 # SMOOTHING
 ##########################################################################################
-#' @title Smoothing
-#' @description smoothing for timeseries. uses base plot
-#' @details returns plot
-#' @param df ts object
-#' @param start start value
-#' @param stop stop value
-#' @param step step
-#' @param title plot title
-#' @param type "default" "kernel" "lowess" "friedman" "splines" "polynomial" "linear"
+#' @title Time series smoothing with multiple bandwidth levels
+#' @description Plots a time series and overlays a family of smoothed curves
+#'   using a chosen smoothing method. For bandwidth-based methods
+#'   (\code{"kernel"}, \code{"lowess"}, \code{"splines"}, \code{"default"}),
+#'   a sequence of bandwidth or span values from \code{start} to \code{stop}
+#'   is swept and each curve is drawn in a different rainbow colour, making
+#'   it easy to visually select an appropriate smoothing level.
+#'   \code{"polynomial"} and \code{"linear"} ignore the bandwidth sequence
+#'   and fit regression-based trend lines instead. The function uses base R
+#'   graphics and produces a plot as a side effect.
+#' @param df A \code{ts} object containing the time series to smooth.
+#' @param start Numeric. Starting value of the bandwidth or span sequence.
+#'   Default is \code{0.01}.
+#' @param stop Numeric. Ending value of the bandwidth or span sequence.
+#'   Default is \code{2}.
+#' @param step Numeric. Increment between bandwidth values. Smaller values
+#'   produce more curves. Default is \code{0.001}.
+#' @param title Character string appended to the plot title. Default is
+#'   \code{""}.
+#' @param type Character string specifying the smoothing method. One of:
+#'   \describe{
+#'     \item{\code{"kernel"}}{Gaussian kernel smoother via \code{ksmooth()} — bandwidth controls the smoothing window (default).}
+#'     \item{\code{"lowess"}}{Locally weighted regression via \code{lowess()} — \code{f} controls the span proportion.}
+#'     \item{\code{"friedman"}}{Friedman's super-smoother via \code{supsmu()} — span must be in (0, 1).}
+#'     \item{\code{"splines"}}{Smoothing splines via \code{smooth.spline()} — \code{spar} controls the penalty.}
+#'     \item{\code{"default"}}{Running mean filter via \code{filter()} — bandwidth rounded to an integer window width.}
+#'     \item{\code{"polynomial"}}{Fits a centred cubic polynomial trend with and without seasonal (cos/sin) terms via \code{lm()}.}
+#'     \item{\code{"linear"}}{Fits a simple linear trend via \code{lm()} and draws the regression line.}
+#'   }
+#' @return Invisibly returns \code{NULL}. The function is called for its side
+#'   effect of producing a base R plot.
 #' @importFrom graphics par plot lines abline
 #' @importFrom grDevices rainbow
 #' @importFrom stats time supsmu smooth.spline lowess ksmooth filter lm fitted
@@ -156,10 +271,19 @@ ts_smoothing<-function(df,start=.01,stop=2,step=.001,title="",type="kernel") {
 ##########################################################################################
 # MOVING AVERAGE
 ##########################################################################################
-#' @title Moving Average
-#' @description compute moving average
-#' @param df dataframe
-#' @param w window
+#' @title Centered moving average
+#' @description Smooths every numeric column of a data frame by replacing each
+#'   value with the mean of a symmetric window of \code{2w + 1} observations
+#'   (the \code{w} rows before, the row itself, and the \code{w} rows after).
+#'   At the edges of the series the window is clipped to the available rows,
+#'   so the average is computed over fewer observations.
+#' @param df A data frame whose columns will be smoothed. All columns should
+#'   be numeric.
+#' @param w Integer half-window size. The total window width is \code{2w + 1}.
+#'   For example, \code{w = 5} averages 11 consecutive rows centred on each
+#'   observation.
+#' @return A data frame with the same dimensions and column names as \code{df}
+#'   where each value has been replaced by its centred moving average.
 #' @keywords time series
 #' @export
 #' @examples

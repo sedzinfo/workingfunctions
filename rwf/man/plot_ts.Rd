@@ -2,24 +2,31 @@
 % Please edit documentation in R/EXPLORE_TIME_SERIES.R
 \name{plot_ts}
 \alias{plot_ts}
-\title{Plot timeseries}
+\title{Line plot for a time series}
 \usage{
 plot_ts(df, base_size = 10, ylab = "Count", title = "")
 }
 \arguments{
-\item{df}{ts object}
+\item{df}{A \code{ts} object containing the time series to plot.}
 
-\item{base_size}{base font size}
+\item{base_size}{Base font size passed to \code{theme_bw()}. Default is
+\code{10}.}
 
-\item{ylab}{y label}
+\item{ylab}{Character string for the y-axis label. Default is
+\code{"Count"}.}
 
-\item{title}{plot title}
+\item{title}{Character string used as the plot title. Default is \code{""}.}
+}
+\value{
+A \code{ggplot} object showing the time series as a line with
+  points, a linear trend line fitted via \code{lm}, and a caption
+  reporting the total number of observations.
 }
 \description{
-Plot timeseries
-}
-\details{
-returns plot
+Converts a \code{ts} object into a ggplot2 line chart with
+  semi-transparent points and an overlaid linear trend line. The returned
+  \code{ggplot} object can be extended with additional layers (e.g.
+  \code{geom_vline()} to mark events).
 }
 \examples{
 ts_data<-ts(UKDriverDeaths,start=1969,end=1984,frequency=12)

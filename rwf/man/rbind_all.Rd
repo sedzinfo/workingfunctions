@@ -2,17 +2,26 @@
 % Please edit documentation in R/FUNCTIONS.R
 \name{rbind_all}
 \alias{rbind_all}
-\title{rbind dataframes or matrices with different lengths or collumn names}
+\title{Row-bind two data frames with different column sets}
 \usage{
 rbind_all(df1, df2)
 }
 \arguments{
-\item{df1}{dataframe or matrix}
+\item{df1}{A data frame or matrix.}
 
-\item{df2}{dataframe or matrix}
+\item{df2}{A data frame or matrix.}
+}
+\value{
+A data frame containing all rows from \code{df1} followed by all
+  rows from \code{df2}, with the union of both column sets. Cells where a
+  column did not exist in the original input are \code{NA}.
 }
 \description{
-rbind dataframes or matrices with different lengths or collumn names
+Combines two data frames or matrices by rows even when they do
+  not share the same columns. Columns present in one input but absent in the
+  other are added and filled with \code{NA} before binding. Row names from
+  both inputs are preserved unless they would produce duplicates, in which
+  case default integer row names are used.
 }
 \examples{
 df1<-generate_correlation_matrix(n=10)

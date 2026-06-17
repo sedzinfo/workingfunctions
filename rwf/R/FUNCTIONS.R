@@ -1,11 +1,28 @@
 ##########################################################################################
 # ROUND DATAFRAME
 ##########################################################################################
-#' @title Round dataframe
-#' @description It only processes numeric values in a dataframe
-#' @param df dataframe
-#' @param digits decimal points to return. It works only with "round" type
-#' @param type "round" "ceiling" "floor" "tenth"
+#' @title Round numeric columns in a data frame
+#' @description Applies a rounding or transformation function to every numeric
+#'   column in a data frame, leaving non-numeric columns (factor, character,
+#'   etc.) unchanged.
+#' @param df A data frame containing a mix of numeric and non-numeric columns.
+#' @param digits Integer number of decimal places. Only used with
+#'   \code{type = "round"} and \code{type = "tenth"}. Default is \code{0}.
+#' @param type Character string specifying the transformation to apply to
+#'   numeric columns:
+#'   \describe{
+#'     \item{\code{"round"}}{Round to \code{digits} decimal places using
+#'       \code{round()} (default).}
+#'     \item{\code{"ceiling"}}{Round up to the nearest integer using
+#'       \code{ceiling()}.}
+#'     \item{\code{"floor"}}{Round down to the nearest integer using
+#'       \code{floor()}.}
+#'     \item{\code{"tenth"}}{Divide each value by 10 then round to
+#'       \code{digits} decimal places — useful for rescaling values that were
+#'       multiplied by 10 (e.g. converting tenths back to units).}
+#'   }
+#' @return A data frame with the same structure as \code{df} where all numeric
+#'   columns have been rounded or transformed according to \code{type}.
 #' @keywords functions
 #' @export
 #' @examples
@@ -29,11 +46,26 @@ round_dataframe<-function(df,digits=0,type="round") {
 ##########################################################################################
 # CHANGE DATA TYPE OF COLLUMNS IN DATA FRAME
 ##########################################################################################
-#' @title dataframe data type transformations
-#' @param df dataframe
-#' @param type "character" "numeric" "factor" "factor_character" "character_factor" \cr
-#'             For "factor_character" if factors are found, are converted to characters \cr
-#'             For "character_factor" if characters are found, are converted to factors
+#' @title Convert column data types in a data frame
+#' @description Converts all or selected columns in a data frame to a
+#'   specified data type. Whitespace (tabs, carriage returns, newlines) is
+#'   trimmed automatically when converting to \code{"character"} or
+#'   \code{"numeric"}.
+#' @param df A data frame whose columns will be converted.
+#' @param type Character string specifying the conversion to apply:
+#'   \describe{
+#'     \item{\code{"character"}}{Converts all columns to character, trimming
+#'       leading and trailing whitespace.}
+#'     \item{\code{"numeric"}}{Converts all columns to numeric (via character
+#'       with whitespace trimming). Non-numeric strings become \code{NA}.}
+#'     \item{\code{"factor"}}{Converts all columns to factor.}
+#'     \item{\code{"factor_character"}}{Converts only factor columns to
+#'       character; all other columns are left unchanged.}
+#'     \item{\code{"character_factor"}}{Converts only character columns to
+#'       factor; all other columns are left unchanged.}
+#'   }
+#' @return A data frame with the same dimensions as \code{df} with column
+#'   types converted as specified.
 #' @keywords functions
 #' @export
 #' @examples
@@ -58,9 +90,17 @@ change_data_type<-function(df,type) {
 ##########################################################################################
 # RBIND ALL
 ##########################################################################################
-#' @title rbind dataframes or matrices with different lengths or collumn names
-#' @param df1 dataframe or matrix
-#' @param df2 dataframe or matrix
+#' @title Row-bind two data frames with different column sets
+#' @description Combines two data frames or matrices by rows even when they do
+#'   not share the same columns. Columns present in one input but absent in the
+#'   other are added and filled with \code{NA} before binding. Row names from
+#'   both inputs are preserved unless they would produce duplicates, in which
+#'   case default integer row names are used.
+#' @param df1 A data frame or matrix.
+#' @param df2 A data frame or matrix.
+#' @return A data frame containing all rows from \code{df1} followed by all
+#'   rows from \code{df2}, with the union of both column sets. Cells where a
+#'   column did not exist in the original input are \code{NA}.
 #' @keywords functions
 #' @export
 #' @examples
@@ -88,17 +128,31 @@ rbind_all<-function(df1,df2) {
 ##########################################################################################
 # REMOVE VALUES THAT CANNOT BE CALCULATED
 ##########################################################################################
-#' @title Replace remove non computable values
-#' @details Non computable values are NA, NAN, inf and empty cells.
-#' @param df dataframe
-#' @param value replacement
-#' @param remove_rows if TRUE it will remove rows with non computable values
-#' @param aggressive if TRUE it will remove entire row if a single non computable value exists \cr
-#'                   if FALSE it will remove row if all values are non computable
-#' @param remove_cols if TRUE it will remove collumns with non computable values
-#' @param remove_zero_variance if TRUE it will remove collumns with no variance
-#' @note This function internally replaces non computable values with the value choosen 
-#'       the default value is NA. Then it removes rows and collumns with NA values or zero variance
+#' @title Replace and remove non-computable values
+#' @description Cleans a data frame by replacing non-computable values
+#'   (\code{NA}, \code{NaN}, \code{Inf}, \code{-Inf}, and empty strings) with
+#'   a chosen replacement, then optionally drops rows or columns that still
+#'   contain missing values or have zero variance.
+#' @param df A data frame to clean.
+#' @param value The replacement value for all non-computable entries. Default
+#'   is \code{NA}.
+#' @param remove_rows Logical. When \code{TRUE}, rows containing \code{NA}
+#'   after replacement are removed according to the \code{aggressive} setting.
+#'   Default is \code{FALSE}.
+#' @param aggressive Logical. Only used when \code{remove_rows = TRUE}.
+#'   \itemize{
+#'     \item \code{TRUE} — remove a row if \emph{any} value is \code{NA}.
+#'     \item \code{FALSE} — remove a row only if \emph{all} values are
+#'       \code{NA}.
+#'   }
+#'   Default is \code{FALSE}.
+#' @param remove_cols Logical. When \code{TRUE}, columns where \emph{all}
+#'   values are \code{NA} are dropped. Default is \code{FALSE}.
+#' @param remove_zero_variance Logical. Only used when \code{remove_cols =
+#'   TRUE}. When \code{TRUE}, columns with only one unique non-missing value
+#'   (zero variance) are also dropped. Default is \code{FALSE}.
+#' @return A data frame with non-computable values replaced and, depending on
+#'   the flags, rows and/or columns removed.
 #' @keywords functions
 #' @export
 #' @examples
@@ -144,8 +198,16 @@ remove_nc<-function(df,value=NA,remove_rows=FALSE,aggressive=FALSE,remove_cols=F
 ##########################################################################################
 # REPLACE NA WITH PREVIOUS CELLS
 ##########################################################################################
-#' @title Replace NA with the previous element in a vector
-#' @param vector Vector
+#' @title Last observation carried forward (LOCF) imputation
+#' @description Replaces each \code{NA} in a vector with the most recent
+#'   preceding non-\code{NA} value (last observation carried forward, LOCF).
+#'   If the first element is \code{NA}, it is replaced with the first
+#'   non-\code{NA} value found anywhere in the vector. To apply LOCF to every
+#'   column of a data frame use \code{df[] <- lapply(df, replace_na_with_previous)}.
+#' @param vector A vector of any type that may contain \code{NA} values.
+#' @return A vector of the same length and type as \code{vector} with
+#'   \code{NA} values replaced by the preceding non-\code{NA} element.
+#'   Returns the original vector unchanged if it contains no \code{NA} values.
 #' @keywords functions
 #' @export
 #' @examples
@@ -172,10 +234,17 @@ replace_na_with_previous<-function(vector) {
 ##########################################################################################
 # BIND DATAFRAMES OR VECTORS OF UNEQUAL ROW LENGTHS
 ##########################################################################################
-#' @title pad NA's to collumns in dataframe
-#' @param df dataframe
-#' @param rowsneeded Numeric number of rows needed
-#' @param first Boolean
+#' @title Pad a data frame to a target number of rows with NAs
+#' @description Extends a data frame to \code{rowsneeded} rows by appending
+#'   (or prepending) \code{NA}-filled rows. Internal helper used by
+#'   \code{\link{c_bind}}.
+#' @param df A data frame to pad.
+#' @param rowsneeded Integer target row count. Must be greater than or equal
+#'   to \code{nrow(df)}.
+#' @param first Logical. When \code{TRUE} (default) \code{NA} rows are
+#'   appended at the bottom; when \code{FALSE} they are prepended at the top.
+#' @return A data frame with \code{rowsneeded} rows and the same columns as
+#'   \code{df}.
 #' @author Ananda Mahto
 #' @keywords functions
 padNA<-function(df,rowsneeded,first=TRUE) {
@@ -185,8 +254,17 @@ padNA<-function(df,rowsneeded,first=TRUE) {
   if (isTRUE(first)) rbind(df,temp2)
   else rbind(temp2,df)
 }
-#' @title Get the names of objects in the arguments
-#' @param ... objects
+#' @title Pad a data frame to a target number of rows with NAs
+#' @description Extends a data frame to \code{rowsneeded} rows by appending
+#'   (or prepending) \code{NA}-filled rows. Internal helper used by
+#'   \code{\link{c_bind}}.
+#' @param df A data frame to pad.
+#' @param rowsneeded Integer target row count. Must be greater than or equal
+#'   to \code{nrow(df)}.
+#' @param first Logical. When \code{TRUE} (default) \code{NA} rows are
+#'   appended at the bottom; when \code{FALSE} they are prepended at the top.
+#' @return A data frame with \code{rowsneeded} rows and the same columns as
+#'   \code{df}.
 #' @author Ananda Mahto
 #' @keywords functions
 dotnames<-function(...) {
@@ -194,9 +272,21 @@ dotnames<-function(...) {
   result<-unlist(lapply(vnames,deparse),FALSE,FALSE)
   return(result)
 }
-#' @title cbind dataframes with unequal lengths or row lengths
-#' @param first Logical
-#' @param ... dataframes or vectors to bind
+#' @title Column-bind data frames or vectors of unequal lengths
+#' @description Combines any number of data frames or vectors side by side,
+#'   padding shorter inputs with \code{NA} rows so all columns reach the same
+#'   length. Each input's columns are prefixed with the object's name to avoid
+#'   duplicate column names. Vectors are coerced to single-column data frames
+#'   before binding.
+#' @param ... Data frames or vectors to column-bind. Names are taken from the
+#'   unevaluated expressions passed (e.g. variable names).
+#' @param first Logical. When \code{TRUE} (default) \code{NA} padding rows are
+#'   appended at the bottom of shorter inputs; when \code{FALSE} they are
+#'   prepended at the top.
+#' @return A data frame with one column per column across all inputs, padded
+#'   with \code{NA} rows to the length of the longest input. Column names
+#'   follow the pattern \code{<object_name>} for single-column inputs and
+#'   \code{<object_name>_<original_colname>} for multi-column inputs.
 #' @importFrom stats setNames
 #' @author Ananda Mahto
 #' @keywords functions
@@ -226,10 +316,18 @@ c_bind<-function(...,first=TRUE) {
 ##########################################################################################
 # COMBINATIONS
 ##########################################################################################
-#' @title Produce combinations for comparisons from dataframe names
-#' @param df dataframe
-#' @param all_orders if TRUE the order of combination is considered 
-#' i.e. the combination X1 X2 also appears as X2 X1 if FALSE it is assumed that X1 X2 and X2 X1 are the same and only one of them appears
+#' @title All pairwise column name combinations
+#' @description Generates a data frame of all pairwise combinations of column
+#'   names from a data frame. Useful for programmatically specifying variable
+#'   pairs to pass to functions like \code{\link{compute_crosstable}} or
+#'   \code{\link{plot_crosstable}}.
+#' @param df A data frame whose column names will be combined.
+#' @param all_orders Logical. When \code{TRUE} (default) both orderings of
+#'   each pair are included (e.g. \code{(X1, X2)} and \code{(X2, X1)}),
+#'   producing \eqn{n(n-1)} rows for \eqn{n} columns. When \code{FALSE} only
+#'   unique unordered pairs are returned, producing \eqn{n(n-1)/2} rows.
+#' @return A data frame with two character columns \code{X1} and \code{X2},
+#'   each row representing one variable pair.
 #' @importFrom utils combn
 #' @keywords functions
 #' @export
@@ -247,8 +345,17 @@ comparison_combinations<-function(df,all_orders=TRUE) {
 ##########################################################################################
 # MINIMUM MAXIMUM INDEX OF A VECTOR
 ##########################################################################################
-#' @title Return the minimum and maximum index of a vector
-#' @param vector Vector
+#' @title Indices of the minimum and maximum values in a vector
+#' @description Returns the positions of the minimum and maximum values in a
+#'   vector. When there are ties all tied positions are returned.
+#' @param vector A numeric vector.
+#' @return A named list with two elements:
+#'   \describe{
+#'     \item{max_index}{Integer vector of positions where the maximum value
+#'       occurs.}
+#'     \item{min_index}{Integer vector of positions where the minimum value
+#'       occurs.}
+#'   }
 #' @keywords functions
 #' @export
 #' @examples

@@ -2,18 +2,27 @@
 % Please edit documentation in R/FUNCTIONS.R
 \name{comparison_combinations}
 \alias{comparison_combinations}
-\title{Produce combinations for comparisons from dataframe names}
+\title{All pairwise column name combinations}
 \usage{
 comparison_combinations(df, all_orders = TRUE)
 }
 \arguments{
-\item{df}{dataframe}
+\item{df}{A data frame whose column names will be combined.}
 
-\item{all_orders}{if TRUE the order of combination is considered 
-i.e. the combination X1 X2 also appears as X2 X1 if FALSE it is assumed that X1 X2 and X2 X1 are the same and only one of them appears}
+\item{all_orders}{Logical. When \code{TRUE} (default) both orderings of
+each pair are included (e.g. \code{(X1, X2)} and \code{(X2, X1)}),
+producing \eqn{n(n-1)} rows for \eqn{n} columns. When \code{FALSE} only
+unique unordered pairs are returned, producing \eqn{n(n-1)/2} rows.}
+}
+\value{
+A data frame with two character columns \code{X1} and \code{X2},
+  each row representing one variable pair.
 }
 \description{
-Produce combinations for comparisons from dataframe names
+Generates a data frame of all pairwise combinations of column
+  names from a data frame. Useful for programmatically specifying variable
+  pairs to pass to functions like \code{\link{compute_crosstable}} or
+  \code{\link{plot_crosstable}}.
 }
 \examples{
 comparison_combinations(generate_correlation_matrix(n=10)[,1:4])

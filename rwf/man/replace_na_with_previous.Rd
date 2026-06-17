@@ -2,15 +2,24 @@
 % Please edit documentation in R/FUNCTIONS.R
 \name{replace_na_with_previous}
 \alias{replace_na_with_previous}
-\title{Replace NA with the previous element in a vector}
+\title{Last observation carried forward (LOCF) imputation}
 \usage{
 replace_na_with_previous(vector)
 }
 \arguments{
-\item{vector}{Vector}
+\item{vector}{A vector of any type that may contain \code{NA} values.}
+}
+\value{
+A vector of the same length and type as \code{vector} with
+  \code{NA} values replaced by the preceding non-\code{NA} element.
+  Returns the original vector unchanged if it contains no \code{NA} values.
 }
 \description{
-Replace NA with the previous element in a vector
+Replaces each \code{NA} in a vector with the most recent
+  preceding non-\code{NA} value (last observation carried forward, LOCF).
+  If the first element is \code{NA}, it is replaced with the first
+  non-\code{NA} value found anywhere in the vector. To apply LOCF to every
+  column of a data frame use \code{df[] <- lapply(df, replace_na_with_previous)}.
 }
 \examples{
 df1<-generate_missing(rnorm(10),missing=5)

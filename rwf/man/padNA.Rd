@@ -2,19 +2,27 @@
 % Please edit documentation in R/FUNCTIONS.R
 \name{padNA}
 \alias{padNA}
-\title{pad NA's to collumns in dataframe}
+\title{Pad a data frame to a target number of rows with NAs}
 \usage{
 padNA(df, rowsneeded, first = TRUE)
 }
 \arguments{
-\item{df}{dataframe}
+\item{df}{A data frame to pad.}
 
-\item{rowsneeded}{Numeric number of rows needed}
+\item{rowsneeded}{Integer target row count. Must be greater than or equal
+to \code{nrow(df)}.}
 
-\item{first}{Boolean}
+\item{first}{Logical. When \code{TRUE} (default) \code{NA} rows are
+appended at the bottom; when \code{FALSE} they are prepended at the top.}
+}
+\value{
+A data frame with \code{rowsneeded} rows and the same columns as
+  \code{df}.
 }
 \description{
-pad NA's to collumns in dataframe
+Extends a data frame to \code{rowsneeded} rows by appending
+  (or prepending) \code{NA}-filled rows. Internal helper used by
+  \code{\link{c_bind}}.
 }
 \author{
 Ananda Mahto
