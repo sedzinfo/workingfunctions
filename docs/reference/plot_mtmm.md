@@ -1,6 +1,11 @@
-# Plot multitrait multimethod matrix
+# Multitrait-multimethod (MTMM) matrix plot
 
-Plot multitrait multimethod matrix
+Visualises a Campbell-Fiske multitrait-multimethod matrix as a faceted
+tile plot. For each trait-method combination the function computes a
+scale score (row mean of items), calculates Cronbach's alpha (shown on
+the diagonal), and correlates all scale scores across traits and
+methods. Each cell is colour-coded by its MTMM classification, making it
+easy to evaluate convergent and discriminant validity at a glance.
 
 ## Usage
 
@@ -12,24 +17,52 @@ plot_mtmm(df, key, method, subject, title = "")
 
 - df:
 
-  dataframe
+  A data frame in long format where each row corresponds to one subject
+  under one method. Item response columns must be present for all traits
+  and methods.
 
 - key:
 
-  List index of trait names and items constituring a trait
+  A named list mapping trait names to character vectors of item column
+  names, e.g. `list(t1 = c("x1","x2","x3"), t2 = c("x4","x5","x6"))`.
 
 - method:
 
-  name of dataframe collumn spesifying the method used for the row
-  observed
+  Character string giving the name of the column that identifies the
+  measurement method for each row.
 
 - subject:
 
-  name of dataframe collumn spesifying subject id
+  Character string giving the name of the column that identifies the
+  subject (used to align scores across methods).
 
 - title:
 
-  plot title
+  Character string appended to the plot title. Default is `""`.
+
+## Value
+
+A `ggplot` object showing a faceted tile plot where rows and columns
+correspond to traits, facets correspond to method pairs, cell values are
+correlations (or alpha on the diagonal), and fill colour encodes one of
+four MTMM relationship types:
+
+- monotrait-monomethod (reliability):
+
+  Same trait, same method — Cronbach's alpha.
+
+- monotrait-heteromethod (validity):
+
+  Same trait, different methods — convergent validity.
+
+- heterotrait-monomethod:
+
+  Different traits, same method — discriminant validity within method.
+
+- heterotrait-heteromethod:
+
+  Different traits, different methods — discriminant validity across
+  methods.
 
 ## Examples
 

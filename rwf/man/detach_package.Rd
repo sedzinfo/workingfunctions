@@ -2,14 +2,21 @@
 % Please edit documentation in R/FUNCTIONS_ENVIRONMENT.R
 \name{detach_package}
 \alias{detach_package}
-\title{Unload library}
+\title{Detach and unload a package}
 \usage{
 detach_package(package)
 }
 \arguments{
-\item{package}{Package name}
+\item{package}{Character string giving the name of the package to detach
+(without the \code{"package:"} prefix), e.g. \code{"ggplot2"}.}
+}
+\value{
+Invisibly returns \code{NULL}. Called for its side effect of
+  detaching the package.
 }
 \description{
-Unload library
+Removes a package from the R search path and unloads its
+  namespace. If the package was attached more than once, all instances are
+  removed. Does nothing if the package is not currently attached.
 }
 \keyword{functions}

@@ -2,11 +2,21 @@
 % Please edit documentation in R/FUNCTIONS_ENVIRONMENT.R
 \name{remove_user_packages}
 \alias{remove_user_packages}
-\title{Remove all user packages}
+\title{Remove all user-installed packages}
 \usage{
 remove_user_packages()
 }
+\value{
+Invisibly returns a named list with one element per removed package
+  (the result of \code{remove.packages()}). Called primarily for its side
+  effect of uninstalling packages.
+}
 \description{
-Remove all user packages
+Uninstalls every package that is not part of the R base or
+  recommended distribution. Packages installed in Microsoft R Open (MRO)
+  library paths are also preserved. Only packages with no \code{Priority}
+  field (i.e. neither \code{"base"} nor \code{"recommended"}) are removed.
+  \strong{Warning:} this operation is irreversible. All third-party packages
+  will need to be reinstalled afterwards.
 }
 \keyword{functions}

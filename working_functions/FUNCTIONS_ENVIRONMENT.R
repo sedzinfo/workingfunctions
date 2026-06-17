@@ -19,8 +19,15 @@ environment_options<-function() {
 # LOAD AND INSTALL MULTIPLE LIBRARIES
 ##########################################################################################
 #' @title Install and load multiple packages
-#' @description Install and load multiple packages. If packages exist,they are loaded,if packages don't exist,they are downloaded installed and loaded
-#' @param package Vector Package names
+#' @description Checks whether each package in \code{package} is already
+#'   installed. Missing packages are downloaded from CRAN with
+#'   \code{dependencies = TRUE} and then loaded. Packages that are already
+#'   installed are loaded directly without reinstalling.
+#' @param package Character vector of package names to install (if needed)
+#'   and load.
+#' @return A named logical vector (one element per package) indicating whether
+#'   each package was successfully attached: \code{TRUE} if loaded,
+#'   \code{FALSE} if loading failed.
 #' @importFrom utils installed.packages install.packages
 #' @author Steven Worthington
 #' @keywords functions
@@ -37,21 +44,37 @@ install_load<-function(package) {
 ##########################################################################################
 # INSTALL ALL PACKAGES
 ##########################################################################################
-#' @title Install all packages available in CRAN
-#' @details Install all packages available in CRAN. Already installed packages are not downloaded or installed
+#' @title Install all missing CRAN packages
+#' @description Compares the set of currently installed packages against the
+#'   full list of packages available on CRAN and installs any that are missing.
+#'   Already-installed packages are not re-downloaded or updated. Note that
+#'   CRAN contains thousands of packages, so this function can take a very
+#'   long time and requires a large amount of disk space.
+#' @return Invisibly returns \code{NULL}. Called for its side effect of
+#'   installing packages.
 #' @importFrom utils installed.packages available.packages install.packages
 #' @keywords functions
 #' @export
 install_all_packages<-function() {
   installed_packages<-data.frame(utils::installed.packages(),stringsAsFactors=FALSE)
   available_packages<-data.frame(utils::available.packages(),stringsAsFactors=FALSE)
-  missing_packages<-sort(setdiff(sort(unique(available_packages$Package)),sort(unique(installed_packages$Package))))
+  missing_packages<-sort(setdiff(sort(unique(available_packages$Package)),
+                                 sort(unique(installed_packages$Package))))
   utils::install.packages(missing_packages)
 }
 ##########################################################################################
 # REMOVE USER INSTALLED PACKAGES
 ##########################################################################################
-#' @title Remove all user packages
+#' @title Remove all user-installed packages
+#' @description Uninstalls every package that is not part of the R base or
+#'   recommended distribution. Packages installed in Microsoft R Open (MRO)
+#'   library paths are also preserved. Only packages with no \code{Priority}
+#'   field (i.e. neither \code{"base"} nor \code{"recommended"}) are removed.
+#'   \strong{Warning:} this operation is irreversible. All third-party packages
+#'   will need to be reinstalled afterwards.
+#' @return Invisibly returns a named list with one element per removed package
+#'   (the result of \code{remove.packages()}). Called primarily for its side
+#'   effect of uninstalling packages.
 #' @importFrom utils remove.packages
 #' @keywords functions
 #' @export
@@ -66,8 +89,14 @@ remove_user_packages<-function() {
 ##########################################################################################
 # UNLOAD LIBRARY
 ##########################################################################################
-#' @title Unload library
-#' @param package Package name
+#' @title Detach and unload a package
+#' @description Removes a package from the R search path and unloads its
+#'   namespace. If the package was attached more than once, all instances are
+#'   removed. Does nothing if the package is not currently attached.
+#' @param package Character string giving the name of the package to detach
+#'   (without the \code{"package:"} prefix), e.g. \code{"ggplot2"}.
+#' @return Invisibly returns \code{NULL}. Called for its side effect of
+#'   detaching the package.
 #' @keywords functions
 #' @export
 detach_package<-function(package) {
@@ -78,7 +107,22 @@ detach_package<-function(package) {
 ##########################################################################################
 # GET WORKING FILE PATH
 ##########################################################################################
-#' @title Get working file path
+#' @title Get the file path of the currently running script
+#' @description Returns the normalised absolute path of the R script that is
+#'   currently executing. The function tries the following methods in order:
+#'   \enumerate{
+#'     \item The \code{--file=} command-line argument (set when running via
+#'       \code{Rscript script.R}).
+#'     \item The \code{fileName} variable in the first call-stack frame (set
+#'       by some IDEs).
+#'     \item The \code{ofile} variable in the first call-stack frame (set when
+#'       the script is loaded with \code{source()}).
+#'     \item The active document path from \code{rstudioapi} (RStudio only).
+#'     \item The source editor path from \code{rstudioapi} as a fallback.
+#'   }
+#' @return A character string containing the normalised absolute path of the
+#'   current script, or an empty string (\code{""}) if the path cannot be
+#'   determined.
 #' @keywords functions
 #' @export
 #' @examples
@@ -117,10 +161,17 @@ getfwp<-function() {
 ##########################################################################################
 # LOG FILE
 ##########################################################################################
-#' @title Log console in file
-#' @description Logs console in file and then displays log in console
-#' @param file Filename of log
-#' @param input Script to log in log file
+#' @title Print an object and optionally save output to a log file
+#' @description Prints \code{input} to the console. When \code{file} is
+#'   supplied, the printed output is also captured to a \code{.log} file using
+#'   \code{sink()}, and the file contents are echoed back to the console after
+#'   writing, so the output is visible in both places.
+#' @param input Any R object to print.
+#' @param file Character string naming the output log file without extension.
+#'   A \code{.log} extension is appended automatically. When \code{NULL}
+#'   (default) output is printed to the console only and no file is written.
+#' @return Invisibly returns \code{NULL}. Called for its side effects of
+#'   printing and optionally writing to a log file.
 #' @keywords functions
 #' @export
 #' @examples

@@ -11,6 +11,9 @@
 #'   \item{rank}{Ranking of the undergraduate institution (1=highest, 4=lowest)}
 #' }
 #' @source researchpy repo
+#' @examples
+#' data(df_admission)
+#' head(df_admission)
 "df_admission"
 
 #' Automotive Data
@@ -50,6 +53,9 @@
 #'   }
 #' @source Downloaded from Kaggle.com by the user Ramakrishnan Srinivasan. 
 #' see \url{https://www.kaggle.com/toramky/automobile-dataset}
+#' @examples
+#' data(df_automotive_data)
+#' head(df_automotive_data)
 "df_automotive_data"
 
 #' Blood Pressure Data
@@ -65,6 +71,9 @@
 #'   \item{bp_after}{Blood pressure reading after the intervention}
 #' }
 #' @source researchpy repo
+#' @examples
+#' data(df_blood_pressure)
+#' head(df_blood_pressure)
 "df_blood_pressure"
 
 #' Crop Yield Data
@@ -78,6 +87,9 @@
 #'   \item{Yield}{Crop yield (in unspecified units)}
 #' }
 #' @source researchpy repo (simulated data, not real)
+#' @examples
+#' data(df_crop_yield)
+#' head(df_crop_yield)
 "df_crop_yield"
 
 #' Difficile Data
@@ -91,6 +103,9 @@
 #'   \item{libido}{Libido level of the person}
 #' }
 #' @source researchpy repo
+#' @examples
+#' data(df_difficile)
+#' head(df_difficile)
 "df_difficile"
 
 #' Insurance Data
@@ -109,6 +124,9 @@
 #'   \item{charges}{Insurance charges}
 #' }
 #' @source researchpy repo
+#' @examples
+#' data(df_insurance)
+#' head(df_insurance)
 "df_insurance"
 
 #' Responses State Data
@@ -121,6 +139,9 @@
 #'   \item{State}{State code where the participant resides (e.g., MI, OH, CO, CA, MA, WA)}
 #' }
 #' @source researchpy repo (simulated data, not real)
+#' @examples
+#' data(df_responses_state)
+#' head(df_responses_state)
 "df_responses_state"
 
 #' Sexual Compatibility Data
@@ -150,6 +171,9 @@
 #'   \item{age}{Age in years (999 = missing)}
 #' }
 #' @source researchpy Data-sets repository (\url{https://github.com/researchpy/Data-sets})
+#' @examples
+#' data(df_sexual_comp)
+#' head(df_sexual_comp)
 "df_sexual_comp"
 
 #' Big Five Inventory (BFI-44) Personality Dataset
@@ -394,7 +418,9 @@
 #' # Compute Big Five average scores (after reverse scoring)
 #' # library(dplyr)
 #' # df_ocean <- df_ocean %>% mutate(E=rowMeans(select(., E1:E10), na.rm=TRUE))
-#'
+#' @examples
+#' data(df_ocean)
+#' head(df_ocean)
 "df_ocean"
 
 #' Young People Survey Responses

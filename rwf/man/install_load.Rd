@@ -7,10 +7,19 @@
 install_load(package)
 }
 \arguments{
-\item{package}{Vector Package names}
+\item{package}{Character vector of package names to install (if needed)
+and load.}
+}
+\value{
+A named logical vector (one element per package) indicating whether
+  each package was successfully attached: \code{TRUE} if loaded,
+  \code{FALSE} if loading failed.
 }
 \description{
-Install and load multiple packages. If packages exist,they are loaded,if packages don't exist,they are downloaded installed and loaded
+Checks whether each package in \code{package} is already
+  installed. Missing packages are downloaded from CRAN with
+  \code{dependencies = TRUE} and then loaded. Packages that are already
+  installed are loaded directly without reinstalling.
 }
 \examples{
 install_load("car")

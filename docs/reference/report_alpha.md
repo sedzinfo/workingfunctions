@@ -1,6 +1,12 @@
-# Estimate alpha for several dimensions and export results to xlsx
+# Cronbach's alpha reliability report for multiple scales
 
-Uses an arbitrary input
+Computes Cronbach's alpha and a comprehensive set of item-level
+reliability statistics for one or more scales using
+[`psych::alpha()`](https://rdrr.io/pkg/psych/man/alpha.html). Supports
+item reversal, bootstrap confidence intervals, and optional Excel
+export. Scales are classified by their alpha value (Unacceptable \<
+0.60, Acceptable 0.60–0.70, Good and Acceptable 0.70–0.80, Good
+0.80–0.90, Excellent \> 0.90).
 
 ## Usage
 
@@ -21,37 +27,74 @@ report_alpha(
 
 - df:
 
-  dataframe
+  A data frame containing all item columns.
 
 - key:
 
-  index of trait names and items constituting a trait
+  A named list where each name is a scale label and each element is a
+  character vector of item column names belonging to that scale, e.g.
+  `list(f1 = c("X1","X2","X3"))`. When `NULL` (default) all columns in
+  `df` are treated as a single scale named `"dimension"`.
 
 - questions:
 
-  trait names and items constituting a trait
+  A named list (same structure as `key`) of question label strings to
+  append to item names in the output tables. When `NULL` (default) only
+  column names are used.
 
 - reverse:
 
-  index of trait names and index for reversal
+  A named list (same structure as `key`) of numeric sign vectors (`1` =
+  keep, `-1` = reverse) passed to
+  [`psych::reverse.code()`](https://rdrr.io/pkg/psych/man/reverse.code.html).
+  When `NULL` (default) no reversal is applied.
 
 - mini:
 
-  minimum rating in scale if NULL reversal will be performed using the
-  empirical minimum
+  Numeric scalar specifying the minimum possible scale rating used for
+  item reversal. When `NULL` (default) the empirical minimum is used.
 
 - maxi:
 
-  maximum rating in scale if NULL reversal will be performed using the
-  empirical maximum
+  Numeric scalar specifying the maximum possible scale rating used for
+  item reversal. When `NULL` (default) the empirical maximum is used.
 
 - file:
 
-  output filename
+  Character string naming the output Excel file (without extension).
+  When `NULL` (default) no file is written. The workbook contains four
+  sheets: total statistics, bootstrap CIs (if requested), item
+  statistics, and alpha-if-item-removed.
 
 - ...:
 
-  arguments passed to psych::alpha
+  Additional arguments passed to
+  [`psych::alpha()`](https://rdrr.io/pkg/psych/man/alpha.html), such as
+  `cumulative`, `n.iter` (bootstrap iterations), or `check.keys`.
+
+## Value
+
+A named list with the following elements:
+
+- result_total:
+
+  Scale-level statistics including raw alpha, standardised alpha,
+  Guttman's Lambda 6, average inter-item correlation, signal-to-noise
+  ratio, mean, SD, Kaiser criterion, and alpha classification.
+
+- result_boot:
+
+  Bootstrap confidence intervals for alpha (only populated when
+  `n.iter > 1` is passed via `...`).
+
+- result_item_statistics:
+
+  Item-level statistics including corrected and uncorrected item-total
+  correlations, item mean and SD, and response frequencies.
+
+- result_dropped:
+
+  Alpha-if-item-removed statistics for each item within each scale.
 
 ## Examples
 
@@ -97,15 +140,15 @@ report_alpha(df=df,key=key,reverse=reverse,check.keys=FALSE,n.iter=2)
 #>   |                                                                                                                                                                                                      |                                                                                                                                                                                              |   0%  |                                                                                                                                                                                                      |==============================================================================================================================================================================================| 100%
 #> $result_total
 #>   dimension items kaiser_criterion raw_alpha std_alpha g6(smc) average_r   s/n     ase  mean     sd median_r boot_ci_2_5% boot_ci_50% boot_ci_97_5%     alpha_criterion
-#> 1        f1     3                1    0.7248    0.7246  0.6381    0.4673 2.632 0.01506 5.025 0.8402   0.4513       0.7025      0.7036        0.7047 Good and Acceptable
-#> 2        f2     3                1    0.7094    0.7093  0.6203    0.4486 2.440 0.01592 4.989 0.8131   0.4452       0.7046      0.7046        0.7047 Good and Acceptable
+#> 1        f1     3                1    0.7248    0.7246  0.6381    0.4673 2.632 0.01506 5.025 0.8402   0.4513       0.7221      0.7235        0.7249 Good and Acceptable
+#> 2        f2     3                1    0.7094    0.7093  0.6203    0.4486 2.440 0.01592 4.989 0.8131   0.4452       0.7202      0.7218        0.7234 Good and Acceptable
 #> 
 #> $result_boot
 #>   dimension items kaiser_criterion raw_alpha std_alpha g6(smc) average_r   s/n    ase unidim goodfit     var_r median_r
-#> 1        f1     3                1    0.7024    0.7020  0.6150    0.4399 2.356 0.2653 0.7715  0.9934 0.0031053   0.4512
-#> 2        f1     3                1    0.7047    0.7047  0.6162    0.4430 2.386 0.2605 0.7760  0.9964 0.0016985   0.4438
-#> 3        f2     3                1    0.7047    0.7055  0.6155    0.4440 2.395 0.2618 0.7779  0.9991 0.0004309   0.4486
-#> 4        f2     3                1    0.7046    0.7054  0.6158    0.4438 2.394 0.2624 0.7775  0.9982 0.0008232   0.4483
+#> 1        f1     3                1    0.7250    0.7249  0.6379    0.4676 2.635 0.2267 0.8024  0.9988 0.0005238   0.4551
+#> 2        f1     3                1    0.7220    0.7222  0.6350    0.4643 2.600 0.2323 0.7990  0.9985 0.0006294   0.4549
+#> 3        f2     3                1    0.7202    0.7202  0.6328    0.4617 2.573 0.2350 0.7963  0.9981 0.0008225   0.4618
+#> 4        f2     3                1    0.7235    0.7234  0.6362    0.4657 2.615 0.2290 0.8005  0.9987 0.0005480   0.4572
 #> 
 #> $result_item_statistics
 #>   dimension question raw_alpha    n  raw_r  std_r  r_cor r_drop  mean    sd     1     2     3     4     5     6     7     8     9 miss
@@ -129,15 +172,15 @@ report_alpha(df=df,key=key,check.keys=FALSE,n.iter=2,file="alpha")
 #>   |                                                                                                                                                                                                      |                                                                                                                                                                                              |   0%  |                                                                                                                                                                                                      |==============================================================================================================================================================================================| 100%
 #> $result_total
 #>   dimension items kaiser_criterion raw_alpha std_alpha g6(smc) average_r   s/n     ase  mean     sd median_r boot_ci_2_5% boot_ci_50% boot_ci_97_5%     alpha_criterion
-#> 1        f1     3                1    0.7248    0.7246  0.6381    0.4673 2.632 0.01506 5.025 0.8402   0.4513       0.7293      0.7425        0.7558 Good and Acceptable
-#> 2        f2     3                1    0.7094    0.7093  0.6203    0.4486 2.440 0.01592 4.989 0.8131   0.4452       0.7179      0.7180        0.7180 Good and Acceptable
+#> 1        f1     3                1    0.7248    0.7246  0.6381    0.4673 2.632 0.01506 5.025 0.8402   0.4513       0.7301      0.7363        0.7425 Good and Acceptable
+#> 2        f2     3                1    0.7094    0.7093  0.6203    0.4486 2.440 0.01592 4.989 0.8131   0.4452       0.7169      0.7209        0.7248 Good and Acceptable
 #> 
 #> $result_boot
-#>   dimension items kaiser_criterion raw_alpha std_alpha g6(smc) average_r   s/n    ase unidim goodfit      var_r median_r
-#> 1        f1     3                1    0.7286    0.7282  0.6449    0.4718 2.679 0.2197 0.8046  0.9927 0.00307699   0.4505
-#> 2        f1     3                1    0.7565    0.7565  0.6759    0.5087 3.106 0.1782 0.8401  0.9967 0.00119893   0.5071
-#> 3        f2     3                1    0.7180    0.7181  0.6294    0.4591 2.547 0.2385 0.7942  0.9998 0.00007322   0.4589
-#> 4        f2     3                1    0.7179    0.7176  0.6307    0.4586 2.541 0.2384 0.7926  0.9965 0.00152711   0.4430
+#>   dimension items kaiser_criterion raw_alpha std_alpha g6(smc) average_r   s/n    ase unidim goodfit     var_r median_r
+#> 1        f1     3                1    0.7297    0.7295  0.6449    0.4734 2.697 0.2190 0.8072  0.9956 0.0018478   0.4650
+#> 2        f1     3                1    0.7429    0.7430  0.6587    0.4907 2.890 0.1983 0.8247  0.9994 0.0002471   0.4917
+#> 3        f2     3                1    0.7167    0.7171  0.6291    0.4579 2.534 0.2400 0.7924  0.9984 0.0007262   0.4686
+#> 4        f2     3                1    0.7250    0.7250  0.6378    0.4678 2.637 0.2265 0.8027  0.9992 0.0003504   0.4627
 #> 
 #> $result_item_statistics
 #>   dimension question raw_alpha    n  raw_r  std_r  r_cor r_drop  mean    sd     1     2     3     4     5     6     7     8     9 miss

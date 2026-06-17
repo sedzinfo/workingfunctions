@@ -1,6 +1,10 @@
-# Replace NA with the previous element in a vector
+# Last observation carried forward (LOCF) imputation
 
-Replace NA with the previous element in a vector
+Replaces each `NA` in a vector with the most recent preceding non-`NA`
+value (last observation carried forward, LOCF). If the first element is
+`NA`, it is replaced with the first non-`NA` value found anywhere in the
+vector. To apply LOCF to every column of a data frame use
+`df[] <- lapply(df, replace_na_with_previous)`.
 
 ## Usage
 
@@ -12,7 +16,13 @@ replace_na_with_previous(vector)
 
 - vector:
 
-  Vector
+  A vector of any type that may contain `NA` values.
+
+## Value
+
+A vector of the same length and type as `vector` with `NA` values
+replaced by the preceding non-`NA` element. Returns the original vector
+unchanged if it contains no `NA` values.
 
 ## Examples
 

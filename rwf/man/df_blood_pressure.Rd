@@ -23,4 +23,8 @@ df_blood_pressure
 \description{
 This data set contains blood pressure readings for patients before and after a certain treatment or intervention.
 }
+\examples{
+data(df_blood_pressure)
+head(df_blood_pressure)
+}
 \keyword{datasets}

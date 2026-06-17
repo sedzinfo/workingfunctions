@@ -1,6 +1,11 @@
-# Produce combinations for comparisons from dataframe names
+# All pairwise column name combinations
 
-Produce combinations for comparisons from dataframe names
+Generates a data frame of all pairwise combinations of column names from
+a data frame. Useful for programmatically specifying variable pairs to
+pass to functions like
+[`compute_crosstable`](https://sedzinfo.github.io/rwf/reference/compute_crosstable.md)
+or
+[`plot_crosstable`](https://sedzinfo.github.io/rwf/reference/plot_crosstable.md).
 
 ## Usage
 
@@ -12,13 +17,19 @@ comparison_combinations(df, all_orders = TRUE)
 
 - df:
 
-  dataframe
+  A data frame whose column names will be combined.
 
 - all_orders:
 
-  if TRUE the order of combination is considered i.e. the combination X1
-  X2 also appears as X2 X1 if FALSE it is assumed that X1 X2 and X2 X1
-  are the same and only one of them appears
+  Logical. When `TRUE` (default) both orderings of each pair are
+  included (e.g. `(X1, X2)` and `(X2, X1)`), producing \\n(n-1)\\ rows
+  for \\n\\ columns. When `FALSE` only unique unordered pairs are
+  returned, producing \\n(n-1)/2\\ rows.
+
+## Value
+
+A data frame with two character columns `X1` and `X2`, each row
+representing one variable pair.
 
 ## Examples
 

@@ -37,4 +37,8 @@ questionnaire. The dataset is used as a teaching example in the researchpy
 Python statistics tutorials. The exact item wording is not publicly
 documented by the original source.
 }
+\examples{
+data(df_sexual_comp)
+head(df_sexual_comp)
+}
 \keyword{datasets}

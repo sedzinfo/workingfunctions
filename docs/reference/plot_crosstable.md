@@ -1,6 +1,10 @@
-# Plot crosstables
+# Bubble plots for pairwise cross-tabulations
 
-Plot crosstables
+Creates a bubble (point) plot for each pair of categorical variables
+where point size encodes cell frequency and point colour encodes the
+levels of the first variable. Variable pairs can be supplied explicitly
+via `combinations`, or generated automatically from all unique pairs
+within `factor_index`. A progress bar is displayed during computation.
 
 ## Usage
 
@@ -20,31 +24,44 @@ plot_crosstable(
 
 - df:
 
-  dataframe
+  A data frame containing the variables to plot.
 
 - factor_index:
 
-  index of factors
+  Integer vector of column indices. When `combinations` is `NULL`, all
+  unique pairwise combinations of the selected columns are plotted
+  (self-pairs and duplicate pairs are excluded).
 
 - combinations:
 
-  index of comparisons
+  A data frame with two character columns named `index1` and `index2`,
+  each row specifying one variable pair to plot. Takes precedence over
+  `factor_index`.
 
 - shape:
 
-  shape of points
+  Integer specifying the ggplot2 point shape. Default is `16` (filled
+  circle).
 
 - angle:
 
-  angle of xaxis labels
+  Numeric angle (in degrees) for x-axis tick labels. Default is `0`.
 
 - base_size:
 
-  base font size
+  Base font size passed to `theme_bw()`. Default is `10`.
 
 - title:
 
-  plot title
+  Character string used as the plot title. Default is `""`.
+
+## Value
+
+A named list of `ggplot` objects, one per variable pair. Each element is
+named `"var1_var2"` and shows a bubble chart with cell frequency as the
+point size, frequency counts as text labels, and total observations in
+the caption. Variable pairs with zero total observations are silently
+dropped.
 
 ## Examples
 

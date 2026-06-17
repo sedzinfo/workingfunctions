@@ -21,4 +21,8 @@ df_difficile
 \description{
 This data set contains information about the impact of different doses on libido.
 }
+\examples{
+data(df_difficile)
+head(df_difficile)
+}
 \keyword{datasets}

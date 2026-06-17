@@ -2,17 +2,26 @@
 % Please edit documentation in R/FUNCTIONS_ENVIRONMENT.R
 \name{write_txt}
 \alias{write_txt}
-\title{Log console in file}
+\title{Print an object and optionally save output to a log file}
 \usage{
 write_txt(input, file = NULL)
 }
 \arguments{
-\item{input}{Script to log in log file}
+\item{input}{Any R object to print.}
 
-\item{file}{Filename of log}
+\item{file}{Character string naming the output log file without extension.
+A \code{.log} extension is appended automatically. When \code{NULL}
+(default) output is printed to the console only and no file is written.}
+}
+\value{
+Invisibly returns \code{NULL}. Called for its side effects of
+  printing and optionally writing to a log file.
 }
 \description{
-Logs console in file and then displays log in console
+Prints \code{input} to the console. When \code{file} is
+  supplied, the printed output is also captured to a \code{.log} file using
+  \code{sink()}, and the file contents are echoed back to the console after
+  writing, so the output is visible in both places.
 }
 \examples{
 write_txt(mtcars)

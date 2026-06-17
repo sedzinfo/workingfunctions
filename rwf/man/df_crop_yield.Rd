@@ -21,4 +21,8 @@ df_crop_yield
 \description{
 This data set contains information about crop yields based on different fertilizer types and water conditions.
 }
+\examples{
+data(df_crop_yield)
+head(df_crop_yield)
+}
 \keyword{datasets}

@@ -2,14 +2,19 @@
 % Please edit documentation in R/FUNCTIONS_ENVIRONMENT.R
 \name{install_all_packages}
 \alias{install_all_packages}
-\title{Install all packages available in CRAN}
+\title{Install all missing CRAN packages}
 \usage{
 install_all_packages()
 }
-\description{
-Install all packages available in CRAN
+\value{
+Invisibly returns \code{NULL}. Called for its side effect of
+  installing packages.
 }
-\details{
-Install all packages available in CRAN. Already installed packages are not downloaded or installed
+\description{
+Compares the set of currently installed packages against the
+  full list of packages available on CRAN and installs any that are missing.
+  Already-installed packages are not re-downloaded or updated. Note that
+  CRAN contains thousands of packages, so this function can take a very
+  long time and requires a large amount of disk space.
 }
 \keyword{functions}

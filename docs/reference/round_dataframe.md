@@ -1,6 +1,8 @@
-# Round dataframe
+# Round numeric columns in a data frame
 
-It only processes numeric values in a dataframe
+Applies a rounding or transformation function to every numeric column in
+a data frame, leaving non-numeric columns (factor, character, etc.)
+unchanged.
 
 ## Usage
 
@@ -12,15 +14,43 @@ round_dataframe(df, digits = 0, type = "round")
 
 - df:
 
-  dataframe
+  A data frame containing a mix of numeric and non-numeric columns.
 
 - digits:
 
-  decimal points to return. It works only with "round" type
+  Integer number of decimal places. Only used with `type = "round"` and
+  `type = "tenth"`. Default is `0`.
 
 - type:
 
-  "round" "ceiling" "floor" "tenth"
+  Character string specifying the transformation to apply to numeric
+  columns:
+
+  `"round"`
+
+  :   Round to `digits` decimal places using
+      [`round()`](https://rdrr.io/r/base/Round.html) (default).
+
+  `"ceiling"`
+
+  :   Round up to the nearest integer using
+      [`ceiling()`](https://rdrr.io/r/base/Round.html).
+
+  `"floor"`
+
+  :   Round down to the nearest integer using
+      [`floor()`](https://rdrr.io/r/base/Round.html).
+
+  `"tenth"`
+
+  :   Divide each value by 10 then round to `digits` decimal places —
+      useful for rescaling values that were multiplied by 10 (e.g.
+      converting tenths back to units).
+
+## Value
+
+A data frame with the same structure as `df` where all numeric columns
+have been rounded or transformed according to `type`.
 
 ## Examples
 

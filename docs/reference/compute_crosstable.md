@@ -1,6 +1,10 @@
-# Compute crosstables
+# Pairwise cross-tabulation of categorical variables
 
-Compute crosstables
+Computes contingency tables (frequency counts and percentages) for pairs
+of categorical variables. Variable pairs can be supplied explicitly via
+`combinations`, or all unique pairs within a set of columns can be
+generated automatically via `factor_index`. A progress bar is displayed
+during computation.
 
 ## Usage
 
@@ -12,15 +16,51 @@ compute_crosstable(df, factor_index = NULL, combinations = NULL)
 
 - df:
 
-  dataframe
+  A data frame containing the variables to cross-tabulate.
 
 - factor_index:
 
-  index of factors
+  Integer vector of column indices. When provided and `combinations` is
+  `NULL`, all unique pairwise combinations of the selected columns are
+  computed (self-pairs and duplicate pairs are excluded).
 
 - combinations:
 
-  index of comparisons
+  A data frame with two character columns named `index1` and `index2`,
+  each row specifying one variable pair to cross-tabulate. Takes
+  precedence over `factor_index`.
+
+## Value
+
+A data frame with one row per combination of variable-pair levels,
+containing the following columns:
+
+- f1:
+
+  Name of the first variable.
+
+- f2:
+
+  Name of the second variable.
+
+- l1:
+
+  Level of the first variable.
+
+- l2:
+
+  Level of the second variable.
+
+- Frequency:
+
+  Observed count for the `l1` × `l2` cell.
+
+- Percent:
+
+  Cell count as a percentage of all observations in that variable pair
+  (`Frequency / total * 100`).
+
+Variable pairs with zero total observations are silently dropped.
 
 ## Examples
 

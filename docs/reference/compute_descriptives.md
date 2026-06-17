@@ -1,6 +1,10 @@
 # Descriptive statistics
 
-uses psych
+Computes a comprehensive set of descriptive statistics for one or more
+continuous variables, optionally stratified by one or more grouping
+(independent) variables. When `iv` is supplied the statistics are
+computed separately for each combination of dependent and independent
+variable levels. Results can be exported to an Excel file.
 
 ## Usage
 
@@ -12,23 +16,96 @@ compute_descriptives(df, dv, iv = NULL, file = NULL)
 
 - df:
 
-  dataframe
+  A data frame containing the variables of interest.
 
 - dv:
 
-  index of dependent variables
+  Integer vector of column indices identifying the dependent
+  (continuous) variables to summarise.
 
 - iv:
 
-  index of independent variables
+  Integer vector of column indices identifying the independent
+  (grouping) variables used to stratify the output. When `NULL`
+  (default) the statistics are computed on the full sample.
 
 - file:
 
-  output filename
+  Character string naming the output Excel file (without extension).
+  When `NULL` (default) no file is written.
 
-## Details
+## Value
 
-returns xlsx
+A data frame with one row per variable (and per group level when `iv` is
+supplied) containing the following columns:
+
+- factor:
+
+  Name of the grouping variable (`iv` only).
+
+- levels:
+
+  Level of the grouping variable (`iv` only).
+
+- variable:
+
+  Name of the dependent variable.
+
+- n:
+
+  Sample size (non-missing observations).
+
+- mean:
+
+  Arithmetic mean.
+
+- sd:
+
+  Standard deviation.
+
+- median:
+
+  Median.
+
+- trimmed:
+
+  10% trimmed mean.
+
+- mad:
+
+  Median absolute deviation.
+
+- min:
+
+  Minimum observed value.
+
+- max:
+
+  Maximum observed value.
+
+- range:
+
+  Difference between maximum and minimum.
+
+- skew:
+
+  Skewness; deviations from 0 indicate departure from symmetry.
+
+- kurtosis:
+
+  Excess kurtosis; deviations from 0 indicate departure from normality.
+
+- se:
+
+  Standard error of the mean.
+
+- IQR:
+
+  Interquartile range (Q0.75 - Q0.25).
+
+- Q0.1, Q0.25, Q0.5, Q0.75, Q0.9:
+
+  Percentiles at 10, 25, 50, 75, and 90.
 
 ## Examples
 

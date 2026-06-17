@@ -16,7 +16,7 @@ Summary statistics, frequencies and reliability
 - [`compute_descriptives()`](https://sedzinfo.github.io/rwf/reference/compute_descriptives.md)
   : Descriptive statistics
 - [`compute_frequencies()`](https://sedzinfo.github.io/rwf/reference/compute_frequencies.md)
-  : Frequencies by levels
+  : Frequency table for categorical variables
 - [`compute_skewness()`](https://sedzinfo.github.io/rwf/reference/compute_skewness.md)
   : Compute skewness
 - [`compute_kurtosis()`](https://sedzinfo.github.io/rwf/reference/compute_kurtosis.md)
@@ -30,15 +30,15 @@ Summary statistics, frequencies and reliability
 - [`compute_scores()`](https://sedzinfo.github.io/rwf/reference/compute_scores.md)
   : Compute subject ability for thurstonian models
 - [`compute_aggregate()`](https://sedzinfo.github.io/rwf/reference/compute_aggregate.md)
-  : Descriptive statistics
+  : Aggregate descriptive statistics by group
 - [`raw_alpha()`](https://sedzinfo.github.io/rwf/reference/raw_alpha.md)
-  : Raw alpha
+  : Cronbach's alpha (raw)
 - [`alpha_diagnostics()`](https://sedzinfo.github.io/rwf/reference/alpha_diagnostics.md)
   : Item-total correlations and alpha-if-item-removed diagnostics
 - [`mean_sd_alpha()`](https://sedzinfo.github.io/rwf/reference/mean_sd_alpha.md)
-  : Mean and SD
+  : Mean and SD of scale scores
 - [`report_alpha()`](https://sedzinfo.github.io/rwf/reference/report_alpha.md)
-  : Estimate alpha for several dimensions and export results to xlsx
+  : Cronbach's alpha reliability report for multiple scales
 
 ## Correlation & Covariance
 
@@ -69,7 +69,7 @@ Correlation matrices, power analysis and related utilities
 - [`plot_corrplot()`](https://sedzinfo.github.io/rwf/reference/plot_corrplot.md)
   : Correlation matrix plots
 - [`plot_mtmm()`](https://sedzinfo.github.io/rwf/reference/plot_mtmm.md)
-  : Plot multitrait multimethod matrix
+  : Multitrait-multimethod (MTMM) matrix plot
 
 ## Exploratory Factor Analysis
 
@@ -86,7 +86,7 @@ Correlation matrices, power analysis and related utilities
 ## Confirmatory Factor Analysis & SEM
 
 - [`key_to_cfa_model()`](https://sedzinfo.github.io/rwf/reference/key_to_cfa_model.md)
-  : Converts key to cfa model spesification
+  : Convert a key list to a lavaan CFA model string
 - [`model_loadings()`](https://sedzinfo.github.io/rwf/reference/model_loadings.md)
   : Pattern and structure matrix
 - [`cfa_icc_index()`](https://sedzinfo.github.io/rwf/reference/cfa_icc_index.md)
@@ -97,7 +97,7 @@ Correlation matrices, power analysis and related utilities
 - [`check_heywood()`](https://sedzinfo.github.io/rwf/reference/check_heywood.md)
   : Check for Heywood Cases and Related SEM Estimation Problems
 - [`extract_components()`](https://sedzinfo.github.io/rwf/reference/extract_components.md)
-  : Extract variance components from model
+  : Extract and plot variance components from a mixed model
 - [`simulate_cfa_fit()`](https://sedzinfo.github.io/rwf/reference/simulate_cfa_fit.md)
   : Simulate CFA model fit across sample sizes
 - [`report_cfa()`](https://sedzinfo.github.io/rwf/reference/report_cfa.md)
@@ -160,7 +160,7 @@ Correlation matrices, power analysis and related utilities
 - [`name_triplet_pairs()`](https://sedzinfo.github.io/rwf/reference/name_triplet_pairs.md)
   : Create Pair Labels from Consecutive Triplets of Items
 - [`comparison_combinations()`](https://sedzinfo.github.io/rwf/reference/comparison_combinations.md)
-  : Produce combinations for comparisons from dataframe names
+  : All pairwise column name combinations
 
 ## Regression & Logistic
 
@@ -241,19 +241,19 @@ Correlation matrices, power analysis and related utilities
 - [`plot_interaction()`](https://sedzinfo.github.io/rwf/reference/plot_interaction.md)
   : Plot two-way interaction graphs for all IV pair and DV combinations
 - [`compute_crosstable()`](https://sedzinfo.github.io/rwf/reference/compute_crosstable.md)
-  : Compute crosstables
+  : Pairwise cross-tabulation of categorical variables
 - [`compute_tversky_index()`](https://sedzinfo.github.io/rwf/reference/compute_tversky_index.md)
   : Compute the Tversky index
 - [`plot_crosstable()`](https://sedzinfo.github.io/rwf/reference/plot_crosstable.md)
-  : Plot crosstables
+  : Bubble plots for pairwise cross-tabulations
 - [`plot_mosaic()`](https://sedzinfo.github.io/rwf/reference/plot_mosaic.md)
-  : Plot mosaic plots
+  : Mosaic plots for pairwise categorical variables
 - [`plot_multiplot()`](https://sedzinfo.github.io/rwf/reference/plot_multiplot.md)
   : Multiple ggplot plots in one graph
 - [`plot_normality_diagnostics()`](https://sedzinfo.github.io/rwf/reference/plot_normality_diagnostics.md)
   : Normality plots
 - [`plot_response_frequencies()`](https://sedzinfo.github.io/rwf/reference/plot_response_frequencies.md)
-  : Plot response frequencies
+  : Horizontal bar charts of response frequencies
 - [`plot_separability()`](https://sedzinfo.github.io/rwf/reference/plot_separability.md)
   : Plot separability
 - [`plot_outlier()`](https://sedzinfo.github.io/rwf/reference/plot_outlier.md)
@@ -261,10 +261,9 @@ Correlation matrices, power analysis and related utilities
 - [`plot_qq()`](https://sedzinfo.github.io/rwf/reference/plot_qq.md) :
   qq plots
 - [`plot_acf()`](https://sedzinfo.github.io/rwf/reference/plot_acf.md) :
-  Plot autocorrelation function of correlation covariance and partial
-  correlation
+  Autocorrelation, autocovariance, and partial autocorrelation plot
 - [`plot_ts()`](https://sedzinfo.github.io/rwf/reference/plot_ts.md) :
-  Plot timeseries
+  Line plot for a time series
 - [`duplicate_y_axis()`](https://sedzinfo.github.io/rwf/reference/duplicate_y_axis.md)
   : Duplicate the y axis on the right side of a ggplot
 - [`hinvert_title_grob()`](https://sedzinfo.github.io/rwf/reference/hinvert_title_grob.md)
@@ -292,11 +291,11 @@ Correlation matrices, power analysis and related utilities
 ## Data Manipulation
 
 - [`c_bind()`](https://sedzinfo.github.io/rwf/reference/c_bind.md) :
-  cbind dataframes with unequal lengths or row lengths
+  Column-bind data frames or vectors of unequal lengths
 - [`rbind_all()`](https://sedzinfo.github.io/rwf/reference/rbind_all.md)
-  : rbind dataframes or matrices with different lengths or collumn names
+  : Row-bind two data frames with different column sets
 - [`change_data_type()`](https://sedzinfo.github.io/rwf/reference/change_data_type.md)
-  : dataframe data type transformations
+  : Convert column data types in a data frame
 - [`recode_scale_dummy()`](https://sedzinfo.github.io/rwf/reference/recode_scale_dummy.md)
   : Scale and dummy code
 - [`drop_levels()`](https://sedzinfo.github.io/rwf/reference/drop_levels.md)
@@ -304,11 +303,11 @@ Correlation matrices, power analysis and related utilities
 - [`trim_df()`](https://sedzinfo.github.io/rwf/reference/trim_df.md) :
   Trim whitespace in dataframe
 - [`round_dataframe()`](https://sedzinfo.github.io/rwf/reference/round_dataframe.md)
-  : Round dataframe
-- [`padNA()`](https://sedzinfo.github.io/rwf/reference/padNA.md) : pad
-  NA's to collumns in dataframe
+  : Round numeric columns in a data frame
+- [`padNA()`](https://sedzinfo.github.io/rwf/reference/padNA.md) : Pad a
+  data frame to a target number of rows with NAs
 - [`replace_na_with_previous()`](https://sedzinfo.github.io/rwf/reference/replace_na_with_previous.md)
-  : Replace NA with the previous element in a vector
+  : Last observation carried forward (LOCF) imputation
 - [`remove_outliers()`](https://sedzinfo.github.io/rwf/reference/remove_outliers.md)
   : Remove outliers
 - [`outlier_summary()`](https://sedzinfo.github.io/rwf/reference/outlier_summary.md)
@@ -332,7 +331,7 @@ Correlation matrices, power analysis and related utilities
 - [`increase_index()`](https://sedzinfo.github.io/rwf/reference/increase_index.md)
   : index dataframe picks
 - [`min_max_index()`](https://sedzinfo.github.io/rwf/reference/min_max_index.md)
-  : Return the minimum and maximum index of a vector
+  : Indices of the minimum and maximum values in a vector
 - [`flatten_list()`](https://sedzinfo.github.io/rwf/reference/flatten_list.md)
   : Flatten two dimensional list
 - [`swap()`](https://sedzinfo.github.io/rwf/reference/swap.md) : Reverse
@@ -373,7 +372,7 @@ Correlation matrices, power analysis and related utilities
 - [`proper()`](https://sedzinfo.github.io/rwf/reference/proper.md) :
   Capitalize first character and lowercase the rest
 - [`remove_nc()`](https://sedzinfo.github.io/rwf/reference/remove_nc.md)
-  : Replace remove non computable values
+  : Replace and remove non-computable values
 - [`string_aes()`](https://sedzinfo.github.io/rwf/reference/string_aes.md)
   : Adjust string aesthetics
 - [`tag_pos()`](https://sedzinfo.github.io/rwf/reference/tag_pos.md) :
@@ -400,7 +399,7 @@ Correlation matrices, power analysis and related utilities
 - [`call_to_string()`](https://sedzinfo.github.io/rwf/reference/call_to_string.md)
   : Model call to string
 - [`dotnames()`](https://sedzinfo.github.io/rwf/reference/dotnames.md) :
-  Get the names of objects in the arguments
+  Pad a data frame to a target number of rows with NAs
 - [`fixed()`](https://sedzinfo.github.io/rwf/reference/fixed.md) : Mark
   a pattern as a fixed string
 - [`deg2rad()`](https://sedzinfo.github.io/rwf/reference/deg2rad.md) :
@@ -408,17 +407,17 @@ Correlation matrices, power analysis and related utilities
 - [`rad2deg()`](https://sedzinfo.github.io/rwf/reference/rad2deg.md) :
   Convert radians to degrees
 - [`shrout()`](https://sedzinfo.github.io/rwf/reference/shrout.md) :
-  Shrout reliability
+  Shrout-Fleiss reliability coefficients
 - [`compute_solve()`](https://sedzinfo.github.io/rwf/reference/compute_solve.md)
   : Solve Linear Systems or Invert a Matrix (Gauss-Jordan)
 - [`compute_adjustment()`](https://sedzinfo.github.io/rwf/reference/compute_adjustment.md)
   : Compute adjustments
 - [`compute_moving_average()`](https://sedzinfo.github.io/rwf/reference/compute_moving_average.md)
-  : Moving Average
+  : Centered moving average
 - [`compute_residual_stats()`](https://sedzinfo.github.io/rwf/reference/compute_residual_stats.md)
   : Residuals for matrices
 - [`ts_smoothing()`](https://sedzinfo.github.io/rwf/reference/ts_smoothing.md)
-  : Smoothing
+  : Time series smoothing with multiple bandwidth levels
 - [`decompose_datetime()`](https://sedzinfo.github.io/rwf/reference/decompose_datetime.md)
   : Decompose datetime objects to dataframe collumns
 - [`convert_excel_unix_timestamp()`](https://sedzinfo.github.io/rwf/reference/convert_excel_unix_timestamp.md)
@@ -430,7 +429,7 @@ Correlation matrices, power analysis and related utilities
 - [`response_dimension()`](https://sedzinfo.github.io/rwf/reference/response_dimension.md)
   : index parameter and items relative to their dimensions
 - [`response_frequency()`](https://sedzinfo.github.io/rwf/reference/response_frequency.md)
-  : Response frequencies
+  : Response frequency table for ordinal or Likert-scale variables
 
 ## Datasets
 

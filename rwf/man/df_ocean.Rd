@@ -130,6 +130,7 @@ head(df_ocean)
 # Compute Big Five average scores (after reverse scoring)
 # library(dplyr)
 # df_ocean <- df_ocean \%>\% mutate(E=rowMeans(select(., E1:E10), na.rm=TRUE))
-
+data(df_ocean)
+head(df_ocean)
 }
 \keyword{datasets}

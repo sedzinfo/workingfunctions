@@ -2,12 +2,28 @@
 % Please edit documentation in R/FUNCTIONS_ENVIRONMENT.R
 \name{getfwp}
 \alias{getfwp}
-\title{Get working file path}
+\title{Get the file path of the currently running script}
 \usage{
 getfwp()
 }
+\value{
+A character string containing the normalised absolute path of the
+  current script, or an empty string (\code{""}) if the path cannot be
+  determined.
+}
 \description{
-Get working file path
+Returns the normalised absolute path of the R script that is
+  currently executing. The function tries the following methods in order:
+  \enumerate{
+    \item The \code{--file=} command-line argument (set when running via
+      \code{Rscript script.R}).
+    \item The \code{fileName} variable in the first call-stack frame (set
+      by some IDEs).
+    \item The \code{ofile} variable in the first call-stack frame (set when
+      the script is loaded with \code{source()}).
+    \item The active document path from \code{rstudioapi} (RStudio only).
+    \item The source editor path from \code{rstudioapi} as a fallback.
+  }
 }
 \examples{
 #getfwp()

@@ -1,6 +1,11 @@
-# Frequencies by levels
+# Frequency table for categorical variables
 
-returns frequency proportion percent
+Computes frequency counts, proportions, and percentages for every column
+in a data frame. All columns are processed together and the results are
+stacked into a single long-format table. Missing values are excluded
+from the frequency counts via
+[`table()`](https://rdrr.io/r/base/table.html). Results can be exported
+to an Excel file.
 
 ## Usage
 
@@ -12,19 +17,43 @@ compute_frequencies(df, ordered = TRUE, file = NULL)
 
 - df:
 
-  dataframe
+  A data frame whose columns are the categorical variables to tabulate.
+  All columns are processed regardless of class.
 
 - ordered:
 
-  if TRUE it will output frequencies in descending order
+  Logical. When `TRUE` (default) the rows within each variable are
+  sorted by frequency in descending order.
 
 - file:
 
-  output filename
+  Character string naming the output Excel file (without extension).
+  When `NULL` (default) no file is written.
 
-## Details
+## Value
 
-returns xlsx
+A data frame in long format with one row per observed level per
+variable, containing the following columns:
+
+- variable:
+
+  Name of the column from `df`.
+
+- Observation:
+
+  Observed level (category label).
+
+- Frequency:
+
+  Count of observations at that level.
+
+- Proportion:
+
+  Relative frequency (Frequency / total for that variable).
+
+- Percent:
+
+  Proportion multiplied by 100.
 
 ## Examples
 

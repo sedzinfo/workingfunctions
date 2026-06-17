@@ -1,6 +1,8 @@
-# dataframe data type transformations
+# Convert column data types in a data frame
 
-dataframe data type transformations
+Converts all or selected columns in a data frame to a specified data
+type. Whitespace (tabs, carriage returns, newlines) is trimmed
+automatically when converting to `"character"` or `"numeric"`.
 
 ## Usage
 
@@ -12,15 +14,40 @@ change_data_type(df, type)
 
 - df:
 
-  dataframe
+  A data frame whose columns will be converted.
 
 - type:
 
-  "character" "numeric" "factor" "factor_character" "character_factor"  
-  For "factor_character" if factors are found, are converted to
-  characters  
-  For "character_factor" if characters are found, are converted to
-  factors
+  Character string specifying the conversion to apply:
+
+  `"character"`
+
+  :   Converts all columns to character, trimming leading and trailing
+      whitespace.
+
+  `"numeric"`
+
+  :   Converts all columns to numeric (via character with whitespace
+      trimming). Non-numeric strings become `NA`.
+
+  `"factor"`
+
+  :   Converts all columns to factor.
+
+  `"factor_character"`
+
+  :   Converts only factor columns to character; all other columns are
+      left unchanged.
+
+  `"character_factor"`
+
+  :   Converts only character columns to factor; all other columns are
+      left unchanged.
+
+## Value
+
+A data frame with the same dimensions as `df` with column types
+converted as specified.
 
 ## Examples
 

@@ -1,6 +1,9 @@
-# Plot timeseries
+# Line plot for a time series
 
-Plot timeseries
+Converts a `ts` object into a ggplot2 line chart with semi-transparent
+points and an overlaid linear trend line. The returned `ggplot` object
+can be extended with additional layers (e.g. `geom_vline()` to mark
+events).
 
 ## Usage
 
@@ -12,23 +15,25 @@ plot_ts(df, base_size = 10, ylab = "Count", title = "")
 
 - df:
 
-  ts object
+  A `ts` object containing the time series to plot.
 
 - base_size:
 
-  base font size
+  Base font size passed to `theme_bw()`. Default is `10`.
 
 - ylab:
 
-  y label
+  Character string for the y-axis label. Default is `"Count"`.
 
 - title:
 
-  plot title
+  Character string used as the plot title. Default is `""`.
 
-## Details
+## Value
 
-returns plot
+A `ggplot` object showing the time series as a line with points, a
+linear trend line fitted via `lm`, and a caption reporting the total
+number of observations.
 
 ## Examples
 

@@ -1,6 +1,12 @@
-# Shrout reliability
+# Shrout-Fleiss reliability coefficients
 
-Shrout reliability
+Computes five reliability coefficients from the Shrout and Fleiss (1979)
+framework using variance components extracted from a person × item ×
+time mixed model (see
+[`extract_components`](https://sedzinfo.github.io/rwf/reference/extract_components.md)).
+The coefficients cover between-person and within-person reliability
+under both fixed and random time designs, and are appropriate for
+longitudinal or repeated-measures measurement studies.
 
 ## Usage
 
@@ -12,31 +18,64 @@ shrout(sperson, spersonitem, stime, spersontime, serror, m, k)
 
 - sperson:
 
-  variance component of participant
+  Variance component of the person main effect.
 
 - spersonitem:
 
-  variance component of participant by item interaction
+  Variance component of the person × item interaction.
 
 - stime:
 
-  variance component of time
+  Variance component of the time main effect.
 
 - spersontime:
 
-  variance component of participant by time interaction
+  Variance component of the person × time interaction.
 
 - serror:
 
-  variance component of error
+  Variance component of residual error.
 
 - m:
 
-  m item reports
+  Number of items (reports) averaged over.
 
 - k:
 
-  k time points
+  Number of time points averaged over.
+
+## Value
+
+A data frame with one row per reliability coefficient containing columns
+`measure`, `result`, and `description`:
+
+- r1f:
+
+  Between-person reliability of a single measure at fixed time points.
+
+- r1r:
+
+  Between-person reliability of a single measure at random time points
+  (different people, different days).
+
+- rkf:
+
+  Between-person reliability of scores averaged over `m` items and `k`
+  fixed time points.
+
+- rkr:
+
+  Between-person reliability of scores averaged over `k` random time
+  points.
+
+- rc:
+
+  Within-person reliability of change across time points.
+
+## References
+
+Shrout, P. E., & Fleiss, J. L. (1979). Intraclass correlations: Uses in
+assessing rater reliability. *Psychological Bulletin, 86*(2), 420–428.
 
 ## Examples
 

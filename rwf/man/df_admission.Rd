@@ -23,4 +23,8 @@ df_admission
 This data set contains information about graduate admission, 
 including GRE scores, GPA, and the ranking of the undergraduate institution.
 }
+\examples{
+data(df_admission)
+head(df_admission)
+}
 \keyword{datasets}

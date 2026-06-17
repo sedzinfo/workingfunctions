@@ -1,6 +1,7 @@
-# Return the minimum and maximum index of a vector
+# Indices of the minimum and maximum values in a vector
 
-Return the minimum and maximum index of a vector
+Returns the positions of the minimum and maximum values in a vector.
+When there are ties all tied positions are returned.
 
 ## Usage
 
@@ -12,7 +13,19 @@ min_max_index(vector)
 
 - vector:
 
-  Vector
+  A numeric vector.
+
+## Value
+
+A named list with two elements:
+
+- max_index:
+
+  Integer vector of positions where the maximum value occurs.
+
+- min_index:
+
+  Integer vector of positions where the minimum value occurs.
 
 ## Examples
 

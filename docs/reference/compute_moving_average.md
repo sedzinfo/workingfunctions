@@ -1,6 +1,10 @@
-# Moving Average
+# Centered moving average
 
-compute moving average
+Smooths every numeric column of a data frame by replacing each value
+with the mean of a symmetric window of `2w + 1` observations (the `w`
+rows before, the row itself, and the `w` rows after). At the edges of
+the series the window is clipped to the available rows, so the average
+is computed over fewer observations.
 
 ## Usage
 
@@ -12,11 +16,19 @@ compute_moving_average(df, w)
 
 - df:
 
-  dataframe
+  A data frame whose columns will be smoothed. All columns should be
+  numeric.
 
 - w:
 
-  window
+  Integer half-window size. The total window width is `2w + 1`. For
+  example, `w = 5` averages 11 consecutive rows centred on each
+  observation.
+
+## Value
+
+A data frame with the same dimensions and column names as `df` where
+each value has been replaced by its centred moving average.
 
 ## Examples
 

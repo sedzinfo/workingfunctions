@@ -1,6 +1,9 @@
-# Replace remove non computable values
+# Replace and remove non-computable values
 
-Replace remove non computable values
+Cleans a data frame by replacing non-computable values (`NA`, `NaN`,
+`Inf`, `-Inf`, and empty strings) with a chosen replacement, then
+optionally drops rows or columns that still contain missing values or
+have zero variance.
 
 ## Usage
 
@@ -19,39 +22,42 @@ remove_nc(
 
 - df:
 
-  dataframe
+  A data frame to clean.
 
 - value:
 
-  replacement
+  The replacement value for all non-computable entries. Default is `NA`.
 
 - remove_rows:
 
-  if TRUE it will remove rows with non computable values
+  Logical. When `TRUE`, rows containing `NA` after replacement are
+  removed according to the `aggressive` setting. Default is `FALSE`.
 
 - aggressive:
 
-  if TRUE it will remove entire row if a single non computable value
-  exists  
-  if FALSE it will remove row if all values are non computable
+  Logical. Only used when `remove_rows = TRUE`.
+
+  - `TRUE` — remove a row if *any* value is `NA`.
+
+  - `FALSE` — remove a row only if *all* values are `NA`.
+
+  Default is `FALSE`.
 
 - remove_cols:
 
-  if TRUE it will remove collumns with non computable values
+  Logical. When `TRUE`, columns where *all* values are `NA` are dropped.
+  Default is `FALSE`.
 
 - remove_zero_variance:
 
-  if TRUE it will remove collumns with no variance
+  Logical. Only used when `remove_cols = TRUE`. When `TRUE`, columns
+  with only one unique non-missing value (zero variance) are also
+  dropped. Default is `FALSE`.
 
-## Details
+## Value
 
-Non computable values are NA, NAN, inf and empty cells.
-
-## Note
-
-This function internally replaces non computable values with the value
-choosen the default value is NA. Then it removes rows and collumns with
-NA values or zero variance
+A data frame with non-computable values replaced and, depending on the
+flags, rows and/or columns removed.
 
 ## Examples
 

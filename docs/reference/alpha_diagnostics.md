@@ -17,7 +17,8 @@ alpha_diagnostics(df)
 
 - df:
 
-  dataframe with one dimension
+  A data frame whose columns are the items of a single scale. All
+  columns must be numeric.
 
 ## Value
 

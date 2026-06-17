@@ -1,6 +1,10 @@
-# cbind dataframes with unequal lengths or row lengths
+# Column-bind data frames or vectors of unequal lengths
 
-cbind dataframes with unequal lengths or row lengths
+Combines any number of data frames or vectors side by side, padding
+shorter inputs with `NA` rows so all columns reach the same length. Each
+input's columns are prefixed with the object's name to avoid duplicate
+column names. Vectors are coerced to single-column data frames before
+binding.
 
 ## Usage
 
@@ -12,11 +16,20 @@ c_bind(..., first = TRUE)
 
 - ...:
 
-  dataframes or vectors to bind
+  Data frames or vectors to column-bind. Names are taken from the
+  unevaluated expressions passed (e.g. variable names).
 
 - first:
 
-  Logical
+  Logical. When `TRUE` (default) `NA` padding rows are appended at the
+  bottom of shorter inputs; when `FALSE` they are prepended at the top.
+
+## Value
+
+A data frame with one column per column across all inputs, padded with
+`NA` rows to the length of the longest input. Column names follow the
+pattern `<object_name>` for single-column inputs and
+`<object_name>_<original_colname>` for multi-column inputs.
 
 ## Author
 

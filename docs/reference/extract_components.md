@@ -1,6 +1,11 @@
-# Extract variance components from model
+# Extract and plot variance components from a mixed model
 
-Extract variance components from model
+Extracts variance components from a mixed linear model fitted with
+[`mixlm::lm()`](https://rdrr.io/pkg/mixlm/man/lm.html) and computes each
+component's percentage contribution to total variance. Results are
+returned as both a summary data frame and a horizontal bar chart, making
+it easy to identify which sources of variance (e.g. person, item, time,
+interactions) dominate the measurement design.
 
 ## Usage
 
@@ -12,11 +17,32 @@ extract_components(model, title = "")
 
 - model:
 
-  model containing variance components
+  A mixed model object returned by
+  [`mixlm::lm()`](https://rdrr.io/pkg/mixlm/man/lm.html). The model must
+  include random effects specified with `r()` so that variance
+  components are available via
+  [`mixlm::Anova()`](https://rdrr.io/pkg/car/man/Anova.html).
 
 - title:
 
-  plot title
+  Character string used as the plot title. Default is `""`.
+
+## Value
+
+A named list with two elements:
+
+- components:
+
+  A data frame with one row per variance component containing columns
+  `component` (effect name), `VC` (estimated variance component), and
+  `vc_percent` (percentage of total absolute variance explained by that
+  component).
+
+- plot:
+
+  A `ggplot` horizontal bar chart displaying `vc_percent` for each
+  component, with a line and points overlaid to show the profile across
+  components.
 
 ## Examples
 

@@ -1,6 +1,10 @@
-# rbind dataframes or matrices with different lengths or collumn names
+# Row-bind two data frames with different column sets
 
-rbind dataframes or matrices with different lengths or collumn names
+Combines two data frames or matrices by rows even when they do not share
+the same columns. Columns present in one input but absent in the other
+are added and filled with `NA` before binding. Row names from both
+inputs are preserved unless they would produce duplicates, in which case
+default integer row names are used.
 
 ## Usage
 
@@ -12,11 +16,17 @@ rbind_all(df1, df2)
 
 - df1:
 
-  dataframe or matrix
+  A data frame or matrix.
 
 - df2:
 
-  dataframe or matrix
+  A data frame or matrix.
+
+## Value
+
+A data frame containing all rows from `df1` followed by all rows from
+`df2`, with the union of both column sets. Cells where a column did not
+exist in the original input are `NA`.
 
 ## Examples
 

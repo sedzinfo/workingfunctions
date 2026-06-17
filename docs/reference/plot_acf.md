@@ -1,6 +1,12 @@
-# Plot autocorrelation function of correlation covariance and partial correlation
+# Autocorrelation, autocovariance, and partial autocorrelation plot
 
-uses ggplot
+Produces a faceted ggplot2 chart showing the autocorrelation function
+(ACF), autocovariance function, and partial autocorrelation function
+(PACF) of a time series side by side. Each facet includes dashed 95%
+confidence interval lines computed from the distribution of the ACF
+values, making it easy to identify significant lags and seasonal
+patterns. Missing values are excluded via
+`na.action = stats::na.exclude`.
 
 ## Usage
 
@@ -12,23 +18,42 @@ plot_acf(df, lag.max = length(df), base_size = 10, title = "")
 
 - df:
 
-  ts object
+  A `ts` object containing the time series to analyse.
 
 - lag.max:
 
-  maximum lags to include
+  Integer specifying the maximum number of lags to compute. Default is
+  `length(df)` (all possible lags).
 
 - base_size:
 
-  base font size
+  Base font size passed to `theme_bw()`. Default is `10`.
 
 - title:
 
-  plot title
+  Character string used as the plot title. Default is `""`.
 
-## Details
+## Value
 
-returns plot
+A `ggplot` object with three free-scale facets:
+
+- Correlation:
+
+  Autocorrelation function — measures linear dependence between the
+  series and its own lagged values.
+
+- Covariance:
+
+  Autocovariance function — the un-normalised version of the ACF.
+
+- Partial.Correlation:
+
+  Partial autocorrelation function — correlation at each lag after
+  removing the effect of shorter lags, useful for identifying AR model
+  order.
+
+Each facet includes dashed horizontal lines for the 95% CI lower bound
+(blue), mean (black), and upper bound (blue).
 
 ## Examples
 

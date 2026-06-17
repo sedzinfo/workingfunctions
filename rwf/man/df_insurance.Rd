@@ -26,4 +26,8 @@ df_insurance
 This data set contains information about insurance charges based on various factors 
 such as age, sex, BMI, number of children, smoking status, and region.
 }
+\examples{
+data(df_insurance)
+head(df_insurance)
+}
 \keyword{datasets}

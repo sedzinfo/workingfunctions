@@ -20,4 +20,8 @@ df_responses_state
 \description{
 This data set contains simulated state information paired with participant numbers from the responses data set.
 }
+\examples{
+data(df_responses_state)
+head(df_responses_state)
+}
 \keyword{datasets}

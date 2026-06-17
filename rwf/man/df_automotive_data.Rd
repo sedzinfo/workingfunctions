@@ -47,4 +47,8 @@ This data set contains various automotive information including
 engine location, dimensions, weight, engine type, number of cylinders, 
 and other specifications.
 }
+\examples{
+data(df_automotive_data)
+head(df_automotive_data)
+}
 \keyword{datasets}

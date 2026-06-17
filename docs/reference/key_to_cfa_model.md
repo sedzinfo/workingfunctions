@@ -1,7 +1,11 @@
-# Converts key to cfa model spesification
+# Convert a key list to a lavaan CFA model string
 
-This function uses the key spesification used in report_alpha function
-and converts the key to a cfa model spesification
+Converts the named list key format used by
+[`report_alpha`](https://sedzinfo.github.io/rwf/reference/report_alpha.md)
+into a lavaan model syntax string suitable for passing directly to
+[`lavaan::cfa()`](https://rdrr.io/pkg/lavaan/man/cfa.html). Each list
+element becomes one factor definition line of the form
+`factorname =~ item1+item2+...`.
 
 ## Usage
 
@@ -13,7 +17,14 @@ key_to_cfa_model(key)
 
 - key:
 
-  index of trait names and items constituring a trait
+  A named list where each name is a factor (trait) label and each
+  element is a character vector of item column names belonging to that
+  factor, e.g. `list(f1 = c("x1","x2","x3"), f2 = c("x4","x5","x6"))`.
+
+## Value
+
+A single character string containing the full lavaan model specification
+with one factor definition per line.
 
 ## Examples
 

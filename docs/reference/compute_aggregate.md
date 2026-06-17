@@ -1,6 +1,13 @@
-# Descriptive statistics
+# Aggregate descriptive statistics by group
 
-uses plyr
+Computes a comprehensive set of descriptive statistics for all numeric
+columns in a data frame, stratified by one or more grouping variables.
+Unlike
+[`compute_descriptives`](https://sedzinfo.github.io/rwf/reference/compute_descriptives.md),
+this function operates on every numeric column simultaneously and
+returns results in a long format where each row corresponds to one
+statistic for one group combination. Results can be exported to an Excel
+file.
 
 ## Usage
 
@@ -12,19 +19,77 @@ compute_aggregate(df, iv, file = NULL)
 
 - df:
 
-  dataframe
+  A data frame containing the variables of interest. All numeric columns
+  that are not listed in `iv` are summarised.
 
 - iv:
 
-  index of independent variables
+  Integer vector of column indices identifying the grouping variables
+  used to stratify the output.
 
 - file:
 
-  output filename
+  Character string naming the output Excel file (without extension).
+  When `NULL` (default) no file is written.
 
-## Details
+## Value
 
-returns xlsx
+A data frame in long format with one row per statistic per group
+combination. The first column is `statistic` (see below), followed by
+the grouping variable columns, and then one column per numeric variable
+in `df`. The `statistic` column takes the following values:
+
+- mean:
+
+  Arithmetic mean.
+
+- SD:
+
+  Standard deviation.
+
+- median:
+
+  Median.
+
+- mad:
+
+  Median absolute deviation.
+
+- trimmed mean:
+
+  50% trimmed mean.
+
+- N:
+
+  Number of non-missing observations.
+
+- min:
+
+  Minimum observed value.
+
+- max:
+
+  Maximum observed value.
+
+- range:
+
+  Difference between maximum and minimum.
+
+- skewness:
+
+  Skewness; deviations from 0 indicate departure from symmetry.
+
+- kurtosis:
+
+  Excess kurtosis; deviations from 0 indicate departure from normality.
+
+- IQR:
+
+  Interquartile range (Q0.75 - Q0.25).
+
+- SE:
+
+  Standard error of the mean.
 
 ## Examples
 
