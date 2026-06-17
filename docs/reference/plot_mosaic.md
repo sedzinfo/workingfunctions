@@ -1,0 +1,48 @@
+# Plot mosaic plots
+
+Plot mosaic plots
+
+## Usage
+
+``` r
+plot_mosaic(df, factor_index, base_size = 10, title = "")
+```
+
+## Arguments
+
+- df:
+
+  dataframe
+
+- factor_index:
+
+  index of factors
+
+- base_size:
+
+  base font size
+
+- title:
+
+  plot title
+
+## Examples
+
+``` r
+plot_mosaic(df=mtcars,factor_index=8:9)
+#>   |                                                                              |                                                                      |   0%  |                                                                              |===================================                                   |  50%  |                                                                              |======================================================================| 100%
+#> $`vs am`
+
+#> 
+#> $`am vs`
+
+#> 
+plot_mosaic(df=mtcars,factor_index=9:10)
+#>   |                                                                              |                                                                      |   0%  |                                                                              |===================================                                   |  50%  |                                                                              |======================================================================| 100%
+#> $`am gear`
+
+#> 
+#> $`gear am`
+
+#> 
+```

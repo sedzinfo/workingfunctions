@@ -1,0 +1,87 @@
+# Multiple ggplot plots in one graph
+
+Multiple ggplot plots in one graph
+
+## Usage
+
+``` r
+plot_multiplot(..., plotlist = NULL, cols = 2, layout = NULL)
+```
+
+## Arguments
+
+- ...:
+
+  plot objects
+
+- plotlist:
+
+  a list of plots
+
+- cols:
+
+  number of columns in layout
+
+- layout:
+
+  a matrix specifying the layout. If present,'cols' is ignored
+
+## Examples
+
+``` r
+p1<-ggplot(ChickWeight,aes(x=Time,y=weight,colour=Diet,group=Chick))+
+           geom_line()+
+           ggtitle("Growth curve for individual chicks")+
+           theme_bw()
+p2<-ggplot(ChickWeight,aes(x=Time,y=weight,colour=Diet))+
+           geom_point(alpha=.3)+
+           geom_smooth(alpha=.2,size=1,method="loess",formula="y~x")+
+           ggtitle("Fitted growth curve per diet")+
+           theme_bw()
+p3<-ggplot(subset(ChickWeight,Time==21),aes(x=weight,colour=Diet))+
+           geom_density()+
+           ggtitle("Final weight, by diet")+theme_bw()
+p4<-ggplot(subset(ChickWeight,Time==21),aes(x=weight,fill=Diet))+
+           geom_histogram(colour="black",binwidth=50)+facet_grid(Diet~.)+
+           ggtitle("Final weight, by diet")+theme_bw()
+cars_plot<-plot_histogram(mtcars)
+#>   |                                                                              |                                                                      |   0%  |                                                                              |======                                                                |   9%  |                                                                              |=============                                                         |  18%  |                                                                              |===================                                                   |  27%  |                                                                              |=========================                                             |  36%  |                                                                              |================================                                      |  45%  |                                                                              |======================================                                |  55%  |                                                                              |=============================================                         |  64%  |                                                                              |===================================================                   |  73%  |                                                                              |=========================================================             |  82%  |                                                                              |================================================================      |  91%  |                                                                              |======================================================================| 100%
+plot_multiplot(p1,p2,p3,p4,cols=2)
+
+#> [[1]]
+#> 
+plot_multiplot(plotlist=plot_histogram(mtcars[,1:4]),cols=2)
+#>   |                                                                              |                                                                      |   0%  |                                                                              |==================                                                    |  25%  |                                                                              |===================================                                   |  50%  |                                                                              |====================================================                  |  75%  |                                                                              |======================================================================| 100%
+
+#> [[1]]
+#> 
+plot_multiplot(plotlist=plot_histogram(mtcars),layout=matrix(1:4,ncol=2,byrow=TRUE))
+#>   |                                                                              |                                                                      |   0%  |                                                                              |======                                                                |   9%  |                                                                              |=============                                                         |  18%  |                                                                              |===================                                                   |  27%  |                                                                              |=========================                                             |  36%  |                                                                              |================================                                      |  45%  |                                                                              |======================================                                |  55%  |                                                                              |=============================================                         |  64%  |                                                                              |===================================================                   |  73%  |                                                                              |=========================================================             |  82%  |                                                                              |================================================================      |  91%  |                                                                              |======================================================================| 100%
+
+
+
+#> [[1]]
+#> 
+#> [[2]]
+#> 
+#> [[3]]
+#> 
+plot_multiplot(plotlist=plot_scatterplot(mtcars[,1:4]),cols=2)
+
+#> [[1]]
+#> 
+plot_multiplot(plotlist=cars_plot,layout=matrix(1:4,ncol=2,byrow=TRUE))
+
+
+
+#> [[1]]
+#> 
+#> [[2]]
+#> 
+#> [[3]]
+#> 
+plot_multiplot(plotlist=cars_plot,cols=3)
+
+#> [[1]]
+#> 
+```
