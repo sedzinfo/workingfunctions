@@ -8,6 +8,8 @@ Description: Utilities for psychological data analysis, including automated stat
 Depends: R (>= 3.5), ggplot2
 Imports: MASS, future, future.apply, gtools, irr, openxlsx, pROC, plyr, psych, reshape2, xgboost, DescTools, Rmisc, ggfortify, ggrepel, car, sjstats, ggpubr, gridExtra, scales, pwr, mirt, nlme, NLP, openNLP, tm, spelling, lavaan, ggExtra, QuantPsyc, purrr, emmeans, ez, htmlwidgets, mixlm, rstatix, rstudioapi, igraph, stopwords, gtable, stringr
 Suggests: e1071, forecast, lsr, rcompanion, thurstonianIRT
+URL: https://sedzinfo.github.io/rwf/
+BugReports: https://github.com/sedzinfo/rwf/issues
 License: GPL (>= 2)
 Encoding: UTF-8
 LazyData: true
