@@ -1,0 +1,94 @@
+# Solve Linear Systems or Invert a Matrix (Gauss-Jordan)
+
+Solves matrix equations of the form A X = B using Gauss-Jordan
+elimination with partial pivoting.
+
+In simple terms: this function takes a square matrix A and finds X so
+that multiplying A by X gives B.
+
+If B is not provided, it uses the identity matrix and returns the
+inverse of A.
+
+## Usage
+
+``` r
+compute_solve(a, b)
+```
+
+## Arguments
+
+- a:
+
+  Numeric square matrix A.
+
+- b:
+
+  Optional numeric vector or matrix B. Must have the same number of rows
+  as A. If omitted, B is set to the identity matrix.
+
+## Value
+
+If b is a matrix, returns matrix X solving A X = B.
+
+If b is a vector, returns vector x solving A x = b.
+
+If b is missing, returns the inverse of A.
+
+## Details
+
+Mathematical meaning: \$\$A X = B\$\$ where A is known, B is known, and
+X is unknown.
+
+Algebra meaning: each column of X is the solution to one linear system
+with the same A.
+
+Computational method: the function builds the augmented matrix \[A \|
+B\], then applies row operations until the left side becomes the
+identity matrix. At that point, the right side is X.
+
+Partial pivoting is used for better numerical stability: in each column,
+it swaps in the row with the largest absolute pivot.
+
+The function stops with an error if A is singular (non-invertible).
+
+## Examples
+
+``` r
+# Example 1: solve A x = b
+A <- matrix(c(2, 1,
+1, 3), nrow = 2, byrow = TRUE)
+b <- c(1, 2)
+x <- compute_solve(A, b)
+x
+#> [1] 0.2 0.6
+# Check: A %% x should equal b
+A %% x
+#>      [,1]         [,2]
+#> [1,]  0.2 2.000000e-01
+#> [2,]  0.4 1.110223e-16
+
+# Example 2: solve A X = B (multiple right-hand sides)
+B <- cbind(c(1, 2), c(0, 1))
+X <- compute_solve(A, B)
+X
+#>      [,1] [,2]
+#> [1,]  0.2 -0.2
+#> [2,]  0.6  0.4
+# Check: A %% X should equal B
+A %% X
+#>      [,1]          [,2]
+#> [1,]  0.2 -5.551115e-17
+#> [2,]  0.4  2.000000e-01
+
+# Example 3: inverse of A (when b is omitted)
+A_inv <- compute_solve(A)
+A_inv
+#>      [,1] [,2]
+#> [1,]  0.6 -0.2
+#> [2,] -0.2  0.4
+# Check: A %% A_inv should be identity
+A %% A_inv
+#>               [,1]          [,2]
+#> [1,]  2.000000e-01 -5.551115e-17
+#> [2,] -5.551115e-17  2.000000e-01
+```

@@ -1,0 +1,114 @@
+# Item total correlation and r drop
+
+Item total correlation and r drop
+
+## Usage
+
+``` r
+alpha_diagnostics(df)
+```
+
+## Arguments
+
+- df:
+
+  dataframe with one dimension
+
+## Examples
+
+``` r
+set.seed(12345)
+df<-data.frame(matrix(.5,ncol=6,nrow=6))
+correlation_martix<-as.matrix(df)
+diag(correlation_martix)<-1
+df<-round(generate_correlation_matrix(correlation_martix,nrows=1000),0)+5
+psych::alpha(df)
+#> 
+#> Reliability analysis   
+#> Call: psych::alpha(x = df)
+#> 
+#>   raw_alpha std.alpha G6(smc) average_r S/N   ase mean   sd median_r
+#>       0.84      0.84    0.81      0.46 5.2 0.008    5 0.77     0.45
+#> 
+#>     95% confidence boundaries 
+#>          lower alpha upper
+#> Feldt     0.82  0.84  0.85
+#> Duhachek  0.82  0.84  0.85
+#> 
+#>  Reliability if an item is dropped:
+#>    raw_alpha std.alpha G6(smc) average_r S/N alpha se   var.r med.r
+#> X1      0.82      0.82    0.78      0.47 4.5   0.0091 0.00059  0.48
+#> X2      0.81      0.81    0.77      0.46 4.2   0.0096 0.00065  0.45
+#> X3      0.81      0.80    0.77      0.45 4.1   0.0097 0.00051  0.45
+#> X4      0.81      0.81    0.78      0.47 4.4   0.0093 0.00061  0.46
+#> X5      0.81      0.81    0.78      0.46 4.3   0.0093 0.00072  0.47
+#> X6      0.81      0.81    0.77      0.46 4.3   0.0095 0.00063  0.45
+#> 
+#>  Item statistics 
+#>       n raw.r std.r r.cor r.drop mean  sd
+#> X1 1000  0.72  0.72  0.63   0.58    5 1.0
+#> X2 1000  0.76  0.76  0.69   0.63    5 1.0
+#> X3 1000  0.77  0.76  0.70   0.64    5 1.1
+#> X4 1000  0.73  0.73  0.66   0.60    5 1.0
+#> X5 1000  0.74  0.74  0.66   0.60    5 1.0
+#> X6 1000  0.74  0.74  0.67   0.61    5 1.0
+#> 
+#> Non missing response frequency for each item
+#>    1    2    3    4    5    6    7    8 9 miss
+#> X1 0 0.00 0.07 0.22 0.39 0.26 0.06 0.00 0    0
+#> X2 0 0.01 0.05 0.23 0.37 0.26 0.06 0.00 0    0
+#> X3 0 0.00 0.07 0.23 0.39 0.23 0.06 0.01 0    0
+#> X4 0 0.01 0.05 0.25 0.39 0.24 0.06 0.01 0    0
+#> X5 0 0.01 0.05 0.25 0.39 0.23 0.07 0.00 0    0
+#> X6 0 0.01 0.06 0.24 0.40 0.23 0.05 0.01 0    0
+alpha_diagnostics(df=df)
+#>    item alpha.if.item.removed item.total.correlation.X1
+#> X1   X1             0.8172775                 0.7188293
+#> X2   X2             0.8074691                 0.7188293
+#> X3   X3             0.8050188                 0.7188293
+#> X4   X4             0.8133327                 0.7188293
+#> X5   X5             0.8129389                 0.7188293
+#> X6   X6             0.8106911                 0.7188293
+#>    item.total.correlation.X2 item.total.correlation.X3
+#> X1                 0.7577507                 0.7678537
+#> X2                 0.7577507                 0.7678537
+#> X3                 0.7577507                 0.7678537
+#> X4                 0.7577507                 0.7678537
+#> X5                 0.7577507                 0.7678537
+#> X6                 0.7577507                 0.7678537
+#>    item.total.correlation.X4 item.total.correlation.X5
+#> X1                 0.7328541                 0.7358393
+#> X2                 0.7328541                 0.7358393
+#> X3                 0.7328541                 0.7358393
+#> X4                 0.7328541                 0.7358393
+#> X5                 0.7328541                 0.7358393
+#> X6                 0.7328541                 0.7358393
+#>    item.total.correlation.X6 item.total.correlation.r.drop.X1
+#> X1                 0.7430253                        0.5813271
+#> X2                 0.7430253                        0.5813271
+#> X3                 0.7430253                        0.5813271
+#> X4                 0.7430253                        0.5813271
+#> X5                 0.7430253                        0.5813271
+#> X6                 0.7430253                        0.5813271
+#>    item.total.correlation.r.drop.X2 item.total.correlation.r.drop.X3
+#> X1                        0.6305662                        0.6423391
+#> X2                        0.6305662                        0.6423391
+#> X3                        0.6305662                        0.6423391
+#> X4                        0.6305662                        0.6423391
+#> X5                        0.6305662                        0.6423391
+#> X6                        0.6305662                        0.6423391
+#>    item.total.correlation.r.drop.X4 item.total.correlation.r.drop.X5
+#> X1                        0.6014236                        0.6034345
+#> X2                        0.6014236                        0.6034345
+#> X3                        0.6014236                        0.6034345
+#> X4                        0.6014236                        0.6034345
+#> X5                        0.6014236                        0.6034345
+#> X6                        0.6014236                        0.6034345
+#>    item.total.correlation.r.drop.X6
+#> X1                        0.6148351
+#> X2                        0.6148351
+#> X3                        0.6148351
+#> X4                        0.6148351
+#> X5                        0.6148351
+#> X6                        0.6148351
+```
