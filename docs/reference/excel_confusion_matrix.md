@@ -32,6 +32,7 @@ excel_confusion_matrix(
 ``` r
 filename<-"excel_confusion_matrix.xlsx"
 if (file.exists(filename)) file.remove(filename)
+#> [1] TRUE
 observed<-factor(round(rnorm(10000,m=10,sd=1)))
 predicted<-factor(round(rnorm(10000,m=10,sd=1)))
 confusion(observed,predicted)

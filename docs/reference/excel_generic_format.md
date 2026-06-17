@@ -60,6 +60,7 @@ comment<-list(mpg="Miles/(US) gallon",
 mtcor<-data.frame(cor(mtcars))
 filename<-"excel_generic.xlsx"
 if (file.exists(filename)) file.remove(filename)
+#> [1] TRUE
 wb<-openxlsx::createWorkbook()
 openxlsx::addWorksheet(wb,"sheet")
 openxlsx::addWorksheet(wb,"correlation")

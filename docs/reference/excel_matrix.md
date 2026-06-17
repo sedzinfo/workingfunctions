@@ -76,6 +76,7 @@ comment<-list(mpg="Miles/(US) gallon",
 mtcor<-data.frame(cor(mtcars))
 filename<-"excel_matrix.xlsx"
 if (file.exists(filename)) file.remove(filename)
+#> [1] TRUE
 wb<-openxlsx::createWorkbook()
 excel_matrix(mtcars,wb,sheet="matrix",comment=comment,
              conditional_formatting=TRUE,diagonal=FALSE)
