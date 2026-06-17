@@ -3,6 +3,8 @@ url: https://sedzinfo.github.io/rwf/
 template:
   bootstrap: 5
 
+destination: ../docs
+
 navbar:
   structure:
     left: [intro, reference, articles]
