@@ -2,15 +2,33 @@
 % Please edit documentation in R/GLM_RELIABILITY.R
 \name{alpha_diagnostics}
 \alias{alpha_diagnostics}
-\title{Item total correlation and r drop}
+\title{Item-total correlations and alpha-if-item-removed diagnostics}
 \usage{
 alpha_diagnostics(df)
 }
 \arguments{
 \item{df}{dataframe with one dimension}
 }
+\value{
+A data frame with one row per item and the following columns:
+  \describe{
+    \item{item}{Item name.}
+    \item{alpha.if.item.removed}{Cronbach's alpha computed on the remaining
+      items after excluding this item.}
+    \item{item.total.correlation}{Pearson correlation between this item and
+      the sum of all items (uncorrected).}
+    \item{item.total.correlation.r.drop}{Pearson correlation between this
+      item and the sum of all other items (corrected item-total correlation,
+      also known as r-drop). Values below 0.30 typically indicate a
+      problematic item.}
+  }
+}
 \description{
-Item total correlation and r drop
+Computes item-level reliability diagnostics for a unidimensional
+  scale. For each item the function returns the corrected and uncorrected
+  item-total correlations and Cronbach's alpha recalculated with that item
+  excluded. Use this alongside \code{\link{raw_alpha}} to identify items that
+  reduce scale reliability.
 }
 \examples{
 set.seed(12345)

@@ -128,8 +128,25 @@ raw_alpha<-function(df) {
 ##########################################################################################
 # ALPHA DIAGNOSTICS
 ##########################################################################################
-#' @title Item total correlation and r drop
+#' @title Item-total correlations and alpha-if-item-removed diagnostics
+#' @description Computes item-level reliability diagnostics for a unidimensional
+#'   scale. For each item the function returns the corrected and uncorrected
+#'   item-total correlations and Cronbach's alpha recalculated with that item
+#'   excluded. Use this alongside \code{\link{raw_alpha}} to identify items that
+#'   reduce scale reliability.
 #' @inheritParams raw_alpha
+#' @return A data frame with one row per item and the following columns:
+#'   \describe{
+#'     \item{item}{Item name.}
+#'     \item{alpha.if.item.removed}{Cronbach's alpha computed on the remaining
+#'       items after excluding this item.}
+#'     \item{item.total.correlation}{Pearson correlation between this item and
+#'       the sum of all items (uncorrected).}
+#'     \item{item.total.correlation.r.drop}{Pearson correlation between this
+#'       item and the sum of all other items (corrected item-total correlation,
+#'       also known as r-drop). Values below 0.30 typically indicate a
+#'       problematic item.}
+#'   }
 #' @importFrom stats cor
 #' @keywords reliability
 #' @export
@@ -145,8 +162,8 @@ alpha_diagnostics<-function(df) {
   corlist0<-corlist1<-corlist2<-c()
   for (i in 1:length(df)) {
     corlist0<-c(corlist0,raw_alpha(df[,-i]))
-    corlist1[[i]]<-stats::cor(rowSums(df,na.rm=TRUE),df[i],use="pairwise.complete.obs")
-    corlist2[[i]]<-stats::cor(rowSums(df[-i],na.rm=TRUE),df[i],use="pairwise.complete.obs")
+    corlist1[i]<-stats::cor(rowSums(df,na.rm=TRUE),df[i],use="pairwise.complete.obs")
+    corlist2[i]<-stats::cor(rowSums(df[-i],na.rm=TRUE),df[i],use="pairwise.complete.obs")
   }
   result<-data.frame(item=names(df),
                      alpha.if.item.removed=corlist0,
@@ -183,7 +200,7 @@ mean_sd_alpha<-function(df,divisor=NULL) {
 ##########################################################################################
 #' @title Estimate alpha for several dimensions and export results to xlsx
 #' @description Uses an arbitrary input
-#' @param df dataframe
+#' @param df dataframe 
 #' @param key index of trait names and items constituting a trait
 #' @param questions trait names and items constituting a trait
 #' @param reverse index of trait names and index for reversal

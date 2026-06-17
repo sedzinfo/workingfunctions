@@ -4,6 +4,7 @@
 # R CMD check rwf
 # R CMD Rd2pdf rwf
 # R CMD build rwf --resave-data
+# pkgdown::build_site()
 library(devtools)
 library(roxygen2)
 rm(list=ls(all=TRUE))
