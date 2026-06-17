@@ -1,6 +1,6 @@
 ---
 title: "Multitrait Multimethod"
-author: "Dimitrios Zacharatos"
+author: ""
 output:
   html_document:
     css: styles.css
