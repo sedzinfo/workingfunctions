@@ -32,6 +32,5 @@ generate_string(
 generate_string(nchar=10)
 #> [1] "bZwJJG1Gav"
 generate_string(nchar=10,vector_length=10)
-#>  [1] "YtLe9GN1XU" "CI0EAwKbBQ" "LmJ04xj5ea" "10xHL3hx9z" "rmJfWwTPfw"
-#>  [6] "2HTluAbipN" "UJhCHzb05b" "oyCmso6QPQ" "WylfR1nPUg" "m6YC7WoVOI"
+#>  [1] "YtLe9GN1XU" "CI0EAwKbBQ" "LmJ04xj5ea" "10xHL3hx9z" "rmJfWwTPfw" "2HTluAbipN" "UJhCHzb05b" "oyCmso6QPQ" "WylfR1nPUg" "m6YC7WoVOI"
 ```

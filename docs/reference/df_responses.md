@@ -330,207 +330,81 @@ Collected from students of Statistics at FSEV UK. Available on Kaggle.
 ``` r
 data(df_responses)
 head(df_responses)
-#>   Participant Number Music Slow songs or fast songs Dance Folk Country
-#> 1                  1     5                        3     2    1       2
-#> 2                  2     4                        4     2    1       1
-#> 3                  3     5                        5     2    2       3
-#> 4                  4     5                        3     2    1       1
-#> 5                  5     5                        3     4    3       2
-#> 6                  6     5                        3     2    3       2
-#>   Classical music Musical Pop Rock Metal or Hardrock Punk Hiphop, Rap
-#> 1               2       1   5    5                 1    1           1
-#> 2               1       2   3    5                 4    4           1
-#> 3               4       5   3    5                 3    4           1
-#> 4               1       1   2    2                 1    4           2
-#> 5               4       3   5    3                 1    2           5
-#> 6               3       3   2    5                 5    3           4
-#>   Reggae, Ska Swing, Jazz Rock n roll Alternative Latino Techno, Trance Opera
-#> 1           1           1           3           1      1              1     1
-#> 2           3           1           4           4      2              1     1
-#> 3           4           3           5           5      5              1     3
-#> 4           2           1           2           5      1              2     1
-#> 5           3           2           1           2      4              2     2
-#> 6           3           4           4           5      3              1     3
-#>   Movies Horror Thriller Comedy Romantic Sci-fi War Fantasy/Fairy tales
-#> 1      5      4        2      5        4      4   1                   5
-#> 2      5      2        2      4        3      4   1                   3
-#> 3      5      3        4      4        2      4   2                   5
-#> 4      5      4        4      3        3      4   3                   1
-#> 5      5      4        4      5        2      3   3                   4
-#> 6      5      5        5      5        2      3   3                   4
-#>   Animated Documentary Western Action History Psychology Politics Mathematics
-#> 1        5           3       1      2       1          5        1           3
-#> 2        5           4       1      4       1          3        4           5
-#> 3        5           2       2      1       1          2        1           5
-#> 4        2           5       1      2       4          4        5           4
-#> 5        4           3       1      4       3          2        3           2
-#> 6        3           3       2      4       5          3        4           2
-#>   Physics Internet PC Economy Management Biology Chemistry Reading Geography
-#> 1       3        5  3                  5       3         3       3         3
-#> 2       2        4  4                  5       1         1       4         4
-#> 3       2        4  2                  4       1         1       5         2
-#> 4       1        3  1                  2       3         3       5         4
-#> 5       2        2  2                  2       3         3       5         2
-#> 6       3        4  4                  1       4         4       3         3
-#>   Foreign languages Medicine Law Cars Art exhibitions Religion
-#> 1                 5        3   1    1               1        1
-#> 2                 5        1   2    2               2        1
-#> 3                 5        2   3    1               5        5
-#> 4                 4        2   5    1               5        4
-#> 5                 3        3   2    3               1        4
-#> 6                 4        4   3    5               2        2
-#>   Countryside, outdoors Dancing Musical instruments Writing Passive sport
-#> 1                     5       3                   3       2             1
-#> 2                     1       1                   1       1             1
-#> 3                     5       5                   5       5             5
-#> 4                     1       1                   1       3             1
-#> 5                     4       1                   3       1             3
-#> 6                     5       1                   5       1             5
-#>   Active sport Gardening Celebrities Shopping Science and technology Theatre
-#> 1            5         5           1        4                      4       2
-#> 2            1         1           2        3                      3       2
-#> 3            2         1           1        4                      2       5
-#> 4            1         1           2        4                      3       1
-#> 5            1         4           3        3                      3       2
-#> 6            4         2           1        2                      3       1
-#>   Fun with friends Adrenaline sports Pets Flying Storm Darkness Heights Spiders
-#> 1                5                 4    4      1     1        1       1       1
-#> 2                4                 2    5      1     1        1       2       1
-#> 3                5                 5    5      1     1        1       1       1
-#> 4                2                 1    1      2     1        1       3       5
-#> 5                4                 2    1      1     2        1       1       1
-#> 6                3                 3    2      3     2        2       2       1
-#>   Snakes Rats Ageing Dangerous dogs Fear of public speaking       Smoking
-#> 1      5    3      1              3                       2  never smoked
-#> 2      1    1      3              1                       4  never smoked
-#> 3      1    1      1              1                       2 tried smoking
-#> 4      5    5      4              5                       5 former smoker
-#> 5      1    2      2              4                       3 tried smoking
-#> 6      2    2      1              1                       3  never smoked
-#>          Alcohol Healthy eating Daily events Prioritising workload
-#> 1    drink a lot              4            2                     2
-#> 2    drink a lot              3            3                     2
-#> 3    drink a lot              3            1                     2
-#> 4    drink a lot              3            4                     4
-#> 5 social drinker              4            3                     1
-#> 6          never              2            2                     2
-#>   Writing notes Workaholism Thinking ahead Final judgement Reliability
-#> 1             5           4              2               5           4
-#> 2             4           5              4               1           4
-#> 3             5           3              5               3           4
-#> 4             4           5              3               1           3
-#> 5             2           3              5               5           5
-#> 6             3           3              3               1           3
-#>   Keeping promises Loss of interest Friends versus money Funniness Fake
-#> 1                4                1                    3         5    1
-#> 2                4                3                    4         3    2
-#> 3                5                1                    5         2    4
-#> 4                4                5                    2         1    1
-#> 5                4                2                    3         3    2
-#> 6                4                3                    2         3    1
-#>   Criminal damage Decision making Elections Self-criticism Judgment calls
-#> 1               1               3         4              1              3
-#> 2               1               2         5              4              4
-#> 3               1               3         5              4              4
-#> 4               5               5         5              5              4
-#> 5               1               3         5              5              5
-#> 6               4               2         5              4              4
-#>   Hypochondria Empathy Eating to survive Giving Compassion to animals
-#> 1            1       3                 1      4                     5
-#> 2            1       2                 1      2                     4
-#> 3            1       5                 5      5                     4
-#> 4            3       3                 1      1                     2
-#> 5            1       3                 1      3                     3
-#> 6            1       4                 2      3                     5
-#>   Borrowed stuff Loneliness Cheating in school Health Changing the past God
-#> 1              4          3                  2      1                 1   1
-#> 2              3          2                  4      4                 4   1
-#> 3              2          5                  3      2                 5   5
-#> 4              5          5                  5      1                 5   4
-#> 5              4          3                  5      3                 4   5
-#> 6              5          2                  4      3                 3   3
-#>   Dreams Charity Number of friends             Punctuality
-#> 1      4       2                 3     i am always on time
-#> 2      3       1                 3        i am often early
-#> 3      1       3                 3 i am often running late
-#> 4      3       3                 1        i am often early
-#> 5      3       3                 3     i am always on time
-#> 6      3       2                 3        i am often early
-#>                           Lying Waiting New environment Mood swings
-#> 1                         never       3               4           3
-#> 2                     sometimes       3               4           4
-#> 3                     sometimes       2               3           4
-#> 4 only to avoid hurting someone       1               1           5
-#> 5         everytime it suits me       3               4           2
-#> 6 only to avoid hurting someone       3               4           3
-#>   Appearence and gestures Socializing Achievements
-#> 1                       4           3            4
-#> 2                       4           4            2
-#> 3                       3           5            3
-#> 4                       3           1            3
-#> 5                       3           3            3
-#> 6                       3           4            2
-#>   Responding to a serious letter Children Assertiveness Getting angry
-#> 1                              3        5             1             1
-#> 2                              4        2             2             5
-#> 3                              4        4             3             4
-#> 4                              3        2             5             5
-#> 5                              3        5             4             2
-#> 6                              2        3             4             3
-#>   Knowing the right people Public speaking Unpopularity Life struggles
-#> 1                        3               5            5              1
-#> 2                        4               4            4              1
-#> 3                        3               2            4              4
-#> 4                        4               5            3              3
-#> 5                        3               5            5              2
-#> 6                        4               4            4              3
-#>   Happiness in life Energy levels Small - big dogs Personality
-#> 1                 4             5                1           4
-#> 2                 4             3                5           3
-#> 3                 4             4                3           3
-#> 4                 2             2                1           2
-#> 5                 3             5                3           3
-#> 6                 3             4                4           3
-#>   Finding lost valuables Getting up Interests or hobbies Parents' advice
-#> 1                      3          2                    3               4
-#> 2                      4          5                    3               2
-#> 3                      3          4                    5               3
-#> 4                      1          1                   NA               2
-#> 5                      2          4                    3               3
-#> 6                      3          3                    5               3
-#>   Questionnaires or polls  Internet usage Finances Shopping centres
-#> 1                       3 few hours a day        3                4
-#> 2                       3 few hours a day        3                4
-#> 3                       1 few hours a day        2                4
-#> 4                       4 most of the day        2                4
-#> 5                       3 few hours a day        4                3
-#> 6                       4 few hours a day        2                3
-#>   Branded clothing Entertainment spending Spending on looks Spending on gadgets
-#> 1                5                      3                 3                   1
-#> 2                1                      4                 2                   5
-#> 3                1                      4                 3                   4
-#> 4                3                      3                 4                   4
-#> 5                4                      3                 3                   2
-#> 6                3                      3                 1                   4
-#>   Spending on healthy eating Age Height Weight Number of siblings Gender
-#> 1                          3  20    163     48                  1 female
-#> 2                          2  19    163     58                  2 female
-#> 3                          2  20    176     67                  2 female
-#> 4                          1  22    172     59                  1 female
-#> 5                          4  20    170     59                  1 female
-#> 6                          4  20    186     77                  1   male
-#>   Left - right handed               Education Only child Village - town
-#> 1        right handed college/bachelor degree         no        village
-#> 2        right handed college/bachelor degree         no           city
-#> 3        right handed        secondary school         no           city
-#> 4        right handed college/bachelor degree        yes           city
-#> 5        right handed        secondary school         no        village
-#> 6        right handed        secondary school         no           city
-#>   House - block of flats
-#> 1         block of flats
-#> 2         block of flats
-#> 3         block of flats
-#> 4         house/bungalow
-#> 5         house/bungalow
-#> 6         block of flats
+#>   Participant Number Music Slow songs or fast songs Dance Folk Country Classical music Musical Pop Rock Metal or Hardrock Punk Hiphop, Rap Reggae, Ska Swing, Jazz Rock n roll Alternative Latino
+#> 1                  1     5                        3     2    1       2               2       1   5    5                 1    1           1           1           1           3           1      1
+#> 2                  2     4                        4     2    1       1               1       2   3    5                 4    4           1           3           1           4           4      2
+#> 3                  3     5                        5     2    2       3               4       5   3    5                 3    4           1           4           3           5           5      5
+#> 4                  4     5                        3     2    1       1               1       1   2    2                 1    4           2           2           1           2           5      1
+#> 5                  5     5                        3     4    3       2               4       3   5    3                 1    2           5           3           2           1           2      4
+#> 6                  6     5                        3     2    3       2               3       3   2    5                 5    3           4           3           4           4           5      3
+#>   Techno, Trance Opera Movies Horror Thriller Comedy Romantic Sci-fi War Fantasy/Fairy tales Animated Documentary Western Action History Psychology Politics Mathematics Physics Internet PC
+#> 1              1     1      5      4        2      5        4      4   1                   5        5           3       1      2       1          5        1           3       3        5  3
+#> 2              1     1      5      2        2      4        3      4   1                   3        5           4       1      4       1          3        4           5       2        4  4
+#> 3              1     3      5      3        4      4        2      4   2                   5        5           2       2      1       1          2        1           5       2        4  2
+#> 4              2     1      5      4        4      3        3      4   3                   1        2           5       1      2       4          4        5           4       1        3  1
+#> 5              2     2      5      4        4      5        2      3   3                   4        4           3       1      4       3          2        3           2       2        2  2
+#> 6              1     3      5      5        5      5        2      3   3                   4        3           3       2      4       5          3        4           2       3        4  4
+#>   Economy Management Biology Chemistry Reading Geography Foreign languages Medicine Law Cars Art exhibitions Religion Countryside, outdoors Dancing Musical instruments Writing Passive sport
+#> 1                  5       3         3       3         3                 5        3   1    1               1        1                     5       3                   3       2             1
+#> 2                  5       1         1       4         4                 5        1   2    2               2        1                     1       1                   1       1             1
+#> 3                  4       1         1       5         2                 5        2   3    1               5        5                     5       5                   5       5             5
+#> 4                  2       3         3       5         4                 4        2   5    1               5        4                     1       1                   1       3             1
+#> 5                  2       3         3       5         2                 3        3   2    3               1        4                     4       1                   3       1             3
+#> 6                  1       4         4       3         3                 4        4   3    5               2        2                     5       1                   5       1             5
+#>   Active sport Gardening Celebrities Shopping Science and technology Theatre Fun with friends Adrenaline sports Pets Flying Storm Darkness Heights Spiders Snakes Rats Ageing Dangerous dogs
+#> 1            5         5           1        4                      4       2                5                 4    4      1     1        1       1       1      5    3      1              3
+#> 2            1         1           2        3                      3       2                4                 2    5      1     1        1       2       1      1    1      3              1
+#> 3            2         1           1        4                      2       5                5                 5    5      1     1        1       1       1      1    1      1              1
+#> 4            1         1           2        4                      3       1                2                 1    1      2     1        1       3       5      5    5      4              5
+#> 5            1         4           3        3                      3       2                4                 2    1      1     2        1       1       1      1    2      2              4
+#> 6            4         2           1        2                      3       1                3                 3    2      3     2        2       2       1      2    2      1              1
+#>   Fear of public speaking       Smoking        Alcohol Healthy eating Daily events Prioritising workload Writing notes Workaholism Thinking ahead Final judgement Reliability Keeping promises
+#> 1                       2  never smoked    drink a lot              4            2                     2             5           4              2               5           4                4
+#> 2                       4  never smoked    drink a lot              3            3                     2             4           5              4               1           4                4
+#> 3                       2 tried smoking    drink a lot              3            1                     2             5           3              5               3           4                5
+#> 4                       5 former smoker    drink a lot              3            4                     4             4           5              3               1           3                4
+#> 5                       3 tried smoking social drinker              4            3                     1             2           3              5               5           5                4
+#> 6                       3  never smoked          never              2            2                     2             3           3              3               1           3                4
+#>   Loss of interest Friends versus money Funniness Fake Criminal damage Decision making Elections Self-criticism Judgment calls Hypochondria Empathy Eating to survive Giving Compassion to animals
+#> 1                1                    3         5    1               1               3         4              1              3            1       3                 1      4                     5
+#> 2                3                    4         3    2               1               2         5              4              4            1       2                 1      2                     4
+#> 3                1                    5         2    4               1               3         5              4              4            1       5                 5      5                     4
+#> 4                5                    2         1    1               5               5         5              5              4            3       3                 1      1                     2
+#> 5                2                    3         3    2               1               3         5              5              5            1       3                 1      3                     3
+#> 6                3                    2         3    1               4               2         5              4              4            1       4                 2      3                     5
+#>   Borrowed stuff Loneliness Cheating in school Health Changing the past God Dreams Charity Number of friends             Punctuality                         Lying Waiting New environment Mood swings
+#> 1              4          3                  2      1                 1   1      4       2                 3     i am always on time                         never       3               4           3
+#> 2              3          2                  4      4                 4   1      3       1                 3        i am often early                     sometimes       3               4           4
+#> 3              2          5                  3      2                 5   5      1       3                 3 i am often running late                     sometimes       2               3           4
+#> 4              5          5                  5      1                 5   4      3       3                 1        i am often early only to avoid hurting someone       1               1           5
+#> 5              4          3                  5      3                 4   5      3       3                 3     i am always on time         everytime it suits me       3               4           2
+#> 6              5          2                  4      3                 3   3      3       2                 3        i am often early only to avoid hurting someone       3               4           3
+#>   Appearence and gestures Socializing Achievements Responding to a serious letter Children Assertiveness Getting angry Knowing the right people Public speaking Unpopularity Life struggles
+#> 1                       4           3            4                              3        5             1             1                        3               5            5              1
+#> 2                       4           4            2                              4        2             2             5                        4               4            4              1
+#> 3                       3           5            3                              4        4             3             4                        3               2            4              4
+#> 4                       3           1            3                              3        2             5             5                        4               5            3              3
+#> 5                       3           3            3                              3        5             4             2                        3               5            5              2
+#> 6                       3           4            2                              2        3             4             3                        4               4            4              3
+#>   Happiness in life Energy levels Small - big dogs Personality Finding lost valuables Getting up Interests or hobbies Parents' advice Questionnaires or polls  Internet usage Finances Shopping centres
+#> 1                 4             5                1           4                      3          2                    3               4                       3 few hours a day        3                4
+#> 2                 4             3                5           3                      4          5                    3               2                       3 few hours a day        3                4
+#> 3                 4             4                3           3                      3          4                    5               3                       1 few hours a day        2                4
+#> 4                 2             2                1           2                      1          1                   NA               2                       4 most of the day        2                4
+#> 5                 3             5                3           3                      2          4                    3               3                       3 few hours a day        4                3
+#> 6                 3             4                4           3                      3          3                    5               3                       4 few hours a day        2                3
+#>   Branded clothing Entertainment spending Spending on looks Spending on gadgets Spending on healthy eating Age Height Weight Number of siblings Gender Left - right handed               Education
+#> 1                5                      3                 3                   1                          3  20    163     48                  1 female        right handed college/bachelor degree
+#> 2                1                      4                 2                   5                          2  19    163     58                  2 female        right handed college/bachelor degree
+#> 3                1                      4                 3                   4                          2  20    176     67                  2 female        right handed        secondary school
+#> 4                3                      3                 4                   4                          1  22    172     59                  1 female        right handed college/bachelor degree
+#> 5                4                      3                 3                   2                          4  20    170     59                  1 female        right handed        secondary school
+#> 6                3                      3                 1                   4                          4  20    186     77                  1   male        right handed        secondary school
+#>   Only child Village - town House - block of flats
+#> 1         no        village         block of flats
+#> 2         no           city         block of flats
+#> 3         no           city         block of flats
+#> 4        yes           city         house/bungalow
+#> 5         no        village         house/bungalow
+#> 6         no           city         block of flats
 ```

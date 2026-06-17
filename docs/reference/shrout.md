@@ -49,16 +49,10 @@ result<-extract_components(model)
 vc<-result$components
 shrout(sperson=vc[2,3],spersonitem=vc[5,3],stime=vc[1,3],
        spersontime=vc[4,3],serror=vc[6,3],3,3)
-#>   measure result
-#> 1     r1f 0.3233
-#> 2     r1r 0.2841
-#> 3      rc 0.1654
-#> 4     rkf 0.5891
-#> 5     rkr 0.5435
-#>                                                                                           description
-#> 1                            Reliability (between persons) of measures taken on the same fixed k time
-#> 2                           Reliability (between persons) of measures taken on the same random k time
-#> 3                                                              Reliability (within persons) of change
-#> 4        Reliability (between persons) of average measures taken over fixed m items and fixed k times
-#> 5 Reliability (between persons) of different random time with same number of points k between periods
+#>   measure result                                                                                         description
+#> 1     r1f 0.3233                            Reliability (between persons) of measures taken on the same fixed k time
+#> 2     r1r 0.2841                           Reliability (between persons) of measures taken on the same random k time
+#> 3      rc 0.1654                                                              Reliability (within persons) of change
+#> 4     rkf 0.5891        Reliability (between persons) of average measures taken over fixed m items and fixed k times
+#> 5     rkr 0.5435 Reliability (between persons) of different random time with same number of points k between periods
 ```

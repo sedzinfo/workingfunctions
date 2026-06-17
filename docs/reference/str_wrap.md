@@ -43,8 +43,7 @@ cat(str_wrap("The quick brown fox jumped over the lazy dog", width=30))
 # Wrap a vector of strings
 labels <- c("Short label", "A much longer label that needs wrapping")
 str_wrap(labels, width=20)
-#> [1] "Short label"                             
-#> [2] "A much longer label\nthat needs wrapping"
+#> [1] "Short label"                              "A much longer label\nthat needs wrapping"
 # Wrap at 30 characters
 cat(str_wrap("The quick brown fox jumped over the lazy dog", width=30))
 #> The quick brown fox jumped
@@ -53,6 +52,5 @@ cat(str_wrap("The quick brown fox jumped over the lazy dog", width=30))
 # Wrap a vector of strings
 labels <- c("Short label", "A much longer label that needs wrapping")
 str_wrap(labels, width=20)
-#> [1] "Short label"                             
-#> [2] "A much longer label\nthat needs wrapping"
+#> [1] "Short label"                              "A much longer label\nthat needs wrapping"
 ```

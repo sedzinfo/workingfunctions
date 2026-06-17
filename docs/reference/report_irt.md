@@ -172,10 +172,8 @@ report_irt(model=irt_onefactor,file="one_factor")
 #> 5   V5 0.746       2      0.000  0.689
 #> 
 #> $g2_fit
-#>     G2      p    TLI   CFI    RMSEA df    AIC    BIC  SABIC     HQ logLik
-#> 1 29.3 0.1069 0.9963 0.997 0.002812 21 178500 178588 178557 178528 -89240
-#>   logPrior SElogLik
-#> 1        0        0
+#>     G2      p    TLI   CFI    RMSEA df    AIC    BIC  SABIC     HQ logLik logPrior SElogLik
+#> 1 29.3 0.1069 0.9963 0.997 0.002812 21 178500 178588 178557 178528 -89240        0        0
 #> 
 #> $m2_fit
 #>         M2 df     p RMSEA RMSEA_5 RMSEA_95 SRMSR   TLI   CFI
@@ -325,10 +323,8 @@ report_irt(model=irt_twofactor,file="two_factors")
 #> 5   V5 0.536       2      0.000  0.765
 #> 
 #> $g2_fit
-#>      G2      p    TLI    CFI    RMSEA df    AIC    BIC  SABIC     HQ logLik
-#> 1 20.35 0.2567 0.9982 0.9988 0.001985 17 178499 178623 178578 178538 -89236
-#>   logPrior SElogLik
-#> 1        0        0
+#>      G2      p    TLI    CFI    RMSEA df    AIC    BIC  SABIC     HQ logLik logPrior SElogLik
+#> 1 20.35 0.2567 0.9982 0.9988 0.001985 17 178499 178623 178578 178538 -89236        0        0
 #> 
 #> $m2_fit
 #>          M2 df    p RMSEA RMSEA_5 RMSEA_95 SRMSR   TLI CFI
@@ -480,10 +476,8 @@ report_irt(model=irt_threefactor,file="three_factors")
 #> 5   V5 0.345       2          0  0.842
 #> 
 #> $g2_fit
-#>      G2      p    TLI    CFI   RMSEA df    AIC    BIC  SABIC     HQ logLik
-#> 1 20.26 0.1222 0.9958 0.9978 0.00299 14 178505 178655 178601 178552 -89236
-#>   logPrior SElogLik
-#> 1        0        0
+#>      G2      p    TLI    CFI   RMSEA df    AIC    BIC  SABIC     HQ logLik logPrior SElogLik
+#> 1 20.26 0.1222 0.9958 0.9978 0.00299 14 178505 178655 178601 178552 -89236        0        0
 #> 
 #> $m2_fit
 #> [1] "Error : Statistic cannot be calculated (too few degrees of freedom)\n"

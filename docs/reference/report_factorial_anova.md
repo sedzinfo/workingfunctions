@@ -133,26 +133,16 @@ cdf(df)
 #> 1        9 6480 58320     0    0   0  0   0 32400      0
 #> 
 #> $check
-#>   NAMES EMPTY null na NOT_NA NAN INF  FIN RANGE  MEAN MEDIAN    SD  MIN  MAX
-#> 1    id     0    0  0   6480   0   0 6480    80  40.5   40.5 23.09    1   80
-#> 2   IV1     0    0  0   6480   0   0    0     3    NA     NA    NA    A    C
-#> 3   IV2     0    0  0   6480   0   0    0     3    NA     NA    NA    D    F
-#> 4   IV3     0    0  0   6480   0   0    0     3    NA     NA    NA    G    I
-#> 5   IV4     0    0  0   6480   0   0    0     3    NA     NA    NA    J    L
-#> 6   DV1     0    0  0   6480   0   0 6480  6480 11.98  11.99   1.3 7.51 16.2
-#> 7   DV2     0    0  0   6480   0   0 6480  6480 20.01  20.02     1 16.3 23.6
-#> 8   DV3     0    0  0   6480   0   0 6480  6480 30.01     30  0.98 26.1 33.1
-#> 9   DV4     0    0  0   6480   0   0 6480  6480    40  39.99  1.01 36.4 43.7
-#>        MODE      TYPE     CLASS FACTOR
-#> 1   numeric   integer   integer  FALSE
-#> 2 character character character  FALSE
-#> 3 character character character  FALSE
-#> 4 character character character  FALSE
-#> 5 character character character  FALSE
-#> 6   numeric    double   numeric  FALSE
-#> 7   numeric    double   numeric  FALSE
-#> 8   numeric    double   numeric  FALSE
-#> 9   numeric    double   numeric  FALSE
+#>   NAMES EMPTY null na NOT_NA NAN INF  FIN RANGE  MEAN MEDIAN    SD         MIN         MAX      MODE      TYPE     CLASS FACTOR
+#> 1    id     0    0  0   6480   0   0 6480    80  40.5   40.5 23.09           1          80   numeric   integer   integer  FALSE
+#> 2   IV1     0    0  0   6480   0   0    0     3    NA     NA    NA           A           C character character character  FALSE
+#> 3   IV2     0    0  0   6480   0   0    0     3    NA     NA    NA           D           F character character character  FALSE
+#> 4   IV3     0    0  0   6480   0   0    0     3    NA     NA    NA           G           I character character character  FALSE
+#> 5   IV4     0    0  0   6480   0   0    0     3    NA     NA    NA           J           L character character character  FALSE
+#> 6   DV1     0    0  0   6480   0   0 6480  6480 11.98  11.99   1.3 7.512912073 16.26404907   numeric    double   numeric  FALSE
+#> 7   DV2     0    0  0   6480   0   0 6480  6480 20.01  20.02     1 16.33788325 23.62325263   numeric    double   numeric  FALSE
+#> 8   DV3     0    0  0   6480   0   0 6480  6480 30.01     30  0.98 26.12652032 33.14197274   numeric    double   numeric  FALSE
+#> 9   DV4     0    0  0   6480   0   0 6480  6480    40  39.99  1.01 36.48240015 43.74431445   numeric    double   numeric  FALSE
 #> 
 r1<-report_factorial_anova(df=df,wid="id",dv=c("DV1","DV2"),
                            within=c("IV1","IV2"),within_full=c("IV1","IV2"),

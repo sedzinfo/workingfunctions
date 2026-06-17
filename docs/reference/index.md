@@ -29,7 +29,7 @@ Summary statistics, frequencies and reliability
 - [`raw_alpha()`](https://sedzinfo.github.io/rwf/reference/raw_alpha.md)
   : Raw alpha
 - [`alpha_diagnostics()`](https://sedzinfo.github.io/rwf/reference/alpha_diagnostics.md)
-  : Item total correlation and r drop
+  : Item-total correlations and alpha-if-item-removed diagnostics
 - [`mean_sd_alpha()`](https://sedzinfo.github.io/rwf/reference/mean_sd_alpha.md)
   : Mean and SD
 - [`report_alpha()`](https://sedzinfo.github.io/rwf/reference/report_alpha.md)

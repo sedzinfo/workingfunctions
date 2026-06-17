@@ -56,8 +56,7 @@ For one triplet `(a,b,c)`, the generated labels are: `ab`, `ac`, `bc`
 ``` r
 # 15 items -> 5 triplets -> 15 pair labels
 name_triplet_pairs(15)
-#>  [1] "i1i2"   "i1i3"   "i2i3"   "i4i5"   "i4i6"   "i5i6"   "i7i8"   "i7i9"  
-#>  [9] "i8i9"   "i10i11" "i10i12" "i11i12" "i13i14" "i13i15" "i14i15"
+#>  [1] "i1i2"   "i1i3"   "i2i3"   "i4i5"   "i4i6"   "i5i6"   "i7i8"   "i7i9"   "i8i9"   "i10i11" "i10i12" "i11i12" "i13i14" "i13i15" "i14i15"
 
 # Custom separator
 name_triplet_pairs(6, prefix = "i", sep = "_")
@@ -74,6 +73,5 @@ name_triplet_pairs(10, strict = FALSE)
 
 # Vector input with trimming when needed
 name_triplet_pairs(4:18, strict = FALSE)
-#>  [1] "i4i5"   "i4i6"   "i5i6"   "i7i8"   "i7i9"   "i8i9"   "i10i11" "i10i12"
-#>  [9] "i11i12" "i13i14" "i13i15" "i14i15" "i16i17" "i16i18" "i17i18"
+#>  [1] "i4i5"   "i4i6"   "i5i6"   "i7i8"   "i7i9"   "i8i9"   "i10i11" "i10i12" "i11i12" "i13i14" "i13i15" "i14i15" "i16i17" "i16i18" "i17i18"
 ```

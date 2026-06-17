@@ -102,30 +102,18 @@ cdf(remove_nc(df=df,value=NA))
 #> 1       11   32   352     0    0   0 55   0   0      0
 #> 
 #> $check
-#>    NAMES EMPTY null na NOT_NA NAN INF FIN RANGE MEAN MEDIAN SD  MIN  MAX
-#> 1    mpg     0    0  5     27   0   0   0    24   NA     NA NA 10.4 33.9
-#> 2    cyl     0    0  5     27   0   0   0     4   NA     NA NA    4    8
-#> 3   disp     0    0  5     27   0   0   0    25   NA     NA NA 71.1  472
-#> 4     hp     0    0  5     27   0   0   0    21   NA     NA NA   52  335
-#> 5   drat     0    0  5     27   0   0   0    21   NA     NA NA 2.76 4.93
-#> 6     wt     0    0  5     27   0   0   0    26   NA     NA NA 1.51 5.42
-#> 7   qsec     0    0  5     27   0   0   0    27   NA     NA NA 14.5 22.9
-#> 8     vs     0    0  5     27   0   0   0     3   NA     NA NA    0    1
-#> 9     am     0    0  5     27   0   0   0     3   NA     NA NA    0    1
-#> 10  gear     0    0  5     27   0   0   0     4   NA     NA NA    3    5
-#> 11  carb     0    0  5     27   0   0   0     7   NA     NA NA    1    8
-#>         MODE      TYPE     CLASS FACTOR
-#> 1  character character character  FALSE
-#> 2  character character character  FALSE
-#> 3  character character character  FALSE
-#> 4  character character character  FALSE
-#> 5  character character character  FALSE
-#> 6  character character character  FALSE
-#> 7  character character character  FALSE
-#> 8  character character character  FALSE
-#> 9  character character character  FALSE
-#> 10 character character character  FALSE
-#> 11 character character character  FALSE
+#>    NAMES EMPTY null na NOT_NA NAN INF FIN RANGE MEAN MEDIAN SD   MIN   MAX      MODE      TYPE     CLASS FACTOR
+#> 1    mpg     0    0  5     27   0   0   0    24   NA     NA NA  10.4  33.9 character character character  FALSE
+#> 2    cyl     0    0  5     27   0   0   0     4   NA     NA NA     4     8 character character character  FALSE
+#> 3   disp     0    0  5     27   0   0   0    25   NA     NA NA  71.1   472 character character character  FALSE
+#> 4     hp     0    0  5     27   0   0   0    21   NA     NA NA    52   335 character character character  FALSE
+#> 5   drat     0    0  5     27   0   0   0    21   NA     NA NA  2.76  4.93 character character character  FALSE
+#> 6     wt     0    0  5     27   0   0   0    26   NA     NA NA 1.513 5.424 character character character  FALSE
+#> 7   qsec     0    0  5     27   0   0   0    27   NA     NA NA  14.5  22.9 character character character  FALSE
+#> 8     vs     0    0  5     27   0   0   0     3   NA     NA NA     0     1 character character character  FALSE
+#> 9     am     0    0  5     27   0   0   0     3   NA     NA NA     0     1 character character character  FALSE
+#> 10  gear     0    0  5     27   0   0   0     4   NA     NA NA     3     5 character character character  FALSE
+#> 11  carb     0    0  5     27   0   0   0     7   NA     NA NA     1     8 character character character  FALSE
 #> 
 df<-generate_missing(mtcars,missing=5)
 remove_nc(df,remove_rows=TRUE,aggressive=FALSE)

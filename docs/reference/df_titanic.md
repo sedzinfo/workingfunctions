@@ -77,25 +77,11 @@ A data frame with the following variables:
 ``` r
 data(df_titanic)
 head(df_titanic)
-#>   PassengerId survived pclass                                            name
-#> 1           1        1      1                   Allen, Miss. Elisabeth Walton
-#> 2           2        1      1                  Allison, Master. Hudson Trevor
-#> 3           3        0      1                    Allison, Miss. Helen Loraine
-#> 4           4        0      1            Allison, Mr. Hudson Joshua Creighton
-#> 5           5        0      1 Allison, Mrs. Hudson J C (Bessie Waldo Daniels)
-#> 6           6        1      1                             Anderson, Mr. Harry
-#>      sex     age sibsp parch ticket     fare   cabin embarked boat body
-#> 1 female 29.0000     0     0  24160 211.3375      B5        S    2   NA
-#> 2   male  0.9167     1     2 113781 151.5500 C22 C26        S   11   NA
-#> 3 female  2.0000     1     2 113781 151.5500 C22 C26        S        NA
-#> 4   male 30.0000     1     2 113781 151.5500 C22 C26        S       135
-#> 5 female 25.0000     1     2 113781 151.5500 C22 C26        S        NA
-#> 6   male 48.0000     0     0  19952  26.5500     E12        S    3   NA
-#>                         home.dest
-#> 1                    St Louis, MO
-#> 2 Montreal, PQ / Chesterville, ON
-#> 3 Montreal, PQ / Chesterville, ON
-#> 4 Montreal, PQ / Chesterville, ON
-#> 5 Montreal, PQ / Chesterville, ON
-#> 6                    New York, NY
+#>   PassengerId survived pclass                                            name    sex     age sibsp parch ticket     fare   cabin embarked boat body                       home.dest
+#> 1           1        1      1                   Allen, Miss. Elisabeth Walton female 29.0000     0     0  24160 211.3375      B5        S    2   NA                    St Louis, MO
+#> 2           2        1      1                  Allison, Master. Hudson Trevor   male  0.9167     1     2 113781 151.5500 C22 C26        S   11   NA Montreal, PQ / Chesterville, ON
+#> 3           3        0      1                    Allison, Miss. Helen Loraine female  2.0000     1     2 113781 151.5500 C22 C26        S        NA Montreal, PQ / Chesterville, ON
+#> 4           4        0      1            Allison, Mr. Hudson Joshua Creighton   male 30.0000     1     2 113781 151.5500 C22 C26        S       135 Montreal, PQ / Chesterville, ON
+#> 5           5        0      1 Allison, Mrs. Hudson J C (Bessie Waldo Daniels) female 25.0000     1     2 113781 151.5500 C22 C26        S        NA Montreal, PQ / Chesterville, ON
+#> 6           6        1      1                             Anderson, Mr. Harry   male 48.0000     0     0  19952  26.5500     E12        S    3   NA                    New York, NY
 ```

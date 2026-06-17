@@ -1,6 +1,11 @@
-# Item total correlation and r drop
+# Item-total correlations and alpha-if-item-removed diagnostics
 
-Item total correlation and r drop
+Computes item-level reliability diagnostics for a unidimensional scale.
+For each item the function returns the corrected and uncorrected
+item-total correlations and Cronbach's alpha recalculated with that item
+excluded. Use this alongside
+[`raw_alpha`](https://sedzinfo.github.io/rwf/reference/raw_alpha.md) to
+identify items that reduce scale reliability.
 
 ## Usage
 
@@ -13,6 +18,30 @@ alpha_diagnostics(df)
 - df:
 
   dataframe with one dimension
+
+## Value
+
+A data frame with one row per item and the following columns:
+
+- item:
+
+  Item name.
+
+- alpha.if.item.removed:
+
+  Cronbach's alpha computed on the remaining items after excluding this
+  item.
+
+- item.total.correlation:
+
+  Pearson correlation between this item and the sum of all items
+  (uncorrected).
+
+- item.total.correlation.r.drop:
+
+  Pearson correlation between this item and the sum of all other items
+  (corrected item-total correlation, also known as r-drop). Values below
+  0.30 typically indicate a problematic item.
 
 ## Examples
 
@@ -62,53 +91,11 @@ psych::alpha(df)
 #> X5 0 0.01 0.05 0.25 0.39 0.23 0.07 0.00 0    0
 #> X6 0 0.01 0.06 0.24 0.40 0.23 0.05 0.01 0    0
 alpha_diagnostics(df=df)
-#>    item alpha.if.item.removed item.total.correlation.X1
-#> X1   X1             0.8172775                 0.7188293
-#> X2   X2             0.8074691                 0.7188293
-#> X3   X3             0.8050188                 0.7188293
-#> X4   X4             0.8133327                 0.7188293
-#> X5   X5             0.8129389                 0.7188293
-#> X6   X6             0.8106911                 0.7188293
-#>    item.total.correlation.X2 item.total.correlation.X3
-#> X1                 0.7577507                 0.7678537
-#> X2                 0.7577507                 0.7678537
-#> X3                 0.7577507                 0.7678537
-#> X4                 0.7577507                 0.7678537
-#> X5                 0.7577507                 0.7678537
-#> X6                 0.7577507                 0.7678537
-#>    item.total.correlation.X4 item.total.correlation.X5
-#> X1                 0.7328541                 0.7358393
-#> X2                 0.7328541                 0.7358393
-#> X3                 0.7328541                 0.7358393
-#> X4                 0.7328541                 0.7358393
-#> X5                 0.7328541                 0.7358393
-#> X6                 0.7328541                 0.7358393
-#>    item.total.correlation.X6 item.total.correlation.r.drop.X1
-#> X1                 0.7430253                        0.5813271
-#> X2                 0.7430253                        0.5813271
-#> X3                 0.7430253                        0.5813271
-#> X4                 0.7430253                        0.5813271
-#> X5                 0.7430253                        0.5813271
-#> X6                 0.7430253                        0.5813271
-#>    item.total.correlation.r.drop.X2 item.total.correlation.r.drop.X3
-#> X1                        0.6305662                        0.6423391
-#> X2                        0.6305662                        0.6423391
-#> X3                        0.6305662                        0.6423391
-#> X4                        0.6305662                        0.6423391
-#> X5                        0.6305662                        0.6423391
-#> X6                        0.6305662                        0.6423391
-#>    item.total.correlation.r.drop.X4 item.total.correlation.r.drop.X5
-#> X1                        0.6014236                        0.6034345
-#> X2                        0.6014236                        0.6034345
-#> X3                        0.6014236                        0.6034345
-#> X4                        0.6014236                        0.6034345
-#> X5                        0.6014236                        0.6034345
-#> X6                        0.6014236                        0.6034345
-#>    item.total.correlation.r.drop.X6
-#> X1                        0.6148351
-#> X2                        0.6148351
-#> X3                        0.6148351
-#> X4                        0.6148351
-#> X5                        0.6148351
-#> X6                        0.6148351
+#>    item alpha.if.item.removed item.total.correlation item.total.correlation.r.drop
+#> X1   X1             0.8172775              0.7188293                     0.5813271
+#> X2   X2             0.8074691              0.7577507                     0.6305662
+#> X3   X3             0.8050188              0.7678537                     0.6423391
+#> X4   X4             0.8133327              0.7328541                     0.6014236
+#> X5   X5             0.8129389              0.7358393                     0.6034345
+#> X6   X6             0.8106911              0.7430253                     0.6148351
 ```

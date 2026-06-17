@@ -77,8 +77,6 @@ rstatix::kruskal_effsize(df_blood_pressure,form,ci=TRUE,conf.level=0.95,ci.type=
 #> * <chr>     <int>   <dbl>    <dbl>     <dbl> <chr>   <ord>    
 #> 1 bp_before   120   0.150     0.06       0.3 eta2[H] large    
 compute_kruskal_wallis_test(formula=form,df=df_blood_pressure)
-#>              formula                       method     etasq epsilonsq        H
-#> 1 bp_before ~ agegrp Kruskal-Wallis rank sum test 0.1501232 0.1644069 19.56442
-#>   df            p
-#> 1  2 5.644699e-05
+#>              formula                       method     etasq epsilonsq        H df            p
+#> 1 bp_before ~ agegrp Kruskal-Wallis rank sum test 0.1501232 0.1644069 19.56442  2 5.644699e-05
 ```

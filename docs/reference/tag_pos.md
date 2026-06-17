@@ -31,12 +31,8 @@ tag_pos(text)
 #> [1] "word_one/NN word_two/VBD word_three/CD word_three/CD word_four/NN word_six/NN All/DT the/DT Lorem/NNP Ipsum/NNP generators/NNS on/IN the/DT Internet/NNP tend/VB to/TO repeat/VB predefined/VBN chunks/NNS as/IN necessary/JJ ,/, making/VBG this/DT the/DT first/JJ true/JJ generator/NN on/IN the/DT Internet/NNP ./. It/PRP uses/VBZ a/DT dictionary/NN of/IN over/IN 200/CD Latin/JJ words/NNS ,/, combined/VBN with/IN a/DT handful/NN of/IN model/NN sentence/NN structures/NNS ,/, to/TO generate/VB Lorem/NNP Ipsum/NNP which/WDT looks/VBZ reasonable/JJ ./. The/DT generated/VBD Lorem/NNP Ipsum/NNP is/VBZ therefore/RB always/RB free/JJ from/IN repetition/NN ,/, injected/VBD humour/NN ,/, or/CC non-characteristic/JJ words/NNS etc/FW ./."
 #> 
 #> $POStags
-#>  [1] "NN"  "VBD" "CD"  "CD"  "NN"  "NN"  "DT"  "DT"  "NNP" "NNP" "NNS" "IN" 
-#> [13] "DT"  "NNP" "VB"  "TO"  "VB"  "VBN" "NNS" "IN"  "JJ"  ","   "VBG" "DT" 
-#> [25] "DT"  "JJ"  "JJ"  "NN"  "IN"  "DT"  "NNP" "."   "PRP" "VBZ" "DT"  "NN" 
-#> [37] "IN"  "IN"  "CD"  "JJ"  "NNS" ","   "VBN" "IN"  "DT"  "NN"  "IN"  "NN" 
-#> [49] "NN"  "NNS" ","   "TO"  "VB"  "NNP" "NNP" "WDT" "VBZ" "JJ"  "."   "DT" 
-#> [61] "VBD" "NNP" "NNP" "VBZ" "RB"  "RB"  "JJ"  "IN"  "NN"  ","   "VBD" "NN" 
-#> [73] ","   "CC"  "JJ"  "NNS" "FW"  "."  
+#>  [1] "NN"  "VBD" "CD"  "CD"  "NN"  "NN"  "DT"  "DT"  "NNP" "NNP" "NNS" "IN"  "DT"  "NNP" "VB"  "TO"  "VB"  "VBN" "NNS" "IN"  "JJ"  ","   "VBG" "DT"  "DT"  "JJ"  "JJ"  "NN"  "IN"  "DT"  "NNP" "."  
+#> [33] "PRP" "VBZ" "DT"  "NN"  "IN"  "IN"  "CD"  "JJ"  "NNS" ","   "VBN" "IN"  "DT"  "NN"  "IN"  "NN"  "NN"  "NNS" ","   "TO"  "VB"  "NNP" "NNP" "WDT" "VBZ" "JJ"  "."   "DT"  "VBD" "NNP" "NNP" "VBZ"
+#> [65] "RB"  "RB"  "JJ"  "IN"  "NN"  ","   "VBD" "NN"  ","   "CC"  "JJ"  "NNS" "FW"  "."  
 #> 
 ```
