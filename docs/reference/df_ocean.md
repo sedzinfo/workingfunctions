@@ -350,4 +350,13 @@ head(df_ocean)
 # Compute Big Five average scores (after reverse scoring)
 # library(dplyr)
 # df_ocean <- df_ocean %>% mutate(E=rowMeans(select(., E1:E10), na.rm=TRUE))
+data(df_ocean)
+head(df_ocean)
+#>   race age engnat gender hand source country E1 E2 E3 E4 E5 E6 E7 E8 E9 E10 N1 N2 N3 N4 N5 N6 N7 N8 N9 N10 A1 A2 A3 A4 A5 A6 A7 A8 A9 A10 C1 C2 C3 C4 C5 C6 C7 C8 C9 C10 O1 O2 O3 O4 O5 O6 O7 O8 O9 O10
+#> 1    3  53      1      1    1      1      US  4  2  5  2  5  1  4  3  5   1  1  5  2  5  1  1  1  1  1   1  1  5  1  5  2  3  1  5  4   5  4  1  5  1  5  1  4  1  4   5  4  1  3  1  5  1  4  2  5   5
+#> 2   13  46      1      2    1      1      US  2  2  3  3  3  3  1  5  1   5  2  3  4  2  3  4  3  2  2   4  1  3  3  4  4  4  2  3  4   3  4  1  3  2  3  1  5  1  4   4  3  3  3  3  2  3  3  1  3   2
+#> 3    1  14      2      2    1      1      PK  5  1  1  4  5  1  1  5  5   1  5  1  5  5  5  5  5  5  5   5  5  1  5  5  1  5  1  5  5   5  4  1  5  1  5  1  5  1  5   5  4  5  5  1  5  1  5  5  5   5
+#> 4    3  19      2      2    1      1      RO  2  5  2  4  3  4  3  4  4   5  5  4  4  2  4  5  5  5  4   5  2  5  4  4  3  5  3  4  4   3  3  3  4  5  1  4  5  4  2   3  4  3  5  2  4  2  5  2  5   5
+#> 5   11  25      2      2    1      2      US  3  1  3  3  3  1  3  1  3   5  3  3  3  4  3  3  3  3  3   4  5  5  3  5  1  5  1  5  5   5  3  1  5  3  3  1  1  3  3   3  3  1  1  1  3  1  3  1  5   3
+#> 6   13  31      1      2    1      2      US  1  5  2  4  1  3  2  4  1   5  1  5  4  5  1  4  4  1  5   2  2  2  3  4  3  4  3  5  5   3  2  5  4  3  3  4  5  3  5   3  4  2  1  3  3  5  5  4  5   3
 ```

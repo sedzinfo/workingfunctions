@@ -281,7 +281,7 @@ Correlation matrices, power analysis and related utilities
 - [`excel_matrix()`](https://sedzinfo.github.io/rwf/reference/excel_matrix.md)
   : Write matrix or dataframe to excel sheet
 - [`write_txt()`](https://sedzinfo.github.io/rwf/reference/write_txt.md)
-  : Log console in file
+  : Print an object and optionally save output to a log file
 
 ## Data Manipulation
 
@@ -380,17 +380,17 @@ Correlation matrices, power analysis and related utilities
 - [`install_load()`](https://sedzinfo.github.io/rwf/reference/install_load.md)
   : Install and load multiple packages
 - [`install_all_packages()`](https://sedzinfo.github.io/rwf/reference/install_all_packages.md)
-  : Install all packages available in CRAN
+  : Install all missing CRAN packages
 - [`detach_package()`](https://sedzinfo.github.io/rwf/reference/detach_package.md)
-  : Unload library
+  : Detach and unload a package
 - [`remove_user_packages()`](https://sedzinfo.github.io/rwf/reference/remove_user_packages.md)
-  : Remove all user packages
+  : Remove all user-installed packages
 - [`environment_options()`](https://sedzinfo.github.io/rwf/reference/environment_options.md)
   : Load environment options
 - [`get_script_directory()`](https://sedzinfo.github.io/rwf/reference/get_script_directory.md)
   : Get script directory
 - [`getfwp()`](https://sedzinfo.github.io/rwf/reference/getfwp.md) : Get
-  working file path
+  the file path of the currently running script
 - [`call_to_string()`](https://sedzinfo.github.io/rwf/reference/call_to_string.md)
   : Model call to string
 - [`dotnames()`](https://sedzinfo.github.io/rwf/reference/dotnames.md) :

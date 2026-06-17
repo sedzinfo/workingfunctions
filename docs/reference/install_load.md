@@ -1,7 +1,9 @@
 # Install and load multiple packages
 
-Install and load multiple packages. If packages exist,they are loaded,if
-packages don't exist,they are downloaded installed and loaded
+Checks whether each package in `package` is already installed. Missing
+packages are downloaded from CRAN with `dependencies = TRUE` and then
+loaded. Packages that are already installed are loaded directly without
+reinstalling.
 
 ## Usage
 
@@ -13,7 +15,13 @@ install_load(package)
 
 - package:
 
-  Vector Package names
+  Character vector of package names to install (if needed) and load.
+
+## Value
+
+A named logical vector (one element per package) indicating whether each
+package was successfully attached: `TRUE` if loaded, `FALSE` if loading
+failed.
 
 ## Author
 

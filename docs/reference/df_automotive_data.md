@@ -122,3 +122,24 @@ A data frame with 38 rows and 26 variables:
 
 Downloaded from Kaggle.com by the user Ramakrishnan Srinivasan. see
 <https://www.kaggle.com/toramky/automobile-dataset>
+
+## Examples
+
+``` r
+data(df_automotive_data)
+head(df_automotive_data)
+#>   symboling normalized-losses        make fuel-type aspiration num-of-doors  body-style drive-wheels engine-location wheel-base length width height curb-weight engine-type num-of-cylinders
+#> 1         3                NA alfa-romero       gas        std          two convertible          rwd           front       88.6  168.8  64.1   48.8        2548        dohc             four
+#> 2         3                NA alfa-romero       gas        std          two convertible          rwd           front       88.6  168.8  64.1   48.8        2548        dohc             four
+#> 3         1                NA alfa-romero       gas        std          two   hatchback          rwd           front       94.5  171.2  65.5   52.4        2823        ohcv              six
+#> 4         2               164        audi       gas        std         four       sedan          fwd           front       99.8  176.6  66.2   54.3        2337         ohc             four
+#> 5         2               164        audi       gas        std         four       sedan          4wd           front       99.4  176.6  66.4   54.3        2824         ohc             five
+#> 6         2                NA        audi       gas        std          two       sedan          fwd           front       99.8  177.3  66.3   53.1        2507         ohc             five
+#>   engine-size fuel-system bore stroke compression-ratio horsepower peak-rpm city-mpg highway-mpg price
+#> 1         130        mpfi 3.47   2.68               9.0        111     5000       21          27 13495
+#> 2         130        mpfi 3.47   2.68               9.0        111     5000       21          27 16500
+#> 3         152        mpfi 2.68   3.47               9.0        154     5000       19          26 16500
+#> 4         109        mpfi 3.19   3.40              10.0        102     5500       24          30 13950
+#> 5         136        mpfi 3.19   3.40               8.0        115     5500       18          22 17450
+#> 6         136        mpfi 3.19   3.40               8.5        110     5500       19          25 15250
+```

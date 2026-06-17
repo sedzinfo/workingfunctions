@@ -32,3 +32,17 @@ A data frame with 8 rows and 4 variables:
 ## Source
 
 researchpy repo
+
+## Examples
+
+``` r
+data(df_admission)
+head(df_admission)
+#>   admit gre  gpa rank
+#> 1     0 380 3.61    3
+#> 2     1 660 3.67    3
+#> 3     1 800 4.00    1
+#> 4     1 640 3.19    4
+#> 5     0 520 2.93    4
+#> 6     1 760 3.00    2
+```

@@ -25,3 +25,17 @@ A data frame with 28 rows and 2 variables:
 ## Source
 
 researchpy repo (simulated data, not real)
+
+## Examples
+
+``` r
+data(df_responses_state)
+head(df_responses_state)
+#>   Participant Number State
+#> 1                  1    MI
+#> 2                  2    OH
+#> 3                  3    CO
+#> 4                  4    CA
+#> 5                  5    MA
+#> 6                  6    WA
+```

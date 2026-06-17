@@ -74,3 +74,17 @@ represent missing or other responses.
 
 researchpy Data-sets repository
 (<https://github.com/researchpy/Data-sets>)
+
+## Examples
+
+``` r
+data(df_sexual_comp)
+head(df_sexual_comp)
+#>   Q1 Q2 Q3 Q4 Q5 Q6 Q7 Q8 Q9 Q10 score gender age
+#> 1  1  1  2  1  1  4  2  3  3   1    19      1  41
+#> 2  2  1  1  1  1  2  1  2  1   2    14      1  50
+#> 3  2  1  1  1  1  4  1  1  1   2    15      1  23
+#> 4  2  1  1  1  1  4  1  1  1   4    17      1  42
+#> 5  1  1  1  1  1  2  1  1  1   1    11      2  36
+#> 6  2  3  2  1  2  4  1  4  4   1    24      1  29
+```

@@ -1,6 +1,10 @@
-# Install all packages available in CRAN
+# Install all missing CRAN packages
 
-Install all packages available in CRAN
+Compares the set of currently installed packages against the full list
+of packages available on CRAN and installs any that are missing.
+Already-installed packages are not re-downloaded or updated. Note that
+CRAN contains thousands of packages, so this function can take a very
+long time and requires a large amount of disk space.
 
 ## Usage
 
@@ -8,7 +12,7 @@ Install all packages available in CRAN
 install_all_packages()
 ```
 
-## Details
+## Value
 
-Install all packages available in CRAN. Already installed packages are
-not downloaded or installed
+Invisibly returns `NULL`. Called for its side effect of installing
+packages.

@@ -1,6 +1,10 @@
-# Log console in file
+# Print an object and optionally save output to a log file
 
-Logs console in file and then displays log in console
+Prints `input` to the console. When `file` is supplied, the printed
+output is also captured to a `.log` file using
+[`sink()`](https://rdrr.io/r/base/sink.html), and the file contents are
+echoed back to the console after writing, so the output is visible in
+both places.
 
 ## Usage
 
@@ -12,11 +16,18 @@ write_txt(input, file = NULL)
 
 - input:
 
-  Script to log in log file
+  Any R object to print.
 
 - file:
 
-  Filename of log
+  Character string naming the output log file without extension. A
+  `.log` extension is appended automatically. When `NULL` (default)
+  output is printed to the console only and no file is written.
+
+## Value
+
+Invisibly returns `NULL`. Called for its side effects of printing and
+optionally writing to a log file.
 
 ## Examples
 
