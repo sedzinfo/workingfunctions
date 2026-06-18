@@ -2,7 +2,7 @@
 % Please edit documentation in R/FUNCTIONS_PLOT.R
 \name{report_pdf}
 \alias{report_pdf}
-\title{Report pdf}
+\title{Save or display a list of plots as a multi-page PDF}
 \usage{
 report_pdf(
   ...,
@@ -15,22 +15,32 @@ report_pdf(
 )
 }
 \arguments{
-\item{...}{plot objects}
+\item{...}{Plot objects passed directly (ggplot or recorded plots).}
 
-\item{plotlist}{list of plot objects}
+\item{plotlist}{A list of plot objects. Combined with any plots passed via
+\code{...}.}
 
-\item{file}{output filename}
+\item{file}{Character or \code{NULL}. Output filename without extension. If
+\code{NULL}, no PDF is written. Default is \code{NULL}.}
 
-\item{title}{output filename}
+\item{title}{Character or \code{NULL}. Optional suffix appended to \code{file}
+(separated by an underscore) to form the final filename. Default is
+\code{NULL}.}
 
-\item{w}{width of pdf file}
+\item{w}{Numeric. Width of the PDF in inches. Default is \code{10}.}
 
-\item{h}{height of pdf file}
+\item{h}{Numeric. Height of the PDF in inches. Default is \code{10}.}
 
-\item{print_plot}{if TRUE it prints plot on graphics device}
+\item{print_plot}{Logical. If \code{TRUE}, plots are also printed to the active
+graphics device. Default is \code{TRUE}.}
+}
+\value{
+Called for its side effects. Returns \code{NULL} invisibly.
 }
 \description{
-Report pdf
+Writes one or more plot objects to a multi-page PDF file using
+\code{\link[grDevices]{cairo_pdf}}, optionally also printing them to the
+active graphics device.
 }
 \examples{
 p1<-ggplot(ChickWeight,aes(x=Time,y=weight,colour=Diet,group=Chick))+
@@ -50,5 +60,3 @@ report_pdf(plotlist=cars_plot_multiplot,file="report",print_plot=FALSE)
 report_pdf(plotlist=cars_plot_base,print_plot=TRUE)
 report_pdf(plotlist=cars_plot_base,file="report",print_plot=FALSE)
 }
-\keyword{functions}
-\keyword{plot}

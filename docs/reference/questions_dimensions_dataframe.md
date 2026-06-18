@@ -1,7 +1,8 @@
-# Question dimension table
+# Build a question-to-dimension mapping table
 
-Return a dataframe with the order of the questions, their respective
-dimensions, and the description of the dimensions
+Returns a data frame that maps each question to its dimension, including
+question order, short dimension name, and full dimension description.
+Useful for documenting scoring keys and validating test structure.
 
 ## Usage
 
@@ -18,21 +19,48 @@ questions_dimensions_dataframe(
 
 - key:
 
-  a vector indicating the dimension of each question. The order of the
-  elements in the key represents the order of the questions, the numeric
-  values represent the dimension the question belongs to
+  Integer vector. Each element indicates which dimension the
+  corresponding question belongs to. Values must be consecutive integers
+  starting from 1 up to the number of dimensions.
 
 - dimensions:
 
-  dimension names
+  Character vector. Short dimension names, one per dimension. Length
+  must equal `max(key)`.
 
 - elaborate_dimensions:
 
-  full dimension names
+  Character vector. Full dimension descriptions, one per dimension.
+  Length must equal `max(key)`.
 
 - questions:
 
-  question names
+  Character vector. Question labels in the same order as `key`. Length
+  must equal `length(key)`.
+
+## Value
+
+A data frame with one row per question and four columns:
+
+- ORDER:
+
+  The question's position index within its dimension.
+
+- DIMENSION:
+
+  The short dimension name the question belongs to.
+
+- ELABORATE DIMENSION:
+
+  The full dimension description.
+
+- QUESTION:
+
+  The question label.
+
+## See also
+
+[`questions_by_keys`](https://sedzinfo.github.io/rwf/reference/questions_by_keys.md)
 
 ## Examples
 

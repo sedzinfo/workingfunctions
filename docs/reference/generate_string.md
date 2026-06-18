@@ -1,6 +1,7 @@
 # Generate random strings
 
-Generate random strings
+Produces a character vector of random strings by sampling from a
+character pool.
 
 ## Usage
 
@@ -16,15 +17,20 @@ generate_string(
 
 - vector:
 
-  character pool
+  Character vector. The pool of characters to sample from. Default is
+  `c(LETTERS, letters, 0:9)`.
 
 - vector_length:
 
-  number of strings to generate
+  Integer. Number of strings to generate. Default is `1`.
 
 - nchar:
 
-  Length of generated strings
+  Integer. Length of each generated string. Default is `5`.
+
+## Value
+
+A character vector of length `vector_length`.
 
 ## Examples
 

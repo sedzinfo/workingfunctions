@@ -2,7 +2,7 @@
 % Please edit documentation in R/FUNCTIONS_GENERATEDATA.R
 \name{generate_multiple_responce_vector}
 \alias{generate_multiple_responce_vector}
-\title{Generate multiple responce vector}
+\title{Generate a multiple response vector}
 \usage{
 generate_multiple_responce_vector(
   responces = 1:4,
@@ -11,18 +11,23 @@ generate_multiple_responce_vector(
 )
 }
 \arguments{
-\item{responces}{unique categories allowed}
+\item{responces}{Integer or character vector. The pool of unique response
+categories to sample from. Default is \code{1:4}.}
 
-\item{responded}{number of categories observed in iteration}
+\item{responded}{Integer vector. Controls how many categories are selected
+per observation — one value is sampled from this vector at each iteration.
+Default is \code{1:4}.}
 
-\item{length}{length of returned vector}
+\item{length}{Integer. Number of observations to generate. Default is \code{10}.}
+}
+\value{
+A character vector of length \code{length}, where each element is a
+  comma-separated string of sampled response categories.
 }
 \description{
-Generate multiple responce vector
+Creates a character vector where each element contains a comma-separated
+string of randomly sampled categories, simulating multiple response survey data.
 }
 \examples{
 generate_multiple_responce_vector(responces=1:4,responded=1:4,length=10)
 }
-\keyword{data}
-\keyword{functions}
-\keyword{generate}

@@ -1,6 +1,8 @@
-# Multiple ggplot plots in one graph
+# Arrange multiple ggplot objects in a grid layout
 
-Multiple ggplot plots in one graph
+Combines multiple ggplot objects into a single paged display using a
+grid layout. Plots are arranged by column across one or more pages, with
+each page recorded and returned as a list.
 
 ## Usage
 
@@ -12,19 +14,29 @@ plot_multiplot(..., plotlist = NULL, cols = 2, layout = NULL)
 
 - ...:
 
-  plot objects
+  ggplot objects passed directly.
 
 - plotlist:
 
-  a list of plots
+  A list of ggplot objects. Combined with any plots passed via `...`.
 
 - cols:
 
-  number of columns in layout
+  Integer. Number of columns in the layout grid. Ignored if `layout` is
+  provided. Default is `2`.
 
 - layout:
 
-  a matrix specifying the layout. If present,'cols' is ignored
+  A matrix specifying plot positions. Each cell contains the index of
+  the plot to display at that position. If `NULL`, a layout is generated
+  automatically from `cols`. Default is `NULL`.
+
+## Value
+
+If a single plot is provided, returns it directly. Otherwise returns a
+list of recorded plots
+([`recordPlot`](https://rdrr.io/r/grDevices/recordplot.html)), one per
+page.
 
 ## Examples
 

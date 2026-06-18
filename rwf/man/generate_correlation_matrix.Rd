@@ -2,17 +2,31 @@
 % Please edit documentation in R/FUNCTIONS_GENERATEDATA.R
 \name{generate_correlation_matrix}
 \alias{generate_correlation_matrix}
-\title{Generate dataframe which outputs a predetermined correlation matrix}
+\title{Generate a data frame with a predetermined correlation structure}
 \usage{
 generate_correlation_matrix(correlation_martix, nrows = 10)
 }
 \arguments{
-\item{correlation_martix}{correlation matrix of resulting dataframe}
+\item{correlation_martix}{A symmetric positive-definite matrix specifying the
+desired correlations between columns. Must pass Cholesky decomposition.
+If omitted, a random correlation matrix is generated.}
 
-\item{nrows}{number of rows to generate}
+\item{nrows}{Integer. Number of observations (rows) to generate. Default is \code{10}.}
+}
+\value{
+A data frame with \code{nrows} rows and \code{ncol(correlation_martix)}
+  columns of simulated numeric values.
 }
 \description{
-Generate dataframe which outputs a predetermined correlation matrix
+Simulates multivariate normal data whose columns reproduce a target correlation
+matrix, using Cholesky decomposition. If no matrix is supplied, a random
+symmetric positive-definite matrix is generated automatically.
+}
+\details{
+Uses Cholesky decomposition (\code{chol()}) to factor the target correlation
+matrix, then multiplies by independent standard normal draws to produce correlated
+columns. The resulting correlations approximate the target matrix, with accuracy
+improving as \code{nrows} increases.
 }
 \examples{
 df<-data.frame(matrix(.999,ncol=2,nrow=2))
@@ -21,6 +35,6 @@ diag(correlation_martix)<-1
 df<-generate_correlation_matrix(correlation_martix,nrows=100)
 stats::cor(df)
 }
-\keyword{data}
-\keyword{functions}
-\keyword{generate}
+\seealso{
+\code{\link{generate_data}}, \code{\link{symmetric_matrix}}
+}

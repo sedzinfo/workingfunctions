@@ -1,6 +1,8 @@
-# Return upper or lower matrix triangle
+# Extract the upper or lower triangle of a matrix
 
-Return upper or lower matrix triangle
+Returns a matrix with the off-triangle values replaced by a fill value,
+optionally overriding the diagonal. Useful for displaying correlation or
+covariance matrices without redundant values.
 
 ## Usage
 
@@ -12,19 +14,26 @@ matrix_triangle(m, off_diagonal = NA, diagonal = NULL, type = "lower")
 
 - m:
 
-  matrix
+  A numeric matrix or object coercible to one.
 
 - off_diagonal:
 
-  off diagonal value
+  Value to fill the suppressed triangle with. Default is `NA`.
 
 - diagonal:
 
-  diagonal value. If NULL it returns the diagonal of the input matrix
+  Value to place on the diagonal. If `NULL`, the original diagonal of
+  `m` is preserved. Default is `NULL`.
 
 - type:
 
-  "upper" displays upper triangle, "lower" displays lower triangle
+  Character. Which triangle to retain. One of `"lower"` or `"upper"`.
+  Default is `"lower"`.
+
+## Value
+
+A matrix of the same dimensions as `m`, with the off-triangle filled by
+`off_diagonal` and the diagonal set by `diagonal`.
 
 ## Examples
 

@@ -2,18 +2,26 @@
 % Please edit documentation in R/FUNCTIONS_STATISTICAL.R
 \name{compute_skewness}
 \alias{compute_skewness}
-\title{Compute skewness}
+\title{Compute skewness of a numeric vector}
 \usage{
 compute_skewness(vector)
 }
 \arguments{
-\item{vector}{vector}
+\item{vector}{Numeric vector.}
+}
+\value{
+A numeric scalar. Positive values indicate right skew, negative
+  values indicate left skew.
 }
 \description{
-Compute skewness
+Calculates the skewness of a numeric vector using the \eqn{b_1} 
+formula consistent with MINITAB and BMDP. Missing values are removed before
+computation.
 }
 \note{
-b_1 = m_3 / s^3 = g_1 ((n-1)/n)^(3/2). Used in MINITAB and BMDP.
+Formula used: \eqn{b_1 = m_3 / s^3 = g_1 ((n-1)/n)^{3/2}}.
+  Used in MINITAB and BMDP.
+  Results match \code{e1071::skewness()} with \code{type = 2}.
 }
 \examples{
 set.seed(1)
@@ -21,5 +29,3 @@ vector<-rnorm(1000)
 compute_skewness(vector)
 e1071::skewness(vector)
 }
-\keyword{functions}
-\keyword{statistical}

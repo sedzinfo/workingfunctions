@@ -2,20 +2,24 @@
 % Please edit documentation in R/FUNCTIONS_PLOT.R
 \name{wrapper}
 \alias{wrapper}
-\title{Wrap string}
+\title{Wrap a string to a specified width}
 \usage{
 wrapper(x, ...)
 }
 \arguments{
-\item{x}{title}
+\item{x}{Character. The string to wrap.}
 
-\item{...}{arguments passed to strwrap}
+\item{...}{Additional arguments passed to \code{\link[base]{strwrap}},
+such as \code{width}.}
+}
+\value{
+A single character string with newlines inserted at wrap points.
 }
 \description{
-Wrap string
+Wraps a character string at a given width and collapses the result into a
+single newline-delimited string. Useful for formatting long plot titles or
+labels.
 }
 \examples{
 wrapper(rep("sting",50),30)
 }
-\keyword{functions}
-\keyword{plot}

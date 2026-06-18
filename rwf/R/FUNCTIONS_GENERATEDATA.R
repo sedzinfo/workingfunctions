@@ -1,16 +1,29 @@
 ##########################################################################################
 # GENERATE RANDOM NUMBERS
 ##########################################################################################
-#' @title Generate dataframe with random numbers
-#' @param ncols number of collumns to generate
-#' @param nrows number of rows to generate
-#' @param mean mean of generated vectors
-#' @param sd standard deviation of generated vectors
-#' @param min minimum value in generated vector
-#' @param max maximum value in generated vector
-#' @param type character "normal" "uniform"
+#' Generate a data frame of random numbers
+#'
+#' Creates a data frame populated with either normally or uniformly distributed
+#' random values, useful for testing and simulation.
+#'
+#' @param nrows Integer. Number of rows to generate. Default is \code{10}.
+#' @param ncols Integer. Number of columns to generate. Default is \code{5}.
+#' @param mean Numeric. Mean of the normal distribution. Only used when
+#'   \code{type = "normal"}. Default is \code{0}.
+#' @param sd Numeric. Standard deviation of the normal distribution. Only used
+#'   when \code{type = "normal"}. Default is \code{1}.
+#' @param min Integer. Minimum value of the uniform distribution. Only used when
+#'   \code{type = "uniform"}. Default is \code{1}.
+#' @param max Integer. Maximum value of the uniform distribution. Only used when
+#'   \code{type = "uniform"}. Default is \code{5}.
+#' @param type Character. Distribution to sample from. One of \code{"normal"}
+#'   or \code{"uniform"}. Default is \code{"normal"}.
+#'
+#' @return A data frame with \code{nrows} rows and \code{ncols} columns of
+#'   randomly generated numeric values.
+#'
 #' @importFrom stats rnorm
-#' @keywords functions generate data
+#'
 #' @export
 #' @examples
 #' generate_data(nrows=10,ncols=5,mean=0,sd=1,type="normal")
@@ -26,12 +39,28 @@ generate_data<-function(nrows=10,ncols=5,mean=0,sd=1,min=1,max=5,type="normal") 
 ##########################################################################################
 # GENERATE FACTOR
 ##########################################################################################
-#' @title Generate dataframe of factors
-#' @param vector factor pool
-#' @param ncols number of collumns to generate
-#' @param nrows number of rows to generate
-#' @param type "balanced" or "random" "balanced" generates balanced factor vectrors, "random" generates random factor vectors
-#' @keywords functions generate data
+#' Generate a data frame of random factor vectors
+#'
+#' Creates a data frame (or single factor) populated with factor values sampled
+#' from a supplied pool, either randomly or in a balanced distribution across levels.
+#'
+#' @param vector Character vector. The pool of factor levels to sample from.
+#'   Default is \code{LETTERS[1:5]}.
+#' @param nrows Integer. Number of rows to generate. For \code{type = "balanced"},
+#'   \code{nrows} should be divisible by \code{length(vector)}. Default is \code{2}.
+#' @param ncols Integer. Number of columns to generate. When \code{ncols = 1},
+#'   a single factor vector is returned instead of a data frame. Default is \code{10}.
+#' @param type Character. Sampling method. One of:
+#'   \itemize{
+#'     \item \code{"random"} — each value is sampled independently with replacement.
+#'     \item \code{"balanced"} — each level appears exactly \code{nrows / length(vector)}
+#'       times per column.
+#'   }
+#'   Default is \code{"random"}.
+#'
+#' @return A data frame of factors with \code{nrows} rows and \code{ncols} columns,
+#'   or a single factor vector when \code{ncols = 1}.
+#'
 #' @export
 #' @examples
 #' generate_factor(vector=LETTERS[1:5],ncols=5,nrows=10,type="random")
@@ -59,11 +88,17 @@ generate_factor<-function(vector=LETTERS[1:5],nrows=2,ncols=10,type="random") {
 ##########################################################################################
 # GENERATE RANDOM STRING
 ##########################################################################################
-#' @title Generate random strings
-#' @param vector character pool
-#' @param vector_length number of strings to generate
-#' @param nchar Length of generated strings
-#' @keywords functions generate data
+#' Generate random strings
+#'
+#' Produces a character vector of random strings by sampling from a character pool.
+#'
+#' @param vector Character vector. The pool of characters to sample from.
+#'   Default is \code{c(LETTERS, letters, 0:9)}.
+#' @param vector_length Integer. Number of strings to generate. Default is \code{1}.
+#' @param nchar Integer. Length of each generated string. Default is \code{5}.
+#'
+#' @return A character vector of length \code{vector_length}.
+#'
 #' @export
 #' @examples
 #' generate_string(nchar=10)
@@ -77,11 +112,21 @@ generate_string<-function(vector=c(LETTERS,letters,0:9),vector_length=1,nchar=5)
 ##########################################################################################
 # GENERATE MULTIPLE RESPONCE VECTOR
 ##########################################################################################
-#' @title Generate multiple responce vector
-#' @param responces unique categories allowed
-#' @param responded number of categories observed in iteration
-#' @param length length of returned vector
-#' @keywords functions generate data
+#' Generate a multiple response vector
+#'
+#' Creates a character vector where each element contains a comma-separated
+#' string of randomly sampled categories, simulating multiple response survey data.
+#'
+#' @param responces Integer or character vector. The pool of unique response
+#'   categories to sample from. Default is \code{1:4}.
+#' @param responded Integer vector. Controls how many categories are selected
+#'   per observation — one value is sampled from this vector at each iteration.
+#'   Default is \code{1:4}.
+#' @param length Integer. Number of observations to generate. Default is \code{10}.
+#'
+#' @return A character vector of length \code{length}, where each element is a
+#'   comma-separated string of sampled response categories.
+#'
 #' @export
 #' @examples
 #' generate_multiple_responce_vector(responces=1:4,responded=1:4,length=10)
@@ -94,11 +139,30 @@ generate_multiple_responce_vector<-function(responces=1:4,responded=1:4,length=1
 ##########################################################################################
 # SIMULATE CORRELATION MATRIX
 ##########################################################################################
-#' @title Generate dataframe which outputs a predetermined correlation matrix
-#' @param correlation_martix correlation matrix of resulting dataframe
-#' @param nrows number of rows to generate
+#' Generate a data frame with a predetermined correlation structure
+#'
+#' Simulates multivariate normal data whose columns reproduce a target correlation
+#' matrix, using Cholesky decomposition. If no matrix is supplied, a random
+#' symmetric positive-definite matrix is generated automatically.
+#'
+#' @param correlation_martix A symmetric positive-definite matrix specifying the
+#'   desired correlations between columns. Must pass Cholesky decomposition.
+#'   If omitted, a random correlation matrix is generated.
+#' @param nrows Integer. Number of observations (rows) to generate. Default is \code{10}.
+#'
+#' @return A data frame with \code{nrows} rows and \code{ncol(correlation_martix)}
+#'   columns of simulated numeric values.
+#'
+#' @details
+#' Uses Cholesky decomposition (\code{chol()}) to factor the target correlation
+#' matrix, then multiplies by independent standard normal draws to produce correlated
+#' columns. The resulting correlations approximate the target matrix, with accuracy
+#' improving as \code{nrows} increases.
+#'
 #' @importFrom stats rnorm
-#' @keywords functions generate data
+#'
+#' @seealso \code{\link{generate_data}}, \code{\link{symmetric_matrix}}
+#'
 #' @export
 #' @examples
 #' df<-data.frame(matrix(.999,ncol=2,nrow=2))
@@ -121,11 +185,28 @@ generate_correlation_matrix<-function(correlation_martix,nrows=10) {
 ##########################################################################################
 # SIMULATE DATA FROM SAMPLE
 ##########################################################################################
-#' @title Generate a dataframe that produces the same correlation matrix as the input dataframe
-#' @param cordata dataframe
-#' @param nrows number of rows to generate
+#' Simulate data preserving the correlation structure of an input data frame
+#'
+#' Estimates the covariance matrix and column means from the input data, then
+#' draws multivariate normal samples that reproduce the same correlation structure.
+#'
+#' @param cordata A numeric data frame or matrix. The source data from which
+#'   the covariance matrix and means are estimated. Missing values are handled
+#'   pairwise.
+#' @param nrows Integer. Number of observations to simulate. Default is \code{10}.
+#'
+#' @return A data frame with \code{nrows} rows and the same number of columns as
+#'   \code{cordata}, containing simulated values with matching correlation structure.
+#'
+#' @details
+#' Uses \code{\link[MASS]{mvrnorm}} to draw from a multivariate normal distribution
+#' parameterised by the sample covariance matrix and column means of \code{cordata}.
+#' Accuracy of the reproduced correlations improves with larger \code{nrows}.
+#'
 #' @importFrom MASS mvrnorm
-#' @keywords functions generate data
+#'
+#' @seealso \code{\link{generate_correlation_matrix}}
+#'
 #' @export
 #' @examples
 #' correlation_matrix<-generate_correlation_matrix()
@@ -141,10 +222,20 @@ simulate_correlation_from_sample<-function(cordata,nrows=10) {
 ##########################################################################################
 # SIMULATE MISSING DATA
 ##########################################################################################
-#' @title Generate missing data
-#' @param df vector or dataframe
-#' @param missing number of missing data per vector
-#' @keywords functions generate data
+#' Introduce missing values into a vector or data frame
+#'
+#' Randomly replaces a fixed number of values with \code{NA}, either in a vector
+#' or across every column of a data frame independently.
+#'
+#' @param df A numeric vector or data frame. The object into which missing values
+#'   are introduced.
+#' @param missing Integer. Number of values to replace with \code{NA} per vector
+#'   or per column. Must not exceed the length of the vector or \code{nrow(df)}.
+#'   Default is \code{5}.
+#'
+#' @return The input object with \code{missing} values replaced by \code{NA}.
+#'   Returns the same type as the input (vector or data frame).
+#'
 #' @export
 #' @examples
 #' generate_missing(rnorm(10),missing=5)

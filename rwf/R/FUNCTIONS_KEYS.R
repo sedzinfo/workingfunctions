@@ -1,9 +1,18 @@
 ##########################################################################################
 # KEYS
 ##########################################################################################
-#' @title Convert key to index list
-#' @param key a vector indicating the dimension of each question. The order of the elements in the key represents the order of the questions, the numeric values represent the dimension the question belongs to
-#' @keywords functions keys dimensions
+#' Convert a key vector to a list of question indices by dimension
+#'
+#' Takes a scoring key that maps each question to a dimension and returns a list
+#' where each element contains the indices of questions belonging to that dimension.
+#'
+#' @param key Integer vector. Each element indicates which dimension the
+#'   corresponding question belongs to. Values must be consecutive integers
+#'   starting from 1 up to the number of dimensions.
+#'
+#' @return A named list of length \code{max(key)}, where element \code{i} contains
+#'   the integer indices of all questions assigned to dimension \code{i}.
+#'
 #' @export
 #' @examples
 #' key<-c(1,2,3,4,5,1,2,3,4,5)
@@ -17,13 +26,30 @@ questions_by_keys<-function(key) {
 ##########################################################################################
 # KEYS
 ##########################################################################################
-#' @title Question dimension table
-#' @description Return a dataframe with the order of the questions, their respective dimensions, and the description of the dimensions
+#' Build a question-to-dimension mapping table
+#'
+#' Returns a data frame that maps each question to its dimension, including question
+#' order, short dimension name, and full dimension description. Useful for documenting
+#' scoring keys and validating test structure.
+#'
 #' @inheritParams questions_by_keys
-#' @param dimensions dimension names
-#' @param elaborate_dimensions full dimension names
-#' @param questions question names
-#' @keywords functions keys dimensions
+#' @param dimensions Character vector. Short dimension names, one per dimension.
+#'   Length must equal \code{max(key)}.
+#' @param elaborate_dimensions Character vector. Full dimension descriptions, one
+#'   per dimension. Length must equal \code{max(key)}.
+#' @param questions Character vector. Question labels in the same order as \code{key}.
+#'   Length must equal \code{length(key)}.
+#'
+#' @return A data frame with one row per question and four columns:
+#'   \describe{
+#'     \item{ORDER}{The question's position index within its dimension.}
+#'     \item{DIMENSION}{The short dimension name the question belongs to.}
+#'     \item{ELABORATE DIMENSION}{The full dimension description.}
+#'     \item{QUESTION}{The question label.}
+#'   }
+#'
+#' @seealso \code{\link{questions_by_keys}}
+#'
 #' @export
 #' @examples
 #' key<-c(1,2,3,4,5,1,2,3,4,5)

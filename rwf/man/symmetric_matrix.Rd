@@ -2,19 +2,35 @@
 % Please edit documentation in R/FUNCTIONS_MATRIX.R
 \name{symmetric_matrix}
 \alias{symmetric_matrix}
-\title{Symmetric Matrix}
+\title{Combine upper and lower triangles from two matrices}
 \usage{
 symmetric_matrix(matrix, duplicate = "lower", diagonal = NULL)
 }
 \arguments{
-\item{matrix}{matrix}
+\item{diagonal}{Controls the diagonal of the returned matrix. One of:
+\itemize{
+  \item \code{"upper"} — use the diagonal of \code{m_upper}.
+  \item \code{"lower"} — use the diagonal of \code{m_lower}.
+  \item \code{NA} — fill the diagonal with \code{NA}.
+  \item A numeric or character vector of length \code{nrow(m_upper)} —
+    use the supplied values directly.
+}
+Default is \code{NA}.}
 
-\item{duplicate}{"upper" duplicates upper triangle "lower" duplicates lower triangle}
+\item{m_upper}{A numeric matrix. Its upper triangle is used in the result.}
 
-\item{diagonal}{diagonal values}
+\item{m_lower}{A numeric matrix of the same dimensions as \code{m_upper}.
+Its lower triangle is used in the result.}
+}
+\value{
+A matrix of the same dimensions as the inputs, combining the upper
+  triangle of \code{m_upper} and the lower triangle of \code{m_lower}.
 }
 \description{
-Symmetric Matrix
+Merges two matrices by taking the upper triangle from one and the lower
+triangle from the other, with flexible control over the diagonal. Useful
+for displaying two related statistics (e.g. correlations and p-values)
+in a single compact matrix.
 }
 \examples{
 m_lower<-matrix_triangle(matrix(1:9,nrow=3,ncol=3),type="lower",diagonal=NA)
@@ -22,5 +38,6 @@ m_upper<-matrix_triangle(matrix(11:19,nrow=3,ncol=3),type="upper",diagonal=NA)
 symmetric_matrix(matrix=m_lower,duplicate="lower",diagonal=NA)
 symmetric_matrix(matrix=m_upper,duplicate="upper",diagonal=NA)
 }
-\keyword{functions}
-\keyword{matrix}
+\seealso{
+\code{\link{matrix_triangle}}
+}

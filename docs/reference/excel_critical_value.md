@@ -1,7 +1,10 @@
-# Write matrix or dataframe to excel sheet
+# Write a data frame to Excel with per-column conditional formatting thresholds
 
-Usefull for generic data where conditional formating of a spesific
-collumn is required
+Creates a new worksheet, writes the data, and applies
+[`excel_generic_format`](https://sedzinfo.github.io/rwf/reference/excel_generic_format.md).
+Additionally highlights cells in specified columns that meet one or two
+threshold conditions, making it easy to flag critical or out-of-range
+values.
 
 ## Usage
 
@@ -21,32 +24,70 @@ excel_critical_value(
 
 - df:
 
-  dataframe or matrix
+  A data frame or matrix whose structure determines column formatting.
+  Integer columns receive whole-number formatting; non-integer numeric
+  columns receive the format specified by `numFmt`.
 
 - workbook:
 
-  workbook
+  An openxlsx workbook object created with
+  [`openxlsx::createWorkbook()`](https://rdrr.io/pkg/openxlsx/man/createWorkbook.html).
 
 - sheet:
 
-  sheet
+  Character. Name of the worksheet to format. Must already exist in
+  `workbook`. Default is `"output"`.
 
 - title:
 
-  title
+  Character or `NULL`. If provided, written as a hidden comment on cell
+  A1. Default is `NULL`.
 
 - comment:
 
-  comment
+  A named list or `NULL`. Each name should match a column name in `df`;
+  the value is the comment text added to that column's header cell.
+  Names not found in `df` are silently ignored. Default is `NULL`.
 
 - numFmt:
 
-  number formatting
+  Character. Excel number format string applied to non-integer numeric
+  columns. Default is `"#0.00"`.
 
 - critical:
 
-  list in the form of
-  (collumn1=critical_value1,collumn2=critical_value2...)
+  A named list or `NULL`. Each name must match a column in `df`. The
+  value is either:
+
+  - A single character string with an Excel expression (e.g. `"<0.05"`,
+    `">20"`, `"=0"`). Matching cells are highlighted in red.
+
+  - A character vector of length 2 with two expressions (e.g.
+    `c(">20", "<11")`). The first condition highlights in red, the
+    second in purple.
+
+  `NA` cells in the target column are skipped. Default is `NULL`.
+
+## Value
+
+Called for its side effects. Adds a formatted worksheet to `workbook`;
+returns `NULL` invisibly.
+
+## Details
+
+Unlike
+[`excel_generic_format`](https://sedzinfo.github.io/rwf/reference/excel_generic_format.md),
+this function creates the worksheet and writes the data internally — do
+not call `addWorksheet()` or `writeData()` beforehand.
+
+Threshold expressions follow Excel conditional formatting syntax and are
+applied row by row, skipping `NA` values.
+
+## See also
+
+[`excel_generic_format`](https://sedzinfo.github.io/rwf/reference/excel_generic_format.md),
+[`excel_matrix`](https://sedzinfo.github.io/rwf/reference/excel_matrix.md),
+[`conditionalFormatting`](https://rdrr.io/pkg/openxlsx/man/conditionalFormatting.html)
 
 ## Examples
 

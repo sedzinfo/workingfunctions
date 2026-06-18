@@ -2,17 +2,22 @@
 % Please edit documentation in R/FUNCTIONS_RECODE.R
 \name{swap}
 \alias{swap}
-\title{Reverse a numeric vector}
+\title{Reverse-score a numeric vector}
 \usage{
 swap(vector)
 }
 \arguments{
-\item{vector}{numeric}
+\item{vector}{Numeric vector to reverse-score.}
+}
+\value{
+A numeric vector of the same length with values reverse-mapped
+  across the observed range.
 }
 \description{
-Reverse a numeric vector
+Reverses the order of values in a vector by mapping each value to its
+mirror equivalent based on the observed levels. Useful for reverse-scoring
+Likert scale items.
 }
 \examples{
 swap(c(1:10,1,2,3))
 }
-\keyword{functions}

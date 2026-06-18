@@ -1,6 +1,7 @@
-# Generate dataframe with random numbers
+# Generate a data frame of random numbers
 
-Generate dataframe with random numbers
+Creates a data frame populated with either normally or uniformly
+distributed random values, useful for testing and simulation.
 
 ## Usage
 
@@ -20,31 +21,41 @@ generate_data(
 
 - nrows:
 
-  number of rows to generate
+  Integer. Number of rows to generate. Default is `10`.
 
 - ncols:
 
-  number of collumns to generate
+  Integer. Number of columns to generate. Default is `5`.
 
 - mean:
 
-  mean of generated vectors
+  Numeric. Mean of the normal distribution. Only used when
+  `type = "normal"`. Default is `0`.
 
 - sd:
 
-  standard deviation of generated vectors
+  Numeric. Standard deviation of the normal distribution. Only used when
+  `type = "normal"`. Default is `1`.
 
 - min:
 
-  minimum value in generated vector
+  Integer. Minimum value of the uniform distribution. Only used when
+  `type = "uniform"`. Default is `1`.
 
 - max:
 
-  maximum value in generated vector
+  Integer. Maximum value of the uniform distribution. Only used when
+  `type = "uniform"`. Default is `5`.
 
 - type:
 
-  character "normal" "uniform"
+  Character. Distribution to sample from. One of `"normal"` or
+  `"uniform"`. Default is `"normal"`.
+
+## Value
+
+A data frame with `nrows` rows and `ncols` columns of randomly generated
+numeric values.
 
 ## Examples
 

@@ -1,6 +1,8 @@
-# Report pdf
+# Save or display a list of plots as a multi-page PDF
 
-Report pdf
+Writes one or more plot objects to a multi-page PDF file using
+[`cairo_pdf`](https://rdrr.io/r/grDevices/cairo.html), optionally also
+printing them to the active graphics device.
 
 ## Usage
 
@@ -20,31 +22,38 @@ report_pdf(
 
 - ...:
 
-  plot objects
+  Plot objects passed directly (ggplot or recorded plots).
 
 - plotlist:
 
-  list of plot objects
+  A list of plot objects. Combined with any plots passed via `...`.
 
 - file:
 
-  output filename
+  Character or `NULL`. Output filename without extension. If `NULL`, no
+  PDF is written. Default is `NULL`.
 
 - title:
 
-  output filename
+  Character or `NULL`. Optional suffix appended to `file` (separated by
+  an underscore) to form the final filename. Default is `NULL`.
 
 - w:
 
-  width of pdf file
+  Numeric. Width of the PDF in inches. Default is `10`.
 
 - h:
 
-  height of pdf file
+  Numeric. Height of the PDF in inches. Default is `10`.
 
 - print_plot:
 
-  if TRUE it prints plot on graphics device
+  Logical. If `TRUE`, plots are also printed to the active graphics
+  device. Default is `TRUE`.
+
+## Value
+
+Called for its side effects. Returns `NULL` invisibly.
 
 ## Examples
 

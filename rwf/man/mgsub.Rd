@@ -2,24 +2,28 @@
 % Please edit documentation in R/FUNCTIONS_STRINGS.R
 \name{mgsub}
 \alias{mgsub}
-\title{Sub for multiple patterns}
+\title{Apply gsub for multiple patterns with a single replacement}
 \usage{
 mgsub(mydata, pattern, replacement, ...)
 }
 \arguments{
-\item{mydata}{Character}
+\item{mydata}{Character vector to search within.}
 
-\item{pattern}{Character to search for}
+\item{pattern}{Character vector of patterns to search for.}
 
-\item{replacement}{Replacement character}
+\item{replacement}{Character. The replacement string applied for all patterns.}
 
-\item{...}{arguments passed to gsub}
+\item{...}{Additional arguments passed to \code{\link[base]{gsub}},
+such as \code{fixed} or \code{ignore.case}.}
+}
+\value{
+A character vector with all pattern matches replaced.
 }
 \description{
-Sub for multiple patterns
+Iterates over a vector of patterns, applying \code{\link[base]{gsub}}
+sequentially with the same replacement string for each.
 }
 \examples{
 mgsub(mydata="#$\%^&*_+",pattern=c("\%","*"),"REPLACE",fixed=TRUE)
 }
-\keyword{functions}
 \keyword{strings}

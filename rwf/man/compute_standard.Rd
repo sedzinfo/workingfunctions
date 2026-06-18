@@ -2,23 +2,50 @@
 % Please edit documentation in R/FUNCTIONS_STATISTICAL.R
 \name{compute_standard}
 \alias{compute_standard}
-\title{compute standard scores}
+\title{Compute standard scores from a numeric vector}
 \usage{
 compute_standard(vector, mean = 0, sd = 1, type = "z", input = "non_standard")
 }
 \arguments{
-\item{vector}{vector}
+\item{vector}{Numeric vector of raw scores or z-scores (see \code{input}).}
 
-\item{mean}{numeric applicable to "uz"}
+\item{mean}{Numeric. Population mean used for \code{"uz"} and density types.
+Default is \code{0}.}
 
-\item{sd}{numeric applicable to "uz"}
+\item{sd}{Numeric. Population standard deviation used for \code{"uz"} and
+density types. Default is \code{1}.}
 
-\item{type}{"z" "uz" "sten" "t" "stanine" "center" "center_reversed" "percent" "percentile" "scale_zero_one" "normal_density" "cumulative_density" "all"}
+\item{type}{Character. The output score type. One of:
+\describe{
+  \item{\code{"z"}}{Z-scores (mean=0, sd=1).}
+  \item{\code{"uz"}}{Unstandardise: convert z-scores back to raw scores
+    using supplied \code{mean} and \code{sd}.}
+  \item{\code{"sten"}}{Sten scores (1--10, mean=5.5, sd=2).}
+  \item{\code{"t"}}{T-scores (mean=50, sd=10).}
+  \item{\code{"stanine"}}{Stanine scores (1--9, mean=5, sd=2).}
+  \item{\code{"center"}}{Mean-centred scores.}
+  \item{\code{"center_reversed"}}{Reversed mean-centred scores.}
+  \item{\code{"percent"}}{Percentage of the maximum observed value.}
+  \item{\code{"percentile"}}{Cumulative normal percentile (0--100).}
+  \item{\code{"scale_zero_one"}}{Min-max scaled scores (0--1).}
+  \item{\code{"normal_density"}}{Normal density values.}
+  \item{\code{"cumulative_density"}}{Cumulative sum of the input vector.}
+  \item{\code{"all"}}{Returns a data frame with all score types, sorted
+    by z-score.}
+}}
 
-\item{input}{"standard" "non_standard" standard inputs are z scores and non standard are raw scores}
+\item{input}{Character. Whether \code{vector} contains raw scores
+(\code{"non_standard"}) or already-standardised z-scores
+(\code{"standard"}). Default is \code{"non_standard"}.}
+}
+\value{
+A numeric vector of transformed scores, or a data frame when
+  \code{type = "all"}.
 }
 \description{
-compute standard scores
+Transforms a numeric vector into one of several standard score
+formats, including z-scores, T-scores, stens, stanines, percentiles, and
+others. Can operate on raw scores or pre-standardised z-scores.
 }
 \examples{
 vector<-c(rnorm(10),NA,rnorm(10))
@@ -38,5 +65,3 @@ plot(cdf)
 compute_standard(vector,type="all")
 compute_standard(seq(-6,6,.1),type="all",input="standard")
 }
-\keyword{functions}
-\keyword{statistical}

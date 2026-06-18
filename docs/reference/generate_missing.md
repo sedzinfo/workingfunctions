@@ -1,6 +1,7 @@
-# Generate missing data
+# Introduce missing values into a vector or data frame
 
-Generate missing data
+Randomly replaces a fixed number of values with `NA`, either in a vector
+or across every column of a data frame independently.
 
 ## Usage
 
@@ -12,11 +13,19 @@ generate_missing(df, missing = 5)
 
 - df:
 
-  vector or dataframe
+  A numeric vector or data frame. The object into which missing values
+  are introduced.
 
 - missing:
 
-  number of missing data per vector
+  Integer. Number of values to replace with `NA` per vector or per
+  column. Must not exceed the length of the vector or `nrow(df)`.
+  Default is `5`.
+
+## Value
+
+The input object with `missing` values replaced by `NA`. Returns the
+same type as the input (vector or data frame).
 
 ## Examples
 

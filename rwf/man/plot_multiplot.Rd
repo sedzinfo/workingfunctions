@@ -2,21 +2,31 @@
 % Please edit documentation in R/FUNCTIONS_PLOT.R
 \name{plot_multiplot}
 \alias{plot_multiplot}
-\title{Multiple ggplot plots in one graph}
+\title{Arrange multiple ggplot objects in a grid layout}
 \usage{
 plot_multiplot(..., plotlist = NULL, cols = 2, layout = NULL)
 }
 \arguments{
-\item{...}{plot objects}
+\item{...}{ggplot objects passed directly.}
 
-\item{plotlist}{a list of plots}
+\item{plotlist}{A list of ggplot objects. Combined with any plots passed via
+\code{...}.}
 
-\item{cols}{number of columns in layout}
+\item{cols}{Integer. Number of columns in the layout grid. Ignored if
+\code{layout} is provided. Default is \code{2}.}
 
-\item{layout}{a matrix specifying the layout. If present,'cols' is ignored}
+\item{layout}{A matrix specifying plot positions. Each cell contains the index
+of the plot to display at that position. If \code{NULL}, a layout is
+generated automatically from \code{cols}. Default is \code{NULL}.}
+}
+\value{
+If a single plot is provided, returns it directly. Otherwise returns
+  a list of recorded plots (\code{\link[grDevices]{recordPlot}}), one per page.
 }
 \description{
-Multiple ggplot plots in one graph
+Combines multiple ggplot objects into a single paged display using a grid
+layout. Plots are arranged by column across one or more pages, with each
+page recorded and returned as a list.
 }
 \examples{
 p1<-ggplot(ChickWeight,aes(x=Time,y=weight,colour=Diet,group=Chick))+
@@ -42,5 +52,3 @@ plot_multiplot(plotlist=plot_scatterplot(mtcars[,1:4]),cols=2)
 plot_multiplot(plotlist=cars_plot,layout=matrix(1:4,ncol=2,byrow=TRUE))
 plot_multiplot(plotlist=cars_plot,cols=3)
 }
-\keyword{functions}
-\keyword{plot}

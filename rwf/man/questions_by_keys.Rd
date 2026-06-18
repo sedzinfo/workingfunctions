@@ -2,20 +2,24 @@
 % Please edit documentation in R/FUNCTIONS_KEYS.R
 \name{questions_by_keys}
 \alias{questions_by_keys}
-\title{Convert key to index list}
+\title{Convert a key vector to a list of question indices by dimension}
 \usage{
 questions_by_keys(key)
 }
 \arguments{
-\item{key}{a vector indicating the dimension of each question. The order of the elements in the key represents the order of the questions, the numeric values represent the dimension the question belongs to}
+\item{key}{Integer vector. Each element indicates which dimension the
+corresponding question belongs to. Values must be consecutive integers
+starting from 1 up to the number of dimensions.}
+}
+\value{
+A named list of length \code{max(key)}, where element \code{i} contains
+  the integer indices of all questions assigned to dimension \code{i}.
 }
 \description{
-Convert key to index list
+Takes a scoring key that maps each question to a dimension and returns a list
+where each element contains the indices of questions belonging to that dimension.
 }
 \examples{
 key<-c(1,2,3,4,5,1,2,3,4,5)
 questions_by_keys(key)
 }
-\keyword{dimensions}
-\keyword{functions}
-\keyword{keys}

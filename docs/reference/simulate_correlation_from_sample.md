@@ -1,7 +1,8 @@
-# Generate a dataframe that produces the same correlation matrix as the input dataframe
+# Simulate data preserving the correlation structure of an input data frame
 
-Generate a dataframe that produces the same correlation matrix as the
-input dataframe
+Estimates the covariance matrix and column means from the input data,
+then draws multivariate normal samples that reproduce the same
+correlation structure.
 
 ## Usage
 
@@ -13,11 +14,30 @@ simulate_correlation_from_sample(cordata, nrows = 10)
 
 - cordata:
 
-  dataframe
+  A numeric data frame or matrix. The source data from which the
+  covariance matrix and means are estimated. Missing values are handled
+  pairwise.
 
 - nrows:
 
-  number of rows to generate
+  Integer. Number of observations to simulate. Default is `10`.
+
+## Value
+
+A data frame with `nrows` rows and the same number of columns as
+`cordata`, containing simulated values with matching correlation
+structure.
+
+## Details
+
+Uses [`mvrnorm`](https://rdrr.io/pkg/MASS/man/mvrnorm.html) to draw from
+a multivariate normal distribution parameterised by the sample
+covariance matrix and column means of `cordata`. Accuracy of the
+reproduced correlations improves with larger `nrows`.
+
+## See also
+
+[`generate_correlation_matrix`](https://sedzinfo.github.io/rwf/reference/generate_correlation_matrix.md)
 
 ## Examples
 

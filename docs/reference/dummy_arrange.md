@@ -1,7 +1,8 @@
-# Takes a vector with multiple responses and dummy arranges it in a dataframe
+# Dummy-code a multiple response vector into a binary data frame
 
-Takes a vector with multiple responses and dummy arranges it in a
-dataframe
+Splits a vector of comma-separated multiple response values and returns
+a binary data frame where each unique response becomes a column, with
+`1` indicating the response was selected and `0` indicating it was not.
 
 ## Usage
 
@@ -13,7 +14,19 @@ dummy_arrange(vector)
 
 - vector:
 
-  Vector
+  A character or numeric vector where each element contains one or more
+  comma-separated response values (e.g. from a multiple choice
+  question). Single-value responses are also accepted.
+
+## Value
+
+A binary data frame with one row per element of `vector` and one column
+per unique response value, sorted alphabetically by column name. Values
+are `1` (selected) or `0` (not selected).
+
+## See also
+
+[`generate_multiple_responce_vector`](https://sedzinfo.github.io/rwf/reference/generate_multiple_responce_vector.md)
 
 ## Examples
 

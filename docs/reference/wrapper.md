@@ -1,6 +1,8 @@
-# Wrap string
+# Wrap a string to a specified width
 
-Wrap string
+Wraps a character string at a given width and collapses the result into
+a single newline-delimited string. Useful for formatting long plot
+titles or labels.
 
 ## Usage
 
@@ -12,11 +14,16 @@ wrapper(x, ...)
 
 - x:
 
-  title
+  Character. The string to wrap.
 
 - ...:
 
-  arguments passed to strwrap
+  Additional arguments passed to
+  [`strwrap`](https://rdrr.io/r/base/strwrap.html), such as `width`.
+
+## Value
+
+A single character string with newlines inserted at wrap points.
 
 ## Examples
 

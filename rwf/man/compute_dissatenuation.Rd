@@ -2,25 +2,39 @@
 % Please edit documentation in R/FUNCTIONS_STATISTICAL.R
 \name{compute_dissatenuation}
 \alias{compute_dissatenuation}
-\title{Compute dissatenuation}
+\title{Compute the disattenuation correction for measurement error}
 \usage{
 compute_dissatenuation(variable1, error1, variable2, error2)
 }
 \arguments{
-\item{variable1}{vector}
+\item{variable1}{Numeric vector. True scores for the first variable.}
 
-\item{error1}{vector error measurement for variable1}
+\item{error1}{Numeric vector. Measurement error for \code{variable1}.
+Must be the same length as \code{variable1}.}
 
-\item{variable2}{vector}
+\item{variable2}{Numeric vector. True scores for the second variable.}
 
-\item{error2}{vector error measurement for variable2}
+\item{error2}{Numeric vector. Measurement error for \code{variable2}.
+Must be the same length as \code{variable2}.}
+}
+\value{
+A numeric scalar. The disattenuated (corrected) correlation
+  between \code{variable1} and \code{variable2}.
 }
 \description{
-Compute dissatenuation
+Estimates the true correlation between two variables by 
+correcting the observed correlation for attenuation due to measurement error
+in both variables.
+}
+\details{
+The observed correlation is computed from the error-contaminated scores
+(\code{variable + error}). Reliability for each variable is estimated as
+the ratio of true score variance to total observed variance. The
+disattenuated correlation is then:
+\deqn{\rho = \frac{r_{obs}}{\sqrt{R_1 \cdot R_2}}}
+where \eqn{R_1} and \eqn{R_2} are the reliability estimates.
 }
 \examples{
 set.seed(1)
 compute_dissatenuation(rnorm(10),rnorm(10),rnorm(10),rnorm(10))
 }
-\keyword{functions}
-\keyword{statistical}

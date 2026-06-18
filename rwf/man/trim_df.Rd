@@ -2,15 +2,20 @@
 % Please edit documentation in R/FUNCTIONS_STRINGS.R
 \name{trim_df}
 \alias{trim_df}
-\title{Trim whitespace in dataframe}
+\title{Trim whitespace from all character cells in a data frame}
 \usage{
 trim_df(df)
 }
 \arguments{
-\item{df}{dataframe}
+\item{df}{A data frame containing one or more character columns.}
+}
+\value{
+A data frame of the same dimensions with whitespace trimmed from
+  all character cells. Non-character cells are unchanged.
 }
 \description{
-Trim whitespace in dataframe
+Applies \code{\link[base]{strwrap}} to every character cell in a data frame,
+removing leading and trailing whitespace.
 }
 \examples{
 string<-data.frame(str1=rep(paste0(sample(c(LETTERS,rep(" ",10))),collapse=""),10),
@@ -19,5 +24,4 @@ string<-data.frame(str1=rep(paste0(sample(c(LETTERS,rep(" ",10))),collapse=""),1
                    stringsAsFactors=FALSE)
 trim_df(string)
 }
-\keyword{functions}
 \keyword{strings}

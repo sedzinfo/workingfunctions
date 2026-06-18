@@ -1,6 +1,8 @@
-# Generate multiple responce vector
+# Generate a multiple response vector
 
-Generate multiple responce vector
+Creates a character vector where each element contains a comma-separated
+string of randomly sampled categories, simulating multiple response
+survey data.
 
 ## Usage
 
@@ -16,15 +18,23 @@ generate_multiple_responce_vector(
 
 - responces:
 
-  unique categories allowed
+  Integer or character vector. The pool of unique response categories to
+  sample from. Default is `1:4`.
 
 - responded:
 
-  number of categories observed in iteration
+  Integer vector. Controls how many categories are selected per
+  observation — one value is sampled from this vector at each iteration.
+  Default is `1:4`.
 
 - length:
 
-  length of returned vector
+  Integer. Number of observations to generate. Default is `10`.
+
+## Value
+
+A character vector of length `length`, where each element is a
+comma-separated string of sampled response categories.
 
 ## Examples
 

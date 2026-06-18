@@ -45,10 +45,10 @@ Summary statistics, frequencies and reliability
 Correlation matrices, power analysis and related utilities
 
 - [`generate_correlation_matrix()`](https://sedzinfo.github.io/rwf/reference/generate_correlation_matrix.md)
-  : Generate dataframe which outputs a predetermined correlation matrix
+  : Generate a data frame with a predetermined correlation structure
 - [`simulate_correlation_from_sample()`](https://sedzinfo.github.io/rwf/reference/simulate_correlation_from_sample.md)
-  : Generate a dataframe that produces the same correlation matrix as
-  the input dataframe
+  : Simulate data preserving the correlation structure of an input data
+  frame
 - [`compute_power_r()`](https://sedzinfo.github.io/rwf/reference/compute_power_r.md)
   : Compute r power curve
 - [`compute_power_r_matrix()`](https://sedzinfo.github.io/rwf/reference/compute_power_r_matrix.md)
@@ -57,11 +57,11 @@ Correlation matrices, power analysis and related utilities
   : Return upper diagonal from one matrix and lower diagonal from
   another matrix
 - [`matrix_triangle()`](https://sedzinfo.github.io/rwf/reference/matrix_triangle.md)
-  : Return upper or lower matrix triangle
+  : Extract the upper or lower triangle of a matrix
 - [`symmetric_matrix()`](https://sedzinfo.github.io/rwf/reference/symmetric_matrix.md)
-  : Symmetric Matrix
+  : Combine upper and lower triangles from two matrices
 - [`off_diagonal_index()`](https://sedzinfo.github.io/rwf/reference/off_diagonal_index.md)
-  : index of off diagonal
+  : Get off-diagonal indices for a square matrix
 - [`report_correlation()`](https://sedzinfo.github.io/rwf/reference/report_correlation.md)
   : Report correlation matrix
 - [`report_choric_serial()`](https://sedzinfo.github.io/rwf/reference/report_choric_serial.md)
@@ -177,8 +177,7 @@ Correlation matrices, power analysis and related utilities
 - [`compute_dummy_comparisons()`](https://sedzinfo.github.io/rwf/reference/compute_dummy_comparisons.md)
   : Compute number of dummy comparisons
 - [`dummy_arrange()`](https://sedzinfo.github.io/rwf/reference/dummy_arrange.md)
-  : Takes a vector with multiple responses and dummy arranges it in a
-  dataframe
+  : Dummy-code a multiple response vector into a binary data frame
 - [`plot_logistic_model()`](https://sedzinfo.github.io/rwf/reference/plot_logistic_model.md)
   : Logistic model plot
 - [`proportion_accurate()`](https://sedzinfo.github.io/rwf/reference/proportion_accurate.md)
@@ -249,7 +248,7 @@ Correlation matrices, power analysis and related utilities
 - [`plot_mosaic()`](https://sedzinfo.github.io/rwf/reference/plot_mosaic.md)
   : Mosaic plots for pairwise categorical variables
 - [`plot_multiplot()`](https://sedzinfo.github.io/rwf/reference/plot_multiplot.md)
-  : Multiple ggplot plots in one graph
+  : Arrange multiple ggplot objects in a grid layout
 - [`plot_normality_diagnostics()`](https://sedzinfo.github.io/rwf/reference/plot_normality_diagnostics.md)
   : Normality plots
 - [`plot_response_frequencies()`](https://sedzinfo.github.io/rwf/reference/plot_response_frequencies.md)
@@ -276,15 +275,17 @@ Correlation matrices, power analysis and related utilities
 - [`report_normality_tests()`](https://sedzinfo.github.io/rwf/reference/report_normality_tests.md)
   : Normality tests
 - [`report_pdf()`](https://sedzinfo.github.io/rwf/reference/report_pdf.md)
-  : Report pdf
+  : Save or display a list of plots as a multi-page PDF
 - [`output_separator()`](https://sedzinfo.github.io/rwf/reference/output_separator.md)
   : Output separator
 - [`excel_generic_format()`](https://sedzinfo.github.io/rwf/reference/excel_generic_format.md)
-  : Generic function for creating workbooks and worksheets
+  : Format an Excel worksheet with styles, comments, and frozen panes
 - [`excel_critical_value()`](https://sedzinfo.github.io/rwf/reference/excel_critical_value.md)
-  : Write matrix or dataframe to excel sheet
+  : Write a data frame to Excel with per-column conditional formatting
+  thresholds
 - [`excel_matrix()`](https://sedzinfo.github.io/rwf/reference/excel_matrix.md)
-  : Write matrix or dataframe to excel sheet
+  : Write a matrix or data frame to an Excel worksheet with optional
+  conditional formatting
 - [`write_txt()`](https://sedzinfo.github.io/rwf/reference/write_txt.md)
   : Print an object and optionally save output to a log file
 
@@ -299,7 +300,7 @@ Correlation matrices, power analysis and related utilities
 - [`recode_scale_dummy()`](https://sedzinfo.github.io/rwf/reference/recode_scale_dummy.md)
   : Scale and dummy code
 - [`drop_levels()`](https://sedzinfo.github.io/rwf/reference/drop_levels.md)
-  : Drops unused factor levels
+  : Drop unused factor levels and collapse rare levels into "Other"
 - [`trim_df()`](https://sedzinfo.github.io/rwf/reference/trim_df.md) :
   Trim whitespace in dataframe
 - [`round_dataframe()`](https://sedzinfo.github.io/rwf/reference/round_dataframe.md)
@@ -317,15 +318,15 @@ Correlation matrices, power analysis and related utilities
 - [`k_sample()`](https://sedzinfo.github.io/rwf/reference/k_sample.md) :
   Train test sampling
 - [`generate_missing()`](https://sedzinfo.github.io/rwf/reference/generate_missing.md)
-  : Generate missing data
+  : Introduce missing values into a vector or data frame
 - [`generate_data()`](https://sedzinfo.github.io/rwf/reference/generate_data.md)
-  : Generate dataframe with random numbers
+  : Generate a data frame of random numbers
 - [`generate_factor()`](https://sedzinfo.github.io/rwf/reference/generate_factor.md)
-  : Generate dataframe of factors
+  : Generate a data frame of random factor vectors
 - [`generate_string()`](https://sedzinfo.github.io/rwf/reference/generate_string.md)
   : Generate random strings
 - [`generate_multiple_responce_vector()`](https://sedzinfo.github.io/rwf/reference/generate_multiple_responce_vector.md)
-  : Generate multiple responce vector
+  : Generate a multiple response vector
 - [`data_frame_index()`](https://sedzinfo.github.io/rwf/reference/data_frame_index.md)
   : dataframe index
 - [`increase_index()`](https://sedzinfo.github.io/rwf/reference/increase_index.md)
@@ -333,9 +334,9 @@ Correlation matrices, power analysis and related utilities
 - [`min_max_index()`](https://sedzinfo.github.io/rwf/reference/min_max_index.md)
   : Indices of the minimum and maximum values in a vector
 - [`flatten_list()`](https://sedzinfo.github.io/rwf/reference/flatten_list.md)
-  : Flatten two dimensional list
-- [`swap()`](https://sedzinfo.github.io/rwf/reference/swap.md) : Reverse
-  a numeric vector
+  : Flatten a two-dimensional list into a data frame
+- [`swap()`](https://sedzinfo.github.io/rwf/reference/swap.md) :
+  Reverse-score a numeric vector
 
 ## String Utilities
 
@@ -378,7 +379,7 @@ Correlation matrices, power analysis and related utilities
 - [`tag_pos()`](https://sedzinfo.github.io/rwf/reference/tag_pos.md) :
   Part of speech tagging
 - [`wrapper()`](https://sedzinfo.github.io/rwf/reference/wrapper.md) :
-  Wrap string
+  Wrap a string to a specified width
 
 ## Utilities & Environment
 
@@ -423,9 +424,9 @@ Correlation matrices, power analysis and related utilities
 - [`convert_excel_unix_timestamp()`](https://sedzinfo.github.io/rwf/reference/convert_excel_unix_timestamp.md)
   : Convert UNIX EXCEL timestamp
 - [`questions_by_keys()`](https://sedzinfo.github.io/rwf/reference/questions_by_keys.md)
-  : Convert key to index list
+  : Convert a key vector to a list of question indices by dimension
 - [`questions_dimensions_dataframe()`](https://sedzinfo.github.io/rwf/reference/questions_dimensions_dataframe.md)
-  : Question dimension table
+  : Build a question-to-dimension mapping table
 - [`response_dimension()`](https://sedzinfo.github.io/rwf/reference/response_dimension.md)
   : index parameter and items relative to their dimensions
 - [`response_frequency()`](https://sedzinfo.github.io/rwf/reference/response_frequency.md)

@@ -2,17 +2,29 @@
 % Please edit documentation in R/FUNCTIONS_GENERATEDATA.R
 \name{simulate_correlation_from_sample}
 \alias{simulate_correlation_from_sample}
-\title{Generate a dataframe that produces the same correlation matrix as the input dataframe}
+\title{Simulate data preserving the correlation structure of an input data frame}
 \usage{
 simulate_correlation_from_sample(cordata, nrows = 10)
 }
 \arguments{
-\item{cordata}{dataframe}
+\item{cordata}{A numeric data frame or matrix. The source data from which
+the covariance matrix and means are estimated. Missing values are handled
+pairwise.}
 
-\item{nrows}{number of rows to generate}
+\item{nrows}{Integer. Number of observations to simulate. Default is \code{10}.}
+}
+\value{
+A data frame with \code{nrows} rows and the same number of columns as
+  \code{cordata}, containing simulated values with matching correlation structure.
 }
 \description{
-Generate a dataframe that produces the same correlation matrix as the input dataframe
+Estimates the covariance matrix and column means from the input data, then
+draws multivariate normal samples that reproduce the same correlation structure.
+}
+\details{
+Uses \code{\link[MASS]{mvrnorm}} to draw from a multivariate normal distribution
+parameterised by the sample covariance matrix and column means of \code{cordata}.
+Accuracy of the reproduced correlations improves with larger \code{nrows}.
 }
 \examples{
 correlation_matrix<-generate_correlation_matrix()
@@ -20,6 +32,6 @@ stats::cor(correlation_matrix)
 simulate_correlation_from_sample(correlation_matrix,nrows=1000)
 stats::cor(simulate_correlation_from_sample(correlation_matrix,nrows=1000))
 }
-\keyword{data}
-\keyword{functions}
-\keyword{generate}
+\seealso{
+\code{\link{generate_correlation_matrix}}
+}

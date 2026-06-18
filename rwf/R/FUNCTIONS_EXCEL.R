@@ -42,8 +42,7 @@
 #' @seealso \code{\link[openxlsx]{createWorkbook}}, \code{\link[openxlsx]{addWorksheet}},
 #'   \code{\link[openxlsx]{writeData}}, \code{\link[openxlsx]{saveWorkbook}}
 #'
-#' @importFrom openxlsx createComment writeComment freezePane modifyBaseFont
-#'   createStyle addStyle removeColWidths setColWidths
+#' @importFrom openxlsx createComment writeComment freezePane modifyBaseFont createStyle addStyle removeColWidths setColWidths
 #'
 #' @export
 #' @examples

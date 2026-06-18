@@ -2,20 +2,25 @@
 % Please edit documentation in R/FUNCTIONS_STRINGS.R
 \name{call_to_string}
 \alias{call_to_string}
-\title{Model call to string}
+\title{Convert a model call to a compact string}
 \usage{
 call_to_string(model)
 }
 \arguments{
-\item{model}{Model object}
+\item{model}{A model object with a \code{call} or \code{Call} element
+(e.g. from \code{lm}, \code{glm}, \code{coxph}).}
+}
+\value{
+A character scalar with the model call, whitespace removed.
 }
 \description{
-Takes a call object and convert it to string
+Extracts the call from a model object and returns it as a single
+whitespace-free string. Tries \code{model$call} first, falling back
+to \code{model$Call} if the first is \code{NULL}.
 }
 \examples{
 df<-generate_correlation_matrix()
 model<-lm(df$X1~df$X2)
 call_to_string(model)
 }
-\keyword{functions}
 \keyword{strings}

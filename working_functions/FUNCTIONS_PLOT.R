@@ -1,14 +1,27 @@
 ##########################################################################################
 # MULTIPLOT
 ##########################################################################################
-#' @title Multiple ggplot plots in one graph
-#' @param ... plot objects
-#' @param plotlist a list of plots
-#' @param cols number of columns in layout 
-#' @param layout a matrix specifying the layout. If present,'cols' is ignored
-#' @importFrom grid grid.newpage pushViewport viewport
+#' Arrange multiple ggplot objects in a grid layout
+#'
+#' Combines multiple ggplot objects into a single paged display using a grid
+#' layout. Plots are arranged by column across one or more pages, with each
+#' page recorded and returned as a list.
+#'
+#' @param ... ggplot objects passed directly.
+#' @param plotlist A list of ggplot objects. Combined with any plots passed via
+#'   \code{...}.
+#' @param cols Integer. Number of columns in the layout grid. Ignored if
+#'   \code{layout} is provided. Default is \code{2}.
+#' @param layout A matrix specifying plot positions. Each cell contains the index
+#'   of the plot to display at that position. If \code{NULL}, a layout is
+#'   generated automatically from \code{cols}. Default is \code{NULL}.
+#'
+#' @return If a single plot is provided, returns it directly. Otherwise returns
+#'   a list of recorded plots (\code{\link[grDevices]{recordPlot}}), one per page.
+#'
+#' @importFrom grid grid.newpage pushViewport viewport grid.layout
 #' @importFrom grDevices recordPlot
-#' @keywords functions plot 
+#'
 #' @export
 #' @examples
 #' p1<-ggplot(ChickWeight,aes(x=Time,y=weight,colour=Diet,group=Chick))+
@@ -64,10 +77,18 @@ plot_multiplot<-function(...,plotlist=NULL,cols=2,layout=NULL) {
 ##########################################################################################
 # WRAPPER
 ##########################################################################################
-#' @title Wrap string
-#' @param x title
-#' @param ... arguments passed to strwrap
-#' @keywords functions plot 
+#' Wrap a string to a specified width
+#'
+#' Wraps a character string at a given width and collapses the result into a
+#' single newline-delimited string. Useful for formatting long plot titles or
+#' labels.
+#'
+#' @param x Character. The string to wrap.
+#' @param ... Additional arguments passed to \code{\link[base]{strwrap}},
+#'   such as \code{width}.
+#'
+#' @return A single character string with newlines inserted at wrap points.
+#'
 #' @export
 #' @examples
 #' wrapper(rep("sting",50),30)
@@ -152,17 +173,30 @@ duplicate_y_axis<-function(p1,p2) {
 ##########################################################################################
 # REPORT PDF
 ##########################################################################################
-#' @title Report pdf
-#' @param ... plot objects
-#' @param plotlist list of plot objects
-#' @param file output filename
-#' @param title output filename
-#' @param w width of pdf file
-#' @param h height of pdf file
-#' @param print_plot if TRUE it prints plot on graphics device
-#' @importFrom grDevices cairo_pdf dev.off pdf
+#' Save or display a list of plots as a multi-page PDF
+#'
+#' Writes one or more plot objects to a multi-page PDF file using
+#' \code{\link[grDevices]{cairo_pdf}}, optionally also printing them to the
+#' active graphics device.
+#'
+#' @param ... Plot objects passed directly (ggplot or recorded plots).
+#' @param plotlist A list of plot objects. Combined with any plots passed via
+#'   \code{...}.
+#' @param file Character or \code{NULL}. Output filename without extension. If
+#'   \code{NULL}, no PDF is written. Default is \code{NULL}.
+#' @param title Character or \code{NULL}. Optional suffix appended to \code{file}
+#'   (separated by an underscore) to form the final filename. Default is
+#'   \code{NULL}.
+#' @param w Numeric. Width of the PDF in inches. Default is \code{10}.
+#' @param h Numeric. Height of the PDF in inches. Default is \code{10}.
+#' @param print_plot Logical. If \code{TRUE}, plots are also printed to the active
+#'   graphics device. Default is \code{TRUE}.
+#'
+#' @return Called for its side effects. Returns \code{NULL} invisibly.
+#'
+#' @importFrom grDevices cairo_pdf dev.off
 #' @importFrom purrr walk
-#' @keywords functions plot
+#'
 #' @export
 #' @examples
 #' p1<-ggplot(ChickWeight,aes(x=Time,y=weight,colour=Diet,group=Chick))+

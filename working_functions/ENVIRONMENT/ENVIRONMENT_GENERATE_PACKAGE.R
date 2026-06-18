@@ -29,7 +29,7 @@ remove.packages("rwf")
 install("rwf")
 library(rwf)
 
-pkgdown::build_site("/home/dimitrios/GitHub/rwf/rwf")
+pkgdown::build_site(paste0(getwd(),"/rwf"))
 system("R CMD Rd2pdf rwf --force")
 system("R CMD build rwf --resave-data")
 

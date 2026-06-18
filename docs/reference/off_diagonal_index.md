@@ -1,6 +1,8 @@
-# index of off diagonal
+# Get off-diagonal indices for a square matrix
 
-index of off diagonal
+Returns a data frame of row/column index pairs for navigating just above
+and below the diagonal, useful for accessing or modifying off-diagonal
+neighbours.
 
 ## Usage
 
@@ -12,7 +14,28 @@ off_diagonal_index(length)
 
 - length:
 
-  length of diagonal
+  Integer. The size of the diagonal (i.e. number of rows/columns in the
+  square matrix).
+
+## Value
+
+A data frame with `length` rows and four columns:
+
+- x1:
+
+  Row index.
+
+- x2:
+
+  Column index (same as `x1`, i.e. the diagonal position).
+
+- x3:
+
+  Index of the element just above (`i + 1`).
+
+- x4:
+
+  Index of the element just below (`i - 1`).
 
 ## Examples
 

@@ -2,7 +2,7 @@
 % Please edit documentation in R/FUNCTIONS_KEYS.R
 \name{questions_dimensions_dataframe}
 \alias{questions_dimensions_dataframe}
-\title{Question dimension table}
+\title{Build a question-to-dimension mapping table}
 \usage{
 questions_dimensions_dataframe(
   key,
@@ -12,16 +12,32 @@ questions_dimensions_dataframe(
 )
 }
 \arguments{
-\item{key}{a vector indicating the dimension of each question. The order of the elements in the key represents the order of the questions, the numeric values represent the dimension the question belongs to}
+\item{key}{Integer vector. Each element indicates which dimension the
+corresponding question belongs to. Values must be consecutive integers
+starting from 1 up to the number of dimensions.}
 
-\item{dimensions}{dimension names}
+\item{dimensions}{Character vector. Short dimension names, one per dimension.
+Length must equal \code{max(key)}.}
 
-\item{elaborate_dimensions}{full dimension names}
+\item{elaborate_dimensions}{Character vector. Full dimension descriptions, one
+per dimension. Length must equal \code{max(key)}.}
 
-\item{questions}{question names}
+\item{questions}{Character vector. Question labels in the same order as \code{key}.
+Length must equal \code{length(key)}.}
+}
+\value{
+A data frame with one row per question and four columns:
+  \describe{
+    \item{ORDER}{The question's position index within its dimension.}
+    \item{DIMENSION}{The short dimension name the question belongs to.}
+    \item{ELABORATE DIMENSION}{The full dimension description.}
+    \item{QUESTION}{The question label.}
+  }
 }
 \description{
-Return a dataframe with the order of the questions, their respective dimensions, and the description of the dimensions
+Returns a data frame that maps each question to its dimension, including question
+order, short dimension name, and full dimension description. Useful for documenting
+scoring keys and validating test structure.
 }
 \examples{
 key<-c(1,2,3,4,5,1,2,3,4,5)
@@ -30,6 +46,6 @@ elaborate_dimensions<-paste0("Elaborated_Dimension",1:10)
 questions<-paste0("Question",1:65)
 questions_dimensions_dataframe(key,dimensions,elaborate_dimensions,questions)
 }
-\keyword{dimensions}
-\keyword{functions}
-\keyword{keys}
+\seealso{
+\code{\link{questions_by_keys}}
+}

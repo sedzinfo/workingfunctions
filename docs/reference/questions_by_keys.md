@@ -1,6 +1,8 @@
-# Convert key to index list
+# Convert a key vector to a list of question indices by dimension
 
-Convert key to index list
+Takes a scoring key that maps each question to a dimension and returns a
+list where each element contains the indices of questions belonging to
+that dimension.
 
 ## Usage
 
@@ -12,9 +14,14 @@ questions_by_keys(key)
 
 - key:
 
-  a vector indicating the dimension of each question. The order of the
-  elements in the key represents the order of the questions, the numeric
-  values represent the dimension the question belongs to
+  Integer vector. Each element indicates which dimension the
+  corresponding question belongs to. Values must be consecutive integers
+  starting from 1 up to the number of dimensions.
+
+## Value
+
+A named list of length `max(key)`, where element `i` contains the
+integer indices of all questions assigned to dimension `i`.
 
 ## Examples
 

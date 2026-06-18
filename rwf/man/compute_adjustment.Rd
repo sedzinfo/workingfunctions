@@ -2,20 +2,26 @@
 % Please edit documentation in R/FUNCTIONS_STATISTICAL.R
 \name{compute_adjustment}
 \alias{compute_adjustment}
-\title{Compute adjustments}
+\title{Compute multiple comparison alpha adjustments}
 \usage{
 compute_adjustment(a, ntests)
 }
 \arguments{
-\item{a}{alpha criterion}
+\item{a}{Numeric. The desired family-wise alpha level (e.g. \code{0.05}).}
 
-\item{ntests}{number of tests}
+\item{ntests}{Integer. The number of tests (comparisons) being performed.}
+}
+\value{
+A named list with two elements:
+  \describe{
+    \item{sidak}{Šidák corrected alpha: \eqn{1 - (1 - \alpha)^{1/k}}.}
+    \item{bonferroni}{Bonferroni corrected alpha: \eqn{\alpha / k}.}
+  }
 }
 \description{
-Compute adjustments
+Calculates Bonferroni and Šidák corrected alpha thresholds for
+a given family-wise alpha level and number of tests.
 }
 \examples{
 compute_adjustment(0.05,100)
 }
-\keyword{functions}
-\keyword{statistical}

@@ -2,22 +2,27 @@
 % Please edit documentation in R/FUNCTIONS_GENERATEDATA.R
 \name{generate_missing}
 \alias{generate_missing}
-\title{Generate missing data}
+\title{Introduce missing values into a vector or data frame}
 \usage{
 generate_missing(df, missing = 5)
 }
 \arguments{
-\item{df}{vector or dataframe}
+\item{df}{A numeric vector or data frame. The object into which missing values
+are introduced.}
 
-\item{missing}{number of missing data per vector}
+\item{missing}{Integer. Number of values to replace with \code{NA} per vector
+or per column. Must not exceed the length of the vector or \code{nrow(df)}.
+Default is \code{5}.}
+}
+\value{
+The input object with \code{missing} values replaced by \code{NA}.
+  Returns the same type as the input (vector or data frame).
 }
 \description{
-Generate missing data
+Randomly replaces a fixed number of values with \code{NA}, either in a vector
+or across every column of a data frame independently.
 }
 \examples{
 generate_missing(rnorm(10),missing=5)
 generate_missing(generate_data(nrow=10,ncol=2),missing=5)
 }
-\keyword{data}
-\keyword{functions}
-\keyword{generate}

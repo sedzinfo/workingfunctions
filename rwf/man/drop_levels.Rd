@@ -2,19 +2,28 @@
 % Please edit documentation in R/FUNCTIONS_RECODE.R
 \name{drop_levels}
 \alias{drop_levels}
-\title{Drops unused factor levels}
+\title{Drop unused factor levels and collapse rare levels into "Other"}
 \usage{
 drop_levels(df, factor_index = NULL, minimum_frequency = 5)
 }
 \arguments{
-\item{df}{dataframe}
+\item{df}{A data frame containing one or more factor columns.}
 
-\item{factor_index}{numeric index of factors. If NULL the function uses is.factor() to discriminate factors}
+\item{factor_index}{Integer vector or \code{NULL}. Column indices of factors
+to process. If \code{NULL}, all columns identified by \code{is.factor()}
+are processed. Default is \code{NULL}.}
 
-\item{minimum_frequency}{the minimum frequency each factor will have, levels with frequency bellow or equal to the defined frequency will be renamed "Other"}
+\item{minimum_frequency}{Integer. Levels with a frequency less than or equal
+to this value are collapsed into \code{"Other"}. Default is \code{5}.}
+}
+\value{
+A data frame with the same structure as \code{df}, with rare factor
+  levels renamed to \code{"Other"} and all unused levels dropped.
 }
 \description{
-Drops unused factor levels
+Removes unused factor levels from a data frame and renames any level whose
+frequency is at or below a threshold to \code{"Other"}, then drops all
+unused levels.
 }
 \examples{
 factor1<-factor(c(rep("A",10),rep("B",10)),levels=c("A","B","C","D"))
@@ -25,4 +34,3 @@ df$factor1
 drop_levels(df=df,minimum_frequency=9)
 drop_levels(df=df,minimum_frequency=10)
 }
-\keyword{functions}

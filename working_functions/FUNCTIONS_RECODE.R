@@ -1,10 +1,18 @@
 ##########################################################################################
 # FLATTEN LIST
 ##########################################################################################
-#' @title Flatten two dimensional list
-#' @param mydata list with two dimensions
+#' Flatten a two-dimensional list into a data frame
+#'
+#' Converts a two-dimensional list to a data frame by applying
+#' \code{\link[plyr]{ldply}} across the top-level elements.
+#'
+#' @param mydata A list where each element can be coerced to a data frame.
+#'
+#' @return A data frame combining all list elements row-wise, with an
+#'   additional \code{.id} column containing the top-level list names.
+#'
 #' @importFrom plyr ldply
-#' @keywords functions
+#'
 #' @export
 flatten_list<-function(mydata) {
   result<-plyr::ldply(lapply(mydata,function(x) { data.frame(x,stringsAsFactors=FALSE) }))
@@ -13,9 +21,17 @@ flatten_list<-function(mydata) {
 ##########################################################################################
 # SWAP
 ##########################################################################################
-#' @title Reverse a numeric vector
-#' @param vector numeric
-#' @keywords functions
+#' Reverse-score a numeric vector
+#'
+#' Reverses the order of values in a vector by mapping each value to its
+#' mirror equivalent based on the observed levels. Useful for reverse-scoring
+#' Likert scale items.
+#'
+#' @param vector Numeric vector to reverse-score.
+#'
+#' @return A numeric vector of the same length with values reverse-mapped
+#'   across the observed range.
+#'
 #' @export
 #' @examples
 #' swap(c(1:10,1,2,3))
@@ -28,10 +44,24 @@ swap<-function(vector) {
 ##########################################################################################
 # DUMMY ARRANGE
 ##########################################################################################
-#' @title Takes a vector with multiple responses and dummy arranges it in a dataframe
-#' @param vector Vector
+#' Dummy-code a multiple response vector into a binary data frame
+#'
+#' Splits a vector of comma-separated multiple response values and returns a
+#' binary data frame where each unique response becomes a column, with \code{1}
+#' indicating the response was selected and \code{0} indicating it was not.
+#'
+#' @param vector A character or numeric vector where each element contains one
+#'   or more comma-separated response values (e.g. from a multiple choice question).
+#'   Single-value responses are also accepted.
+#'
+#' @return A binary data frame with one row per element of \code{vector} and one
+#'   column per unique response value, sorted alphabetically by column name.
+#'   Values are \code{1} (selected) or \code{0} (not selected).
+#'
 #' @importFrom stringr str_split_fixed
-#' @keywords functions
+#'
+#' @seealso \code{\link{generate_multiple_responce_vector}}
+#'
 #' @export
 #' @examples
 #' vector1<-gsub(" ","",
@@ -66,11 +96,22 @@ dummy_arrange<-function(vector) {
 ##########################################################################################
 # DROP LEVELS
 ##########################################################################################
-#' @title Drops unused factor levels
-#' @param df dataframe
-#' @param factor_index numeric index of factors. If NULL the function uses is.factor() to discriminate factors
-#' @param minimum_frequency the minimum frequency each factor will have, levels with frequency bellow or equal to the defined frequency will be renamed "Other"
-#' @keywords functions
+#' Drop unused factor levels and collapse rare levels into "Other"
+#'
+#' Removes unused factor levels from a data frame and renames any level whose
+#' frequency is at or below a threshold to \code{"Other"}, then drops all
+#' unused levels.
+#'
+#' @param df A data frame containing one or more factor columns.
+#' @param factor_index Integer vector or \code{NULL}. Column indices of factors
+#'   to process. If \code{NULL}, all columns identified by \code{is.factor()}
+#'   are processed. Default is \code{NULL}.
+#' @param minimum_frequency Integer. Levels with a frequency less than or equal
+#'   to this value are collapsed into \code{"Other"}. Default is \code{5}.
+#'
+#' @return A data frame with the same structure as \code{df}, with rare factor
+#'   levels renamed to \code{"Other"} and all unused levels dropped.
+#'
 #' @export
 #' @examples
 #' factor1<-factor(c(rep("A",10),rep("B",10)),levels=c("A","B","C","D"))

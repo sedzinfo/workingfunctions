@@ -2,14 +2,18 @@
 % Please edit documentation in R/FUNCTIONS_RECODE.R
 \name{flatten_list}
 \alias{flatten_list}
-\title{Flatten two dimensional list}
+\title{Flatten a two-dimensional list into a data frame}
 \usage{
 flatten_list(mydata)
 }
 \arguments{
-\item{mydata}{list with two dimensions}
+\item{mydata}{A list where each element can be coerced to a data frame.}
+}
+\value{
+A data frame combining all list elements row-wise, with an
+  additional \code{.id} column containing the top-level list names.
 }
 \description{
-Flatten two dimensional list
+Converts a two-dimensional list to a data frame by applying
+\code{\link[plyr]{ldply}} across the top-level elements.
 }
-\keyword{functions}

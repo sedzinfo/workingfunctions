@@ -2,21 +2,29 @@
 % Please edit documentation in R/FUNCTIONS_MATRIX.R
 \name{matrix_triangle}
 \alias{matrix_triangle}
-\title{Return upper or lower matrix triangle}
+\title{Extract the upper or lower triangle of a matrix}
 \usage{
 matrix_triangle(m, off_diagonal = NA, diagonal = NULL, type = "lower")
 }
 \arguments{
-\item{m}{matrix}
+\item{m}{A numeric matrix or object coercible to one.}
 
-\item{off_diagonal}{off diagonal value}
+\item{off_diagonal}{Value to fill the suppressed triangle with. Default is \code{NA}.}
 
-\item{diagonal}{diagonal value. If NULL it returns the diagonal of the input matrix}
+\item{diagonal}{Value to place on the diagonal. If \code{NULL}, the original
+diagonal of \code{m} is preserved. Default is \code{NULL}.}
 
-\item{type}{"upper" displays upper triangle, "lower" displays lower triangle}
+\item{type}{Character. Which triangle to retain. One of \code{"lower"} or
+\code{"upper"}. Default is \code{"lower"}.}
+}
+\value{
+A matrix of the same dimensions as \code{m}, with the off-triangle
+  filled by \code{off_diagonal} and the diagonal set by \code{diagonal}.
 }
 \description{
-Return upper or lower matrix triangle
+Returns a matrix with the off-triangle values replaced by a fill value,
+optionally overriding the diagonal. Useful for displaying correlation or
+covariance matrices without redundant values.
 }
 \examples{
 m<-matrix(1:9,nrow=3,ncol=3)
@@ -26,5 +34,3 @@ matrix_triangle(m=m,diagonal=NULL,type="lower")
 matrix_triangle(m=m,diagonal=NA,type="upper")
 matrix_triangle(m=m,diagonal=NULL,type="upper")
 }
-\keyword{functions}
-\keyword{matrix}

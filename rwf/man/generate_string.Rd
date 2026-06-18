@@ -11,19 +11,20 @@ generate_string(
 )
 }
 \arguments{
-\item{vector}{character pool}
+\item{vector}{Character vector. The pool of characters to sample from.
+Default is \code{c(LETTERS, letters, 0:9)}.}
 
-\item{vector_length}{number of strings to generate}
+\item{vector_length}{Integer. Number of strings to generate. Default is \code{1}.}
 
-\item{nchar}{Length of generated strings}
+\item{nchar}{Integer. Length of each generated string. Default is \code{5}.}
+}
+\value{
+A character vector of length \code{vector_length}.
 }
 \description{
-Generate random strings
+Produces a character vector of random strings by sampling from a character pool.
 }
 \examples{
 generate_string(nchar=10)
 generate_string(nchar=10,vector_length=10)
 }
-\keyword{data}
-\keyword{functions}
-\keyword{generate}

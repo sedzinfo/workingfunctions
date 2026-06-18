@@ -2,25 +2,33 @@
 % Please edit documentation in R/FUNCTIONS_STRINGS.R
 \name{split_str_df}
 \alias{split_str_df}
-\title{Split string in dataframe}
+\title{Split a string column or row names in a data frame into separate columns}
 \usage{
 split_str_df(df, split = "/", type = "row", index, ...)
 }
 \arguments{
-\item{df}{dataframe}
+\item{df}{A data frame.}
 
-\item{split}{Separation character}
+\item{split}{Character. The separator to split on. Default is \code{"/"}.}
 
-\item{type}{"row" "collumn" 
-if "row" it will split the string of row names and it will display it on seperate collumns 
-if "collumn" it will split the string of a spesified collumn and it will display it on separate collumns}
+\item{type}{Character. Where to read the string from. One of:
+\describe{
+  \item{\code{"row"}}{Splits the row names of \code{df}.}
+  \item{\code{"collumn"}}{Splits the column specified by \code{index}.}
+}
+Default is \code{"row"}.}
 
-\item{index}{Numeric index of collumn to split. This is only relevant if type="collumn"}
+\item{index}{Integer. Column index to split when \code{type = "collumn"}.}
 
-\item{...}{arguments passed to split_str}
+\item{...}{Additional arguments passed to \code{\link{split_str}}.}
+}
+\value{
+A data frame with the split parts prepended as new columns,
+  followed by the original columns of \code{df}.
 }
 \description{
-Split string in dataframe
+Splits a delimited string — either from row names or a specified column —
+and prepends the resulting parts as new columns to the data frame.
 }
 \examples{
 df<-generate_correlation_matrix()
@@ -33,5 +41,7 @@ split_str_df(df,split="/",type="row")
 df[,1]<-string
 split_str_df(df,split="/",type="collumn",index=1)
 }
-\keyword{functions}
+\seealso{
+\code{\link{split_str}}
+}
 \keyword{strings}

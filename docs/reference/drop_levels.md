@@ -1,6 +1,8 @@
-# Drops unused factor levels
+# Drop unused factor levels and collapse rare levels into "Other"
 
-Drops unused factor levels
+Removes unused factor levels from a data frame and renames any level
+whose frequency is at or below a threshold to `"Other"`, then drops all
+unused levels.
 
 ## Usage
 
@@ -12,17 +14,24 @@ drop_levels(df, factor_index = NULL, minimum_frequency = 5)
 
 - df:
 
-  dataframe
+  A data frame containing one or more factor columns.
 
 - factor_index:
 
-  numeric index of factors. If NULL the function uses is.factor() to
-  discriminate factors
+  Integer vector or `NULL`. Column indices of factors to process. If
+  `NULL`, all columns identified by
+  [`is.factor()`](https://rdrr.io/r/base/factor.html) are processed.
+  Default is `NULL`.
 
 - minimum_frequency:
 
-  the minimum frequency each factor will have, levels with frequency
-  bellow or equal to the defined frequency will be renamed "Other"
+  Integer. Levels with a frequency less than or equal to this value are
+  collapsed into `"Other"`. Default is `5`.
+
+## Value
+
+A data frame with the same structure as `df`, with rare factor levels
+renamed to `"Other"` and all unused levels dropped.
 
 ## Examples
 

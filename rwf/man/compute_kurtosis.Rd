@@ -2,18 +2,27 @@
 % Please edit documentation in R/FUNCTIONS_STATISTICAL.R
 \name{compute_kurtosis}
 \alias{compute_kurtosis}
-\title{Compute kurtosis}
+\title{Compute kurtosis of a numeric vector}
 \usage{
 compute_kurtosis(vector)
 }
 \arguments{
-\item{vector}{vector}
+\item{vector}{Numeric vector.}
+}
+\value{
+A numeric scalar. A value of 0 indicates a normal distribution;
+  positive values indicate heavier tails (leptokurtic); negative values
+  indicate lighter tails (platykurtic).
 }
 \description{
-Compute kurtosis
+Calculates the excess kurtosis of a numeric vector using the 
+\eqn{b_2} formula consistent with MINITAB and BMDP. Missing values are 
+removed before computation.
 }
 \note{
-b_2 = m_4 / s^4 - 3 = (g_2 + 3) (1 - 1/n)^2 - 3. Used in MINITAB and BMDP.
+Formula used: \eqn{b_2 = m_4 / s^4 - 3 = (g_2 + 3)(1 - 1/n)^2 - 3}.
+  Used in MINITAB and BMDP.
+  Results match \code{e1071::kurtosis()} with \code{type = 2}.
 }
 \examples{
 set.seed(1)
@@ -21,5 +30,3 @@ vector<-rnorm(1000)
 compute_kurtosis(vector)
 e1071::kurtosis(vector)
 }
-\keyword{functions}
-\keyword{statistical}

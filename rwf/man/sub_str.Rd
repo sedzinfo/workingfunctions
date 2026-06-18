@@ -2,23 +2,25 @@
 % Please edit documentation in R/FUNCTIONS_STRINGS.R
 \name{sub_str}
 \alias{sub_str}
-\title{Return n characters from left or right}
+\title{Extract n characters from the left or right of a string}
 \usage{
 sub_str(x, n = 2, type)
 }
 \arguments{
-\item{x}{Character}
+\item{x}{Character vector.}
 
-\item{n}{Number of characters to return}
+\item{n}{Integer. Number of characters to extract. Default is \code{2}.}
 
-\item{type}{"right" "left"}
+\item{type}{Character. One of \code{"left"} or \code{"right"}.}
+}
+\value{
+A character vector of the same length as \code{x}.
 }
 \description{
-Return n characters from left or right
+Extract n characters from the left or right of a string
 }
 \examples{
 sub_str("12345",n=2,type="right")
 sub_str("12345",n=2,type="left")
 }
-\keyword{functions}
 \keyword{strings}

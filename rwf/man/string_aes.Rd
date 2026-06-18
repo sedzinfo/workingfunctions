@@ -2,7 +2,7 @@
 % Please edit documentation in R/FUNCTIONS_STRINGS.R
 \name{string_aes}
 \alias{string_aes}
-\title{Adjust string aesthetics}
+\title{Clean and format string aesthetics}
 \usage{
 string_aes(
   vector,
@@ -12,14 +12,24 @@ string_aes(
 )
 }
 \arguments{
-\item{vector}{Vector}
+\item{vector}{Character vector to clean.}
 
-\item{characterlist}{List the list of characters to treat as separating characters}
+\item{characterlist}{Character vector of strings to treat as separators,
+each replaced by a single space. Defaults to common punctuation and
+HTML tags including \code{"."}, \code{"_"}, \code{"-"}, \code{"<p>"},
+\code{"<br>"}, \code{"&nbsp"}, and others.}
 
-\item{proper}{Logical TRUE capitalizes the first letter in sentense format}
+\item{proper}{Logical. If \code{TRUE}, capitalises the first letter and
+lowercases the rest of each string. Default is \code{TRUE}.}
+}
+\value{
+A character vector of the same length as \code{vector} with
+  separators replaced, whitespace normalised, and optional proper casing.
 }
 \description{
-Treats spesific characters such as ".", as separating characters and separates strings with space. Trims leading and trailing spaces and capitalizes the first letter of the string and lowers the rest.
+Replaces a list of separator characters (e.g. \code{"."}, \code{"_"},
+HTML tags) with spaces, trims leading and trailing whitespace, collapses
+internal whitespace, and optionally applies proper case.
 }
 \examples{
 vector<-c("TES.T","TES<p>T","TES&nbspT")
@@ -27,5 +37,7 @@ string_aes(vector=vector)
 string_aes(vector=vector,proper=FALSE)
 string_aes(vector=vector,proper=TRUE)
 }
-\keyword{functions}
+\seealso{
+\code{\link{proper}}
+}
 \keyword{strings}

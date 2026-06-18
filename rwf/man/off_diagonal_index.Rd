@@ -2,18 +2,27 @@
 % Please edit documentation in R/FUNCTIONS_MATRIX.R
 \name{off_diagonal_index}
 \alias{off_diagonal_index}
-\title{index of off diagonal}
+\title{Get off-diagonal indices for a square matrix}
 \usage{
 off_diagonal_index(length)
 }
 \arguments{
-\item{length}{length of diagonal}
+\item{length}{Integer. The size of the diagonal (i.e. number of rows/columns
+in the square matrix).}
+}
+\value{
+A data frame with \code{length} rows and four columns:
+  \describe{
+    \item{x1}{Row index.}
+    \item{x2}{Column index (same as \code{x1}, i.e. the diagonal position).}
+    \item{x3}{Index of the element just above (\code{i + 1}).}
+    \item{x4}{Index of the element just below (\code{i - 1}).}
+  }
 }
 \description{
-index of off diagonal
+Returns a data frame of row/column index pairs for navigating just above and
+below the diagonal, useful for accessing or modifying off-diagonal neighbours.
 }
 \examples{
 off_diagonal_index(length=6)
 }
-\keyword{functions}
-\keyword{matrix}

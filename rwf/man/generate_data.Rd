@@ -2,7 +2,7 @@
 % Please edit documentation in R/FUNCTIONS_GENERATEDATA.R
 \name{generate_data}
 \alias{generate_data}
-\title{Generate dataframe with random numbers}
+\title{Generate a data frame of random numbers}
 \usage{
 generate_data(
   nrows = 10,
@@ -15,27 +15,34 @@ generate_data(
 )
 }
 \arguments{
-\item{nrows}{number of rows to generate}
+\item{nrows}{Integer. Number of rows to generate. Default is \code{10}.}
 
-\item{ncols}{number of collumns to generate}
+\item{ncols}{Integer. Number of columns to generate. Default is \code{5}.}
 
-\item{mean}{mean of generated vectors}
+\item{mean}{Numeric. Mean of the normal distribution. Only used when
+\code{type = "normal"}. Default is \code{0}.}
 
-\item{sd}{standard deviation of generated vectors}
+\item{sd}{Numeric. Standard deviation of the normal distribution. Only used
+when \code{type = "normal"}. Default is \code{1}.}
 
-\item{min}{minimum value in generated vector}
+\item{min}{Integer. Minimum value of the uniform distribution. Only used when
+\code{type = "uniform"}. Default is \code{1}.}
 
-\item{max}{maximum value in generated vector}
+\item{max}{Integer. Maximum value of the uniform distribution. Only used when
+\code{type = "uniform"}. Default is \code{5}.}
 
-\item{type}{character "normal" "uniform"}
+\item{type}{Character. Distribution to sample from. One of \code{"normal"}
+or \code{"uniform"}. Default is \code{"normal"}.}
+}
+\value{
+A data frame with \code{nrows} rows and \code{ncols} columns of
+  randomly generated numeric values.
 }
 \description{
-Generate dataframe with random numbers
+Creates a data frame populated with either normally or uniformly distributed
+random values, useful for testing and simulation.
 }
 \examples{
 generate_data(nrows=10,ncols=5,mean=0,sd=1,type="normal")
 generate_data(nrows=10,ncols=5,min=1,max=5,type="uniform")
 }
-\keyword{data}
-\keyword{functions}
-\keyword{generate}

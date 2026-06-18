@@ -2,21 +2,35 @@
 % Please edit documentation in R/FUNCTIONS_GENERATEDATA.R
 \name{generate_factor}
 \alias{generate_factor}
-\title{Generate dataframe of factors}
+\title{Generate a data frame of random factor vectors}
 \usage{
 generate_factor(vector = LETTERS[1:5], nrows = 2, ncols = 10, type = "random")
 }
 \arguments{
-\item{vector}{factor pool}
+\item{vector}{Character vector. The pool of factor levels to sample from.
+Default is \code{LETTERS[1:5]}.}
 
-\item{nrows}{number of rows to generate}
+\item{nrows}{Integer. Number of rows to generate. For \code{type = "balanced"},
+\code{nrows} should be divisible by \code{length(vector)}. Default is \code{2}.}
 
-\item{ncols}{number of collumns to generate}
+\item{ncols}{Integer. Number of columns to generate. When \code{ncols = 1},
+a single factor vector is returned instead of a data frame. Default is \code{10}.}
 
-\item{type}{"balanced" or "random" "balanced" generates balanced factor vectrors, "random" generates random factor vectors}
+\item{type}{Character. Sampling method. One of:
+\itemize{
+  \item \code{"random"} — each value is sampled independently with replacement.
+  \item \code{"balanced"} — each level appears exactly \code{nrows / length(vector)}
+    times per column.
+}
+Default is \code{"random"}.}
+}
+\value{
+A data frame of factors with \code{nrows} rows and \code{ncols} columns,
+  or a single factor vector when \code{ncols = 1}.
 }
 \description{
-Generate dataframe of factors
+Creates a data frame (or single factor) populated with factor values sampled
+from a supplied pool, either randomly or in a balanced distribution across levels.
 }
 \examples{
 generate_factor(vector=LETTERS[1:5],ncols=5,nrows=10,type="random")
@@ -24,6 +38,3 @@ generate_factor(vector=LETTERS[1:5],ncols=5,nrows=10,type="balanced")
 generate_factor(vector=LETTERS[1:5],ncols=1,nrows=10,type="balanced")
 generate_factor(vector=LETTERS[1:5],ncols=1,nrows=10,type="random")
 }
-\keyword{data}
-\keyword{functions}
-\keyword{generate}

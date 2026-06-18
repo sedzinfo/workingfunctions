@@ -1,12 +1,22 @@
 ##########################################################################################
 # MATRIX DISPLAY DIAGONAL
 ##########################################################################################
-#' @title Return upper or lower matrix triangle
-#' @param m matrix
-#' @param off_diagonal off diagonal value
-#' @param diagonal diagonal value. If NULL it returns the diagonal of the input matrix
-#' @param type "upper" displays upper triangle, "lower" displays lower triangle
-#' @keywords functions matrix
+#' Extract the upper or lower triangle of a matrix
+#'
+#' Returns a matrix with the off-triangle values replaced by a fill value,
+#' optionally overriding the diagonal. Useful for displaying correlation or
+#' covariance matrices without redundant values.
+#'
+#' @param m A numeric matrix or object coercible to one.
+#' @param off_diagonal Value to fill the suppressed triangle with. Default is \code{NA}.
+#' @param diagonal Value to place on the diagonal. If \code{NULL}, the original
+#'   diagonal of \code{m} is preserved. Default is \code{NULL}.
+#' @param type Character. Which triangle to retain. One of \code{"lower"} or
+#'   \code{"upper"}. Default is \code{"lower"}.
+#'
+#' @return A matrix of the same dimensions as \code{m}, with the off-triangle
+#'   filled by \code{off_diagonal} and the diagonal set by \code{diagonal}.
+#'
 #' @export
 #' @examples
 #' m<-matrix(1:9,nrow=3,ncol=3)
@@ -70,11 +80,63 @@ display_upper_lower_triangle<-function(m_upper,m_lower,diagonal=NA) {
 ##########################################################################################
 # MAKE SYMMETRIC MATRIX
 ##########################################################################################
-#' @title Symmetric Matrix
-#' @param matrix matrix
-#' @param duplicate "upper" duplicates upper triangle "lower" duplicates lower triangle
-#' @param diagonal diagonal values
+#' @title Return upper diagonal from one matrix and lower diagonal from another matrix
+#' @param m_upper matrix
+#' @param m_lower matrix
+#' @param diagonal if "upper" it returns upper diagonal if "lower" it returns lower diagonal if NA returns NA in diagonal otherwise it returns any value spesified
 #' @keywords functions matrix
+#' @export
+#' @examples
+#' m1<-matrix(1:9,nrow=3,ncol=3)
+#' m2<-matrix(11:19,nrow=3,ncol=3)
+#' display_upper_lower_triangle(m_upper=m1,m_lower=m2,diagonal="upper")
+#' display_upper_lower_triangle(m_upper=m1,m_lower=m2,diagonal="lower")
+#' display_upper_lower_triangle(m_upper=m1,m_lower=m2,diagonal=NA)
+#' display_upper_lower_triangle(m_upper=m1,m_lower=m2,diagonal=1)
+#' display_upper_lower_triangle(m_upper=m1,m_lower=m2,diagonal=c("X1","X2","X3"))
+#' display_upper_lower_triangle(m_upper=m1,m_lower=m2,diagonal=c(1,2,3))
+#' display_upper_lower_triangle(m_upper=m1,m2)
+display_upper_lower_triangle<-function(m_upper,m_lower,diagonal=NA) {
+  upper<-matrix_triangle(m_upper,diagonal=NULL,type="upper")
+  lower<-matrix_triangle(m_lower,diagonal=NULL,type="lower")
+  lower[upper.tri(lower)]<-upper[upper.tri(upper)]
+  m<-as.matrix(data.frame(lower))
+  if(unique(is.na(diagonal)))
+    diag(m)<-NA
+  else if(unique(diagonal=="upper"))
+    diag(m)<-diag(m_upper)
+  else if(unique(diagonal=="lower"))
+    diag(m)<-diag(m_lower)
+  else
+    diag(m)<-diagonal
+  return(m)
+}
+
+#' Combine upper and lower triangles from two matrices
+#'
+#' Merges two matrices by taking the upper triangle from one and the lower
+#' triangle from the other, with flexible control over the diagonal. Useful
+#' for displaying two related statistics (e.g. correlations and p-values)
+#' in a single compact matrix.
+#'
+#' @param m_upper A numeric matrix. Its upper triangle is used in the result.
+#' @param m_lower A numeric matrix of the same dimensions as \code{m_upper}.
+#'   Its lower triangle is used in the result.
+#' @param diagonal Controls the diagonal of the returned matrix. One of:
+#'   \itemize{
+#'     \item \code{"upper"} — use the diagonal of \code{m_upper}.
+#'     \item \code{"lower"} — use the diagonal of \code{m_lower}.
+#'     \item \code{NA} — fill the diagonal with \code{NA}.
+#'     \item A numeric or character vector of length \code{nrow(m_upper)} —
+#'       use the supplied values directly.
+#'   }
+#'   Default is \code{NA}.
+#'
+#' @return A matrix of the same dimensions as the inputs, combining the upper
+#'   triangle of \code{m_upper} and the lower triangle of \code{m_lower}.
+#'
+#' @seealso \code{\link{matrix_triangle}}
+#'
 #' @export
 #' @examples
 #' m_lower<-matrix_triangle(matrix(1:9,nrow=3,ncol=3),type="lower",diagonal=NA)
@@ -95,9 +157,22 @@ symmetric_matrix<-function(matrix,duplicate="lower",diagonal=NULL) {
 ##########################################################################################
 # INDEX OFF DIAGONAL
 ##########################################################################################
-#' @title index of off diagonal
-#' @param length length of diagonal
-#' @keywords functions matrix
+#' Get off-diagonal indices for a square matrix
+#'
+#' Returns a data frame of row/column index pairs for navigating just above and
+#' below the diagonal, useful for accessing or modifying off-diagonal neighbours.
+#'
+#' @param length Integer. The size of the diagonal (i.e. number of rows/columns
+#'   in the square matrix).
+#'
+#' @return A data frame with \code{length} rows and four columns:
+#'   \describe{
+#'     \item{x1}{Row index.}
+#'     \item{x2}{Column index (same as \code{x1}, i.e. the diagonal position).}
+#'     \item{x3}{Index of the element just above (\code{i + 1}).}
+#'     \item{x4}{Index of the element just below (\code{i - 1}).}
+#'   }
+#'
 #' @export
 #' @examples
 #' off_diagonal_index(length=6)

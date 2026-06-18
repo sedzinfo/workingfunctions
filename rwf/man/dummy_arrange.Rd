@@ -2,15 +2,24 @@
 % Please edit documentation in R/FUNCTIONS_RECODE.R
 \name{dummy_arrange}
 \alias{dummy_arrange}
-\title{Takes a vector with multiple responses and dummy arranges it in a dataframe}
+\title{Dummy-code a multiple response vector into a binary data frame}
 \usage{
 dummy_arrange(vector)
 }
 \arguments{
-\item{vector}{Vector}
+\item{vector}{A character or numeric vector where each element contains one
+or more comma-separated response values (e.g. from a multiple choice question).
+Single-value responses are also accepted.}
+}
+\value{
+A binary data frame with one row per element of \code{vector} and one
+  column per unique response value, sorted alphabetically by column name.
+  Values are \code{1} (selected) or \code{0} (not selected).
 }
 \description{
-Takes a vector with multiple responses and dummy arranges it in a dataframe
+Splits a vector of comma-separated multiple response values and returns a
+binary data frame where each unique response becomes a column, with \code{1}
+indicating the response was selected and \code{0} indicating it was not.
 }
 \examples{
 vector1<-gsub(" ","",
@@ -26,4 +35,6 @@ dummy_arrange(vector2)
 dummy_arrange(vector3)
 dummy_arrange(vector4)
 }
-\keyword{functions}
+\seealso{
+\code{\link{generate_multiple_responce_vector}}
+}

@@ -2,19 +2,25 @@
 % Please edit documentation in R/FUNCTIONS_STRINGS.R
 \name{split_str}
 \alias{split_str}
-\title{Split string to dataframe}
+\title{Split a string vector into a data frame of parts}
 \usage{
 split_str(vector, split = "/", include_original = FALSE)
 }
 \arguments{
-\item{vector}{String}
+\item{vector}{Character vector to split.}
 
-\item{split}{Separation character}
+\item{split}{Character. The separator to split on. Default is \code{"/"}.}
 
-\item{include_original}{if TRUE it will return the input on a separate collumn}
+\item{include_original}{Logical. If \code{TRUE}, appends the original input
+as a final column. Default is \code{FALSE}.}
+}
+\value{
+A data frame with one row per element of \code{vector} and one column
+  per split part. Assumes all elements produce the same number of parts.
 }
 \description{
-Split string to dataframe
+Splits each element of a character vector by a separator and returns the
+parts as columns of a data frame, one row per input element.
 }
 \examples{
 string<-paste0(1:10,"/",
@@ -23,5 +29,4 @@ string<-paste0(1:10,"/",
                generate_string(nchar=2,vector_length=10))
 split_str(string,split="/")
 }
-\keyword{functions}
 \keyword{strings}

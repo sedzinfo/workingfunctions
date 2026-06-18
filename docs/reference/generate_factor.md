@@ -1,6 +1,8 @@
-# Generate dataframe of factors
+# Generate a data frame of random factor vectors
 
-Generate dataframe of factors
+Creates a data frame (or single factor) populated with factor values
+sampled from a supplied pool, either randomly or in a balanced
+distribution across levels.
 
 ## Usage
 
@@ -12,20 +14,34 @@ generate_factor(vector = LETTERS[1:5], nrows = 2, ncols = 10, type = "random")
 
 - vector:
 
-  factor pool
+  Character vector. The pool of factor levels to sample from. Default is
+  `LETTERS[1:5]`.
 
 - nrows:
 
-  number of rows to generate
+  Integer. Number of rows to generate. For `type = "balanced"`, `nrows`
+  should be divisible by `length(vector)`. Default is `2`.
 
 - ncols:
 
-  number of collumns to generate
+  Integer. Number of columns to generate. When `ncols = 1`, a single
+  factor vector is returned instead of a data frame. Default is `10`.
 
 - type:
 
-  "balanced" or "random" "balanced" generates balanced factor vectrors,
-  "random" generates random factor vectors
+  Character. Sampling method. One of:
+
+  - `"random"` — each value is sampled independently with replacement.
+
+  - `"balanced"` — each level appears exactly `nrows / length(vector)`
+    times per column.
+
+  Default is `"random"`.
+
+## Value
+
+A data frame of factors with `nrows` rows and `ncols` columns, or a
+single factor vector when `ncols = 1`.
 
 ## Examples
 

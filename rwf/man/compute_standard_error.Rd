@@ -2,20 +2,21 @@
 % Please edit documentation in R/FUNCTIONS_STATISTICAL.R
 \name{compute_standard_error}
 \alias{compute_standard_error}
-\title{Compute standard error}
+\title{Compute the standard error of the mean}
 \usage{
 compute_standard_error(vector)
 }
 \arguments{
-\item{vector}{vector}
+\item{vector}{Numeric vector. Missing values are removed before computation.}
+}
+\value{
+A numeric scalar. The standard error of the mean.
 }
 \description{
-Compute standard error
+Compute the standard error of the mean
 }
 \examples{
 set.seed(1)
 vector<-rnorm(1000)
 compute_standard_error(vector)
 }
-\keyword{functions}
-\keyword{statistical}

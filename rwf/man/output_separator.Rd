@@ -2,7 +2,7 @@
 % Please edit documentation in R/FUNCTIONS_STRINGS.R
 \name{output_separator}
 \alias{output_separator}
-\title{Output separator}
+\title{Print a formatted console output block with separators}
 \usage{
 output_separator(
   string,
@@ -12,16 +12,25 @@ output_separator(
 )
 }
 \arguments{
-\item{string}{Title of output}
+\item{string}{Character. The title displayed between the main separators.}
 
-\item{output}{object to print}
+\item{output}{Object or \code{NULL}. The main content to print below the
+heading. If \code{NULL}, nothing is printed in its place. Default is
+\code{NULL}.}
 
-\item{instruction}{Character provided instructions regarding the output}
+\item{instruction}{Character or \code{NULL}. Explanatory text printed between
+the heading and the output, followed by a shorter separator. Default is
+\code{NULL}.}
 
-\item{length}{Numeric Length of separator measured in number of characters}
+\item{length}{Numeric. Width of the main separator in characters. Default is
+half the current console width (\code{getOption("width") / 2}).}
+}
+\value{
+Called for its side effects. Returns \code{NULL} invisibly.
 }
 \description{
-Heading, main output, and instructions for output for the console environment
+Prints a heading, optional instructions, and optional output to the console,
+surrounded by \code{#} separator lines for visual clarity.
 }
 \examples{
 output_separator(string="TEST",output="TEST",instruction="TEST",length=100)
@@ -29,5 +38,4 @@ output_separator(string="TEST",instruction="TEST",length=100)
 output_separator(string="TEST",output="TEST",length=100)
 output_separator(string="TEST")
 }
-\keyword{functions}
 \keyword{strings}
