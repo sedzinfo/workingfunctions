@@ -2,7 +2,7 @@
 % Please edit documentation in R/FUNCTIONS_EXCEL.R
 \name{excel_critical_value}
 \alias{excel_critical_value}
-\title{Write matrix or dataframe to excel sheet}
+\title{Write a data frame to Excel with per-column conditional formatting thresholds}
 \usage{
 excel_critical_value(
   df,
@@ -15,22 +15,52 @@ excel_critical_value(
 )
 }
 \arguments{
-\item{df}{dataframe or matrix}
+\item{df}{A data frame or matrix whose structure determines column formatting.
+Integer columns receive whole-number formatting; non-integer numeric columns
+receive the format specified by \code{numFmt}.}
 
-\item{workbook}{workbook}
+\item{workbook}{An openxlsx workbook object created with \code{openxlsx::createWorkbook()}.}
 
-\item{sheet}{sheet}
+\item{sheet}{Character. Name of the worksheet to format. Must already exist in
+\code{workbook}. Default is \code{"output"}.}
 
-\item{title}{title}
+\item{title}{Character or \code{NULL}. If provided, written as a hidden comment
+on cell A1. Default is \code{NULL}.}
 
-\item{comment}{comment}
+\item{comment}{A named list or \code{NULL}. Each name should match a column name
+in \code{df}; the value is the comment text added to that column's header cell.
+Names not found in \code{df} are silently ignored. Default is \code{NULL}.}
 
-\item{numFmt}{number formatting}
+\item{numFmt}{Character. Excel number format string applied to non-integer numeric
+columns. Default is \code{"#0.00"}.}
 
-\item{critical}{list in the form of (collumn1=critical_value1,collumn2=critical_value2...)}
+\item{critical}{A named list or \code{NULL}. Each name must match a column in
+\code{df}. The value is either:
+\itemize{
+  \item A single character string with an Excel expression (e.g. \code{"<0.05"},
+    \code{">20"}, \code{"=0"}). Matching cells are highlighted in red.
+  \item A character vector of length 2 with two expressions
+    (e.g. \code{c(">20", "<11")}). The first condition highlights in red,
+    the second in purple.
+}
+\code{NA} cells in the target column are skipped. Default is \code{NULL}.}
+}
+\value{
+Called for its side effects. Adds a formatted worksheet to \code{workbook};
+  returns \code{NULL} invisibly.
 }
 \description{
-Usefull for generic data where conditional formating of a spesific collumn is required
+Creates a new worksheet, writes the data, and applies \code{\link{excel_generic_format}}.
+Additionally highlights cells in specified columns that meet one or two threshold
+conditions, making it easy to flag critical or out-of-range values.
+}
+\details{
+Unlike \code{\link{excel_generic_format}}, this function creates the worksheet
+and writes the data internally — do not call \code{addWorksheet()} or
+\code{writeData()} beforehand.
+
+Threshold expressions follow Excel conditional formatting syntax and are applied
+row by row, skipping \code{NA} values.
 }
 \examples{
 comment<-list(mpg="Miles/(US) gallon",
@@ -71,4 +101,7 @@ excel_critical_value(df=df,workbook=wb,sheet="critical",comment=comment,
                      numFmt="#0.00",critical=critical)
 openxlsx::saveWorkbook(wb,invisible(paste(filename)),TRUE)
 }
-\keyword{functions}
+\seealso{
+\code{\link{excel_generic_format}}, \code{\link{excel_matrix}},
+  \code{\link[openxlsx]{conditionalFormatting}}
+}

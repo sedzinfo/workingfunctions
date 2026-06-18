@@ -1,16 +1,50 @@
 ##########################################################################################
 # DATAFRAME TO EXCEL GENERIC
 ##########################################################################################
-#' @title Generic function for creating workbooks and worksheets
-#' @description This function is used by excel_matrix and excel_critical_value functions
-#' @param df dataframe or matrix
-#' @param workbook workbook
-#' @param sheet sheet
-#' @param title title
-#' @param comment comment
-#' @param numFmt number formatting
-#' @import openxlsx
-#' @keywords functions
+#' Format an Excel worksheet with styles, comments, and frozen panes
+#'
+#' Applies consistent formatting to an existing worksheet in an openxlsx workbook.
+#' Handles header styling, cell borders, number formatting, column auto-widths,
+#' frozen panes, and optional comments on column headers.
+#'
+#' @param df A data frame or matrix whose structure determines column formatting.
+#'   Integer columns receive whole-number formatting; non-integer numeric columns
+#'   receive the format specified by \code{numFmt}.
+#' @param workbook An openxlsx workbook object created with \code{openxlsx::createWorkbook()}.
+#' @param sheet Character. Name of the worksheet to format. Must already exist in
+#'   \code{workbook}. Default is \code{"output"}.
+#' @param title Character or \code{NULL}. If provided, written as a hidden comment
+#'   on cell A1. Default is \code{NULL}.
+#' @param comment A named list or \code{NULL}. Each name should match a column name
+#'   in \code{df}; the value is the comment text added to that column's header cell.
+#'   Names not found in \code{df} are silently ignored. Default is \code{NULL}.
+#' @param numFmt Character. Excel number format string applied to non-integer numeric
+#'   columns. Default is \code{"#0.00"}.
+#'
+#' @return Called for its side effects. Modifies \code{workbook} in place; returns
+#'   \code{NULL} invisibly.
+#'
+#' @details
+#' The function assumes that data has already been written to the worksheet via
+#' \code{openxlsx::writeData()} with both \code{colNames = TRUE} and
+#' \code{rowNames = TRUE}, as it offsets column indices by 1 to account for the
+#' row name column.
+#'
+#' Formatting applied:
+#' \itemize{
+#'   \item Thin gray borders on all data cells
+#'   \item Thin black borders on the header row and row name column
+#'   \item Column widths set to auto
+#'   \item First row and first column frozen
+#'   \item Base font set to Liberation Sans 10pt
+#' }
+#'
+#' @seealso \code{\link[openxlsx]{createWorkbook}}, \code{\link[openxlsx]{addWorksheet}},
+#'   \code{\link[openxlsx]{writeData}}, \code{\link[openxlsx]{saveWorkbook}}
+#'
+#' @importFrom openxlsx createComment writeComment freezePane modifyBaseFont
+#'   createStyle addStyle removeColWidths setColWidths
+#'
 #' @export
 #' @examples
 #' comment<-list(mpg="Miles/(US) gallon",
@@ -70,14 +104,37 @@ excel_generic_format<-function(df,workbook,sheet="output",title=NULL,comment=NUL
 ##########################################################################################
 # DATAFRAME TO EXCEL MATRIX
 ##########################################################################################
-#' @title Write matrix or dataframe to excel sheet
-#' @description Usefull for corellation matrices. It uses conditional formatting for matrices,which outlines high and low values using background color
+#' Write a matrix or data frame to an Excel worksheet with optional conditional formatting
+#'
+#' Creates a new worksheet in an openxlsx workbook, writes the data, and applies
+#' formatting via \code{\link{excel_generic_format}}. Optionally adds a red-yellow-green
+#' colour scale for value ranges and highlights the diagonal cells in red, which is
+#' useful for correlation matrices.
+#'
 #' @inheritParams excel_generic_format
-#' @param conditional_formatting if TRUE it will use conditional formatting
-#' @param diagonal if TRUE it will add background fill to diagonal
-#' @param diagonal_length length of diagonal for background fill
-#' @import openxlsx
-#' @keywords functions
+#' @param conditional_formatting Logical. If \code{TRUE}, applies a red-yellow-green
+#'   colour scale to all data cells, where low values are red, mid values yellow,
+#'   and high values green. Default is \code{FALSE}.
+#' @param diagonal Logical. If \code{TRUE}, fills diagonal cells with a red background.
+#'   Only applied when the data frame is square (\code{nrow == ncol}).
+#'   Default is \code{FALSE}.
+#' @param diagonal_length Integer. Number of diagonal cells to highlight when
+#'   \code{diagonal = TRUE}. Defaults to \code{nrow(df)}.
+#'
+#' @return Called for its side effects. Adds a formatted worksheet to \code{workbook};
+#'   returns \code{NULL} invisibly.
+#'
+#' @details
+#' Unlike \code{\link{excel_generic_format}}, this function creates the worksheet
+#' and writes the data internally — do not call \code{addWorksheet()} or
+#' \code{writeData()} beforehand.
+#'
+#' The diagonal highlight is skipped silently for non-square data frames.
+#'
+#' @seealso \code{\link{excel_generic_format}}, \code{\link[openxlsx]{conditionalFormatting}}
+#'
+#' @importFrom openxlsx addWorksheet writeData conditionalFormatting createStyle addStyle
+#'
 #' @export
 #' @examples
 #' comment<-list(mpg="Miles/(US) gallon",
@@ -131,11 +188,40 @@ excel_matrix<-function(df,workbook,sheet="output",title=NULL,comment=NULL,numFmt
 ##########################################################################################
 # DATAFRAME TO EXCEL CRITICAL VALUE
 ##########################################################################################
-#' @title Write matrix or dataframe to excel sheet
-#' @description Usefull for generic data where conditional formating of a spesific collumn is required
+#' Write a data frame to Excel with per-column conditional formatting thresholds
+#'
+#' Creates a new worksheet, writes the data, and applies \code{\link{excel_generic_format}}.
+#' Additionally highlights cells in specified columns that meet one or two threshold
+#' conditions, making it easy to flag critical or out-of-range values.
+#'
 #' @inheritParams excel_generic_format
-#' @param critical list in the form of (collumn1=critical_value1,collumn2=critical_value2...)
-#' @keywords functions
+#' @param critical A named list or \code{NULL}. Each name must match a column in
+#'   \code{df}. The value is either:
+#'   \itemize{
+#'     \item A single character string with an Excel expression (e.g. \code{"<0.05"},
+#'       \code{">20"}, \code{"=0"}). Matching cells are highlighted in red.
+#'     \item A character vector of length 2 with two expressions
+#'       (e.g. \code{c(">20", "<11")}). The first condition highlights in red,
+#'       the second in purple.
+#'   }
+#'   \code{NA} cells in the target column are skipped. Default is \code{NULL}.
+#'
+#' @return Called for its side effects. Adds a formatted worksheet to \code{workbook};
+#'   returns \code{NULL} invisibly.
+#'
+#' @details
+#' Unlike \code{\link{excel_generic_format}}, this function creates the worksheet
+#' and writes the data internally — do not call \code{addWorksheet()} or
+#' \code{writeData()} beforehand.
+#'
+#' Threshold expressions follow Excel conditional formatting syntax and are applied
+#' row by row, skipping \code{NA} values.
+#'
+#' @seealso \code{\link{excel_generic_format}}, \code{\link{excel_matrix}},
+#'   \code{\link[openxlsx]{conditionalFormatting}}
+#'
+#' @importFrom openxlsx addWorksheet writeData createStyle conditionalFormatting
+#'
 #' @export
 #' @examples
 #' comment<-list(mpg="Miles/(US) gallon",

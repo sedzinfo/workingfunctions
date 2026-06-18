@@ -7,7 +7,7 @@
 # pkgdown::build_site("/home/dimitrios/GitHub/rwf/rwf")
 library(devtools)
 library(roxygen2)
-rm(list=ls(all=TRUE))
+rm(list=ls())
 graphics.off()
 cat("\014")
 ##########################################################################################
@@ -29,7 +29,7 @@ remove.packages("rwf")
 install("rwf")
 library(rwf)
 
-
-
-
+pkgdown::build_site("/home/dimitrios/GitHub/rwf/rwf")
+system("R CMD Rd2pdf rwf --force")
+system("R CMD build rwf --resave-data")
 

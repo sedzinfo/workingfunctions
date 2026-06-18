@@ -2,7 +2,7 @@
 % Please edit documentation in R/FUNCTIONS_EXCEL.R
 \name{excel_matrix}
 \alias{excel_matrix}
-\title{Write matrix or dataframe to excel sheet}
+\title{Write a matrix or data frame to an Excel worksheet with optional conditional formatting}
 \usage{
 excel_matrix(
   df,
@@ -17,26 +17,52 @@ excel_matrix(
 )
 }
 \arguments{
-\item{df}{dataframe or matrix}
+\item{df}{A data frame or matrix whose structure determines column formatting.
+Integer columns receive whole-number formatting; non-integer numeric columns
+receive the format specified by \code{numFmt}.}
 
-\item{workbook}{workbook}
+\item{workbook}{An openxlsx workbook object created with \code{openxlsx::createWorkbook()}.}
 
-\item{sheet}{sheet}
+\item{sheet}{Character. Name of the worksheet to format. Must already exist in
+\code{workbook}. Default is \code{"output"}.}
 
-\item{title}{title}
+\item{title}{Character or \code{NULL}. If provided, written as a hidden comment
+on cell A1. Default is \code{NULL}.}
 
-\item{comment}{comment}
+\item{comment}{A named list or \code{NULL}. Each name should match a column name
+in \code{df}; the value is the comment text added to that column's header cell.
+Names not found in \code{df} are silently ignored. Default is \code{NULL}.}
 
-\item{numFmt}{number formatting}
+\item{numFmt}{Character. Excel number format string applied to non-integer numeric
+columns. Default is \code{"#0.00"}.}
 
-\item{conditional_formatting}{if TRUE it will use conditional formatting}
+\item{conditional_formatting}{Logical. If \code{TRUE}, applies a red-yellow-green
+colour scale to all data cells, where low values are red, mid values yellow,
+and high values green. Default is \code{FALSE}.}
 
-\item{diagonal}{if TRUE it will add background fill to diagonal}
+\item{diagonal}{Logical. If \code{TRUE}, fills diagonal cells with a red background.
+Only applied when the data frame is square (\code{nrow == ncol}).
+Default is \code{FALSE}.}
 
-\item{diagonal_length}{length of diagonal for background fill}
+\item{diagonal_length}{Integer. Number of diagonal cells to highlight when
+\code{diagonal = TRUE}. Defaults to \code{nrow(df)}.}
+}
+\value{
+Called for its side effects. Adds a formatted worksheet to \code{workbook};
+  returns \code{NULL} invisibly.
 }
 \description{
-Usefull for corellation matrices. It uses conditional formatting for matrices,which outlines high and low values using background color
+Creates a new worksheet in an openxlsx workbook, writes the data, and applies
+formatting via \code{\link{excel_generic_format}}. Optionally adds a red-yellow-green
+colour scale for value ranges and highlights the diagonal cells in red, which is
+useful for correlation matrices.
+}
+\details{
+Unlike \code{\link{excel_generic_format}}, this function creates the worksheet
+and writes the data internally — do not call \code{addWorksheet()} or
+\code{writeData()} beforehand.
+
+The diagonal highlight is skipped silently for non-square data frames.
 }
 \examples{
 comment<-list(mpg="Miles/(US) gallon",
@@ -72,4 +98,6 @@ excel_matrix(mtcor,wb,sheet="conditional_formatting_r",comment=comment,
              conditional_formatting=TRUE,diagonal=TRUE)
 openxlsx::saveWorkbook(wb,invisible(paste(filename)),TRUE)
 }
-\keyword{functions}
+\seealso{
+\code{\link{excel_generic_format}}, \code{\link[openxlsx]{conditionalFormatting}}
+}

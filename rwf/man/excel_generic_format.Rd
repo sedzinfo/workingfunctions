@@ -2,7 +2,7 @@
 % Please edit documentation in R/FUNCTIONS_EXCEL.R
 \name{excel_generic_format}
 \alias{excel_generic_format}
-\title{Generic function for creating workbooks and worksheets}
+\title{Format an Excel worksheet with styles, comments, and frozen panes}
 \usage{
 excel_generic_format(
   df,
@@ -14,20 +14,48 @@ excel_generic_format(
 )
 }
 \arguments{
-\item{df}{dataframe or matrix}
+\item{df}{A data frame or matrix whose structure determines column formatting.
+Integer columns receive whole-number formatting; non-integer numeric columns
+receive the format specified by \code{numFmt}.}
 
-\item{workbook}{workbook}
+\item{workbook}{An openxlsx workbook object created with \code{openxlsx::createWorkbook()}.}
 
-\item{sheet}{sheet}
+\item{sheet}{Character. Name of the worksheet to format. Must already exist in
+\code{workbook}. Default is \code{"output"}.}
 
-\item{title}{title}
+\item{title}{Character or \code{NULL}. If provided, written as a hidden comment
+on cell A1. Default is \code{NULL}.}
 
-\item{comment}{comment}
+\item{comment}{A named list or \code{NULL}. Each name should match a column name
+in \code{df}; the value is the comment text added to that column's header cell.
+Names not found in \code{df} are silently ignored. Default is \code{NULL}.}
 
-\item{numFmt}{number formatting}
+\item{numFmt}{Character. Excel number format string applied to non-integer numeric
+columns. Default is \code{"#0.00"}.}
+}
+\value{
+Called for its side effects. Modifies \code{workbook} in place; returns
+  \code{NULL} invisibly.
 }
 \description{
-This function is used by excel_matrix and excel_critical_value functions
+Applies consistent formatting to an existing worksheet in an openxlsx workbook.
+Handles header styling, cell borders, number formatting, column auto-widths,
+frozen panes, and optional comments on column headers.
+}
+\details{
+The function assumes that data has already been written to the worksheet via
+\code{openxlsx::writeData()} with both \code{colNames = TRUE} and
+\code{rowNames = TRUE}, as it offsets column indices by 1 to account for the
+row name column.
+
+Formatting applied:
+\itemize{
+  \item Thin gray borders on all data cells
+  \item Thin black borders on the header row and row name column
+  \item Column widths set to auto
+  \item First row and first column frozen
+  \item Base font set to Liberation Sans 10pt
+}
 }
 \examples{
 comment<-list(mpg="Miles/(US) gallon",
@@ -57,4 +85,7 @@ excel_generic_format(df=mtcor,workbook=wb,sheet="correlation",title="correlation
                      comment=comment,numFmt="#0.00")
 openxlsx::saveWorkbook(wb,invisible(paste(filename)),TRUE)
 }
-\keyword{functions}
+\seealso{
+\code{\link[openxlsx]{createWorkbook}}, \code{\link[openxlsx]{addWorksheet}},
+  \code{\link[openxlsx]{writeData}}, \code{\link[openxlsx]{saveWorkbook}}
+}
