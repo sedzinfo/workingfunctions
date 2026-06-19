@@ -31,5 +31,6 @@ library(rwf)
 
 pkgdown::build_site(paste0(getwd(),"/rwf"))
 system("R CMD Rd2pdf rwf --force")
+system("evince rwf.pdf")
 system("R CMD build rwf --resave-data")
 

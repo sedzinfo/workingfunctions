@@ -1,10 +1,10 @@
 ##########################################################################################
 # FLATTEN LIST
 ##########################################################################################
-#' Flatten a two-dimensional list into a data frame
+#' @title Flatten a two-dimensional list into a data frame
 #'
-#' Converts a two-dimensional list to a data frame by applying
-#' \code{\link[plyr]{ldply}} across the top-level elements.
+#' @description Converts a two-dimensional list to a data frame by applying
+#' \code{ldply} across the top-level elements.
 #'
 #' @param mydata A list where each element can be coerced to a data frame.
 #'
@@ -21,11 +21,11 @@ flatten_list<-function(mydata) {
 ##########################################################################################
 # SWAP
 ##########################################################################################
-#' Reverse-score a numeric vector
+#' @title Reverse-score a numeric vector
 #'
-#' Reverses the order of values in a vector by mapping each value to its
-#' mirror equivalent based on the observed levels. Useful for reverse-scoring
-#' Likert scale items.
+#' @description Reverses the order of values in a vector by mapping each value
+#' to its mirror equivalent based on the observed levels. Useful for 
+#' reverse-scoring Likert scale items.
 #'
 #' @param vector Numeric vector to reverse-score.
 #'
@@ -44,11 +44,12 @@ swap<-function(vector) {
 ##########################################################################################
 # DUMMY ARRANGE
 ##########################################################################################
-#' Dummy-code a multiple response vector into a binary data frame
+#' @title Dummy-code a multiple response vector into a binary data frame
 #'
-#' Splits a vector of comma-separated multiple response values and returns a
-#' binary data frame where each unique response becomes a column, with \code{1}
-#' indicating the response was selected and \code{0} indicating it was not.
+#' @description Splits a vector of comma-separated multiple response values and
+#' returns a binary data frame where each unique response becomes a column, with
+#' \code{1} indicating the response was selected and \code{0} indicating it was
+#' not.
 #'
 #' @param vector A character or numeric vector where each element contains one
 #'   or more comma-separated response values (e.g. from a multiple choice question).
@@ -96,11 +97,11 @@ dummy_arrange<-function(vector) {
 ##########################################################################################
 # DROP LEVELS
 ##########################################################################################
-#' Drop unused factor levels and collapse rare levels into "Other"
+#' @title Drop unused factor levels and collapse rare levels into "Other"
 #'
-#' Removes unused factor levels from a data frame and renames any level whose
-#' frequency is at or below a threshold to \code{"Other"}, then drops all
-#' unused levels.
+#' @description Removes unused factor levels from a data frame and renames any
+#' level whose frequency is at or below a threshold to \code{"Other"}, then
+#' drops all unused levels.
 #'
 #' @param df A data frame containing one or more factor columns.
 #' @param factor_index Integer vector or \code{NULL}. Column indices of factors
