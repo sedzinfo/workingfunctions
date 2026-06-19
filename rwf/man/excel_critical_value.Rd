@@ -102,6 +102,5 @@ excel_critical_value(df=df,workbook=wb,sheet="critical",comment=comment,
 openxlsx::saveWorkbook(wb,invisible(paste(filename)),TRUE)
 }
 \seealso{
-\code{\link{excel_generic_format}}, \code{\link{excel_matrix}},
-  \code{\link[openxlsx]{conditionalFormatting}}
+\code{\link{excel_generic_format}}, \code{\link{excel_matrix}}
 }

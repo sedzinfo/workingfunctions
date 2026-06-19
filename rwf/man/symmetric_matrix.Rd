@@ -2,35 +2,27 @@
 % Please edit documentation in R/FUNCTIONS_MATRIX.R
 \name{symmetric_matrix}
 \alias{symmetric_matrix}
-\title{Combine upper and lower triangles from two matrices}
+\title{Make a symmetric matrix by duplicating one triangle}
 \usage{
 symmetric_matrix(matrix, duplicate = "lower", diagonal = NULL)
 }
 \arguments{
-\item{diagonal}{Controls the diagonal of the returned matrix. One of:
-\itemize{
-  \item \code{"upper"} — use the diagonal of \code{m_upper}.
-  \item \code{"lower"} — use the diagonal of \code{m_lower}.
-  \item \code{NA} — fill the diagonal with \code{NA}.
-  \item A numeric or character vector of length \code{nrow(m_upper)} —
-    use the supplied values directly.
-}
-Default is \code{NA}.}
+\item{matrix}{A square numeric matrix.}
 
-\item{m_upper}{A numeric matrix. Its upper triangle is used in the result.}
+\item{duplicate}{Character. Which triangle to use as the source. One of:
+\code{"lower"} mirrors the lower triangle to the upper, or \code{"upper"}
+mirrors the upper triangle to the lower. Default is \code{"lower"}.}
 
-\item{m_lower}{A numeric matrix of the same dimensions as \code{m_upper}.
-Its lower triangle is used in the result.}
+\item{diagonal}{Value to place on the diagonal. If omitted, the original
+diagonal of \code{matrix} is preserved. Pass \code{NA} to fill with
+\code{NA}.}
 }
 \value{
-A matrix of the same dimensions as the inputs, combining the upper
-  triangle of \code{m_upper} and the lower triangle of \code{m_lower}.
+A symmetric matrix of the same dimensions as the input.
 }
 \description{
-Merges two matrices by taking the upper triangle from one and the lower
-triangle from the other, with flexible control over the diagonal. Useful
-for displaying two related statistics (e.g. correlations and p-values)
-in a single compact matrix.
+Mirrors either the lower or upper triangle of a matrix to the opposite side,
+producing a symmetric matrix. Optionally sets the diagonal.
 }
 \examples{
 m_lower<-matrix_triangle(matrix(1:9,nrow=3,ncol=3),type="lower",diagonal=NA)

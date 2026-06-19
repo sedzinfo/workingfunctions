@@ -21,9 +21,9 @@ A data frame with the same structure as \code{df}, with rare factor
   levels renamed to \code{"Other"} and all unused levels dropped.
 }
 \description{
-Removes unused factor levels from a data frame and renames any level whose
-frequency is at or below a threshold to \code{"Other"}, then drops all
-unused levels.
+Removes unused factor levels from a data frame and renames any
+level whose frequency is at or below a threshold to \code{"Other"}, then
+drops all unused levels.
 }
 \examples{
 factor1<-factor(c(rep("A",10),rep("B",10)),levels=c("A","B","C","D"))

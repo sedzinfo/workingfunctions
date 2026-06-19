@@ -22,7 +22,8 @@ Default is \code{c(LETTERS, letters, 0:9)}.}
 A character vector of length \code{vector_length}.
 }
 \description{
-Produces a character vector of random strings by sampling from a character pool.
+Produces a character vector of random strings by sampling from
+ a character pool.
 }
 \examples{
 generate_string(nchar=10)

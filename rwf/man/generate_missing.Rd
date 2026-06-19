@@ -19,8 +19,8 @@ The input object with \code{missing} values replaced by \code{NA}.
   Returns the same type as the input (vector or data frame).
 }
 \description{
-Randomly replaces a fixed number of values with \code{NA}, either in a vector
-or across every column of a data frame independently.
+Randomly replaces a fixed number of values with \code{NA}, 
+either in a vector or across every column of a data frame independently.
 }
 \examples{
 generate_missing(rnorm(10),missing=5)

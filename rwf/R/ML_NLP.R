@@ -190,9 +190,6 @@ stat_word_char<-function(text) {
 #'   elements within each vector are ignored. Inputs are coerced to character
 #'   before comparison, so \code{1L} and \code{"1"} are treated as equal.
 #'
-#' @seealso \code{\link[base]{intersect}}, \code{\link[base]{setdiff}},
-#'   \code{\link{cdf}}
-#'
 #' @keywords similarity distance set
 #' @export
 #'

@@ -6,15 +6,6 @@
 \usage{
 dotnames(...)
 }
-\arguments{
-\item{df}{A data frame to pad.}
-
-\item{rowsneeded}{Integer target row count. Must be greater than or equal
-to \code{nrow(df)}.}
-
-\item{first}{Logical. When \code{TRUE} (default) \code{NA} rows are
-appended at the bottom; when \code{FALSE} they are prepended at the top.}
-}
 \value{
 A data frame with \code{rowsneeded} rows and the same columns as
   \code{df}.

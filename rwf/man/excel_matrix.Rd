@@ -99,5 +99,5 @@ excel_matrix(mtcor,wb,sheet="conditional_formatting_r",comment=comment,
 openxlsx::saveWorkbook(wb,invisible(paste(filename)),TRUE)
 }
 \seealso{
-\code{\link{excel_generic_format}}, \code{\link[openxlsx]{conditionalFormatting}}
+\code{\link{excel_generic_format}}
 }

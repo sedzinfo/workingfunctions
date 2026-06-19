@@ -18,11 +18,12 @@ A data frame with \code{nrows} rows and the same number of columns as
   \code{cordata}, containing simulated values with matching correlation structure.
 }
 \description{
-Estimates the covariance matrix and column means from the input data, then
-draws multivariate normal samples that reproduce the same correlation structure.
+Estimates the covariance matrix and column means from the input 
+data, then draws multivariate normal samples that reproduce the same 
+correlation structure.
 }
 \details{
-Uses \code{\link[MASS]{mvrnorm}} to draw from a multivariate normal distribution
+Uses \code{mvrnorm} to draw from a multivariate normal distribution
 parameterised by the sample covariance matrix and column means of \code{cordata}.
 Accuracy of the reproduced correlations improves with larger \code{nrows}.
 }

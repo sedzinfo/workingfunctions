@@ -80,60 +80,20 @@ display_upper_lower_triangle<-function(m_upper,m_lower,diagonal=NA) {
 ##########################################################################################
 # MAKE SYMMETRIC MATRIX
 ##########################################################################################
-#' @title Return upper diagonal from one matrix and lower diagonal from another matrix
-#' @param m_upper matrix
-#' @param m_lower matrix
-#' @param diagonal if "upper" it returns upper diagonal if "lower" it returns lower diagonal if NA returns NA in diagonal otherwise it returns any value spesified
-#' @keywords functions matrix
-#' @export
-#' @examples
-#' m1<-matrix(1:9,nrow=3,ncol=3)
-#' m2<-matrix(11:19,nrow=3,ncol=3)
-#' display_upper_lower_triangle(m_upper=m1,m_lower=m2,diagonal="upper")
-#' display_upper_lower_triangle(m_upper=m1,m_lower=m2,diagonal="lower")
-#' display_upper_lower_triangle(m_upper=m1,m_lower=m2,diagonal=NA)
-#' display_upper_lower_triangle(m_upper=m1,m_lower=m2,diagonal=1)
-#' display_upper_lower_triangle(m_upper=m1,m_lower=m2,diagonal=c("X1","X2","X3"))
-#' display_upper_lower_triangle(m_upper=m1,m_lower=m2,diagonal=c(1,2,3))
-#' display_upper_lower_triangle(m_upper=m1,m2)
-display_upper_lower_triangle<-function(m_upper,m_lower,diagonal=NA) {
-  upper<-matrix_triangle(m_upper,diagonal=NULL,type="upper")
-  lower<-matrix_triangle(m_lower,diagonal=NULL,type="lower")
-  lower[upper.tri(lower)]<-upper[upper.tri(upper)]
-  m<-as.matrix(data.frame(lower))
-  if(unique(is.na(diagonal)))
-    diag(m)<-NA
-  else if(unique(diagonal=="upper"))
-    diag(m)<-diag(m_upper)
-  else if(unique(diagonal=="lower"))
-    diag(m)<-diag(m_lower)
-  else
-    diag(m)<-diagonal
-  return(m)
-}
-
-#' Combine upper and lower triangles from two matrices
+#' Make a symmetric matrix by duplicating one triangle
 #'
-#' Merges two matrices by taking the upper triangle from one and the lower
-#' triangle from the other, with flexible control over the diagonal. Useful
-#' for displaying two related statistics (e.g. correlations and p-values)
-#' in a single compact matrix.
+#' Mirrors either the lower or upper triangle of a matrix to the opposite side,
+#' producing a symmetric matrix. Optionally sets the diagonal.
 #'
-#' @param m_upper A numeric matrix. Its upper triangle is used in the result.
-#' @param m_lower A numeric matrix of the same dimensions as \code{m_upper}.
-#'   Its lower triangle is used in the result.
-#' @param diagonal Controls the diagonal of the returned matrix. One of:
-#'   \itemize{
-#'     \item \code{"upper"} — use the diagonal of \code{m_upper}.
-#'     \item \code{"lower"} — use the diagonal of \code{m_lower}.
-#'     \item \code{NA} — fill the diagonal with \code{NA}.
-#'     \item A numeric or character vector of length \code{nrow(m_upper)} —
-#'       use the supplied values directly.
-#'   }
-#'   Default is \code{NA}.
+#' @param matrix A square numeric matrix.
+#' @param duplicate Character. Which triangle to use as the source. One of:
+#'   \code{"lower"} mirrors the lower triangle to the upper, or \code{"upper"}
+#'   mirrors the upper triangle to the lower. Default is \code{"lower"}.
+#' @param diagonal Value to place on the diagonal. If omitted, the original
+#'   diagonal of \code{matrix} is preserved. Pass \code{NA} to fill with
+#'   \code{NA}.
 #'
-#' @return A matrix of the same dimensions as the inputs, combining the upper
-#'   triangle of \code{m_upper} and the lower triangle of \code{m_lower}.
+#' @return A symmetric matrix of the same dimensions as the input.
 #'
 #' @seealso \code{\link{matrix_triangle}}
 #'

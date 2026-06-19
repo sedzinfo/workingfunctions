@@ -85,7 +85,3 @@ excel_generic_format(df=mtcor,workbook=wb,sheet="correlation",title="correlation
                      comment=comment,numFmt="#0.00")
 openxlsx::saveWorkbook(wb,invisible(paste(filename)),TRUE)
 }
-\seealso{
-\code{\link[openxlsx]{createWorkbook}}, \code{\link[openxlsx]{addWorksheet}},
-  \code{\link[openxlsx]{writeData}}, \code{\link[openxlsx]{saveWorkbook}}
-}

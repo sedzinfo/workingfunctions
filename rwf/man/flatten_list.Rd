@@ -15,5 +15,5 @@ A data frame combining all list elements row-wise, with an
 }
 \description{
 Converts a two-dimensional list to a data frame by applying
-\code{\link[plyr]{ldply}} across the top-level elements.
+\code{ldply} across the top-level elements.
 }

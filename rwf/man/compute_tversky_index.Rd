@@ -61,10 +61,6 @@ compute_tversky_index(x, x)
 # disjoint sets → 0
 compute_tversky_index(c("a", "b"), c("c", "d"))
 }
-\seealso{
-\code{\link[base]{intersect}}, \code{\link[base]{setdiff}},
-  \code{\link{cdf}}
-}
 \keyword{distance}
 \keyword{set}
 \keyword{similarity}

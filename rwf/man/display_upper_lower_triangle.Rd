@@ -5,8 +5,6 @@
 \title{Return upper diagonal from one matrix and lower diagonal from another matrix}
 \usage{
 display_upper_lower_triangle(m_upper, m_lower, diagonal = NA)
-
-display_upper_lower_triangle(m_upper, m_lower, diagonal = NA)
 }
 \arguments{
 \item{m_upper}{matrix}
@@ -17,19 +15,8 @@ display_upper_lower_triangle(m_upper, m_lower, diagonal = NA)
 }
 \description{
 Return upper diagonal from one matrix and lower diagonal from another matrix
-
-Return upper diagonal from one matrix and lower diagonal from another matrix
 }
 \examples{
-m1<-matrix(1:9,nrow=3,ncol=3)
-m2<-matrix(11:19,nrow=3,ncol=3)
-display_upper_lower_triangle(m_upper=m1,m_lower=m2,diagonal="upper")
-display_upper_lower_triangle(m_upper=m1,m_lower=m2,diagonal="lower")
-display_upper_lower_triangle(m_upper=m1,m_lower=m2,diagonal=NA)
-display_upper_lower_triangle(m_upper=m1,m_lower=m2,diagonal=1)
-display_upper_lower_triangle(m_upper=m1,m_lower=m2,diagonal=c("X1","X2","X3"))
-display_upper_lower_triangle(m_upper=m1,m_lower=m2,diagonal=c(1,2,3))
-display_upper_lower_triangle(m_upper=m1,m2)
 m1<-matrix(1:9,nrow=3,ncol=3)
 m2<-matrix(11:19,nrow=3,ncol=3)
 display_upper_lower_triangle(m_upper=m1,m_lower=m2,diagonal="upper")

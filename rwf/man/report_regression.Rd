@@ -35,9 +35,9 @@ Regression
 \note{
 (1) Problematic values for standardized residuals > +-1.96 \cr
 **Standardized residuals** are residuals divided by an estimated standard deviation and they can be interpreted as z scores in that: \cr
-- 95.00% of z-scores lie between -1.96 and +1.96 \cr
-- 99.00% of z-scores lie between -2.58 and +2.58 \cr 
-- 99.99% of z-scores lie between -3.29 and +3.29 \cr
+- 95.00\% of z-scores lie between -1.96 and +1.96 \cr
+- 99.00\% of z-scores lie between -2.58 and +2.58 \cr 
+- 99.99\% of z-scores lie between -3.29 and +3.29 \cr
 (2) **Studentized residuals** indicate the the ability of the model to predict that case. They follow a t distribution \cr
 (3) **DFFits** indicate the difference between the adjusted predicted value and the original predicted value. 
 Adjusted predicted value for a case refers to the predicted value of that case, when that case is excluded from model fit. \cr

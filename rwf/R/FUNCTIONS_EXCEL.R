@@ -39,9 +39,6 @@
 #'   \item Base font set to Liberation Sans 10pt
 #' }
 #'
-#' @seealso \code{\link[openxlsx]{createWorkbook}}, \code{\link[openxlsx]{addWorksheet}},
-#'   \code{\link[openxlsx]{writeData}}, \code{\link[openxlsx]{saveWorkbook}}
-#'
 #' @importFrom openxlsx createComment writeComment freezePane modifyBaseFont createStyle addStyle removeColWidths setColWidths
 #'
 #' @export
@@ -130,7 +127,7 @@ excel_generic_format<-function(df,workbook,sheet="output",title=NULL,comment=NUL
 #'
 #' The diagonal highlight is skipped silently for non-square data frames.
 #'
-#' @seealso \code{\link{excel_generic_format}}, \code{\link[openxlsx]{conditionalFormatting}}
+#' @seealso \code{\link{excel_generic_format}}
 #'
 #' @importFrom openxlsx addWorksheet writeData conditionalFormatting createStyle addStyle
 #'
@@ -216,8 +213,7 @@ excel_matrix<-function(df,workbook,sheet="output",title=NULL,comment=NULL,numFmt
 #' Threshold expressions follow Excel conditional formatting syntax and are applied
 #' row by row, skipping \code{NA} values.
 #'
-#' @seealso \code{\link{excel_generic_format}}, \code{\link{excel_matrix}},
-#'   \code{\link[openxlsx]{conditionalFormatting}}
+#' @seealso \code{\link{excel_generic_format}}, \code{\link{excel_matrix}}
 #'
 #' @importFrom openxlsx addWorksheet writeData createStyle conditionalFormatting
 #'

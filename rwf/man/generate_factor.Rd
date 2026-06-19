@@ -29,8 +29,9 @@ A data frame of factors with \code{nrows} rows and \code{ncols} columns,
   or a single factor vector when \code{ncols = 1}.
 }
 \description{
-Creates a data frame (or single factor) populated with factor values sampled
-from a supplied pool, either randomly or in a balanced distribution across levels.
+Creates a data frame (or single factor) populated with factor 
+values sampled from a supplied pool, either randomly or in a balanced 
+distribution across levels.
 }
 \examples{
 generate_factor(vector=LETTERS[1:5],ncols=5,nrows=10,type="random")

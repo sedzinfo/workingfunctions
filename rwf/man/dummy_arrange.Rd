@@ -17,9 +17,10 @@ A binary data frame with one row per element of \code{vector} and one
   Values are \code{1} (selected) or \code{0} (not selected).
 }
 \description{
-Splits a vector of comma-separated multiple response values and returns a
-binary data frame where each unique response becomes a column, with \code{1}
-indicating the response was selected and \code{0} indicating it was not.
+Splits a vector of comma-separated multiple response values and
+returns a binary data frame where each unique response becomes a column, with
+\code{1} indicating the response was selected and \code{0} indicating it was
+not.
 }
 \examples{
 vector1<-gsub(" ","",

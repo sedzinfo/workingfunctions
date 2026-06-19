@@ -39,8 +39,8 @@ A data frame with \code{nrows} rows and \code{ncols} columns of
   randomly generated numeric values.
 }
 \description{
-Creates a data frame populated with either normally or uniformly distributed
-random values, useful for testing and simulation.
+Creates a data frame populated with either normally or uniformly
+distributed random values, useful for testing and simulation.
 }
 \examples{
 generate_data(nrows=10,ncols=5,mean=0,sd=1,type="normal")

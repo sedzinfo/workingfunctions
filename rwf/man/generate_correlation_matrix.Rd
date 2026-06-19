@@ -18,9 +18,9 @@ A data frame with \code{nrows} rows and \code{ncol(correlation_martix)}
   columns of simulated numeric values.
 }
 \description{
-Simulates multivariate normal data whose columns reproduce a target correlation
-matrix, using Cholesky decomposition. If no matrix is supplied, a random
-symmetric positive-definite matrix is generated automatically.
+Simulates multivariate normal data whose columns reproduce a 
+target correlation matrix, using Cholesky decomposition. If no matrix is 
+supplied, a random symmetric positive-definite matrix is generated automatically.
 }
 \details{
 Uses Cholesky decomposition (\code{chol()}) to factor the target correlation

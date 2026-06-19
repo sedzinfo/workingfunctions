@@ -1,10 +1,10 @@
 ##########################################################################################
 # GENERATE RANDOM NUMBERS
 ##########################################################################################
-#' Generate a data frame of random numbers
+#' @title Generate a data frame of random numbers
 #'
-#' Creates a data frame populated with either normally or uniformly distributed
-#' random values, useful for testing and simulation.
+#' @description Creates a data frame populated with either normally or uniformly
+#' distributed random values, useful for testing and simulation.
 #'
 #' @param nrows Integer. Number of rows to generate. Default is \code{10}.
 #' @param ncols Integer. Number of columns to generate. Default is \code{5}.
@@ -39,10 +39,11 @@ generate_data<-function(nrows=10,ncols=5,mean=0,sd=1,min=1,max=5,type="normal") 
 ##########################################################################################
 # GENERATE FACTOR
 ##########################################################################################
-#' Generate a data frame of random factor vectors
+#' @title Generate a data frame of random factor vectors
 #'
-#' Creates a data frame (or single factor) populated with factor values sampled
-#' from a supplied pool, either randomly or in a balanced distribution across levels.
+#' @description Creates a data frame (or single factor) populated with factor 
+#' values sampled from a supplied pool, either randomly or in a balanced 
+#' distribution across levels.
 #'
 #' @param vector Character vector. The pool of factor levels to sample from.
 #'   Default is \code{LETTERS[1:5]}.
@@ -88,9 +89,10 @@ generate_factor<-function(vector=LETTERS[1:5],nrows=2,ncols=10,type="random") {
 ##########################################################################################
 # GENERATE RANDOM STRING
 ##########################################################################################
-#' Generate random strings
+#' @title Generate random strings
 #'
-#' Produces a character vector of random strings by sampling from a character pool.
+#' @description Produces a character vector of random strings by sampling from
+#'  a character pool.
 #'
 #' @param vector Character vector. The pool of characters to sample from.
 #'   Default is \code{c(LETTERS, letters, 0:9)}.
@@ -112,9 +114,9 @@ generate_string<-function(vector=c(LETTERS,letters,0:9),vector_length=1,nchar=5)
 ##########################################################################################
 # GENERATE MULTIPLE RESPONCE VECTOR
 ##########################################################################################
-#' Generate a multiple response vector
+#' @title Generate a multiple response vector
 #'
-#' Creates a character vector where each element contains a comma-separated
+#' @description Creates a character vector where each element contains a comma-separated
 #' string of randomly sampled categories, simulating multiple response survey data.
 #'
 #' @param responces Integer or character vector. The pool of unique response
@@ -139,11 +141,11 @@ generate_multiple_responce_vector<-function(responces=1:4,responded=1:4,length=1
 ##########################################################################################
 # SIMULATE CORRELATION MATRIX
 ##########################################################################################
-#' Generate a data frame with a predetermined correlation structure
+#' @title Generate a data frame with a predetermined correlation structure
 #'
-#' Simulates multivariate normal data whose columns reproduce a target correlation
-#' matrix, using Cholesky decomposition. If no matrix is supplied, a random
-#' symmetric positive-definite matrix is generated automatically.
+#' @description Simulates multivariate normal data whose columns reproduce a 
+#' target correlation matrix, using Cholesky decomposition. If no matrix is 
+#' supplied, a random symmetric positive-definite matrix is generated automatically.
 #'
 #' @param correlation_martix A symmetric positive-definite matrix specifying the
 #'   desired correlations between columns. Must pass Cholesky decomposition.
@@ -185,10 +187,11 @@ generate_correlation_matrix<-function(correlation_martix,nrows=10) {
 ##########################################################################################
 # SIMULATE DATA FROM SAMPLE
 ##########################################################################################
-#' Simulate data preserving the correlation structure of an input data frame
+#' @title Simulate data preserving the correlation structure of an input data frame
 #'
-#' Estimates the covariance matrix and column means from the input data, then
-#' draws multivariate normal samples that reproduce the same correlation structure.
+#' @description Estimates the covariance matrix and column means from the input 
+#' data, then draws multivariate normal samples that reproduce the same 
+#' correlation structure.
 #'
 #' @param cordata A numeric data frame or matrix. The source data from which
 #'   the covariance matrix and means are estimated. Missing values are handled
@@ -199,7 +202,7 @@ generate_correlation_matrix<-function(correlation_martix,nrows=10) {
 #'   \code{cordata}, containing simulated values with matching correlation structure.
 #'
 #' @details
-#' Uses \code{\link[MASS]{mvrnorm}} to draw from a multivariate normal distribution
+#' Uses \code{mvrnorm} to draw from a multivariate normal distribution
 #' parameterised by the sample covariance matrix and column means of \code{cordata}.
 #' Accuracy of the reproduced correlations improves with larger \code{nrows}.
 #'
@@ -222,10 +225,10 @@ simulate_correlation_from_sample<-function(cordata,nrows=10) {
 ##########################################################################################
 # SIMULATE MISSING DATA
 ##########################################################################################
-#' Introduce missing values into a vector or data frame
+#' @title Introduce missing values into a vector or data frame
 #'
-#' Randomly replaces a fixed number of values with \code{NA}, either in a vector
-#' or across every column of a data frame independently.
+#' @description Randomly replaces a fixed number of values with \code{NA}, 
+#' either in a vector or across every column of a data frame independently.
 #'
 #' @param df A numeric vector or data frame. The object into which missing values
 #'   are introduced.
