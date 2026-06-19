@@ -42,6 +42,7 @@
 #' @importFrom parallel detectCores
 #' @importFrom ggpubr as_ggplot
 #' @importFrom ggExtra ggMarginal
+#' @importFrom grDevices pdf
 #' @keywords regression
 #' @export
 #' @examples

@@ -258,11 +258,6 @@ padNA<-function(df,rowsneeded,first=TRUE) {
 #' @description Extends a data frame to \code{rowsneeded} rows by appending
 #'   (or prepending) \code{NA}-filled rows. Internal helper used by
 #'   \code{\link{c_bind}}.
-#' @param df A data frame to pad.
-#' @param rowsneeded Integer target row count. Must be greater than or equal
-#'   to \code{nrow(df)}.
-#' @param first Logical. When \code{TRUE} (default) \code{NA} rows are
-#'   appended at the bottom; when \code{FALSE} they are prepended at the top.
 #' @return A data frame with \code{rowsneeded} rows and the same columns as
 #'   \code{df}.
 #' @author Ananda Mahto
