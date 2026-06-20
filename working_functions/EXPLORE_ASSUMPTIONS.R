@@ -70,7 +70,7 @@ plot_normality_diagnostics <- function(df, breaks = NULL, title = "", file = NUL
       title(
         main = title,
         sub = paste0(
-          "\nVariable=", string_aes(i),
+          "\nVariable=", str_aes(i),
           "\nObservations=", length(vector),
           "\nMean=", round(mean(vector), 2),
           "\nSD=", round(stats::sd(vector), 2),
@@ -254,7 +254,7 @@ plot_histogram <- function(df, bins = 30, title = "", base_size = 10, xlims = NU
       theme_bw(base_size = base_size) +
       labs(
         title = title,
-        # x=string_aes(names(df)[i],proper=TRUE),
+        # x=str_aes(names(df)[i],proper=TRUE),
         x = names(df)[i],
         y = ylab,
         caption = paste0(

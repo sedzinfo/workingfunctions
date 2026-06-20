@@ -50,7 +50,7 @@ decompose_datetime<-function(x,format="",origin="1970-01-01",tz="GMT",extended=F
   dt_pad<-function(x) stringr::str_pad(x,2,pad="0")
   collumn_names<-c("YEAR","MONTH_NUMERIC","DAY_NUMERIC","HOUR","MINUTE","SECOND","MILLISECOND")
   dt<-as.POSIXct(x,format=format,origin=origin,tz=tz,na.rm=TRUE,...)
-  date_data<-mgsub(dt,c(" ",":","/","-",".","."),";",fixed=TRUE)
+  date_data<-str_mgsub(dt,c(" ",":","/","-",".","."),";",fixed=TRUE)
   separators_n<-max(stringr::str_count(date_data,";"),na.rm=TRUE)
   for (i in 1:length(date_data))
     if(is.na(date_data[i]))

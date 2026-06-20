@@ -94,8 +94,8 @@ plot_oneway <- function(df, dv, iv, base_size = 20, type = "se", order_factor = 
       means_plot <- means_plot +
         geom_point() +
         labs(
-          y = string_aes(names(tempdata)[3]),
-          x = wrapper(string_aes(names(tempdata)[1]), width = width),
+          y = str_aes(names(tempdata)[3]),
+          x = wrapper(str_aes(names(tempdata)[1]), width = width),
           title = title,
           caption = note
         ) +
@@ -243,11 +243,11 @@ plot_interaction <- function(df, dv, iv, base_size = 20, type = "se", order_fact
         theme_bw(base_size = base_size) +
         guides(color = guide_legend(ncol = 1)) +
         labs(
-          y = stringr::str_wrap(string_aes(cors), width = 25),
-          x = stringr::str_wrap(string_aes(factors[1]), width = 25),
+          y = stringr::str_wrap(str_aes(cors), width = 25),
+          x = stringr::str_wrap(str_aes(factors[1]), width = 25),
           title = title,
           caption = note,
-          color = stringr::str_wrap(string_aes(tempdata[, factors[2]]), width = 25)
+          color = stringr::str_wrap(str_aes(tempdata[, factors[2]]), width = 25)
         ) +
         scale_x_discrete(labels = scales::wrap_format(100)) +
         coord_flip()

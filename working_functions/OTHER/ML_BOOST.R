@@ -46,7 +46,7 @@ report_boost<-function(model,validation_data,file="boost",w=10,h=10,base_size=10
   error<-data.frame(iteration=1:length(model$train.error),train_error=model$train.error,valid_error=model$valid.error,oobag_improve=model$oobag.improve)
   error<-reshape2::melt(error,id.vars="iteration",variable.name="Metric")
   names(error)[2]<-"Metric"
-  error$Metric<-string_aes(error$Metric)
+  error$Metric<-str_aes(error$Metric)
   error_plot<-ggplot(data=error,aes(y=value,x=iteration,color=Metric))+
     geom_line(size=base_size/15)+
     labs(x="Iteration",y="",title="Error")+

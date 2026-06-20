@@ -290,7 +290,7 @@ plot_acf <- function(df, lag.max = length(df), base_size = 10, title = "") {
 #' )
 ts_smoothing <- function(df, start = .01, stop = 2, step = .001, title = "", type = "kernel") {
   if (length(df) > 0 & is.na(df)[1] == FALSE) {
-    plot(df, type = "l", ylab = "", xlab = "Time index", main = paste(paste(string_aes(type), "Smoothing"), title), lwd = 1)
+    plot(df, type = "l", ylab = "", xlab = "Time index", main = paste(paste(str_aes(type), "Smoothing"), title), lwd = 1)
     smoothing <- seq(start, stop, step)
     stop <- n <- length(smoothing)
     line.colors <- grDevices::rainbow(n, s = 1, v = 1, start = 0, end = max(1, n - 1) / n, alpha = 1)

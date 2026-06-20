@@ -449,7 +449,7 @@ plot_crosstable <- function(df, factor_index, combinations = NULL, shape = 16, a
       plot[[paste0(combinations[i, 1], "_", combinations[i, 2])]] <- ggplot(df_table, aes(x = variable1, y = variable2)) +
         geom_point(aes(size = Frequency, color = variable1), shape = shape) +
         scale_size_continuous(range = c(1, 30)) +
-        labs(x = string_aes(combinations[i, 1]), y = string_aes(combinations[i, 2])) +
+        labs(x = str_aes(combinations[i, 1]), y = str_aes(combinations[i, 2])) +
         geom_text(aes(label = Frequency)) +
         theme_bw(base_size = base_size) +
         theme(axis.text.x = element_text(angle = angle, hjust = 1), legend.position = "none") +
@@ -527,7 +527,7 @@ plot_mosaic <- function(df, factor_index, base_size = 10, title = "", pb = FALSE
           labs(
             x = paste("Proportion"),
             y = paste("Proportion"),
-            title = paste0(title, "\n", string_aes(i), " By ", string_aes(y)),
+            title = paste0(title, "\n", str_aes(i), " By ", str_aes(y)),
             fill = i,
             caption = paste("Observations:", nrow(tempdata))
           ) +

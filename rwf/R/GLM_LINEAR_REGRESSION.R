@@ -30,8 +30,8 @@
 #' @param combinations A two-column data frame specifying which pairs to plot.
 #'   Column 1 is the x-variable name, column 2 is the y-variable name. When
 #'   \code{NULL} (default) all pairs are derived automatically from \code{df}.
-#' @param string_aes Logical. If \code{TRUE} variable names are passed through
-#'   \code{string_aes()} to clean axis labels. Default \code{TRUE}.
+#' @param str_aes Logical. If \code{TRUE} variable names are passed through
+#'   \code{str_aes()} to clean axis labels. Default \code{TRUE}.
 #'
 #' @return A named list of ggplot objects, one per variable pair. Names follow
 #'   the pattern \code{"x_y"}.
@@ -61,14 +61,14 @@
 #' x <- rnorm(1000)
 #' y <- x + rnorm(x, sd=.1)
 #' plot_scatterplot(df=data.frame(x,y), title="Random Simulation", coord_equal=TRUE)
-plot_scatterplot<-function(df,method=lm,formula=y~x,base_size=10,coord_equal=FALSE,all_orders=FALSE,title="",combinations=NULL,string_aes=TRUE) {
+plot_scatterplot<-function(df,method=lm,formula=y~x,base_size=10,coord_equal=FALSE,all_orders=FALSE,title="",combinations=NULL,str_aes=TRUE) {
   output_plot<-function(i) {
     tempdata<-data.frame(df[,combinations[i,1]],df[,combinations[i,2]])
     names(tempdata)<-c(combinations[i,1],combinations[i,2])
     tempdata<-tempdata[complete.cases(tempdata),]
     if(nrow(tempdata)>=2) {
-      if(string_aes)
-        names(tempdata)<-string_aes(names(tempdata))
+      if(str_aes)
+        names(tempdata)<-str_aes(names(tempdata))
       pearsonr<-stats::cor(tempdata[,1],tempdata[,2],use="pairwise")
       model<-lm(tempdata[,2]~tempdata[,1])
       model_coef<-coef(model)

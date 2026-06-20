@@ -13,7 +13,7 @@ plot_scatterplot(
   all_orders = FALSE,
   title = "",
   combinations = NULL,
-  string_aes = TRUE
+  str_aes = TRUE
 )
 }
 \arguments{
@@ -43,8 +43,8 @@ are plotted for each pair. Default \code{FALSE}.}
 Column 1 is the x-variable name, column 2 is the y-variable name. When
 \code{NULL} (default) all pairs are derived automatically from \code{df}.}
 
-\item{string_aes}{Logical. If \code{TRUE} variable names are passed through
-\code{string_aes()} to clean axis labels. Default \code{TRUE}.}
+\item{str_aes}{Logical. If \code{TRUE} variable names are passed through
+\code{str_aes()} to clean axis labels. Default \code{TRUE}.}
 }
 \value{
 A named list of ggplot objects, one per variable pair. Names follow

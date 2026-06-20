@@ -83,7 +83,7 @@ plot_loadings<-function(model,matrix_type=NULL,title="",base_size=10,color=c("#5
   stacked_loadings<-ggplot(loadings,aes(variable,abs(Loading),fill=Factor))+
     geom_bar(stat="identity")+
     coord_flip()+
-    labs(y="Loading",title=paste(proper(matrix_type),"Matrix Loadings"))+
+    labs(y="Loading",title=paste(str_proper(matrix_type),"Matrix Loadings"))+
     # scale_fill_manual(values=sample(palette_color_complementary,ncolours/4))+
     theme_bw(base_size=base_size)+
     # lims(y=c(0,1))+
@@ -97,7 +97,7 @@ plot_loadings<-function(model,matrix_type=NULL,title="",base_size=10,color=c("#5
     geom_bar(stat="identity")+
     scale_fill_gradient2(name="Loading",high=color[1],mid=color[2],low=color[3],midpoint=0)+
     coord_flip()+
-    labs(y="Loading",x="",title=paste(proper(matrix_type),"Matrix",title))+
+    labs(y="Loading",x="",title=paste(str_proper(matrix_type),"Matrix",title))+
     theme_bw(base_size=base_size)+
     lims(y=c(0,1))
   result<-list(correlation_loadings=correlation_loadings,plot_barplot=plot_barplot)

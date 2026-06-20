@@ -205,7 +205,7 @@ report_xgboost <- function(model,
   if (nrow(evaluation_log) > 0 && "iter" %in% names(evaluation_log)) {
     error_df <- reshape2::melt(evaluation_log, id.vars = "iter", variable.name = "Metric")
     names(error_df) <- c("Iteration", "Metric", "value")
-    error_df$Metric <- string_aes(error_df$Metric)
+    error_df$Metric <- str_aes(error_df$Metric)
     
     plots$error <- ggplot2::ggplot(error_df, ggplot2::aes(y = value, x = Iteration, color = Metric)) +
       ggplot2::geom_line(linewidth = base_size / 15) +

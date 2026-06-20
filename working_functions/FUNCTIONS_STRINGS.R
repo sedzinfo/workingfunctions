@@ -11,14 +11,13 @@
 #' @param pattern Character vector of patterns to search for.
 #' @param replacement Character. The replacement string applied for all patterns.
 #' @param ... Additional arguments passed to \code{\link[base]{gsub}},
-#'   such as \code{fixed} or \code{ignore.case}.
 #'
 #' @return A character vector with all pattern matches replaced.
 #' @keywords strings
 #' @export
 #' @examples
-#' mgsub(mydata = "#$%^&*_+", pattern = c("%", "*"), "REPLACE", fixed = TRUE)
-mgsub <- function(mydata, pattern, replacement, ...) {
+#' str_mgsub(mydata = "#$%^&*_+", pattern = c("%", "*"), "REPLACE", fixed = TRUE)
+str_mgsub <- function(mydata, pattern, replacement, ...) {
   for (i in 1:length(pattern)) {
     mydata <- gsub(pattern[i], replacement, mydata, ...)
   }
@@ -91,10 +90,10 @@ split_str <- function(vector, split = "/", include_original = FALSE) {
 #'   generate_string(nchar = 2, vector_length = nrow(df))
 #' )
 #' row.names(df) <- string
-#' split_str_df(df, split = "/", type = "row")
+#' str_split_df(df, split = "/", type = "row")
 #' df[, 1] <- string
-#' split_str_df(df, split = "/", type = "collumn", index = 1)
-split_str_df <- function(df, split = "/", type = "row", index, ...) {
+#' str_split_df(df, split = "/", type = "collumn", index = 1)
+str_split_df <- function(df, split = "/", type = "row", index, ...) {
   if (type == "row") {
     split <- split_str(vector = as.character(row.names(df)), split = split, ...)
     result <- data.frame(split, df, stringsAsFactors = FALSE)
@@ -118,9 +117,9 @@ split_str_df <- function(df, split = "/", type = "row", index, ...) {
 #' @keywords strings
 #' @export
 #' @examples
-#' sub_str("12345", n = 2, type = "right")
-#' sub_str("12345", n = 2, type = "left")
-sub_str <- function(x, n = 2, type) {
+#' str_sub("12345", n = 2, type = "right")
+#' str_sub("12345", n = 2, type = "left")
+str_sub <- function(x, n = 2, type) {
   if (type == "right") {
     result <- substr(x, nchar(x) - n + 1, nchar(x))
   }
@@ -144,8 +143,8 @@ sub_str <- function(x, n = 2, type) {
 #' @export
 #' @examples
 #' x <- generate_string(nchar = 10, vector = LETTERS, vector_length = 10)
-#' proper(x)
-proper <- function(x) paste0(toupper(substr(x, 1, 1)), tolower(substring(x, 2)))
+#' str_proper(x)
+str_proper <- function(x) paste0(toupper(substr(x, 1, 1)), tolower(substring(x, 2)))
 ##########################################################################################
 # TRIM DATAFRAME
 ##########################################################################################
@@ -167,8 +166,8 @@ proper <- function(x) paste0(toupper(substr(x, 1, 1)), tolower(substring(x, 2)))
 #'   num1 = rnorm(10),
 #'   stringsAsFactors = FALSE
 #' )
-#' trim_df(string)
-trim_df <- function(df) {
+#' str_trim_df(string)
+str_trim_df <- function(df) {
   df[] <- apply(df, 1:2, function(x) {
     if (mode(x) == "character") {
       x <- strwrap(x)
@@ -197,21 +196,20 @@ trim_df <- function(df) {
 #' @return A character vector of the same length as \code{vector} with
 #'   separators replaced, whitespace normalised, and optional proper casing.
 #'
-#' @seealso \code{\link{proper}}
 #' @keywords strings
 #' @export
 #' @examples
 #' vector <- c("TES.T", "TES<p>T", "TES&nbspT")
-#' string_aes(vector = vector)
-#' string_aes(vector = vector, proper = FALSE)
-#' string_aes(vector = vector, proper = TRUE)
-string_aes <- function(vector, characterlist = c(".", "_", "-", ",", "$", "<p>", "</p>", "<br>", "<br/>", "<B>", "</B>", "<BR/>", "|", "/", "&nbsp"), proper = TRUE) {
+#' str_aes(vector = vector)
+#' str_aes(vector = vector, proper = FALSE)
+#' str_aes(vector = vector, proper = TRUE)
+str_aes <- function(vector, characterlist = c(".", "_", "-", ",", "$", "<p>", "</p>", "<br>", "<br/>", "<B>", "</B>", "<BR/>", "|", "/", "&nbsp"), proper = TRUE) {
   for (i in characterlist) {
     vector <- gsub(i, " ", vector, fixed = TRUE)
   }
   result <- trimws(vector, which = "both")
   if (proper) {
-    result <- proper(vector)
+    result <- str_proper(vector)
   }
   result <- str_squish(result)
   return(result)
