@@ -51,37 +51,41 @@ decompose_datetime(
 ## Examples
 
 ``` r
-timestamp1<-as.numeric(as.POSIXct(Sys.Date()))
-timestamp2<-as.numeric(as.POSIXct(Sys.time()))
-d1<-Sys.Date()
-d2<-Sys.time()
-decompose_datetime(x=d1)
+timestamp1 <- as.numeric(as.POSIXct(Sys.Date()))
+timestamp2 <- as.numeric(as.POSIXct(Sys.time()))
+d1 <- Sys.Date()
+d2 <- Sys.time()
+decompose_datetime(x = d1)
 #>   YEAR MONTH_NUMERIC DAY_NUMERIC  FULL_DATE
 #> 1 2026            06          20 2026-06-20
-decompose_datetime(x=d2)
+decompose_datetime(x = d2)
 #>   YEAR MONTH_NUMERIC DAY_NUMERIC HOUR MINUTE SECOND MILLISECOND  FULL_DATE FULL_TIME
-#> 1 2026            06          20   14     17     41      486462 2026-06-20     14:17
-decompose_datetime(x=d1,extended=TRUE)
+#> 1 2026            06          20   14     49     24      391407 2026-06-20     14:49
+decompose_datetime(x = d1, extended = TRUE)
 #>   QUARTER MONTH     JULIAN  WEEKDAY DAY_PERIOD YEAR MONTH_NUMERIC DAY_NUMERIC  FULL_DATE
 #> 1      Q2  June 20624 days Saturday       <NA> 2026            06          20 2026-06-20
-decompose_datetime(x=d2,extended=TRUE)
-#>   QUARTER MONTH       JULIAN  WEEKDAY DAY_PERIOD YEAR MONTH_NUMERIC DAY_NUMERIC HOUR MINUTE SECOND MILLISECOND  FULL_DATE FULL_TIME
-#> 1      Q2  June 20624.6 days Saturday       Noon 2026            06          20   14     17     41      486462 2026-06-20     14:17
-decompose_datetime(x="01/15/1900",format="%m/%e/%Y")
+decompose_datetime(x = d2, extended = TRUE)
+#>   QUARTER MONTH        JULIAN  WEEKDAY DAY_PERIOD YEAR MONTH_NUMERIC DAY_NUMERIC HOUR MINUTE SECOND MILLISECOND  FULL_DATE FULL_TIME
+#> 1      Q2  June 20624.62 days Saturday       Noon 2026            06          20   14     49     24      391407 2026-06-20     14:49
+decompose_datetime(x = "01/15/1900", format = "%m/%e/%Y")
 #>   YEAR MONTH_NUMERIC DAY_NUMERIC  FULL_DATE
 #> 1 1900            01          15 1900-01-15
-decompose_datetime(x="01/15/1900",format="%m/%e/%Y",extended=TRUE)
+decompose_datetime(x = "01/15/1900", format = "%m/%e/%Y", extended = TRUE)
 #>   QUARTER   MONTH      JULIAN WEEKDAY DAY_PERIOD YEAR MONTH_NUMERIC DAY_NUMERIC  FULL_DATE
 #> 1      Q1 January -25553 days  Monday       <NA> 1900            01          15 1900-01-15
-decompose_datetime(x=as.Date(as.POSIXct(10000,origin="1970-01-01")))
+decompose_datetime(x = as.Date(as.POSIXct(10000, origin = "1970-01-01")))
 #>   YEAR MONTH_NUMERIC DAY_NUMERIC  FULL_DATE
 #> 1 1970            01          01 1970-01-01
-decompose_datetime(x=as.Date(as.POSIXct(timestamp1,origin="1970-01-01")),
-                   format="%m/%e/%Y")
+decompose_datetime(
+  x = as.Date(as.POSIXct(timestamp1, origin = "1970-01-01")),
+  format = "%m/%e/%Y"
+)
 #>   YEAR MONTH_NUMERIC DAY_NUMERIC  FULL_DATE
 #> 1 2026            06          20 2026-06-20
-decompose_datetime(x=as.Date(as.POSIXct(timestamp2,origin="1970-01-01")),
-                   format="%m/%e/%Y")
+decompose_datetime(
+  x = as.Date(as.POSIXct(timestamp2, origin = "1970-01-01")),
+  format = "%m/%e/%Y"
+)
 #>   YEAR MONTH_NUMERIC DAY_NUMERIC  FULL_DATE
 #> 1 2026            06          20 2026-06-20
 ```

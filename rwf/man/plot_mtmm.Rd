@@ -44,8 +44,8 @@ Visualises a Campbell-Fiske multitrait-multimethod matrix as a
 }
 \examples{
 population_model <- "t1=~x1+.9*x2+.9*x3
-                   t2=~x4+.9*x5+.9*x6
-                   t3=~x7+.9*x8+.9*x9"
+                     t2=~x4+.9*x5+.9*x6
+                     t3=~x7+.9*x8+.9*x9"
 model_data <- lavaan::simulateData(population_model, sample.nobs = 1000)
 model_data <- model_data[sample(1:1000, 1000, TRUE), ]
 model_data <- rbind(model_data, model_data, model_data)

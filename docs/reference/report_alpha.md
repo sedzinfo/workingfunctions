@@ -100,15 +100,19 @@ A named list with the following elements:
 
 ``` r
 set.seed(12345)
-df<-data.frame(matrix(.5,ncol=6,nrow=6))
-correlation_martix<-as.matrix(df)
-diag(correlation_martix)<-1
-df<-round(generate_correlation_matrix(correlation_martix,nrows=1000),0)+5
-key<-list(f1=c("X1","X2","X3"),
-          f2=c("X4","X5","X6"))
-reverse<-list(f1=c(1,1,1),
-              f2=c(1,1,1))
-report_alpha(df=df,key=key,cumulative=TRUE,n.iter=1)
+df <- data.frame(matrix(.5, ncol = 6, nrow = 6))
+correlation_martix <- as.matrix(df)
+diag(correlation_martix) <- 1
+df <- round(generate_correlation_matrix(correlation_martix, nrows = 1000), 0) + 5
+key <- list(
+  f1 = c("X1", "X2", "X3"),
+  f2 = c("X4", "X5", "X6")
+)
+reverse <- list(
+  f1 = c(1, 1, 1),
+  f2 = c(1, 1, 1)
+)
+report_alpha(df = df, key = key, cumulative = TRUE, n.iter = 1)
 #>   |                                                                                                                                                                                                      |                                                                                                                                                                                              |   0%  |                                                                                                                                                                                                      |==============================================================================================================================================================================================| 100%
 #> $result_total
 #>   dimension items kaiser_criterion raw_alpha std_alpha g6(smc) average_r   s/n     ase  mean    sd median_r     alpha_criterion
@@ -136,19 +140,19 @@ report_alpha(df=df,key=key,cumulative=TRUE,n.iter=1)
 #> 5        f2       X5      0.7094    0.6161    0.6161  0.4452    0.4452 1.605  0.02428    NA 0.4452
 #> 6        f2       X6      0.7094    0.5949    0.5950  0.4234    0.4234 1.469  0.02562    NA 0.4234
 #> 
-report_alpha(df=df,key=key,reverse=reverse,check.keys=FALSE,n.iter=2)
+report_alpha(df = df, key = key, reverse = reverse, check.keys = FALSE, n.iter = 2)
 #>   |                                                                                                                                                                                                      |                                                                                                                                                                                              |   0%  |                                                                                                                                                                                                      |==============================================================================================================================================================================================| 100%
 #> $result_total
 #>   dimension items kaiser_criterion raw_alpha std_alpha g6(smc) average_r   s/n     ase  mean     sd median_r boot_ci_2_5% boot_ci_50% boot_ci_97_5%     alpha_criterion
-#> 1        f1     3                1    0.7248    0.7246  0.6381    0.4673 2.632 0.01506 5.025 0.8402   0.4513       0.7115      0.7237        0.7359 Good and Acceptable
-#> 2        f2     3                1    0.7094    0.7093  0.6203    0.4486 2.440 0.01592 4.989 0.8131   0.4452       0.7025      0.7045        0.7066 Good and Acceptable
+#> 1        f1     3                1    0.7248    0.7246  0.6381    0.4673 2.632 0.01506 5.025 0.8402   0.4513       0.7134      0.7273        0.7412 Good and Acceptable
+#> 2        f2     3                1    0.7094    0.7093  0.6203    0.4486 2.440 0.01592 4.989 0.8131   0.4452       0.7296      0.7320        0.7343 Good and Acceptable
 #> 
 #> $result_boot
 #>   dimension items kaiser_criterion raw_alpha std_alpha g6(smc) average_r   s/n    ase unidim goodfit     var_r median_r
-#> 1        f1     3                1    0.7108    0.7110  0.6222    0.4506 2.461 0.2496 0.7848  0.9984 0.0007072   0.4394
-#> 2        f1     3                1    0.7366    0.7365  0.6519    0.4823 2.795 0.2083 0.8165  0.9979 0.0008264   0.4895
-#> 3        f2     3                1    0.7067    0.7066  0.6170    0.4453 2.408 0.2581 0.7792  0.9986 0.0006448   0.4370
-#> 4        f2     3                1    0.7023    0.7024  0.6132    0.4403 2.360 0.2654 0.7733  0.9971 0.0013886   0.4530
+#> 1        f1     3                1    0.7127    0.7126  0.6248    0.4525 2.479 0.2475 0.7863  0.9969 0.0014072   0.4407
+#> 2        f1     3                1    0.7419    0.7420  0.6578    0.4894 2.876 0.1994 0.8235  0.9989 0.0004240   0.4868
+#> 3        f2     3                1    0.7295    0.7295  0.6435    0.4734 2.697 0.2197 0.8080  0.9983 0.0006975   0.4654
+#> 4        f2     3                1    0.7345    0.7348  0.6497    0.4801 2.770 0.2119 0.8144  0.9981 0.0007824   0.4787
 #> 
 #> $result_item_statistics
 #>   dimension question raw_alpha    n  raw_r  std_r  r_cor r_drop  mean    sd     1     2     3     4     5     6     7     8     9 miss
@@ -168,19 +172,19 @@ report_alpha(df=df,key=key,reverse=reverse,check.keys=FALSE,n.iter=2)
 #> 5        f2       X5      0.7094    0.6161    0.6161  0.4452    0.4452 1.605  0.02428    NA 0.4452
 #> 6        f2       X6      0.7094    0.5949    0.5950  0.4234    0.4234 1.469  0.02562    NA 0.4234
 #> 
-report_alpha(df=df,key=key,check.keys=FALSE,n.iter=2,file="alpha")
+report_alpha(df = df, key = key, check.keys = FALSE, n.iter = 2, file = "alpha")
 #>   |                                                                                                                                                                                                      |                                                                                                                                                                                              |   0%  |                                                                                                                                                                                                      |==============================================================================================================================================================================================| 100%
 #> $result_total
 #>   dimension items kaiser_criterion raw_alpha std_alpha g6(smc) average_r   s/n     ase  mean     sd median_r boot_ci_2_5% boot_ci_50% boot_ci_97_5%     alpha_criterion
-#> 1        f1     3                1    0.7248    0.7246  0.6381    0.4673 2.632 0.01506 5.025 0.8402   0.4513       0.7073      0.7204        0.7334 Good and Acceptable
-#> 2        f2     3                1    0.7094    0.7093  0.6203    0.4486 2.440 0.01592 4.989 0.8131   0.4452       0.6990      0.7043        0.7095 Good and Acceptable
+#> 1        f1     3                1    0.7248    0.7246  0.6381    0.4673 2.632 0.01506 5.025 0.8402   0.4513       0.7285      0.7329        0.7373 Good and Acceptable
+#> 2        f2     3                1    0.7094    0.7093  0.6203    0.4486 2.440 0.01592 4.989 0.8131   0.4452       0.6920      0.7145        0.7370 Good and Acceptable
 #> 
 #> $result_boot
-#>   dimension items kaiser_criterion raw_alpha std_alpha g6(smc) average_r   s/n    ase unidim goodfit    var_r median_r
-#> 1        f1     3                1    0.7341    0.7339  0.6491    0.4790 2.758 0.2117 0.8132  0.9974 0.001048   0.4606
-#> 2        f1     3                1    0.7066    0.7066  0.6180    0.4453 2.409 0.2586 0.7787  0.9970 0.001379   0.4247
-#> 3        f2     3                1    0.7098    0.7098  0.6216    0.4492 2.446 0.2529 0.7828  0.9971 0.001330   0.4514
-#> 4        f2     3                1    0.6987    0.6988  0.6086    0.4361 2.320 0.2715 0.7688  0.9978 0.001030   0.4209
+#>   dimension items kaiser_criterion raw_alpha std_alpha g6(smc) average_r   s/n    ase unidim goodfit     var_r median_r
+#> 1        f1     3                1    0.7375    0.7374  0.6530    0.4834 2.808 0.2064 0.8175  0.9977 0.0009413   0.4791
+#> 2        f1     3                1    0.7282    0.7283  0.6427    0.4719 2.680 0.2209 0.8061  0.9972 0.0011710   0.4671
+#> 3        f2     3                1    0.6909    0.6909  0.6016    0.4269 2.235 0.2874 0.7573  0.9945 0.0026999   0.4070
+#> 4        f2     3                1    0.7382    0.7384  0.6538    0.4848 2.823 0.2059 0.8190  0.9984 0.0006183   0.4718
 #> 
 #> $result_item_statistics
 #>   dimension question raw_alpha    n  raw_r  std_r  r_cor r_drop  mean    sd     1     2     3     4     5     6     7     8     9 miss

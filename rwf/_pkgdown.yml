@@ -28,6 +28,8 @@ reference:
       - plot_confusion
       - plot_corrplot
       - plot_crosstable
+      - plot_duplicate_y_axis
+      - plot_hinvert_title_grob
       - plot_histogram
       - plot_icc_thurstonian
       - plot_interaction
@@ -124,8 +126,8 @@ reference:
       - str_split_df
       - str_split_fixed
       - str_squish
-      - str_trim_df
       - str_sub
+      - str_trim_df
       - str_wrap
 
   - title: "Excel output"
@@ -158,8 +160,6 @@ reference:
       - drop_levels
       - dummy_arrange
       - dotnames
-      - duplicate_y_axis
-      - hinvert_title_grob
       - padNA
       - environment_options
       - extract_components
@@ -221,7 +221,6 @@ reference:
       - tag_pos
       - text_similarity
       - ts_smoothing
-      - wrapper
       - write_txt
 
   - title: "Datasets"

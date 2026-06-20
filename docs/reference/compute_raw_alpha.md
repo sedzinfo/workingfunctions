@@ -30,10 +30,10 @@ A single numeric value: Cronbach's alpha for the scale. Values above
 
 ``` r
 set.seed(12345)
-df<-data.frame(matrix(.5,ncol=6,nrow=6))
-correlation_martix<-as.matrix(df)
-diag(correlation_martix)<-1
-df<-round(generate_correlation_matrix(correlation_martix,nrows=1000),0)+5
+df <- data.frame(matrix(.5, ncol = 6, nrow = 6))
+correlation_martix <- as.matrix(df)
+diag(correlation_martix) <- 1
+df <- round(generate_correlation_matrix(correlation_martix, nrows = 1000), 0) + 5
 psych::alpha(df)
 #> 
 #> Reliability analysis   
@@ -73,6 +73,6 @@ psych::alpha(df)
 #> X4 0 0.01 0.05 0.25 0.39 0.24 0.06 0.01 0    0
 #> X5 0 0.01 0.05 0.25 0.39 0.23 0.07 0.00 0    0
 #> X6 0 0.01 0.06 0.24 0.40 0.23 0.05 0.01 0    0
-compute_raw_alpha(df=df)
+compute_raw_alpha(df = df)
 #> [1] 0.8375375
 ```

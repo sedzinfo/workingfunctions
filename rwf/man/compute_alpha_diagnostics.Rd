@@ -28,7 +28,7 @@ A data frame with one row per item and the following columns:
 Computes item-level reliability diagnostics for a unidimensional
   scale. For each item the function returns the corrected and uncorrected
   item-total correlations and Cronbach's alpha recalculated with that item
-  excluded. Use this alongside \code{\link{raw_alpha}} to identify items that
+  excluded. Use this alongside \code{\link{compute_raw_alpha}} to identify items that
   reduce scale reliability.
 }
 \examples{

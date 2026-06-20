@@ -40,14 +40,14 @@ string <- paste0(
 )
 str_split(string, split = "/")
 #>    X1 X2 X3 X4
-#> 1   1 eU qY le
-#> 2   2 Cx hp 6p
-#> 3   3 GW LB Du
-#> 4   4 Fm sl Ux
-#> 5   5 aC ql c7
-#> 6   6 R8 hG rV
-#> 7   7 49 TV pr
-#> 8   8 LB 0X DY
-#> 9   9 YE 0S KO
-#> 10 10 NU VG NF
+#> 1   1 8w Oj Bv
+#> 2   2 D1 gj hp
+#> 3   3 Nx uw 9v
+#> 4   4 69 pr yW
+#> 5   5 Nm HY 3a
+#> 6   6 vd HF Qe
+#> 7   7 lN q1 UC
+#> 8   8 4G Fj xG
+#> 9   9 tt MG WF
+#> 10 10 8p X7 ma
 ```

@@ -73,6 +73,8 @@ code and more standardized output.
   : Compute multiple comparison alpha adjustments
 - [`compute_aggregate()`](https://sedzinfo.github.io/rwf/reference/compute_aggregate.md)
   : Aggregate descriptive statistics by group
+- [`compute_alpha_diagnostics()`](https://sedzinfo.github.io/rwf/reference/compute_alpha_diagnostics.md)
+  : Item-total correlations and alpha-if-item-removed diagnostics
 - [`compute_aov_es()`](https://sedzinfo.github.io/rwf/reference/compute_aov_es.md)
   : Compute eta and omega
 - [`compute_confidence_inteval()`](https://sedzinfo.github.io/rwf/reference/compute_confidence_inteval.md)
@@ -119,6 +121,8 @@ code and more standardized output.
   : Compute subject ability for thurstonian models
 - [`compute_se_theta()`](https://sedzinfo.github.io/rwf/reference/compute_se_theta.md)
   : Compute the SE of theta
+- [`compute_shrout()`](https://sedzinfo.github.io/rwf/reference/compute_shrout.md)
+  : Shrout-Fleiss reliability coefficients
 - [`compute_skewness()`](https://sedzinfo.github.io/rwf/reference/compute_skewness.md)
   : Compute skewness of a numeric vector
 - [`compute_solve()`](https://sedzinfo.github.io/rwf/reference/compute_solve.md)
@@ -224,8 +228,6 @@ code and more standardized output.
 
 ## Other functions
 
-- [`alpha_diagnostics()`](https://sedzinfo.github.io/rwf/reference/alpha_diagnostics.md)
-  : Item-total correlations and alpha-if-item-removed diagnostics
 - [`c_bind()`](https://sedzinfo.github.io/rwf/reference/c_bind.md) :
   Column-bind data frames or vectors of unequal lengths
 - [`call_to_string()`](https://sedzinfo.github.io/rwf/reference/call_to_string.md)
@@ -381,8 +383,6 @@ code and more standardized output.
   : Score Multiple Thurstonian IRT Response Patterns (MAP / EBM)
 - [`score_tirt_pattern()`](https://sedzinfo.github.io/rwf/reference/score_tirt_pattern.md)
   : Score a Single Thurstonian IRT Response Pattern (MAP / EBM)
-- [`shrout()`](https://sedzinfo.github.io/rwf/reference/shrout.md) :
-  Shrout-Fleiss reliability coefficients
 - [`simulate_cfa_fit()`](https://sedzinfo.github.io/rwf/reference/simulate_cfa_fit.md)
   : Simulate CFA model fit across sample sizes
 - [`simulate_correlation_from_sample()`](https://sedzinfo.github.io/rwf/reference/simulate_correlation_from_sample.md)

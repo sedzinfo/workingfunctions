@@ -95,7 +95,7 @@ plot_oneway <- function(df, dv, iv, base_size = 20, type = "se", order_factor = 
         geom_point() +
         labs(
           y = str_aes(names(tempdata)[3]),
-          x = wrapper(str_aes(names(tempdata)[1]), width = width),
+          x = str_wrap(str_aes(names(tempdata)[1]), width = width),
           title = title,
           caption = note
         ) +

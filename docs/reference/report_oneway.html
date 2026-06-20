@@ -391,73 +391,7 @@ variables.</p></dd>
 <span class="r-in"><span><span class="fu">report_oneway</span><span class="op">(</span>df<span class="op">=</span><span class="va">mtcars</span>,dv<span class="op">=</span><span class="fl">2</span><span class="op">:</span><span class="fl">4</span>,iv<span class="op">=</span><span class="fl">9</span>,file<span class="op">=</span><span class="st">"anova_oneway_one_factor"</span>,</span></span>
 <span class="r-in"><span>              plot_means<span class="op">=</span><span class="cn">TRUE</span>,plot_diagnostics<span class="op">=</span><span class="cn">TRUE</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   |                                                                                                                                                                                                      |                                                                                                                                                                                              |   0%  |                                                                                                                                                                                                      |===============================================================                                                                                                                               |  33%  |                                                                                                                                                                                                      |===============================================================================================================================                                                               |  67%  |                                                                                                                                                                                                      |==============================================================================================================================================================================================| 100%</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> $instructions</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> $instructions$fisher</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [1] "Fisher assumes heteroscedasticity"</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> $instructions$welch</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [1] "Welch does not assume heteroscedasticity"</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> $instructions$kruskal</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [1] "Kruskal Wallis procedure does not assume normality but it is not an alternative for violations of heteroscedasticity"</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> $instructions$tukey</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [1] "Posthoc Tuckey: not good for unequal sample sizes or heteroscedasticity"</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> $instructions$games_howell</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [1] "Posthoc Games Howell: good for unequal sample sizes and heteroscedasticity"</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> $instructions$homogeneity_instruction</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [1] "significant tests show heteroscedasticity and suggest the use of Welch or alternative procedures. Levene test depends on normality: Non normal distributions may result in false significant results. Sample size may affect test results"</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> $fisher</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     DV IV   formula                    method ss_effect  ss_error ms_effect  ms_error   etasq partial.etasq omegasq partial.omegasq cohens.f  power statistic df_effect df_error         p bonferroni_p</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 1  cyl am  cyl ~ am Assuming homoscedasticity        27     71.87        27     2.396 0.27312       0.27312 0.24300         0.24300   0.6130 0.9899    11.272         1       30 0.0021512      0.01667</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 2 disp am disp ~ am Assuming homoscedasticity    166450 309734.68    166450 10324.489 0.34955       0.34955 0.32091         0.32091   0.7331 0.9968    16.122         1       30 0.0003662      0.01667</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 3   hp am   hp ~ am Assuming homoscedasticity      8619 137107.38      8619  4570.246 0.05915       0.05915 0.02694         0.02694   0.2507 0.7826     1.886         1       30 0.1798309      0.01667</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   significant</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 1        TRUE</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 2        TRUE</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 3       FALSE</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> $welch</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     DV IV   formula                      method ss_effect ss_error ms_effect ms_error  etasq partial.etasq omegasq partial.omegasq cohens.f  power statistic df_effect df_error        p bonferroni_p</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 1  cyl am  cyl ~ am Assuming heteroscedasticity    11.250    25.85    11.250        1 0.3032        0.3032  0.2690          0.2426   0.6597 0.9847    11.250         1    25.85 0.002465      0.01667</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 2 disp am disp ~ am Assuming heteroscedasticity    17.621    29.26    17.621        1 0.3759        0.3759  0.3471          0.3418   0.7760 0.9974    17.621         1    29.26 0.000230      0.01667</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 3   hp am   hp ~ am Assuming heteroscedasticity     1.603    18.72     1.603        1 0.0789        0.0789  0.0283          0.0185   0.2927 0.6461     1.603         1    18.72 0.220980      0.01667</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   significant</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 1        TRUE</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 2        TRUE</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 3       FALSE</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> $kruskal_wallis</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   IV   DV   formula                       method  etasq epsilonsq      H df         p bonferroni_p significant</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 1 am  cyl  cyl ~ am Kruskal-Wallis rank sum test 0.2483    0.2726  8.449  1 0.0036518      0.01667        TRUE</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 2 am disp disp ~ am Kruskal-Wallis rank sum test 0.3691    0.3895 12.073  1 0.0005115      0.01667        TRUE</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 3 am   hp   hp ~ am Kruskal-Wallis rank sum test 0.1023    0.1313  4.070  1 0.0436585      0.01667       FALSE</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> $games_howell</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>         method IV   DV LEVEL     t    df        p bonferroni_p significant</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 1 Games Howell am  cyl   0:1 3.354 25.85 0.002465      0.01667        TRUE</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 2 Games Howell am disp   0:1 4.198 29.26 0.000230      0.01667        TRUE</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 3 Games Howell am   hp   0:1 1.266 18.72 0.220980      0.01667       FALSE</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> $tukey</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   Method IV   DV LEVEL     t df         p bonferroni_p significant</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 1  Tukey am  cyl   0:1 3.357 30 0.0021512      0.01667        TRUE</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 2  Tukey am disp   0:1 4.015 30 0.0003662      0.01667        TRUE</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 3  Tukey am   hp   0:1 1.373 30 0.1798309      0.01667       FALSE</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> $homogeneity</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>       Test   DV IV Statistic df_1 df_2       p bonferroni_p significant</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 1   Levene  cyl am 0.0002640    1   30 0.98714      0.01667       FALSE</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 2   Levene disp am 1.6872999    1   30 0.20385      0.01667       FALSE</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 3   Levene   hp am 1.0969164    1   30 0.30331      0.01667       FALSE</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 4 Bartlett  cyl am 0.0003571    1   NA 0.98492      0.01667       FALSE</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 5 Bartlett disp am 0.7310694    1   NA 0.39254      0.01667       FALSE</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 6 Bartlett   hp am 2.8208425    1   NA 0.09305      0.01667       FALSE</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-err co"><span class="r-pr">#&gt;</span> <span class="error">Error in wrapper(str_aes(names(tempdata)[1]), width = width):</span> could not find function "wrapper"</span>
 </code></pre></div>
     </div>
   </main><aside class="col-md-3"><nav id="toc" aria-label="Table of contents"><h2>On this page</h2>

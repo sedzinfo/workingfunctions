@@ -35,8 +35,8 @@
 #' @export
 #' @examples
 #' population_model <- "t1=~x1+.9*x2+.9*x3
-#'                    t2=~x4+.9*x5+.9*x6
-#'                    t3=~x7+.9*x8+.9*x9"
+#'                      t2=~x4+.9*x5+.9*x6
+#'                      t3=~x7+.9*x8+.9*x9"
 #' model_data <- lavaan::simulateData(population_model, sample.nobs = 1000)
 #' model_data <- model_data[sample(1:1000, 1000, TRUE), ]
 #' model_data <- rbind(model_data, model_data, model_data)
@@ -51,7 +51,7 @@ plot_mtmm <- function(df, key, method, subject, title = "") {
   for (z in unique(df[, method])) {
     for (i in names(key)) {
       trait[, paste0(i, ".", z)] <- rowMeans(df[df[, method] %in% z, key[[i]]], na.rm = TRUE)
-      alpha_result[[paste0(i, ".", z)]] <- raw_alpha(df[df[, method] %in% z, key[[i]]])
+      alpha_result[[paste0(i, ".", z)]] <- compute_raw_alpha(df[df[, method] %in% z, key[[i]]])
     }
   }
   alphas <- data.frame(scale = names(unlist(alpha_result)), rel = unlist(alpha_result))
@@ -111,8 +111,8 @@ plot_mtmm <- function(df, key, method, subject, title = "") {
 #' @export
 #' @examples
 #' population_model <- "t1=~x1+.5*x2+.5*x3
-#'                    t2=~x4+.5*x5+.5*x6
-#'                    t3=~x7+.5*x8+.5*x9"
+#'                      t2=~x4+.5*x5+.5*x6
+#'                      t3=~x7+.5*x8+.5*x9"
 #' model_data <- lavaan::simulateData(population_model, sample.nobs = 1000)
 #' key <- list(f1 = paste0("x", 1:3), f2 = paste0("x", 4:6), f3 = paste0("x", 7:9))
 #' model <- key_to_cfa_model(key)
@@ -172,7 +172,7 @@ compute_raw_alpha <- function(df) {
 #' @description Computes item-level reliability diagnostics for a unidimensional
 #'   scale. For each item the function returns the corrected and uncorrected
 #'   item-total correlations and Cronbach's alpha recalculated with that item
-#'   excluded. Use this alongside \code{\link{raw_alpha}} to identify items that
+#'   excluded. Use this alongside \code{\link{compute_raw_alpha}} to identify items that
 #'   reduce scale reliability.
 #' @inheritParams compute_raw_alpha
 #' @return A data frame with one row per item and the following columns:
@@ -201,7 +201,7 @@ compute_raw_alpha <- function(df) {
 compute_alpha_diagnostics <- function(df) {
   corlist0 <- corlist1 <- corlist2 <- c()
   for (i in 1:length(df)) {
-    corlist0 <- c(corlist0, raw_alpha(df[, -i]))
+    corlist0 <- c(corlist0, compute_raw_alpha(df[, -i]))
     corlist1[i] <- stats::cor(rowSums(df, na.rm = TRUE), df[i], use = "pairwise.complete.obs")
     corlist2[i] <- stats::cor(rowSums(df[-i], na.rm = TRUE), df[i], use = "pairwise.complete.obs")
   }

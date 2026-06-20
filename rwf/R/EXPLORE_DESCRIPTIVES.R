@@ -585,13 +585,13 @@ plot_response_frequencies <- function(df, factor_index, base_size = 10, title = 
       if (reorder) {
         plots[[i]] <- ggplot(data.frame(tempdata), aes(x = stats::reorder(tempdata, Freq), y = Freq)) +
           geom_bar(stat = "identity") +
-          labs(x = "", y = "Count", title = paste(title, wrapper(i, width = width), collapse = "\n"), caption = paste0("Observations:", sum(tempdata$Freq))) +
+          labs(x = "", y = "Count", title = paste(title, str_wrap(i, width = width), collapse = "\n"), caption = paste0("Observations:", sum(tempdata$Freq))) +
           coord_flip() +
           theme_bw(base_size = base_size)
       } else {
         plots[[i]] <- ggplot(data.frame(tempdata), aes(x = tempdata, y = Freq)) +
           geom_bar(stat = "identity") +
-          labs(x = "", y = "Count", title = paste(title, wrapper(i, width = width), collapse = "\n"), caption = paste0("Observations:", sum(tempdata$Freq))) +
+          labs(x = "", y = "Count", title = paste(title, str_wrap(i, width = width), collapse = "\n"), caption = paste0("Observations:", sum(tempdata$Freq))) +
           coord_flip() +
           theme_bw(base_size = base_size)
       }
