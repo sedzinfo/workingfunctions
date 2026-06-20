@@ -323,8 +323,7 @@ response_frequency <- function(df, max = 10, uniqueitems = NULL, type = "percent
 #' @description Computes contingency tables (frequency counts and percentages)
 #'   for pairs of categorical variables. Variable pairs can be supplied
 #'   explicitly via \code{combinations}, or all unique pairs within a set of
-#'   columns can be generated automatically via \code{factor_index}. A progress
-#'   bar is displayed during computation.
+#'   columns can be generated automatically via \code{factor_index}.
 #' @param df A data frame containing the variables to cross-tabulate.
 #' @param factor_index Integer vector of column indices. When provided and
 #'   \code{combinations} is \code{NULL}, all unique pairwise combinations of
@@ -365,10 +364,8 @@ compute_crosstable <- function(df, factor_index = NULL, combinations = NULL) {
     combinations <- combinations[!duplicated(t(apply(combinations, 1, sort))), ]
   }
   combinations <- change_data_type(combinations, type = "character")
-  pb <- txtProgressBar(min = 0, max = nrow(combinations), style = 3)
   for (i in 1:nrow(combinations)) {
     counter <- counter + 1
-    setTxtProgressBar(pb, counter)
 
     f1 <- as.character(combinations[i, 1])
     f2 <- as.character(combinations[i, 2])
@@ -383,7 +380,6 @@ compute_crosstable <- function(df, factor_index = NULL, combinations = NULL) {
       proportion <- plyr::rbind.fill(proportion, df_prop_table)
     }
   }
-  close(pb)
   result <- merge(frequency, proportion, by = c("f1", "f2", "l1", "l2"), all = TRUE, sort = FALSE)
 
   return(result)

@@ -18,8 +18,8 @@ A data frame with \code{nrows} rows and \code{ncol(correlation_martix)}
   columns of simulated numeric values.
 }
 \description{
-Simulates multivariate normal data whose columns reproduce a 
-target correlation matrix, using Cholesky decomposition. If no matrix is 
+Simulates multivariate normal data whose columns reproduce a
+target correlation matrix, using Cholesky decomposition. If no matrix is
 supplied, a random symmetric positive-definite matrix is generated automatically.
 }
 \details{
@@ -29,12 +29,13 @@ columns. The resulting correlations approximate the target matrix, with accuracy
 improving as \code{nrows} increases.
 }
 \examples{
-df<-data.frame(matrix(.999,ncol=2,nrow=2))
-correlation_martix<-as.matrix(df)
-diag(correlation_martix)<-1
-df<-generate_correlation_matrix(correlation_martix,nrows=100)
+df <- data.frame(matrix(.999, ncol = 2, nrow = 2))
+correlation_martix <- as.matrix(df)
+diag(correlation_martix) <- 1
+df <- generate_correlation_matrix(correlation_martix, nrows = 100)
 stats::cor(df)
 }
 \seealso{
 \code{\link{generate_data}}, \code{\link{symmetric_matrix}}
 }
+\keyword{generate}

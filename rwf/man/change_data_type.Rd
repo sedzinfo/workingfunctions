@@ -33,10 +33,10 @@ Converts all or selected columns in a data frame to a
   \code{"numeric"}.
 }
 \examples{
-cdf(df=change_data_type(df=mtcars,"character"))
-cdf(df=change_data_type(df=mtcars,"numeric"))
-cdf(df=change_data_type(df=mtcars,"factor"))
-df<-change_data_type(df=mtcars,"factor")
-cdf(df=change_data_type(df=df,"factor_character"))
+cdf(df = change_data_type(df = mtcars, "character"))
+cdf(df = change_data_type(df = mtcars, "numeric"))
+cdf(df = change_data_type(df = mtcars, "factor"))
+df <- change_data_type(df = mtcars, "factor")
+cdf(df = change_data_type(df = df, "factor_character"))
 }
 \keyword{functions}

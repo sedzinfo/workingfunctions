@@ -26,6 +26,6 @@ Produces a character vector of random strings by sampling from
  a character pool.
 }
 \examples{
-generate_string(nchar=10)
-generate_string(nchar=10,vector_length=10)
+generate_string(nchar = 10)
+generate_string(nchar = 10, vector_length = 10)
 }

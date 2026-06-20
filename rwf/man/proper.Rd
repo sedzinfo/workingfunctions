@@ -13,10 +13,11 @@ proper(x)
 A character vector of the same length as \code{x}.
 }
 \description{
-Capitalises the first character and lowercases the rest of each element.
+Capitalises the first character and lowercases the rest of each
+element.
 }
 \examples{
-x<-generate_string(nchar=10,vector=LETTERS,vector_length=10)
+x <- generate_string(nchar = 10, vector = LETTERS, vector_length = 10)
 proper(x)
 }
 \keyword{strings}

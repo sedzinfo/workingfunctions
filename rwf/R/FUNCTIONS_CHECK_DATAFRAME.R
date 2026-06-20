@@ -70,88 +70,97 @@
 #' @export
 #'
 #' @examples
-#' cdf(df=mtcars,parralel=TRUE)
-#' cdf(df=change_data_type(mtcars,"factor"),nuniques=3)
-#' cdf(df=data.frame(t(mtcars)),file="mtcars",nuniques=10)
-#' cdf(df=mtcars)
-#' cdf(df=generate_missing(mtcars))
-#' cdf(df=infert,nuniques=10)
-#' cdf(df=infert)
-#' df<-data.frame(infert,
-#'                date=seq(as.Date("2010-1-1"),
-#'                     as.Date("2020-1-1"),
-#'                     length.out=nrow(infert)))
-#' cdf(df=df)
-cdf<-function(df,name_length=(getOption("width")/3),digits=2,nuniques=0,parralel=FALSE,file=NULL) {
-  if(parralel) {
-    future::plan(future::multisession,gc=TRUE,.cleanup=TRUE,workers=future::availableCores("mc.cores"))
+#' cdf(df = mtcars, parralel = TRUE)
+#' cdf(df = change_data_type(mtcars, "factor"), nuniques = 3)
+#' cdf(df = data.frame(t(mtcars)), file = "mtcars", nuniques = 10)
+#' cdf(df = mtcars)
+#' cdf(df = generate_missing(mtcars))
+#' cdf(df = infert, nuniques = 10)
+#' cdf(df = infert)
+#' df <- data.frame(infert,
+#'   date = seq(as.Date("2010-1-1"),
+#'     as.Date("2020-1-1"),
+#'     length.out = nrow(infert)
+#'   )
+#' )
+#' cdf(df = df)
+cdf <- function(df, name_length = (getOption("width") / 3), digits = 2, nuniques = 0, parralel = FALSE, file = NULL) {
+  if (parralel) {
+    future::plan(future::multisession, gc = TRUE, .cleanup = TRUE, workers = future::availableCores("mc.cores"))
   } else {
     future::plan(future::sequential)
   }
-  check_df<-future.apply::future_sapply(df,function(y) {
-    return(list(EMPTY=length(which(as.character(y)=="")),
-                null=length(which(is.null(y))),
-                na=length(which(is.na(y))),
-                NOT_NA=length(which(!is.na(y))),
-                NAN=length(which(is.nan(unlist(y)))),
-                INF=length(which(is.infinite(unlist(y)))),
-                FIN=length(which(is.finite(unlist(y)))),
-                RANGE=length(unique(y)),
-                MEAN=if(is.numeric(y)) round(mean(y,na.rm=TRUE),2) else NA,
-                MEDIAN=if(is.numeric(y)) round(stats::median(y,na.rm=TRUE),2) else NA,
-                SD=if(is.numeric(y)) round(stats::sd(y,na.rm=TRUE),2) else NA,
-                MIN=if(is.double(y)) min(y,na.rm=TRUE) else gtools::mixedsort(as.character(na.omit(unique(y))))[1],
-                MAX=if(is.double(y)) max(y,na.rm=TRUE) else gtools::mixedsort(as.character(na.omit(unique(y))))[length(na.omit(unique(y)))],
-                MODE=mode(y),
-                TYPE=typeof(y),
-                CLASS=class(y),
-                FACTOR=is.factor(y)))
+  check_df <- future.apply::future_sapply(df, function(y) {
+    return(list(
+      EMPTY = length(which(as.character(y) == "")),
+      null = length(which(is.null(y))),
+      na = length(which(is.na(y))),
+      NOT_NA = length(which(!is.na(y))),
+      NAN = length(which(is.nan(unlist(y)))),
+      INF = length(which(is.infinite(unlist(y)))),
+      FIN = length(which(is.finite(unlist(y)))),
+      RANGE = length(unique(y)),
+      MEAN = if (is.numeric(y)) round(mean(y, na.rm = TRUE), 2) else NA,
+      MEDIAN = if (is.numeric(y)) round(stats::median(y, na.rm = TRUE), 2) else NA,
+      SD = if (is.numeric(y)) round(stats::sd(y, na.rm = TRUE), 2) else NA,
+      MIN = if (is.double(y)) min(y, na.rm = TRUE) else gtools::mixedsort(as.character(na.omit(unique(y))))[1],
+      MAX = if (is.double(y)) max(y, na.rm = TRUE) else gtools::mixedsort(as.character(na.omit(unique(y))))[length(na.omit(unique(y)))],
+      MODE = mode(y),
+      TYPE = typeof(y),
+      CLASS = class(y),
+      FACTOR = is.factor(y)
+    ))
   })
-  check_df<-data.frame(NAMES=names(df),t(check_df),stringsAsFactors=FALSE,check.names=FALSE)
-  summary_dataframe<-data.frame(COLLUMNS=length(df),
-                                ROWS=nrow(df),
-                                TOTAL=length(df)*nrow(df),
-                                EMPTY=sum(as.numeric(check_df$EMPTY),na.rm=TRUE),
-                                null=sum(as.numeric(check_df$null),na.rm=TRUE),
-                                NAN=sum(as.numeric(check_df$NAN),na.rm=TRUE),
-                                na=sum(as.numeric(check_df$na),na.rm=TRUE),
-                                INF=sum(as.numeric(check_df$INF),na.rm=TRUE),
-                                FIN=sum(as.numeric(check_df$FIN),na.rm=TRUE),
-                                FACTOR=sum(future.apply::future_sapply(df,function(y) length(which(is.factor(y))))),
-                                row.names=NULL,
-                                check.names=FALSE,
-                                stringsAsFactors=FALSE)
-  if(nuniques>0) {
-    uniques<-future.apply::future_apply(df,2,unique)
-    level<-future.apply::future_sapply(df,function(y) levels(y))
-    uniques_df<-levels_df<-data.frame()
-    for (i in 1:length(uniques)){
-      if(length(uniques[[i]])>nuniques)
-        uniques[[i]]<-paste(length(uniques[[i]]),"Uniques")
-      if(length(level[[i]])>nuniques)
-        level[[i]]<-paste(length(level[[i]]),"Levels")
-      uniques_df<-plyr::rbind.fill(uniques_df,data.frame(UNIQUES=toString(t(sort(uniques[[i]]))),check.names=FALSE))
-      levels_df<-plyr::rbind.fill(levels_df,data.frame(LEVELS=toString(level[[i]]),check.names=FALSE))
+  check_df <- data.frame(NAMES = names(df), t(check_df), stringsAsFactors = FALSE, check.names = FALSE)
+  summary_dataframe <- data.frame(
+    COLLUMNS = length(df),
+    ROWS = nrow(df),
+    TOTAL = length(df) * nrow(df),
+    EMPTY = sum(as.numeric(check_df$EMPTY), na.rm = TRUE),
+    null = sum(as.numeric(check_df$null), na.rm = TRUE),
+    NAN = sum(as.numeric(check_df$NAN), na.rm = TRUE),
+    na = sum(as.numeric(check_df$na), na.rm = TRUE),
+    INF = sum(as.numeric(check_df$INF), na.rm = TRUE),
+    FIN = sum(as.numeric(check_df$FIN), na.rm = TRUE),
+    FACTOR = sum(future.apply::future_sapply(df, function(y) length(which(is.factor(y))))),
+    row.names = NULL,
+    check.names = FALSE,
+    stringsAsFactors = FALSE
+  )
+  if (nuniques > 0) {
+    uniques <- future.apply::future_apply(df, 2, unique)
+    level <- future.apply::future_sapply(df, function(y) levels(y))
+    uniques_df <- levels_df <- data.frame()
+    for (i in 1:length(uniques)) {
+      if (length(uniques[[i]]) > nuniques) {
+        uniques[[i]] <- paste(length(uniques[[i]]), "Uniques")
+      }
+      if (length(level[[i]]) > nuniques) {
+        level[[i]] <- paste(length(level[[i]]), "Levels")
+      }
+      uniques_df <- plyr::rbind.fill(uniques_df, data.frame(UNIQUES = toString(t(sort(uniques[[i]]))), check.names = FALSE))
+      levels_df <- plyr::rbind.fill(levels_df, data.frame(LEVELS = toString(level[[i]]), check.names = FALSE))
     }
-    if(all(levels_df$LEVELS==""))
-      check_df<-data.frame(check_df,uniques_df,check.names=FALSE)
-    else
-      check_df<-data.frame(check_df,uniques_df,levels_df,check.names=FALSE)
+    if (all(levels_df$LEVELS == "")) {
+      check_df <- data.frame(check_df, uniques_df, check.names = FALSE)
+    } else {
+      check_df <- data.frame(check_df, uniques_df, levels_df, check.names = FALSE)
+    }
   }
   if (!is.null(file)) {
-    filename<-paste0(file,".xlsx")
+    filename <- paste0(file, ".xlsx")
     if (file.exists(filename)) file.remove(filename)
-    wb<-openxlsx::createWorkbook()
-    excel_critical_value(df=check_df,workbook=wb,sheet="variables",numFmt="#0.00")
-    excel_critical_value(summary_dataframe,workbook=wb,sheet="summary",numFmt="#0.00")
-    openxlsx::saveWorkbook(wb=wb,file=filename,overwrite=TRUE)
+    wb <- openxlsx::createWorkbook()
+    excel_critical_value(df = check_df, workbook = wb, sheet = "variables", numFmt = "#0.00")
+    excel_critical_value(summary_dataframe, workbook = wb, sheet = "summary", numFmt = "#0.00")
+    openxlsx::saveWorkbook(wb = wb, file = filename, overwrite = TRUE)
   }
   check_df$NAMES <- substr(check_df$NAMES, 1, name_length)
-  check_df$MIN   <- substr(check_df$MIN,   1, floor(name_length / 6))
-  check_df$MAX   <- substr(check_df$MAX,   1, floor(name_length / 6))
-  
-  row.names(check_df)<-NULL
-  result<-list(summary=summary_dataframe,check=check_df)
+  check_df$MIN <- substr(check_df$MIN, 1, floor(name_length / 6))
+  check_df$MAX <- substr(check_df$MAX, 1, floor(name_length / 6))
+
+  row.names(check_df) <- NULL
+  result <- list(summary = summary_dataframe, check = check_df)
   return(result)
 }
 ##########################################################################################
@@ -184,62 +193,66 @@ cdf<-function(df,name_length=(getOption("width")/3),digits=2,nuniques=0,parralel
 #' @export
 #'
 #' @examples
-#' cdff(df=mtcars,parralel=TRUE)
-#' cdff(df=change_data_type(mtcars,"factor"),nuniques=3)
-#' cdff(df=data.frame(t(mtcars)),file="mtcars",nuniques=10)
-#' cdff(df=mtcars)
-#' cdff(df=generate_missing(mtcars))
-#' cdff(df=infert,nuniques=10)
-#' cdff(df=infert)
-#' df<-data.frame(infert,
-#'                date=seq(as.Date("2010-1-1"),
-#'                     as.Date("2020-1-1"),
-#'                     length.out=nrow(infert)))
-#' cdff(df=df)
-cdff<-function(df, name_length = (getOption("width") / 3), digits = 2, nuniques = 0, parralel = FALSE, file = NULL) {
+#' cdff(df = mtcars, parralel = TRUE)
+#' cdff(df = change_data_type(mtcars, "factor"), nuniques = 3)
+#' cdff(df = data.frame(t(mtcars)), file = "mtcars", nuniques = 10)
+#' cdff(df = mtcars)
+#' cdff(df = generate_missing(mtcars))
+#' cdff(df = infert, nuniques = 10)
+#' cdff(df = infert)
+#' df <- data.frame(infert,
+#'   date = seq(as.Date("2010-1-1"),
+#'     as.Date("2020-1-1"),
+#'     length.out = nrow(infert)
+#'   )
+#' )
+#' cdff(df = df)
+cdff <- function(df, name_length = (getOption("width") / 3), digits = 2, nuniques = 0, parralel = FALSE, file = NULL) {
   if (parralel) {
-    future::plan(future::multisession, gc = TRUE, .cleanup = TRUE,
-                 workers = future::availableCores("mc.cores"))
+    future::plan(future::multisession,
+      gc = TRUE, .cleanup = TRUE,
+      workers = future::availableCores("mc.cores")
+    )
   } else {
     future::plan(future::sequential)
   }
-  
+
   check_df <- future.apply::future_lapply(df, function(y) {
     # --- cache expensive operations ---
-    y_na       <- is.na(y)
-    y_notna    <- !y_na
-    y_clean    <- y[y_notna]          # non-NA values only
-    y_char     <- as.character(y)     # once only
-    y_unlisted <- unlist(y)           # once only
-    u          <- unique(y)           # once only
-    
-    is_num  <- is.numeric(y)
-    is_dbl  <- is.double(y)
-    is_fin  <- is.finite(y_unlisted)
-    
+    y_na <- is.na(y)
+    y_notna <- !y_na
+    y_clean <- y[y_notna] # non-NA values only
+    y_char <- as.character(y) # once only
+    y_unlisted <- unlist(y) # once only
+    u <- unique(y) # once only
+
+    is_num <- is.numeric(y)
+    is_dbl <- is.double(y)
+    is_fin <- is.finite(y_unlisted)
+
     # MIN / MAX: avoid mixedsort — just use base sort or min/max
     u_clean <- na.omit(u)
     if (is_dbl) {
       col_min <- min(y, na.rm = TRUE)
       col_max <- max(y, na.rm = TRUE)
     } else {
-      u_char  <- as.character(u_clean)
+      u_char <- as.character(u_clean)
       col_min <- if (length(u_char)) min(u_char) else NA
       col_max <- if (length(u_char)) max(u_char) else NA
     }
-    
+
     list(
       EMPTY   = sum(y_char == "", na.rm = TRUE),
-      null    = sum(is.null(y)),           # always 0 for df columns; kept for parity
+      null    = sum(is.null(y)), # always 0 for df columns; kept for parity
       na      = sum(y_na),
       NOT_NA  = sum(y_notna),
       NAN     = sum(is.nan(y_unlisted)),
       INF     = sum(is_fin == FALSE & !y_na),
       FIN     = sum(is_fin),
       RANGE   = length(u),
-      MEAN    = if (is_num) round(mean(y,   na.rm = TRUE), digits) else NA,
+      MEAN    = if (is_num) round(mean(y, na.rm = TRUE), digits) else NA,
       MEDIAN  = if (is_num) round(stats::median(y, na.rm = TRUE), digits) else NA,
-      SD      = if (is_num) round(stats::sd(y,    na.rm = TRUE), digits) else NA,
+      SD      = if (is_num) round(stats::sd(y, na.rm = TRUE), digits) else NA,
       MIN     = col_min,
       MAX     = col_max,
       MODE    = mode(y),
@@ -248,7 +261,7 @@ cdff<-function(df, name_length = (getOption("width") / 3), digits = 2, nuniques 
       FACTOR  = is.factor(y)
     )
   })
-  
+
   # Build check_df in one shot — NO loop, NO rbind.fill
   check_df <- data.frame(
     NAMES = names(df),
@@ -256,36 +269,36 @@ cdff<-function(df, name_length = (getOption("width") / 3), digits = 2, nuniques 
     stringsAsFactors = FALSE,
     check.names = FALSE
   )
-  
+
   # Summary — reuse check_df instead of re-scanning df
   summary_dataframe <- data.frame(
     COLLUMNS = length(df),
-    ROWS     = nrow(df),
-    TOTAL    = length(df) * nrow(df),
-    EMPTY    = sum(as.numeric(check_df$EMPTY),  na.rm = TRUE),
-    null     = sum(as.numeric(check_df$null),   na.rm = TRUE),
-    NAN      = sum(as.numeric(check_df$NAN),    na.rm = TRUE),
-    na       = sum(as.numeric(check_df$na),     na.rm = TRUE),
-    INF      = sum(as.numeric(check_df$INF),    na.rm = TRUE),
-    FIN      = sum(as.numeric(check_df$FIN),    na.rm = TRUE),
-    FACTOR   = sum(as.logical(check_df$FACTOR), na.rm = TRUE),  # ← reused
-    row.names      = NULL,
-    check.names    = FALSE,
+    ROWS = nrow(df),
+    TOTAL = length(df) * nrow(df),
+    EMPTY = sum(as.numeric(check_df$EMPTY), na.rm = TRUE),
+    null = sum(as.numeric(check_df$null), na.rm = TRUE),
+    NAN = sum(as.numeric(check_df$NAN), na.rm = TRUE),
+    na = sum(as.numeric(check_df$na), na.rm = TRUE),
+    INF = sum(as.numeric(check_df$INF), na.rm = TRUE),
+    FIN = sum(as.numeric(check_df$FIN), na.rm = TRUE),
+    FACTOR = sum(as.logical(check_df$FACTOR), na.rm = TRUE), # ← reused
+    row.names = NULL,
+    check.names = FALSE,
     stringsAsFactors = FALSE
   )
-  
+
   # Uniques / Levels — single pass, pre-allocated with lapply
   if (nuniques > 0) {
     uniques_list <- future.apply::future_lapply(df, function(y) {
       u <- unique(y)
       lv <- levels(y)
-      
-      u_str  <- if (length(u)  > nuniques) paste(length(u),  "Uniques") else toString(sort(as.character(u)))
-      lv_str <- if (length(lv) > nuniques) paste(length(lv), "Levels")  else toString(lv)
-      
+
+      u_str <- if (length(u) > nuniques) paste(length(u), "Uniques") else toString(sort(as.character(u)))
+      lv_str <- if (length(lv) > nuniques) paste(length(lv), "Levels") else toString(lv)
+
       list(UNIQUES = u_str, LEVELS = lv_str)
     })
-    
+
     uniques_df <- data.frame(
       UNIQUES = vapply(uniques_list, `[[`, character(1), "UNIQUES"),
       stringsAsFactors = FALSE
@@ -294,27 +307,27 @@ cdff<-function(df, name_length = (getOption("width") / 3), digits = 2, nuniques 
       LEVELS = vapply(uniques_list, `[[`, character(1), "LEVELS"),
       stringsAsFactors = FALSE
     )
-    
+
     if (all(levels_df$LEVELS == "")) {
       check_df <- cbind(check_df, uniques_df)
     } else {
       check_df <- cbind(check_df, uniques_df, levels_df)
     }
   }
-  
+
   if (!is.null(file)) {
     filename <- paste0(file, ".xlsx")
     if (file.exists(filename)) file.remove(filename)
     wb <- openxlsx::createWorkbook()
     excel_critical_value(df = check_df, workbook = wb, sheet = "variables", numFmt = "#0.00")
-    excel_critical_value(summary_dataframe, workbook = wb, sheet = "summary",   numFmt = "#0.00")
+    excel_critical_value(summary_dataframe, workbook = wb, sheet = "summary", numFmt = "#0.00")
     openxlsx::saveWorkbook(wb = wb, file = filename, overwrite = TRUE)
   }
-  
+
   check_df$NAMES <- substr(check_df$NAMES, 1, name_length)
-  check_df$MIN   <- substr(check_df$MIN,   1, floor(name_length / 6))
-  check_df$MAX   <- substr(check_df$MAX,   1, floor(name_length / 6))
-  
+  check_df$MIN <- substr(check_df$MIN, 1, floor(name_length / 6))
+  check_df$MAX <- substr(check_df$MAX, 1, floor(name_length / 6))
+
   row.names(check_df) <- NULL
   list(summary = summary_dataframe, check = check_df)
 }

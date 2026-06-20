@@ -19,14 +19,16 @@ A data frame with one row per element of \code{vector} and one column
   per split part. Assumes all elements produce the same number of parts.
 }
 \description{
-Splits each element of a character vector by a separator and returns the
-parts as columns of a data frame, one row per input element.
+Splits each element of a character vector by a separator and
+returns theparts as columns of a data frame, one row per input element.
 }
 \examples{
-string<-paste0(1:10,"/",
-               generate_string(nchar=2,vector_length=10),"/",
-               generate_string(nchar=2,vector_length=10),"/",
-               generate_string(nchar=2,vector_length=10))
-split_str(string,split="/")
+string <- paste0(
+  1:10, "/",
+  generate_string(nchar = 2, vector_length = 10), "/",
+  generate_string(nchar = 2, vector_length = 10), "/",
+  generate_string(nchar = 2, vector_length = 10)
+)
+split_str(string, split = "/")
 }
 \keyword{strings}

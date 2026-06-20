@@ -36,8 +36,7 @@ A data frame with one row per combination of variable-pair levels,
 Computes contingency tables (frequency counts and percentages)
   for pairs of categorical variables. Variable pairs can be supplied
   explicitly via \code{combinations}, or all unique pairs within a set of
-  columns can be generated automatically via \code{factor_index}. A progress
-  bar is displayed during computation.
+  columns can be generated automatically via \code{factor_index}.
 }
 \examples{
 combinations <- data.frame(index1 = c("vs", "am", "gear"), 

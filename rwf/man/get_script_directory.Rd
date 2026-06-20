@@ -10,8 +10,8 @@ get_script_directory()
 A character string with the directory path, always ending with "/"
 }
 \description{
-Returns the directory of the currently active script as a string 
-             with a trailing slash. Works across multiple environments: RStudio, 
+Returns the directory of the currently active script as a string
+             with a trailing slash. Works across multiple environments: RStudio,
              command line execution, and generic R sessions.
 }
 \details{
@@ -21,7 +21,7 @@ The function tries three approaches in order: \cr
          3. Falls back to \code{getwd()} as a last resort
 }
 \note{
-The fallback to \code{getwd()} may not reflect the script's actual location 
+The fallback to \code{getwd()} may not reflect the script's actual location
       if the working directory has been changed during the session.
 }
 \examples{

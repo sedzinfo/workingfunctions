@@ -82,18 +82,20 @@ MEAN, MEDIAN, and SD are \code{NA} for non-numeric columns. MIN and
   alphanumeric strings.
 }
 \examples{
-cdf(df=mtcars,parralel=TRUE)
-cdf(df=change_data_type(mtcars,"factor"),nuniques=3)
-cdf(df=data.frame(t(mtcars)),file="mtcars",nuniques=10)
-cdf(df=mtcars)
-cdf(df=generate_missing(mtcars))
-cdf(df=infert,nuniques=10)
-cdf(df=infert)
-df<-data.frame(infert,
-               date=seq(as.Date("2010-1-1"),
-                    as.Date("2020-1-1"),
-                    length.out=nrow(infert)))
-cdf(df=df)
+cdf(df = mtcars, parralel = TRUE)
+cdf(df = change_data_type(mtcars, "factor"), nuniques = 3)
+cdf(df = data.frame(t(mtcars)), file = "mtcars", nuniques = 10)
+cdf(df = mtcars)
+cdf(df = generate_missing(mtcars))
+cdf(df = infert, nuniques = 10)
+cdf(df = infert)
+df <- data.frame(infert,
+  date = seq(as.Date("2010-1-1"),
+    as.Date("2020-1-1"),
+    length.out = nrow(infert)
+  )
+)
+cdf(df = df)
 }
 \keyword{dataframe}
 \keyword{diagnostics}

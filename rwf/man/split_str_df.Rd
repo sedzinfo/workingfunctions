@@ -27,19 +27,21 @@ A data frame with the split parts prepended as new columns,
   followed by the original columns of \code{df}.
 }
 \description{
-Splits a delimited string — either from row names or a specified column —
-and prepends the resulting parts as new columns to the data frame.
+Splits a delimited string — either from row names or a specified
+column — and prepends the resulting parts as new columns to the data frame.
 }
 \examples{
-df<-generate_correlation_matrix()
-string<-paste0(1:nrow(df),"/",
-               generate_string(nchar=2,vector_length=nrow(df)),"/",
-               generate_string(nchar=2,vector_length=nrow(df)),"/",
-               generate_string(nchar=2,vector_length=nrow(df)))
-row.names(df)<-string
-split_str_df(df,split="/",type="row")
-df[,1]<-string
-split_str_df(df,split="/",type="collumn",index=1)
+df <- generate_correlation_matrix()
+string <- paste0(
+  1:nrow(df), "/",
+  generate_string(nchar = 2, vector_length = nrow(df)), "/",
+  generate_string(nchar = 2, vector_length = nrow(df)), "/",
+  generate_string(nchar = 2, vector_length = nrow(df))
+)
+row.names(df) <- string
+split_str_df(df, split = "/", type = "row")
+df[, 1] <- string
+split_str_df(df, split = "/", type = "collumn", index = 1)
 }
 \seealso{
 \code{\link{split_str}}

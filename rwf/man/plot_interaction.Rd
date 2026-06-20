@@ -64,14 +64,14 @@ For every unique pair of independent variables (IV1 x IV2) and
 }
 \examples{
 # Single DV, two IVs
-plot_interaction(df=mtcars, dv=2, iv=8:9, base_size=20, type="se")
+plot_interaction(df = mtcars, dv = 2, iv = 8:9, base_size = 20, type = "se")
 
 # Multiple DVs, two IVs
-plot_interaction(df=mtcars, dv=2:3, iv=8:9, base_size=20, type="se")
-plot_interaction(df=mtcars, dv=2:3, iv=8:9, base_size=20, type="ci")
-plot_interaction(df=mtcars, dv=2:3, iv=9:10, base_size=20, type="sd")
+plot_interaction(df = mtcars, dv = 2:3, iv = 8:9, base_size = 20, type = "se")
+plot_interaction(df = mtcars, dv = 2:3, iv = 8:9, base_size = 20, type = "ci")
+plot_interaction(df = mtcars, dv = 2:3, iv = 9:10, base_size = 20, type = "sd")
 
 # No error bars, unordered factor axis
-plot_interaction(df=mtcars, dv=2, iv=9:10, base_size=20, type="", order_factor=FALSE)
+plot_interaction(df = mtcars, dv = 2, iv = 9:10, base_size = 20, type = "", order_factor = FALSE)
 }
 \keyword{ANOVA}

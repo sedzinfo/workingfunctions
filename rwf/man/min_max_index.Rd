@@ -23,14 +23,14 @@ Returns the positions of the minimum and maximum values in a
   vector. When there are ties all tied positions are returned.
 }
 \examples{
-vector1<-c(1,2,3,4,5,4,3,2,1)
-vector2<-c(1,2,3,4,5,5,3,2,1)
-vector3<-c(1,2,3,5,5,4,3,2,1)
-vector4<-c(1,2,3,4,6,4,3,2,1)
-vector5<-c(1,6,3,4,6,4,3,2,1)
-vector<-vector1
-which(vector==max(vector),arr.ind=TRUE)
-which(vector==min(vector),arr.ind=TRUE)
+vector1 <- c(1, 2, 3, 4, 5, 4, 3, 2, 1)
+vector2 <- c(1, 2, 3, 4, 5, 5, 3, 2, 1)
+vector3 <- c(1, 2, 3, 5, 5, 4, 3, 2, 1)
+vector4 <- c(1, 2, 3, 4, 6, 4, 3, 2, 1)
+vector5 <- c(1, 6, 3, 4, 6, 4, 3, 2, 1)
+vector <- vector1
+which(vector == max(vector), arr.ind = TRUE)
+which(vector == min(vector), arr.ind = TRUE)
 min_max_index(vector1)
 min_max_index(vector2)
 min_max_index(vector3)

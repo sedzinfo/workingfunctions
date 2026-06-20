@@ -29,5 +29,5 @@ Creates a character vector where each element contains a comma-separated
 string of randomly sampled categories, simulating multiple response survey data.
 }
 \examples{
-generate_multiple_responce_vector(responces=1:4,responded=1:4,length=10)
+generate_multiple_responce_vector(responces = 1:4, responded = 1:4, length = 10)
 }

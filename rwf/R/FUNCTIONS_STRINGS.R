@@ -1,10 +1,11 @@
 ##########################################################################################
 # MULTIPLE GSUB
 ##########################################################################################
-#' Apply gsub for multiple patterns with a single replacement
+#' @title Apply gsub for multiple patterns with a single replacement
 #'
-#' Iterates over a vector of patterns, applying \code{\link[base]{gsub}}
-#' sequentially with the same replacement string for each.
+#' @description Iterates over a vector of patterns, applying
+#' \code{\link[base]{gsub}} sequentially with the same replacement string for
+#' each.
 #'
 #' @param mydata Character vector to search within.
 #' @param pattern Character vector of patterns to search for.
@@ -16,19 +17,20 @@
 #' @keywords strings
 #' @export
 #' @examples
-#' mgsub(mydata="#$%^&*_+",pattern=c("%","*"),"REPLACE",fixed=TRUE)
-mgsub<-function(mydata,pattern,replacement,...) {
-  for (i in 1:length(pattern))
-    mydata<-gsub(pattern[i],replacement,mydata,...)
+#' mgsub(mydata = "#$%^&*_+", pattern = c("%", "*"), "REPLACE", fixed = TRUE)
+mgsub <- function(mydata, pattern, replacement, ...) {
+  for (i in 1:length(pattern)) {
+    mydata <- gsub(pattern[i], replacement, mydata, ...)
+  }
   return(mydata)
 }
 ##########################################################################################
 # SPLIT STRING
 ##########################################################################################
-#' Split a string vector into a data frame of parts
+#' @title Split a string vector into a data frame of parts
 #'
-#' Splits each element of a character vector by a separator and returns the
-#' parts as columns of a data frame, one row per input element.
+#' @description Splits each element of a character vector by a separator and
+#' returns theparts as columns of a data frame, one row per input element.
 #'
 #' @param vector Character vector to split.
 #' @param split Character. The separator to split on. Default is \code{"/"}.
@@ -40,25 +42,28 @@ mgsub<-function(mydata,pattern,replacement,...) {
 #' @keywords strings
 #' @export
 #' @examples
-#' string<-paste0(1:10,"/",
-#'                generate_string(nchar=2,vector_length=10),"/",
-#'                generate_string(nchar=2,vector_length=10),"/",
-#'                generate_string(nchar=2,vector_length=10))
-#' split_str(string,split="/")
-split_str<-function(vector,split="/",include_original=FALSE) {
-  split_str<-strsplit(vector,split=split,fixed=TRUE)
-  result<-data.frame(matrix(unlist(split_str),byrow=TRUE,ncol=length(split_str[[1]])),stringsAsFactors=FALSE)
-  if(include_original)
-    result<-data.frame(result,vector,stringsAsFactors=FALSE)
+#' string <- paste0(
+#'   1:10, "/",
+#'   generate_string(nchar = 2, vector_length = 10), "/",
+#'   generate_string(nchar = 2, vector_length = 10), "/",
+#'   generate_string(nchar = 2, vector_length = 10)
+#' )
+#' split_str(string, split = "/")
+split_str <- function(vector, split = "/", include_original = FALSE) {
+  split_str <- strsplit(vector, split = split, fixed = TRUE)
+  result <- data.frame(matrix(unlist(split_str), byrow = TRUE, ncol = length(split_str[[1]])), stringsAsFactors = FALSE)
+  if (include_original) {
+    result <- data.frame(result, vector, stringsAsFactors = FALSE)
+  }
   return(result)
 }
 ##########################################################################################
 # SPLIT STRING IN DATAFRAME
 ##########################################################################################
-#' Split a string column or row names in a data frame into separate columns
+#' @title Split a string column or row names in a data frame into separate columns
 #'
-#' Splits a delimited string — either from row names or a specified column —
-#' and prepends the resulting parts as new columns to the data frame.
+#' @description Splits a delimited string — either from row names or a specified
+#' column — and prepends the resulting parts as new columns to the data frame.
 #'
 #' @param df A data frame.
 #' @param split Character. The separator to split on. Default is \code{"/"}.
@@ -78,30 +83,32 @@ split_str<-function(vector,split="/",include_original=FALSE) {
 #' @keywords strings
 #' @export
 #' @examples
-#' df<-generate_correlation_matrix()
-#' string<-paste0(1:nrow(df),"/",
-#'                generate_string(nchar=2,vector_length=nrow(df)),"/",
-#'                generate_string(nchar=2,vector_length=nrow(df)),"/",
-#'                generate_string(nchar=2,vector_length=nrow(df)))
-#' row.names(df)<-string
-#' split_str_df(df,split="/",type="row")
-#' df[,1]<-string
-#' split_str_df(df,split="/",type="collumn",index=1)
-split_str_df<-function(df,split="/",type="row",index,...) {
-  if(type=="row") {
-    split<-split_str(vector=as.character(row.names(df)),split=split,...)
-    result<-data.frame(split,df,stringsAsFactors=FALSE)
+#' df <- generate_correlation_matrix()
+#' string <- paste0(
+#'   1:nrow(df), "/",
+#'   generate_string(nchar = 2, vector_length = nrow(df)), "/",
+#'   generate_string(nchar = 2, vector_length = nrow(df)), "/",
+#'   generate_string(nchar = 2, vector_length = nrow(df))
+#' )
+#' row.names(df) <- string
+#' split_str_df(df, split = "/", type = "row")
+#' df[, 1] <- string
+#' split_str_df(df, split = "/", type = "collumn", index = 1)
+split_str_df <- function(df, split = "/", type = "row", index, ...) {
+  if (type == "row") {
+    split <- split_str(vector = as.character(row.names(df)), split = split, ...)
+    result <- data.frame(split, df, stringsAsFactors = FALSE)
   }
-  if(type=="collumn") {
-    split<-split_str(vector=as.character(df[,index]),split=split,...)
-    result<-data.frame(split,df,stringsAsFactors=FALSE)
+  if (type == "collumn") {
+    split <- split_str(vector = as.character(df[, index]), split = split, ...)
+    result <- data.frame(split, df, stringsAsFactors = FALSE)
   }
   return(result)
 }
 ##########################################################################################
 # RETURN RIGHT LEFT CHARACTERS
 ##########################################################################################
-#' Extract n characters from the left or right of a string
+#' @title Extract n characters from the left or right of a string
 #'
 #' @param x Character vector.
 #' @param n Integer. Number of characters to extract. Default is \code{2}.
@@ -111,21 +118,24 @@ split_str_df<-function(df,split="/",type="row",index,...) {
 #' @keywords strings
 #' @export
 #' @examples
-#' sub_str("12345",n=2,type="right")
-#' sub_str("12345",n=2,type="left")
-sub_str<-function(x,n=2,type) {
-  if(type=="right")
-    result<-substr(x,nchar(x)-n+1,nchar(x))
-  if(type=="left")
-    result<-substr(x,1,n)
+#' sub_str("12345", n = 2, type = "right")
+#' sub_str("12345", n = 2, type = "left")
+sub_str <- function(x, n = 2, type) {
+  if (type == "right") {
+    result <- substr(x, nchar(x) - n + 1, nchar(x))
+  }
+  if (type == "left") {
+    result <- substr(x, 1, n)
+  }
   return(result)
 }
 ##########################################################################################
 # PROPER
 ##########################################################################################
-#' Convert a string to proper case
+#' @title Convert a string to proper case
 #'
-#' Capitalises the first character and lowercases the rest of each element.
+#' @description Capitalises the first character and lowercases the rest of each
+#' element.
 #'
 #' @param x Character vector.
 #'
@@ -133,16 +143,16 @@ sub_str<-function(x,n=2,type) {
 #' @keywords strings
 #' @export
 #' @examples
-#' x<-generate_string(nchar=10,vector=LETTERS,vector_length=10)
+#' x <- generate_string(nchar = 10, vector = LETTERS, vector_length = 10)
 #' proper(x)
-proper<-function(x) paste0(toupper(substr(x,1,1)),tolower(substring(x,2)))
+proper <- function(x) paste0(toupper(substr(x, 1, 1)), tolower(substring(x, 2)))
 ##########################################################################################
 # TRIM DATAFRAME
 ##########################################################################################
-#' Trim whitespace from all character cells in a data frame
+#' @title Trim whitespace from all character cells in a data frame
 #'
-#' Applies \code{\link[base]{strwrap}} to every character cell in a data frame,
-#' removing leading and trailing whitespace.
+#' @description Applies \code{\link[base]{strwrap}} to every character cell in
+#' a data frame, removing leading and trailing whitespace.
 #'
 #' @param df A data frame containing one or more character columns.
 #'
@@ -151,15 +161,17 @@ proper<-function(x) paste0(toupper(substr(x,1,1)),tolower(substring(x,2)))
 #' @keywords strings
 #' @export
 #' @examples
-#' string<-data.frame(str1=rep(paste0(sample(c(LETTERS,rep(" ",10))),collapse=""),10),
-#'                    str2=rep(paste0(sample(c(LETTERS,rep(" ",10))),collapse=""),10),
-#'                    num1=rnorm(10),
-#'                    stringsAsFactors=FALSE)
+#' string <- data.frame(
+#'   str1 = rep(paste0(sample(c(LETTERS, rep(" ", 10))), collapse = ""), 10),
+#'   str2 = rep(paste0(sample(c(LETTERS, rep(" ", 10))), collapse = ""), 10),
+#'   num1 = rnorm(10),
+#'   stringsAsFactors = FALSE
+#' )
 #' trim_df(string)
-trim_df<-function(df) {
-  df[]<-apply(df,1:2,function(x) {
-    if(mode(x)=="character"){
-      x<-strwrap(x)
+trim_df <- function(df) {
+  df[] <- apply(df, 1:2, function(x) {
+    if (mode(x) == "character") {
+      x <- strwrap(x)
     }
   })
   return(df)
@@ -167,11 +179,12 @@ trim_df<-function(df) {
 ##########################################################################################
 # ADJUST STRING AESTHETICS
 ##########################################################################################
-#' Clean and format string aesthetics
+#' @title Clean and format string aesthetics
 #'
-#' Replaces a list of separator characters (e.g. \code{"."}, \code{"_"},
-#' HTML tags) with spaces, trims leading and trailing whitespace, collapses
-#' internal whitespace, and optionally applies proper case.
+#' @description Replaces a list of separator characters 
+#' (e.g. \code{"."}, \code{"_"}, HTML tags) with spaces, trims leading and
+#' trailing whitespace, collapses internal whitespace, and optionally applies
+#' proper case.
 #'
 #' @param vector Character vector to clean.
 #' @param characterlist Character vector of strings to treat as separators,
@@ -184,31 +197,31 @@ trim_df<-function(df) {
 #' @return A character vector of the same length as \code{vector} with
 #'   separators replaced, whitespace normalised, and optional proper casing.
 #'
-#' @importFrom stringr str_squish
-#'
 #' @seealso \code{\link{proper}}
 #' @keywords strings
 #' @export
 #' @examples
-#' vector<-c("TES.T","TES<p>T","TES&nbspT")
-#' string_aes(vector=vector)
-#' string_aes(vector=vector,proper=FALSE)
-#' string_aes(vector=vector,proper=TRUE)
-string_aes<-function(vector,characterlist=c(".","_","-",",","$","<p>","</p>","<br>","<br/>","<B>","</B>","<BR/>","|","/","&nbsp"),proper=TRUE) {
-  for (i in characterlist)
-    vector<-gsub(i," ",vector,fixed=TRUE)
-  result<-trimws(vector,which="both")
-  if(proper)
-    result<-proper(vector)
-  result<-stringr::str_squish(result)
+#' vector <- c("TES.T", "TES<p>T", "TES&nbspT")
+#' string_aes(vector = vector)
+#' string_aes(vector = vector, proper = FALSE)
+#' string_aes(vector = vector, proper = TRUE)
+string_aes <- function(vector, characterlist = c(".", "_", "-", ",", "$", "<p>", "</p>", "<br>", "<br/>", "<B>", "</B>", "<BR/>", "|", "/", "&nbsp"), proper = TRUE) {
+  for (i in characterlist) {
+    vector <- gsub(i, " ", vector, fixed = TRUE)
+  }
+  result <- trimws(vector, which = "both")
+  if (proper) {
+    result <- proper(vector)
+  }
+  result <- str_squish(result)
   return(result)
 }
 ##########################################################################################
 # MODEL CALL TO STRING
 ##########################################################################################
-#' Convert a model call to a compact string
+#' @title Convert a model call to a compact string
 #'
-#' Extracts the call from a model object and returns it as a single
+#' @description Extracts the call from a model object and returns it as a single
 #' whitespace-free string. Tries \code{model$call} first, falling back
 #' to \code{model$Call} if the first is \code{NULL}.
 #'
@@ -219,23 +232,24 @@ string_aes<-function(vector,characterlist=c(".","_","-",",","$","<p>","</p>","<b
 #' @keywords strings
 #' @export
 #' @examples
-#' df<-generate_correlation_matrix()
-#' model<-lm(df$X1~df$X2)
+#' df <- generate_correlation_matrix()
+#' model <- lm(df$X1 ~ df$X2)
 #' call_to_string(model)
-call_to_string<-function(model) {
-  result<-toString(deparse(model$call))
-  if (result=="NULL")
-    result<-toString(deparse(model$Call))
-  result<-gsub(" ","",result,fixed=TRUE)
+call_to_string <- function(model) {
+  result <- toString(deparse(model$call))
+  if (result == "NULL") {
+    result <- toString(deparse(model$Call))
+  }
+  result <- gsub(" ", "", result, fixed = TRUE)
   return(result)
 }
 ##########################################################################################
 # OUTPUT SEPARATOR
 ##########################################################################################
-#' Print a formatted console output block with separators
+#' @title Print a formatted console output block with separators
 #'
-#' Prints a heading, optional instructions, and optional output to the console,
-#' surrounded by \code{#} separator lines for visual clarity.
+#' @description Prints a heading, optional instructions, and optional output to
+#' the console, surrounded by \code{#} separator lines for visual clarity.
 #'
 #' @param string Character. The title displayed between the main separators.
 #' @param output Object or \code{NULL}. The main content to print below the
@@ -251,28 +265,29 @@ call_to_string<-function(model) {
 #' @keywords strings
 #' @export
 #' @examples
-#' output_separator(string="TEST",output="TEST",instruction="TEST",length=100)
-#' output_separator(string="TEST",instruction="TEST",length=100)
-#' output_separator(string="TEST",output="TEST",length=100)
-#' output_separator(string="TEST")
-output_separator<-function(string,output=NULL,instruction=NULL,length=getOption("width")/2) {
-  separator_title<-paste0(rep("#",length),sep="",collapse="")
-  separator_subtitle<-paste0(rep("#",length/2),sep="",collapse="")
+#' output_separator(string = "TEST", output = "TEST", instruction = "TEST", length = 100)
+#' output_separator(string = "TEST", instruction = "TEST", length = 100)
+#' output_separator(string = "TEST", output = "TEST", length = 100)
+#' output_separator(string = "TEST")
+output_separator <- function(string, output = NULL, instruction = NULL, length = getOption("width") / 2) {
+  separator_title <- paste0(rep("#", length), sep = "", collapse = "")
+  separator_subtitle <- paste0(rep("#", length / 2), sep = "", collapse = "")
   print(separator_title)
   print(string)
   print(separator_title)
-  if(!is.null(instruction)){
+  if (!is.null(instruction)) {
     print(instruction)
     print(separator_subtitle)
   }
-  if(!is.null(output))
+  if (!is.null(output)) {
     print(output)
+  }
 }
 ##########################################################################################
 # BASE R REPLACEMENTS FOR stringr FUNCTIONS
 ##########################################################################################
 ##########################################################################################
-# 
+#
 ##########################################################################################
 #' @title Mark a pattern as a fixed string
 #' @description Flags a pattern to be interpreted as a literal string rather
@@ -289,11 +304,11 @@ output_separator<-function(string,output=NULL,instruction=NULL,length=getOption(
 #'
 #' # With fixed(), "." matches only a literal dot
 #' str_replace_all("a.b.c", fixed("."), "-")
-fixed<-function(pattern) {
-  structure(pattern,class="fixed_pattern")
+fixed <- function(pattern) {
+  structure(pattern, class = "fixed_pattern")
 }
 ##########################################################################################
-# 
+#
 ##########################################################################################
 #' @title Replace all pattern matches in a string
 #' @description Replaces every occurrence of \code{pattern} in \code{string}
@@ -319,20 +334,21 @@ fixed<-function(pattern) {
 #' str_replace_all("remove all spaces", fixed(" "), "")
 #'
 #' # Named vector: multiple replacements applied in order
-#' str_replace_all("aabbcc", c("a"="X", "b"="Y"))
-str_replace_all<-function(string,pattern,replacement) {
-  if(inherits(pattern,"fixed_pattern")) {
-    gsub(as.character(pattern),replacement,string,fixed=TRUE)
-  } else if(is.character(pattern)&&length(pattern)>1&&!is.null(names(pattern))) {
-    for(i in seq_along(pattern))
-      string<-gsub(names(pattern)[i],pattern[i],string,perl=TRUE)
+#' str_replace_all("aabbcc", c("a" = "X", "b" = "Y"))
+str_replace_all <- function(string, pattern, replacement) {
+  if (inherits(pattern, "fixed_pattern")) {
+    gsub(as.character(pattern), replacement, string, fixed = TRUE)
+  } else if (is.character(pattern) && length(pattern) > 1 && !is.null(names(pattern))) {
+    for (i in seq_along(pattern)) {
+      string <- gsub(names(pattern)[i], pattern[i], string, perl = TRUE)
+    }
     string
   } else {
-    gsub(pattern,replacement,string,perl=TRUE)
+    gsub(pattern, replacement, string, perl = TRUE)
   }
 }
 ##########################################################################################
-# 
+#
 ##########################################################################################
 #' @title Replace the first pattern match in a string
 #' @description Replaces only the first occurrence of \code{pattern} in each
@@ -354,15 +370,15 @@ str_replace_all<-function(string,pattern,replacement) {
 #'
 #' # Fixed match: replace first literal dot
 #' str_replace("a.b.c", fixed("."), "-")
-str_replace<-function(string,pattern,replacement) {
-  if(inherits(pattern,"fixed_pattern")) {
-    sub(as.character(pattern),replacement,string,fixed=TRUE)
+str_replace <- function(string, pattern, replacement) {
+  if (inherits(pattern, "fixed_pattern")) {
+    sub(as.character(pattern), replacement, string, fixed = TRUE)
   } else {
-    sub(pattern,replacement,string,perl=TRUE)
+    sub(pattern, replacement, string, perl = TRUE)
   }
 }
 ##########################################################################################
-# 
+#
 ##########################################################################################
 #' @title Wrap long strings to a specified line width
 #' @description Breaks a character string into multiple lines so that no line
@@ -376,17 +392,19 @@ str_replace<-function(string,pattern,replacement) {
 #' @export
 #' @examples
 #' # Wrap at 30 characters
-#' cat(str_wrap("The quick brown fox jumped over the lazy dog", width=30))
+#' cat(str_wrap("The quick brown fox jumped over the lazy dog", width = 30))
 #'
 #' # Wrap a vector of strings
 #' labels <- c("Short label", "A much longer label that needs wrapping")
-#' str_wrap(labels, width=20)
-str_wrap<-function(string,width=80) {
-  vapply(string,function(x) paste(strwrap(x,width=width),collapse="\n"),
-         character(1),USE.NAMES=FALSE)
+#' str_wrap(labels, width = 20)
+str_wrap <- function(string, width = 80) {
+  vapply(string, function(x) paste(strwrap(x, width = width), collapse = "\n"),
+    character(1),
+    USE.NAMES = FALSE
+  )
 }
 ##########################################################################################
-# 
+#
 ##########################################################################################
 #' @title Split strings into a fixed-width matrix of pieces
 #' @description Splits each element of \code{string} by \code{pattern} and
@@ -410,20 +428,20 @@ str_wrap<-function(string,width=80) {
 #'
 #' # Fewer pieces than n: remainder filled with ""
 #' str_split_fixed(c("a.b.c", "x.y"), fixed("."), 3)
-str_split_fixed<-function(string,pattern,n) {
-  if(inherits(pattern,"fixed_pattern")) {
-    parts<-strsplit(string,as.character(pattern),fixed=TRUE)
+str_split_fixed <- function(string, pattern, n) {
+  if (inherits(pattern, "fixed_pattern")) {
+    parts <- strsplit(string, as.character(pattern), fixed = TRUE)
   } else {
-    parts<-strsplit(string,pattern,perl=TRUE)
+    parts <- strsplit(string, pattern, perl = TRUE)
   }
-  t(vapply(parts,function(x) {
-    length(x)<-n
-    x[is.na(x)]<-""
+  t(vapply(parts, function(x) {
+    length(x) <- n
+    x[is.na(x)] <- ""
     x
-  },character(n)))
+  }, character(n)))
 }
 ##########################################################################################
-# 
+#
 ##########################################################################################
 #' @title Count the number of pattern matches in a string
 #' @description Returns the number of times \code{pattern} appears in each
@@ -444,16 +462,16 @@ str_split_fixed<-function(string,pattern,n) {
 #'
 #' # Count digits
 #' str_count(c("abc123", "99bottles", "none"), "[0-9]")
-str_count<-function(string,pattern) {
-  if(inherits(pattern,"fixed_pattern")) {
-    m<-gregexpr(as.character(pattern),string,fixed=TRUE)
+str_count <- function(string, pattern) {
+  if (inherits(pattern, "fixed_pattern")) {
+    m <- gregexpr(as.character(pattern), string, fixed = TRUE)
   } else {
-    m<-gregexpr(pattern,string,perl=TRUE)
+    m <- gregexpr(pattern, string, perl = TRUE)
   }
-  vapply(m,function(x) if(x[1]==-1L) 0L else length(x),integer(1))
+  vapply(m, function(x) if (x[1] == -1L) 0L else length(x), integer(1))
 }
 ##########################################################################################
-# 
+#
 ##########################################################################################
 #' @title Pad a string to a minimum width
 #' @description Pads \code{string} with \code{pad} characters on the left,
@@ -468,32 +486,34 @@ str_count<-function(string,pattern) {
 #' @export
 #' @examples
 #' # Zero-pad single digit numbers on the left
-#' str_pad(c("1", "10", "100"), width=3, side="left", pad="0")
+#' str_pad(c("1", "10", "100"), width = 3, side = "left", pad = "0")
 #'
 #' # Right-pad to align labels
-#' str_pad(c("Name", "Age", "Score"), width=10)
+#' str_pad(c("Name", "Age", "Score"), width = 10)
 #'
 #' # Pad on both sides (centers the string)
-#' str_pad("hello", width=11, side="both")
-str_pad<-function(string,width,side="right",pad=" ") {
-  string<-as.character(string)
-  vapply(string,function(s) {
-    n<-width-nchar(s)
-    if(n<=0) return(s)
-    padding<-paste(rep(pad,n),collapse="")
+#' str_pad("hello", width = 11, side = "both")
+str_pad <- function(string, width, side = "right", pad = " ") {
+  string <- as.character(string)
+  vapply(string, function(s) {
+    n <- width - nchar(s)
+    if (n <= 0) {
+      return(s)
+    }
+    padding <- paste(rep(pad, n), collapse = "")
     switch(side,
-           right=paste0(s,padding),
-           left =paste0(padding,s),
-           both ={
-             lpad<-paste(rep(pad,floor(n/2)),collapse="")
-             rpad<-paste(rep(pad,ceiling(n/2)),collapse="")
-             paste0(lpad,s,rpad)
-           }
+      right = paste0(s, padding),
+      left = paste0(padding, s),
+      both = {
+        lpad <- paste(rep(pad, floor(n / 2)), collapse = "")
+        rpad <- paste(rep(pad, ceiling(n / 2)), collapse = "")
+        paste0(lpad, s, rpad)
+      }
     )
-  },character(1),USE.NAMES=FALSE)
+  }, character(1), USE.NAMES = FALSE)
 }
 ##########################################################################################
-# 
+#
 ##########################################################################################
 #' @title Remove leading, trailing, and internal extra whitespace
 #' @description Strips leading and trailing whitespace and collapses any
@@ -512,6 +532,6 @@ str_pad<-function(string,width,side="right",pad=" ") {
 #'
 #' # Handles tabs and newlines too
 #' str_squish("line1\n\nline2\t\tword")
-str_squish<-function(string) {
-  trimws(gsub("\\s+"," ",string))
+str_squish <- function(string) {
+  trimws(gsub("\\s+", " ", string))
 }

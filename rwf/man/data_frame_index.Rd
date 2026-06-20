@@ -15,6 +15,6 @@ data_frame_index(nrow, ncol)
 dataframe index
 }
 \examples{
-data_frame_index(5,5)
+data_frame_index(5, 5)
 }
 \keyword{functions}

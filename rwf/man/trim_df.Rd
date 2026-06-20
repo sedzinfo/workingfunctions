@@ -14,14 +14,16 @@ A data frame of the same dimensions with whitespace trimmed from
   all character cells. Non-character cells are unchanged.
 }
 \description{
-Applies \code{\link[base]{strwrap}} to every character cell in a data frame,
-removing leading and trailing whitespace.
+Applies \code{\link[base]{strwrap}} to every character cell in
+a data frame, removing leading and trailing whitespace.
 }
 \examples{
-string<-data.frame(str1=rep(paste0(sample(c(LETTERS,rep(" ",10))),collapse=""),10),
-                   str2=rep(paste0(sample(c(LETTERS,rep(" ",10))),collapse=""),10),
-                   num1=rnorm(10),
-                   stringsAsFactors=FALSE)
+string <- data.frame(
+  str1 = rep(paste0(sample(c(LETTERS, rep(" ", 10))), collapse = ""), 10),
+  str2 = rep(paste0(sample(c(LETTERS, rep(" ", 10))), collapse = ""), 10),
+  num1 = rnorm(10),
+  stringsAsFactors = FALSE
+)
 trim_df(string)
 }
 \keyword{strings}

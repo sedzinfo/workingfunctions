@@ -36,11 +36,11 @@ Applies a rounding or transformation function to every numeric
   etc.) unchanged.
 }
 \examples{
-round_dataframe(df=change_data_type(df=mtcars,type="factor"),digits=0)
-round_dataframe(df=change_data_type(df=mtcars,type="character"),digits=0)
-round_dataframe(df=mtcars,digits=0)
-round_dataframe(df=mtcars,digits=0,type="ceiling")
-round_dataframe(df=mtcars,digits=0,type="floor")
-round_dataframe(df=mtcars*100,digits=2,type="tenth")
+round_dataframe(df = change_data_type(df = mtcars, type = "factor"), digits = 0)
+round_dataframe(df = change_data_type(df = mtcars, type = "character"), digits = 0)
+round_dataframe(df = mtcars, digits = 0)
+round_dataframe(df = mtcars, digits = 0, type = "ceiling")
+round_dataframe(df = mtcars, digits = 0, type = "floor")
+round_dataframe(df = mtcars * 100, digits = 2, type = "tenth")
 }
 \keyword{functions}

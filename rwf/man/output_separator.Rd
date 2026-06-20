@@ -29,13 +29,13 @@ half the current console width (\code{getOption("width") / 2}).}
 Called for its side effects. Returns \code{NULL} invisibly.
 }
 \description{
-Prints a heading, optional instructions, and optional output to the console,
-surrounded by \code{#} separator lines for visual clarity.
+Prints a heading, optional instructions, and optional output to
+the console, surrounded by \code{#} separator lines for visual clarity.
 }
 \examples{
-output_separator(string="TEST",output="TEST",instruction="TEST",length=100)
-output_separator(string="TEST",instruction="TEST",length=100)
-output_separator(string="TEST",output="TEST",length=100)
-output_separator(string="TEST")
+output_separator(string = "TEST", output = "TEST", instruction = "TEST", length = 100)
+output_separator(string = "TEST", instruction = "TEST", length = 100)
+output_separator(string = "TEST", output = "TEST", length = 100)
+output_separator(string = "TEST")
 }
 \keyword{strings}

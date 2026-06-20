@@ -43,14 +43,16 @@ For every combination of independent variable (IV) and dependent
 }
 \examples{
 nrows <- 1000
-df <- data.frame(generate_factor(vector=LETTERS[1:5], nrows=nrows, ncols=10, type="random"),
-                 generate_data(nrows=nrows, ncols=5, type="normal"))
-result <- plot_oneway_diagnostics(df=df, dv=11:15, iv=1:10)
+df <- data.frame(
+  generate_factor(vector = LETTERS[1:5], nrows = nrows, ncols = 10, type = "random"),
+  generate_data(nrows = nrows, ncols = 5, type = "normal")
+)
+result <- plot_oneway_diagnostics(df = df, dv = 11:15, iv = 1:10)
 
 # Single DV, multiple IVs
-plot_oneway_diagnostics(df=mtcars, dv=1, iv=9:10)
+plot_oneway_diagnostics(df = mtcars, dv = 1, iv = 9:10)
 
 # Multiple DVs and IVs
-plot_oneway_diagnostics(df=mtcars, dv=1:2, iv=9:10)
+plot_oneway_diagnostics(df = mtcars, dv = 1:2, iv = 9:10)
 }
 \keyword{ANOVA}

@@ -28,7 +28,7 @@ Combines any number of data frames or vectors side by side,
   before binding.
 }
 \examples{
-c_bind(rnorm(10),rnorm(11),rnorm(12),rnorm(13))
+c_bind(rnorm(10), rnorm(11), rnorm(12), rnorm(13))
 }
 \author{
 Ananda Mahto

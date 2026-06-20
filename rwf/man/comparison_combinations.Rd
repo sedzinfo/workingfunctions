@@ -25,6 +25,6 @@ Generates a data frame of all pairwise combinations of column
   \code{\link{plot_crosstable}}.
 }
 \examples{
-comparison_combinations(generate_correlation_matrix(n=10)[,1:4])
+comparison_combinations(generate_correlation_matrix(n = 10)[, 1:4])
 }
 \keyword{functions}

@@ -43,6 +43,7 @@ Creates a data frame populated with either normally or uniformly
 distributed random values, useful for testing and simulation.
 }
 \examples{
-generate_data(nrows=10,ncols=5,mean=0,sd=1,type="normal")
-generate_data(nrows=10,ncols=5,min=1,max=5,type="uniform")
+generate_data(nrows = 10, ncols = 5, mean = 0, sd = 1, type = "normal")
+generate_data(nrows = 10, ncols = 5, min = 1, max = 5, type = "uniform")
 }
+\keyword{generate}

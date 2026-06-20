@@ -57,18 +57,20 @@ MIN and MAX for non-double columns use base \code{min()} / \code{max()}
   guaranteed — lexicographic order is used instead.
 }
 \examples{
-cdff(df=mtcars,parralel=TRUE)
-cdff(df=change_data_type(mtcars,"factor"),nuniques=3)
-cdff(df=data.frame(t(mtcars)),file="mtcars",nuniques=10)
-cdff(df=mtcars)
-cdff(df=generate_missing(mtcars))
-cdff(df=infert,nuniques=10)
-cdff(df=infert)
-df<-data.frame(infert,
-               date=seq(as.Date("2010-1-1"),
-                    as.Date("2020-1-1"),
-                    length.out=nrow(infert)))
-cdff(df=df)
+cdff(df = mtcars, parralel = TRUE)
+cdff(df = change_data_type(mtcars, "factor"), nuniques = 3)
+cdff(df = data.frame(t(mtcars)), file = "mtcars", nuniques = 10)
+cdff(df = mtcars)
+cdff(df = generate_missing(mtcars))
+cdff(df = infert, nuniques = 10)
+cdff(df = infert)
+df <- data.frame(infert,
+  date = seq(as.Date("2010-1-1"),
+    as.Date("2020-1-1"),
+    length.out = nrow(infert)
+  )
+)
+cdff(df = df)
 }
 \keyword{dataframe}
 \keyword{diagnostics}

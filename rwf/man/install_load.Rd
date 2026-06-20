@@ -23,7 +23,7 @@ Checks whether each package in \code{package} is already
 }
 \examples{
 install_load("car")
-install_load(c("car","ggplot2"))
+install_load(c("car", "ggplot2"))
 }
 \author{
 Steven Worthington

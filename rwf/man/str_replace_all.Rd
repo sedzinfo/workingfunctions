@@ -54,6 +54,6 @@ str_replace_all("a.b.c", fixed("."), "-")
 str_replace_all("remove all spaces", fixed(" "), "")
 
 # Named vector: multiple replacements applied in order
-str_replace_all("aabbcc", c("a"="X", "b"="Y"))
+str_replace_all("aabbcc", c("a" = "X", "b" = "Y"))
 }
 \keyword{strings}

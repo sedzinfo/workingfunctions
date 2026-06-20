@@ -26,6 +26,6 @@ Returns the normalised absolute path of the R script that is
   }
 }
 \examples{
-#getfwp()
+# getfwp()
 }
 \keyword{functions}

@@ -20,7 +20,7 @@ A character vector of the same length as \code{x}.
 Extract n characters from the left or right of a string
 }
 \examples{
-sub_str("12345",n=2,type="right")
-sub_str("12345",n=2,type="left")
+sub_str("12345", n = 2, type = "right")
+sub_str("12345", n = 2, type = "left")
 }
 \keyword{strings}

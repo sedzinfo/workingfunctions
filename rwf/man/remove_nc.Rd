@@ -49,21 +49,21 @@ Cleans a data frame by replacing non-computable values
   contain missing values or have zero variance.
 }
 \examples{
-df<-mtcars
-df[1,]<-as.numeric(NaN)
-df[2,]<-as.numeric(Inf)
-df[3,]<-as.numeric(-Inf)
-df[4,]<-as.numeric(NA)
-df[5,]<-""
-remove_nc(df=df,value=NA)
-cdf(remove_nc(df=df,value=NA))
-df<-generate_missing(mtcars,missing=5)
-remove_nc(df,remove_rows=TRUE,aggressive=FALSE)
-remove_nc(df,remove_rows=TRUE,aggressive=TRUE)
-df<-generate_missing(generate_correlation_matrix(nrows=5),missing=2)
-df$X2<-NA
-df$X3<-1
-remove_nc(df,remove_cols=TRUE,remove_zero_variance=FALSE)
-remove_nc(df,remove_cols=TRUE,remove_zero_variance=TRUE)
+df <- mtcars
+df[1, ] <- as.numeric(NaN)
+df[2, ] <- as.numeric(Inf)
+df[3, ] <- as.numeric(-Inf)
+df[4, ] <- as.numeric(NA)
+df[5, ] <- ""
+remove_nc(df = df, value = NA)
+cdf(remove_nc(df = df, value = NA))
+df <- generate_missing(mtcars, missing = 5)
+remove_nc(df, remove_rows = TRUE, aggressive = FALSE)
+remove_nc(df, remove_rows = TRUE, aggressive = TRUE)
+df <- generate_missing(generate_correlation_matrix(nrows = 5), missing = 2)
+df$X2 <- NA
+df$X3 <- 1
+remove_nc(df, remove_cols = TRUE, remove_zero_variance = FALSE)
+remove_nc(df, remove_cols = TRUE, remove_zero_variance = TRUE)
 }
 \keyword{functions}

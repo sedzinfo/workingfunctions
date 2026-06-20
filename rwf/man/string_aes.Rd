@@ -27,15 +27,16 @@ A character vector of the same length as \code{vector} with
   separators replaced, whitespace normalised, and optional proper casing.
 }
 \description{
-Replaces a list of separator characters (e.g. \code{"."}, \code{"_"},
-HTML tags) with spaces, trims leading and trailing whitespace, collapses
-internal whitespace, and optionally applies proper case.
+Replaces a list of separator characters 
+(e.g. \code{"."}, \code{"_"}, HTML tags) with spaces, trims leading and
+trailing whitespace, collapses internal whitespace, and optionally applies
+proper case.
 }
 \examples{
-vector<-c("TES.T","TES<p>T","TES&nbspT")
-string_aes(vector=vector)
-string_aes(vector=vector,proper=FALSE)
-string_aes(vector=vector,proper=TRUE)
+vector <- c("TES.T", "TES<p>T", "TES&nbspT")
+string_aes(vector = vector)
+string_aes(vector = vector, proper = FALSE)
+string_aes(vector = vector, proper = TRUE)
 }
 \seealso{
 \code{\link{proper}}

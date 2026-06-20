@@ -22,14 +22,14 @@ Replaces each \code{NA} in a vector with the most recent
   column of a data frame use \code{df[] <- lapply(df, replace_na_with_previous)}.
 }
 \examples{
-df1<-generate_missing(rnorm(10),missing=5)
-df2<-generate_missing(rnorm(10),missing=5)
-df3<-generate_missing(rnorm(10),missing=5)
-df4<-generate_missing(rnorm(10),missing=5)
-df5<-generate_missing(rnorm(10),missing=5)
-df<-data.frame(df1,df2,df3,df4,df5)
-row.names(df)<-paste0("A",row.names(df))
+df1 <- generate_missing(rnorm(10), missing = 5)
+df2 <- generate_missing(rnorm(10), missing = 5)
+df3 <- generate_missing(rnorm(10), missing = 5)
+df4 <- generate_missing(rnorm(10), missing = 5)
+df5 <- generate_missing(rnorm(10), missing = 5)
+df <- data.frame(df1, df2, df3, df4, df5)
+row.names(df) <- paste0("A", row.names(df))
 replace_na_with_previous(df1)
-df[]<-lapply(df,replace_na_with_previous)
+df[] <- lapply(df, replace_na_with_previous)
 }
 \keyword{functions}

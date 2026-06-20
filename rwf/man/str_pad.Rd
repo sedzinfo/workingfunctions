@@ -41,12 +41,12 @@ str_pad(c("Name", "Age", "Score"), width=10)
 # Pad on both sides (centers the string)
 str_pad("hello", width=11, side="both")
 # Zero-pad single digit numbers on the left
-str_pad(c("1", "10", "100"), width=3, side="left", pad="0")
+str_pad(c("1", "10", "100"), width = 3, side = "left", pad = "0")
 
 # Right-pad to align labels
-str_pad(c("Name", "Age", "Score"), width=10)
+str_pad(c("Name", "Age", "Score"), width = 10)
 
 # Pad on both sides (centers the string)
-str_pad("hello", width=11, side="both")
+str_pad("hello", width = 11, side = "both")
 }
 \keyword{strings}

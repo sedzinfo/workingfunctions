@@ -19,8 +19,8 @@ whitespace-free string. Tries \code{model$call} first, falling back
 to \code{model$Call} if the first is \code{NULL}.
 }
 \examples{
-df<-generate_correlation_matrix()
-model<-lm(df$X1~df$X2)
+df <- generate_correlation_matrix()
+model <- lm(df$X1 ~ df$X2)
 call_to_string(model)
 }
 \keyword{strings}

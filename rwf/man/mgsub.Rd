@@ -20,10 +20,11 @@ such as \code{fixed} or \code{ignore.case}.}
 A character vector with all pattern matches replaced.
 }
 \description{
-Iterates over a vector of patterns, applying \code{\link[base]{gsub}}
-sequentially with the same replacement string for each.
+Iterates over a vector of patterns, applying
+\code{\link[base]{gsub}} sequentially with the same replacement string for
+each.
 }
 \examples{
-mgsub(mydata="#$\%^&*_+",pattern=c("\%","*"),"REPLACE",fixed=TRUE)
+mgsub(mydata = "#$\%^&*_+", pattern = c("\%", "*"), "REPLACE", fixed = TRUE)
 }
 \keyword{strings}

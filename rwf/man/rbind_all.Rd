@@ -24,11 +24,11 @@ Combines two data frames or matrices by rows even when they do
   case default integer row names are used.
 }
 \examples{
-df1<-generate_correlation_matrix(n=10)
-df2<-generate_correlation_matrix(n=10)
-names(df2)[4]<-"X11"
-rbind_all(df1=df1,df2=df2)
-row.names(df1)<-21:30
-rbind_all(df1=df1,df2=df2)
+df1 <- generate_correlation_matrix(n = 10)
+df2 <- generate_correlation_matrix(n = 10)
+names(df2)[4] <- "X11"
+rbind_all(df1 = df1, df2 = df2)
+row.names(df1) <- 21:30
+rbind_all(df1 = df1, df2 = df2)
 }
 \keyword{functions}
