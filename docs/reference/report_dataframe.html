@@ -62,21 +62,27 @@
 
     <div class="section level2">
     <h2 id="ref-examples">Examples<a class="anchor" aria-label="anchor" href="#ref-examples"></a></h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="va">comment</span><span class="op">&lt;-</span><span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>mpg<span class="op">=</span><span class="st">"Miles/(US) gallon"</span>,</span></span>
-<span class="r-in"><span>              cyl<span class="op">=</span><span class="st">"Number of cylinders"</span>,</span></span>
-<span class="r-in"><span>              disp<span class="op">=</span><span class="st">"Displacement (cu.in.)"</span>,</span></span>
-<span class="r-in"><span>              hp<span class="op">=</span><span class="st">"Gross horsepower"</span>,</span></span>
-<span class="r-in"><span>              drat<span class="op">=</span><span class="st">"Rear axle ratio"</span>,</span></span>
-<span class="r-in"><span>              wt<span class="op">=</span><span class="st">"Weight (1000 lbs)"</span>,</span></span>
-<span class="r-in"><span>              qsec<span class="op">=</span><span class="st">"1/4 mile time"</span>,</span></span>
-<span class="r-in"><span>              vs<span class="op">=</span><span class="st">"Engine (0=V-shaped,1=straight)"</span>,</span></span>
-<span class="r-in"><span>              am<span class="op">=</span><span class="st">"Transmission (0=automatic,1=manual)"</span>,</span></span>
-<span class="r-in"><span>              gear<span class="op">=</span><span class="st">"Number of forward gears"</span>,</span></span>
-<span class="r-in"><span>              carb<span class="op">=</span><span class="st">"Number of carburetors"</span><span class="op">)</span></span></span>
-<span class="r-in"><span><span class="fu">report_dataframe</span><span class="op">(</span><span class="va">mtcars</span>,sheet<span class="op">=</span><span class="st">"report"</span>,file<span class="op">=</span><span class="st">"mtcars"</span>,comment<span class="op">=</span><span class="va">comment</span>,numFmt<span class="op">=</span><span class="st">"#0.00"</span>,</span></span>
-<span class="r-in"><span>                 critical<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>am<span class="op">=</span><span class="st">"&lt;0.05"</span><span class="op">)</span><span class="op">)</span></span></span>
-<span class="r-in"><span><span class="fu">report_dataframe</span><span class="op">(</span><span class="va">mtcars</span>,sheet<span class="op">=</span><span class="st">"report"</span>,file<span class="op">=</span><span class="cn">NULL</span>,comment<span class="op">=</span><span class="va">comment</span>,numFmt<span class="op">=</span><span class="st">"#0.00"</span>,</span></span>
-<span class="r-in"><span>                 critical<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>am<span class="op">=</span><span class="st">"&lt;0.05"</span><span class="op">)</span><span class="op">)</span></span></span>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="va">comment</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span></span></span>
+<span class="r-in"><span>  mpg <span class="op">=</span> <span class="st">"Miles/(US) gallon"</span>,</span></span>
+<span class="r-in"><span>  cyl <span class="op">=</span> <span class="st">"Number of cylinders"</span>,</span></span>
+<span class="r-in"><span>  disp <span class="op">=</span> <span class="st">"Displacement (cu.in.)"</span>,</span></span>
+<span class="r-in"><span>  hp <span class="op">=</span> <span class="st">"Gross horsepower"</span>,</span></span>
+<span class="r-in"><span>  drat <span class="op">=</span> <span class="st">"Rear axle ratio"</span>,</span></span>
+<span class="r-in"><span>  wt <span class="op">=</span> <span class="st">"Weight (1000 lbs)"</span>,</span></span>
+<span class="r-in"><span>  qsec <span class="op">=</span> <span class="st">"1/4 mile time"</span>,</span></span>
+<span class="r-in"><span>  vs <span class="op">=</span> <span class="st">"Engine (0=V-shaped,1=straight)"</span>,</span></span>
+<span class="r-in"><span>  am <span class="op">=</span> <span class="st">"Transmission (0=automatic,1=manual)"</span>,</span></span>
+<span class="r-in"><span>  gear <span class="op">=</span> <span class="st">"Number of forward gears"</span>,</span></span>
+<span class="r-in"><span>  carb <span class="op">=</span> <span class="st">"Number of carburetors"</span></span></span>
+<span class="r-in"><span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu">report_dataframe</span><span class="op">(</span><span class="va">mtcars</span>,</span></span>
+<span class="r-in"><span>  sheet <span class="op">=</span> <span class="st">"report"</span>, file <span class="op">=</span> <span class="st">"mtcars"</span>, comment <span class="op">=</span> <span class="va">comment</span>, numFmt <span class="op">=</span> <span class="st">"#0.00"</span>,</span></span>
+<span class="r-in"><span>  critical <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>am <span class="op">=</span> <span class="st">"&lt;0.05"</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu">report_dataframe</span><span class="op">(</span><span class="va">mtcars</span>,</span></span>
+<span class="r-in"><span>  sheet <span class="op">=</span> <span class="st">"report"</span>, file <span class="op">=</span> <span class="cn">NULL</span>, comment <span class="op">=</span> <span class="va">comment</span>, numFmt <span class="op">=</span> <span class="st">"#0.00"</span>,</span></span>
+<span class="r-in"><span>  critical <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>am <span class="op">=</span> <span class="st">"&lt;0.05"</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>                      mpg cyl  disp  hp drat    wt  qsec vs am gear carb</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Mazda RX4           21.0   6 160.0 110 3.90 2.620 16.46  0  1    4    4</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Mazda RX4 Wag       21.0   6 160.0 110 3.90 2.875 17.02  0  1    4    4</span>

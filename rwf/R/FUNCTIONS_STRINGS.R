@@ -47,10 +47,10 @@ str_mgsub <- function(mydata, pattern, replacement, ...) {
 #'   generate_string(nchar = 2, vector_length = 10), "/",
 #'   generate_string(nchar = 2, vector_length = 10)
 #' )
-#' split_str(string, split = "/")
-split_str <- function(vector, split = "/", include_original = FALSE) {
-  split_str <- strsplit(vector, split = split, fixed = TRUE)
-  result <- data.frame(matrix(unlist(split_str), byrow = TRUE, ncol = length(split_str[[1]])), stringsAsFactors = FALSE)
+#' str_split(string, split = "/")
+str_split <- function(vector, split = "/", include_original = FALSE) {
+  str_split <- strsplit(vector, split = split, fixed = TRUE)
+  result <- data.frame(matrix(unlist(str_split), byrow = TRUE, ncol = length(str_split[[1]])), stringsAsFactors = FALSE)
   if (include_original) {
     result <- data.frame(result, vector, stringsAsFactors = FALSE)
   }
@@ -73,12 +73,12 @@ split_str <- function(vector, split = "/", include_original = FALSE) {
 #'   }
 #'   Default is \code{"row"}.
 #' @param index Integer. Column index to split when \code{type = "collumn"}.
-#' @param ... Additional arguments passed to \code{\link{split_str}}.
+#' @param ... Additional arguments passed to \code{\link{str_split}}.
 #'
 #' @return A data frame with the split parts prepended as new columns,
 #'   followed by the original columns of \code{df}.
 #'
-#' @seealso \code{\link{split_str}}
+#' @seealso \code{\link{str_split}}
 #' @keywords strings
 #' @export
 #' @examples
@@ -95,11 +95,11 @@ split_str <- function(vector, split = "/", include_original = FALSE) {
 #' str_split_df(df, split = "/", type = "collumn", index = 1)
 str_split_df <- function(df, split = "/", type = "row", index, ...) {
   if (type == "row") {
-    split <- split_str(vector = as.character(row.names(df)), split = split, ...)
+    split <- str_split(vector = as.character(row.names(df)), split = split, ...)
     result <- data.frame(split, df, stringsAsFactors = FALSE)
   }
   if (type == "collumn") {
-    split <- split_str(vector = as.character(df[, index]), split = split, ...)
+    split <- str_split(vector = as.character(df[, index]), split = split, ...)
     result <- data.frame(split, df, stringsAsFactors = FALSE)
   }
   return(result)

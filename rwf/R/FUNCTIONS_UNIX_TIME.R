@@ -55,7 +55,7 @@ decompose_datetime<-function(x,format="",origin="1970-01-01",tz="GMT",extended=F
   for (i in 1:length(date_data))
     if(is.na(date_data[i]))
       date_data[i]<-gsub(","," ",toString(rep(";",separators_n+1)))
-  converted_date<-split_str(date_data,split=";",include_original=FALSE)
+  converted_date<-str_split(date_data,split=";",include_original=FALSE)
   names(converted_date)[1:length(converted_date)]<-collumn_names[1:length(converted_date)]
   converted_date$FULL_DATE<-paste0(converted_date$YEAR,"-",dt_pad(converted_date$MONTH),"-",dt_pad(converted_date$DAY))
   if(length(converted_date)>4)

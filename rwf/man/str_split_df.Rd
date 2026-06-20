@@ -20,7 +20,7 @@ Default is \code{"row"}.}
 
 \item{index}{Integer. Column index to split when \code{type = "collumn"}.}
 
-\item{...}{Additional arguments passed to \code{\link{split_str}}.}
+\item{...}{Additional arguments passed to \code{\link{str_split}}.}
 }
 \value{
 A data frame with the split parts prepended as new columns,
@@ -44,6 +44,6 @@ df[, 1] <- string
 str_split_df(df, split = "/", type = "collumn", index = 1)
 }
 \seealso{
-\code{\link{split_str}}
+\code{\link{str_split}}
 }
 \keyword{strings}

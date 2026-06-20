@@ -129,12 +129,14 @@ Default <code>60</code>.</p></dd>
     <div class="section level2">
     <h2 id="ref-examples">Examples<a class="anchor" aria-label="anchor" href="#ref-examples"></a></h2>
     <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="va">nrows</span> <span class="op">&lt;-</span> <span class="fl">1000</span></span></span>
-<span class="r-in"><span><span class="va">df</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/data.frame.html" class="external-link">data.frame</a></span><span class="op">(</span><span class="fu"><a href="generate_factor.html">generate_factor</a></span><span class="op">(</span>vector<span class="op">=</span><span class="va">LETTERS</span><span class="op">[</span><span class="fl">1</span><span class="op">:</span><span class="fl">5</span><span class="op">]</span>, nrows<span class="op">=</span><span class="va">nrows</span>, ncols<span class="op">=</span><span class="fl">10</span>, type<span class="op">=</span><span class="st">"random"</span><span class="op">)</span>,</span></span>
-<span class="r-in"><span>                 <span class="fu"><a href="generate_data.html">generate_data</a></span><span class="op">(</span>nrows<span class="op">=</span><span class="va">nrows</span>, ncols<span class="op">=</span><span class="fl">5</span>, type<span class="op">=</span><span class="st">"normal"</span><span class="op">)</span><span class="op">)</span></span></span>
-<span class="r-in"><span><span class="va">result</span> <span class="op">&lt;-</span> <span class="fu">plot_oneway</span><span class="op">(</span>df<span class="op">=</span><span class="va">df</span>, dv<span class="op">=</span><span class="fl">11</span><span class="op">:</span><span class="fl">15</span>, iv<span class="op">=</span><span class="fl">1</span><span class="op">:</span><span class="fl">10</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">df</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/data.frame.html" class="external-link">data.frame</a></span><span class="op">(</span></span></span>
+<span class="r-in"><span>  <span class="fu"><a href="generate_factor.html">generate_factor</a></span><span class="op">(</span>vector <span class="op">=</span> <span class="va">LETTERS</span><span class="op">[</span><span class="fl">1</span><span class="op">:</span><span class="fl">5</span><span class="op">]</span>, nrows <span class="op">=</span> <span class="va">nrows</span>, ncols <span class="op">=</span> <span class="fl">10</span>, type <span class="op">=</span> <span class="st">"random"</span><span class="op">)</span>,</span></span>
+<span class="r-in"><span>  <span class="fu"><a href="generate_data.html">generate_data</a></span><span class="op">(</span>nrows <span class="op">=</span> <span class="va">nrows</span>, ncols <span class="op">=</span> <span class="fl">5</span>, type <span class="op">=</span> <span class="st">"normal"</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">result</span> <span class="op">&lt;-</span> <span class="fu">plot_oneway</span><span class="op">(</span>df <span class="op">=</span> <span class="va">df</span>, dv <span class="op">=</span> <span class="fl">11</span><span class="op">:</span><span class="fl">15</span>, iv <span class="op">=</span> <span class="fl">1</span><span class="op">:</span><span class="fl">10</span><span class="op">)</span></span></span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># Single IV, single DV</span></span></span>
-<span class="r-in"><span><span class="fu">plot_oneway</span><span class="op">(</span>df<span class="op">=</span><span class="va">mtcars</span>, dv<span class="op">=</span><span class="fl">2</span>, iv<span class="op">=</span><span class="fl">9</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu">plot_oneway</span><span class="op">(</span>df <span class="op">=</span> <span class="va">mtcars</span>, dv <span class="op">=</span> <span class="fl">2</span>, iv <span class="op">=</span> <span class="fl">9</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $plot_data</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $plot_data$am_cyl</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   am  N   cyl    sd     se     ci</span>
@@ -154,7 +156,7 @@ Default <code>60</code>.</p></dd>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># Multiple IVs and DVs</span></span></span>
-<span class="r-in"><span><span class="fu">plot_oneway</span><span class="op">(</span>df<span class="op">=</span><span class="va">mtcars</span>, dv<span class="op">=</span><span class="fl">2</span><span class="op">:</span><span class="fl">3</span>, iv<span class="op">=</span><span class="fl">9</span><span class="op">:</span><span class="fl">10</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu">plot_oneway</span><span class="op">(</span>df <span class="op">=</span> <span class="va">mtcars</span>, dv <span class="op">=</span> <span class="fl">2</span><span class="op">:</span><span class="fl">3</span>, iv <span class="op">=</span> <span class="fl">9</span><span class="op">:</span><span class="fl">10</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $plot_data</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $plot_data$am_cyl</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   am  N   cyl    sd     se     ci</span>
@@ -208,7 +210,7 @@ Default <code>60</code>.</p></dd>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># Error bar types</span></span></span>
-<span class="r-in"><span><span class="fu">plot_oneway</span><span class="op">(</span>df<span class="op">=</span><span class="va">mtcars</span>, dv<span class="op">=</span><span class="fl">2</span><span class="op">:</span><span class="fl">3</span>, iv<span class="op">=</span><span class="fl">9</span><span class="op">:</span><span class="fl">10</span>, type<span class="op">=</span><span class="st">"se"</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu">plot_oneway</span><span class="op">(</span>df <span class="op">=</span> <span class="va">mtcars</span>, dv <span class="op">=</span> <span class="fl">2</span><span class="op">:</span><span class="fl">3</span>, iv <span class="op">=</span> <span class="fl">9</span><span class="op">:</span><span class="fl">10</span>, type <span class="op">=</span> <span class="st">"se"</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $plot_data</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $plot_data$am_cyl</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   am  N   cyl    sd     se     ci</span>
@@ -260,7 +262,7 @@ Default <code>60</code>.</p></dd>
 <span class="r-plt img"><img src="plot_oneway-9.png" alt="" width="700" height="433"></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-in"><span><span class="fu">plot_oneway</span><span class="op">(</span>df<span class="op">=</span><span class="va">mtcars</span>, dv<span class="op">=</span><span class="fl">2</span><span class="op">:</span><span class="fl">3</span>, iv<span class="op">=</span><span class="fl">9</span><span class="op">:</span><span class="fl">10</span>, type<span class="op">=</span><span class="st">"ci"</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu">plot_oneway</span><span class="op">(</span>df <span class="op">=</span> <span class="va">mtcars</span>, dv <span class="op">=</span> <span class="fl">2</span><span class="op">:</span><span class="fl">3</span>, iv <span class="op">=</span> <span class="fl">9</span><span class="op">:</span><span class="fl">10</span>, type <span class="op">=</span> <span class="st">"ci"</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $plot_data</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $plot_data$am_cyl</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   am  N   cyl    sd     se     ci</span>
@@ -312,7 +314,7 @@ Default <code>60</code>.</p></dd>
 <span class="r-plt img"><img src="plot_oneway-13.png" alt="" width="700" height="433"></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-in"><span><span class="fu">plot_oneway</span><span class="op">(</span>df<span class="op">=</span><span class="va">mtcars</span>, dv<span class="op">=</span><span class="fl">2</span><span class="op">:</span><span class="fl">3</span>, iv<span class="op">=</span><span class="fl">9</span><span class="op">:</span><span class="fl">10</span>, type<span class="op">=</span><span class="st">"sd"</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu">plot_oneway</span><span class="op">(</span>df <span class="op">=</span> <span class="va">mtcars</span>, dv <span class="op">=</span> <span class="fl">2</span><span class="op">:</span><span class="fl">3</span>, iv <span class="op">=</span> <span class="fl">9</span><span class="op">:</span><span class="fl">10</span>, type <span class="op">=</span> <span class="st">"sd"</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $plot_data</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $plot_data$am_cyl</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   am  N   cyl    sd     se     ci</span>
@@ -364,7 +366,7 @@ Default <code>60</code>.</p></dd>
 <span class="r-plt img"><img src="plot_oneway-17.png" alt="" width="700" height="433"></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-in"><span><span class="fu">plot_oneway</span><span class="op">(</span>df<span class="op">=</span><span class="va">mtcars</span>, dv<span class="op">=</span><span class="fl">2</span><span class="op">:</span><span class="fl">3</span>, iv<span class="op">=</span><span class="fl">9</span><span class="op">:</span><span class="fl">10</span>, type<span class="op">=</span><span class="st">""</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu">plot_oneway</span><span class="op">(</span>df <span class="op">=</span> <span class="va">mtcars</span>, dv <span class="op">=</span> <span class="fl">2</span><span class="op">:</span><span class="fl">3</span>, iv <span class="op">=</span> <span class="fl">9</span><span class="op">:</span><span class="fl">10</span>, type <span class="op">=</span> <span class="st">""</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $plot_data</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $plot_data$am_cyl</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   am  N   cyl    sd     se     ci</span>
@@ -418,7 +420,7 @@ Default <code>60</code>.</p></dd>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># Factor ordering</span></span></span>
-<span class="r-in"><span><span class="fu">plot_oneway</span><span class="op">(</span>df<span class="op">=</span><span class="va">mtcars</span>, dv<span class="op">=</span><span class="fl">2</span><span class="op">:</span><span class="fl">3</span>, iv<span class="op">=</span><span class="fl">9</span><span class="op">:</span><span class="fl">10</span>, type<span class="op">=</span><span class="st">""</span>, order_factor<span class="op">=</span><span class="cn">FALSE</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu">plot_oneway</span><span class="op">(</span>df <span class="op">=</span> <span class="va">mtcars</span>, dv <span class="op">=</span> <span class="fl">2</span><span class="op">:</span><span class="fl">3</span>, iv <span class="op">=</span> <span class="fl">9</span><span class="op">:</span><span class="fl">10</span>, type <span class="op">=</span> <span class="st">""</span>, order_factor <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $plot_data</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $plot_data$am_cyl</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   am  N   cyl    sd     se     ci</span>
@@ -470,7 +472,7 @@ Default <code>60</code>.</p></dd>
 <span class="r-plt img"><img src="plot_oneway-25.png" alt="" width="700" height="433"></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-in"><span><span class="fu">plot_oneway</span><span class="op">(</span>df<span class="op">=</span><span class="va">mtcars</span>, dv<span class="op">=</span><span class="fl">2</span><span class="op">:</span><span class="fl">3</span>, iv<span class="op">=</span><span class="fl">9</span><span class="op">:</span><span class="fl">10</span>, type<span class="op">=</span><span class="st">""</span>, order_factor<span class="op">=</span><span class="cn">TRUE</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu">plot_oneway</span><span class="op">(</span>df <span class="op">=</span> <span class="va">mtcars</span>, dv <span class="op">=</span> <span class="fl">2</span><span class="op">:</span><span class="fl">3</span>, iv <span class="op">=</span> <span class="fl">9</span><span class="op">:</span><span class="fl">10</span>, type <span class="op">=</span> <span class="st">""</span>, order_factor <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $plot_data</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $plot_data$am_cyl</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   am  N   cyl    sd     se     ci</span>

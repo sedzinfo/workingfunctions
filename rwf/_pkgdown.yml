@@ -117,13 +117,20 @@ reference:
       - str_proper
       - str_replace
       - str_replace_all
+      - str_split
       - str_split_df
       - str_split_fixed
       - str_squish
       - str_trim_df
       - str_sub
       - str_wrap
-      - split_str
+
+  - title: "Excel output"
+    contents:
+      - excel_confusion_matrix
+      - excel_critical_value
+      - excel_generic_format
+      - excel_matrix
 
   - title: "Other functions"
     contents:
@@ -153,10 +160,6 @@ reference:
       - hinvert_title_grob
       - padNA
       - environment_options
-      - excel_confusion_matrix
-      - excel_critical_value
-      - excel_generic_format
-      - excel_matrix
       - extract_components
       - extract_tirt_params
       - fixed
