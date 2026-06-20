@@ -105,7 +105,8 @@ the subject (used to align scores across methods).</p></dd>
 
     <div class="section level2">
     <h2 id="ref-examples">Examples<a class="anchor" aria-label="anchor" href="#ref-examples"></a></h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="va">population_model</span> <span class="op">&lt;-</span> <span class="st">"t1=~x1+.9*x2+.9*x3</span></span></span>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/base/Random.html" class="external-link">set.seed</a></span><span class="op">(</span><span class="fl">12345</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">population_model</span> <span class="op">&lt;-</span> <span class="st">"t1=~x1+.9*x2+.9*x3</span></span></span>
 <span class="r-in"><span><span class="st">                     t2=~x4+.9*x5+.9*x6</span></span></span>
 <span class="r-in"><span><span class="st">                     t3=~x7+.9*x8+.9*x9"</span></span></span>
 <span class="r-in"><span><span class="va">model_data</span> <span class="op">&lt;-</span> <span class="fu">lavaan</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/lavaan/man/simulateData.html" class="external-link">simulateData</a></span><span class="op">(</span><span class="va">population_model</span>, sample.nobs <span class="op">=</span> <span class="fl">1000</span><span class="op">)</span></span></span>
