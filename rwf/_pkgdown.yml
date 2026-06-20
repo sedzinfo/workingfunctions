@@ -108,6 +108,23 @@ reference:
       - report_wtests
       - report_xgboost
 
+  - title: "Strings"
+    contents:
+      - str_aes
+      - str_count
+      - str_mgsub
+      - str_pad
+      - str_proper
+      - str_replace
+      - str_replace_all
+      - str_split_df
+      - str_split_fixed
+      - str_squish
+      - str_trim_df
+      - str_sub
+      - str_wrap
+      - split_str
+
   - title: "Other functions"
     contents:
       - alpha_diagnostics
@@ -165,7 +182,6 @@ reference:
       - key_to_cfa_model
       - matrix_triangle
       - mean_sd_alpha
-      - mgsub
       - min_max_index
       - model_loadings
       - name_triplet_pairs
@@ -173,7 +189,6 @@ reference:
       - outlier_summary
       - output_compare_model_logistic
       - output_separator
-      - proper
       - proportion_accurate
       - questions_by_keys
       - questions_dimensions_dataframe
@@ -197,23 +212,11 @@ reference:
       - shrout
       - simulate_cfa_fit
       - simulate_correlation_from_sample
-      - split_str
-      - split_str_df
       - stat_word_char
-      - str_count
-      - str_pad
-      - str_replace
-      - str_replace_all
-      - str_split_fixed
-      - str_squish
-      - str_wrap
-      - string_aes
-      - sub_str
       - swap
       - symmetric_matrix
       - tag_pos
       - text_similarity
-      - trim_df
       - ts_smoothing
       - wrapper
       - write_txt
