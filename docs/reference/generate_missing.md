@@ -30,9 +30,9 @@ same type as the input (vector or data frame).
 ## Examples
 
 ``` r
-generate_missing(rnorm(10),missing=5)
+generate_missing(rnorm(10), missing = 5)
 #>  [1]       NA       NA  0.37348       NA -0.47331  0.08991       NA  0.55574 -1.16888       NA
-generate_missing(generate_data(nrow=10,ncol=2),missing=5)
+generate_missing(generate_data(nrow = 10, ncol = 2), missing = 5)
 #>         X1      X2
 #> 1       NA      NA
 #> 2  -1.6423      NA

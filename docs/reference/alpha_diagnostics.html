@@ -42,7 +42,7 @@
     <p>Computes item-level reliability diagnostics for a unidimensional
   scale. For each item the function returns the corrected and uncorrected
   item-total correlations and Cronbach's alpha recalculated with that item
-  excluded. Use this alongside <code><a href="raw_alpha.html">raw_alpha</a></code> to identify items that
+  excluded. Use this alongside <code>raw_alpha</code> to identify items that
   reduce scale reliability.</p>
     </div>
 
@@ -51,15 +51,6 @@
     <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">alpha_diagnostics</span><span class="op">(</span><span class="va">df</span><span class="op">)</span></span></code></pre></div>
     </div>
 
-    <div class="section level2">
-    <h2 id="arguments">Arguments<a class="anchor" aria-label="anchor" href="#arguments"></a></h2>
-
-
-<dl><dt id="arg-df">df<a class="anchor" aria-label="anchor" href="#arg-df"></a></dt>
-<dd><p>A data frame whose columns are the items of a single scale. All
-columns must be numeric.</p></dd>
-
-</dl></div>
     <div class="section level2">
     <h2 id="value">Value<a class="anchor" aria-label="anchor" href="#value"></a></h2>
     <p>A data frame with one row per item and the following columns:</p><dl><dt>item</dt>
@@ -129,13 +120,7 @@ columns must be numeric.</p></dd>
 <span class="r-out co"><span class="r-pr">#&gt;</span> X5 0 0.01 0.05 0.25 0.39 0.23 0.07 0.00 0    0</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> X6 0 0.01 0.06 0.24 0.40 0.23 0.05 0.01 0    0</span>
 <span class="r-in"><span><span class="fu">alpha_diagnostics</span><span class="op">(</span>df<span class="op">=</span><span class="va">df</span><span class="op">)</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>    item alpha.if.item.removed item.total.correlation item.total.correlation.r.drop</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> X1   X1             0.8172775              0.7188293                     0.5813271</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> X2   X2             0.8074691              0.7577507                     0.6305662</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> X3   X3             0.8050188              0.7678537                     0.6423391</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> X4   X4             0.8133327              0.7328541                     0.6014236</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> X5   X5             0.8129389              0.7358393                     0.6034345</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> X6   X6             0.8106911              0.7430253                     0.6148351</span>
+<span class="r-err co"><span class="r-pr">#&gt;</span> <span class="error">Error in raw_alpha(df[, -i]):</span> could not find function "raw_alpha"</span>
 </code></pre></div>
     </div>
   </main><aside class="col-md-3"><nav id="toc" aria-label="Table of contents"><h2>On this page</h2>

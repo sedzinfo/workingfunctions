@@ -32,5 +32,5 @@ determined.
 ## Examples
 
 ``` r
-#getfwp()
+# getfwp()
 ```

@@ -46,7 +46,7 @@ single factor vector when `ncols = 1`.
 ## Examples
 
 ``` r
-generate_factor(vector=LETTERS[1:5],ncols=5,nrows=10,type="random")
+generate_factor(vector = LETTERS[1:5], ncols = 5, nrows = 10, type = "random")
 #>    X1 X2 X3 X4 X5
 #> 1   E  B  A  B  A
 #> 2   C  E  C  E  D
@@ -58,7 +58,7 @@ generate_factor(vector=LETTERS[1:5],ncols=5,nrows=10,type="random")
 #> 8   E  D  D  D  B
 #> 9   C  E  A  E  C
 #> 10  D  B  D  E  A
-generate_factor(vector=LETTERS[1:5],ncols=5,nrows=10,type="balanced")
+generate_factor(vector = LETTERS[1:5], ncols = 5, nrows = 10, type = "balanced")
 #>    X1 X2 X3 X4 X5
 #> 1   A  A  A  A  A
 #> 2   A  A  A  A  A
@@ -70,10 +70,10 @@ generate_factor(vector=LETTERS[1:5],ncols=5,nrows=10,type="balanced")
 #> 8   D  D  D  D  D
 #> 9   E  E  E  E  E
 #> 10  E  E  E  E  E
-generate_factor(vector=LETTERS[1:5],ncols=1,nrows=10,type="balanced")
+generate_factor(vector = LETTERS[1:5], ncols = 1, nrows = 10, type = "balanced")
 #>  [1] A A B B C C D D E E
 #> Levels: A B C D E
-generate_factor(vector=LETTERS[1:5],ncols=1,nrows=10,type="random")
+generate_factor(vector = LETTERS[1:5], ncols = 1, nrows = 10, type = "random")
 #>  [1] B A B B E B B C B A
 #> Levels: A B C D E
 ```

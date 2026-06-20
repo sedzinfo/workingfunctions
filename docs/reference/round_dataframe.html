@@ -89,7 +89,7 @@ numeric columns:</p><dl><dt><code>"round"</code></dt>
 
     <div class="section level2">
     <h2 id="ref-examples">Examples<a class="anchor" aria-label="anchor" href="#ref-examples"></a></h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="fu">round_dataframe</span><span class="op">(</span>df<span class="op">=</span><span class="fu"><a href="change_data_type.html">change_data_type</a></span><span class="op">(</span>df<span class="op">=</span><span class="va">mtcars</span>,type<span class="op">=</span><span class="st">"factor"</span><span class="op">)</span>,digits<span class="op">=</span><span class="fl">0</span><span class="op">)</span></span></span>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="fu">round_dataframe</span><span class="op">(</span>df <span class="op">=</span> <span class="fu"><a href="change_data_type.html">change_data_type</a></span><span class="op">(</span>df <span class="op">=</span> <span class="va">mtcars</span>, type <span class="op">=</span> <span class="st">"factor"</span><span class="op">)</span>, digits <span class="op">=</span> <span class="fl">0</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>                      mpg cyl  disp  hp drat    wt  qsec vs am gear carb</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Mazda RX4             21   6   160 110  3.9  2.62 16.46  0  1    4    4</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Mazda RX4 Wag         21   6   160 110  3.9 2.875 17.02  0  1    4    4</span>
@@ -123,7 +123,7 @@ numeric columns:</p><dl><dt><code>"round"</code></dt>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Ferrari Dino        19.7   6   145 175 3.62  2.77  15.5  0  1    5    6</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Maserati Bora         15   8   301 335 3.54  3.57  14.6  0  1    5    8</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Volvo 142E          21.4   4   121 109 4.11  2.78  18.6  1  1    4    2</span>
-<span class="r-in"><span><span class="fu">round_dataframe</span><span class="op">(</span>df<span class="op">=</span><span class="fu"><a href="change_data_type.html">change_data_type</a></span><span class="op">(</span>df<span class="op">=</span><span class="va">mtcars</span>,type<span class="op">=</span><span class="st">"character"</span><span class="op">)</span>,digits<span class="op">=</span><span class="fl">0</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu">round_dataframe</span><span class="op">(</span>df <span class="op">=</span> <span class="fu"><a href="change_data_type.html">change_data_type</a></span><span class="op">(</span>df <span class="op">=</span> <span class="va">mtcars</span>, type <span class="op">=</span> <span class="st">"character"</span><span class="op">)</span>, digits <span class="op">=</span> <span class="fl">0</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>                      mpg cyl  disp  hp drat    wt  qsec vs am gear carb</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Mazda RX4             21   6   160 110  3.9  2.62 16.46  0  1    4    4</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Mazda RX4 Wag         21   6   160 110  3.9 2.875 17.02  0  1    4    4</span>
@@ -157,7 +157,7 @@ numeric columns:</p><dl><dt><code>"round"</code></dt>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Ferrari Dino        19.7   6   145 175 3.62  2.77  15.5  0  1    5    6</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Maserati Bora         15   8   301 335 3.54  3.57  14.6  0  1    5    8</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Volvo 142E          21.4   4   121 109 4.11  2.78  18.6  1  1    4    2</span>
-<span class="r-in"><span><span class="fu">round_dataframe</span><span class="op">(</span>df<span class="op">=</span><span class="va">mtcars</span>,digits<span class="op">=</span><span class="fl">0</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu">round_dataframe</span><span class="op">(</span>df <span class="op">=</span> <span class="va">mtcars</span>, digits <span class="op">=</span> <span class="fl">0</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>                     mpg cyl disp  hp drat wt qsec vs am gear carb</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Mazda RX4            21   6  160 110    4  3   16  0  1    4    4</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Mazda RX4 Wag        21   6  160 110    4  3   17  0  1    4    4</span>
@@ -191,7 +191,7 @@ numeric columns:</p><dl><dt><code>"round"</code></dt>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Ferrari Dino         20   6  145 175    4  3   16  0  1    5    6</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Maserati Bora        15   8  301 335    4  4   15  0  1    5    8</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Volvo 142E           21   4  121 109    4  3   19  1  1    4    2</span>
-<span class="r-in"><span><span class="fu">round_dataframe</span><span class="op">(</span>df<span class="op">=</span><span class="va">mtcars</span>,digits<span class="op">=</span><span class="fl">0</span>,type<span class="op">=</span><span class="st">"ceiling"</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu">round_dataframe</span><span class="op">(</span>df <span class="op">=</span> <span class="va">mtcars</span>, digits <span class="op">=</span> <span class="fl">0</span>, type <span class="op">=</span> <span class="st">"ceiling"</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>                     mpg cyl disp  hp drat wt qsec vs am gear carb</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Mazda RX4            21   6  160 110    4  3   17  0  1    4    4</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Mazda RX4 Wag        21   6  160 110    4  3   18  0  1    4    4</span>
@@ -225,7 +225,7 @@ numeric columns:</p><dl><dt><code>"round"</code></dt>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Ferrari Dino         20   6  145 175    4  3   16  0  1    5    6</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Maserati Bora        15   8  301 335    4  4   15  0  1    5    8</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Volvo 142E           22   4  121 109    5  3   19  1  1    4    2</span>
-<span class="r-in"><span><span class="fu">round_dataframe</span><span class="op">(</span>df<span class="op">=</span><span class="va">mtcars</span>,digits<span class="op">=</span><span class="fl">0</span>,type<span class="op">=</span><span class="st">"floor"</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu">round_dataframe</span><span class="op">(</span>df <span class="op">=</span> <span class="va">mtcars</span>, digits <span class="op">=</span> <span class="fl">0</span>, type <span class="op">=</span> <span class="st">"floor"</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>                     mpg cyl disp  hp drat wt qsec vs am gear carb</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Mazda RX4            21   6  160 110    3  2   16  0  1    4    4</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Mazda RX4 Wag        21   6  160 110    3  2   17  0  1    4    4</span>
@@ -259,7 +259,7 @@ numeric columns:</p><dl><dt><code>"round"</code></dt>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Ferrari Dino         19   6  145 175    3  2   15  0  1    5    6</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Maserati Bora        15   8  301 335    3  3   14  0  1    5    8</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Volvo 142E           21   4  121 109    4  2   18  1  1    4    2</span>
-<span class="r-in"><span><span class="fu">round_dataframe</span><span class="op">(</span>df<span class="op">=</span><span class="va">mtcars</span><span class="op">*</span><span class="fl">100</span>,digits<span class="op">=</span><span class="fl">2</span>,type<span class="op">=</span><span class="st">"tenth"</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu">round_dataframe</span><span class="op">(</span>df <span class="op">=</span> <span class="va">mtcars</span> <span class="op">*</span> <span class="fl">100</span>, digits <span class="op">=</span> <span class="fl">2</span>, type <span class="op">=</span> <span class="st">"tenth"</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>                     mpg cyl disp   hp drat    wt  qsec vs am gear carb</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Mazda RX4           210  60 1600 1100 39.0 26.20 164.6  0 10   40   40</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Mazda RX4 Wag       210  60 1600 1100 39.0 28.75 170.2  0 10   40   40</span>

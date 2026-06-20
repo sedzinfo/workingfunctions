@@ -175,6 +175,51 @@ code and more standardized output.
 - [`report_xgboost()`](https://sedzinfo.github.io/rwf/reference/report_xgboost.md)
   : Report for xgboost::xgb.train
 
+## Strings
+
+- [`str_aes()`](https://sedzinfo.github.io/rwf/reference/str_aes.md) :
+  Clean and format string aesthetics
+- [`str_count()`](https://sedzinfo.github.io/rwf/reference/str_count.md)
+  : Count the number of pattern matches in a string
+- [`str_mgsub()`](https://sedzinfo.github.io/rwf/reference/str_mgsub.md)
+  : Apply gsub for multiple patterns with a single replacement
+- [`str_pad()`](https://sedzinfo.github.io/rwf/reference/str_pad.md) :
+  Pad a string to a minimum width
+- [`str_proper()`](https://sedzinfo.github.io/rwf/reference/str_proper.md)
+  : Convert a string to proper case
+- [`str_replace()`](https://sedzinfo.github.io/rwf/reference/str_replace.md)
+  : Replace the first pattern match in a string
+- [`str_replace_all()`](https://sedzinfo.github.io/rwf/reference/str_replace_all.md)
+  : Replace all pattern matches in a string
+- [`str_split()`](https://sedzinfo.github.io/rwf/reference/str_split.md)
+  : Split a string vector into a data frame of parts
+- [`str_split_df()`](https://sedzinfo.github.io/rwf/reference/str_split_df.md)
+  : Split a string column or row names in a data frame into separate
+  columns
+- [`str_split_fixed()`](https://sedzinfo.github.io/rwf/reference/str_split_fixed.md)
+  : Split strings into a fixed-width matrix of pieces
+- [`str_squish()`](https://sedzinfo.github.io/rwf/reference/str_squish.md)
+  : Remove leading, trailing, and internal extra whitespace
+- [`str_trim_df()`](https://sedzinfo.github.io/rwf/reference/str_trim_df.md)
+  : Trim whitespace from all character cells in a data frame
+- [`str_sub()`](https://sedzinfo.github.io/rwf/reference/str_sub.md) :
+  Extract n characters from the left or right of a string
+- [`str_wrap()`](https://sedzinfo.github.io/rwf/reference/str_wrap.md) :
+  Wrap long strings to a specified line width
+
+## Excel output
+
+- [`excel_confusion_matrix()`](https://sedzinfo.github.io/rwf/reference/excel_confusion_matrix.md)
+  : Write matrix or dataframe to excel sheet
+- [`excel_critical_value()`](https://sedzinfo.github.io/rwf/reference/excel_critical_value.md)
+  : Write a data frame to Excel with per-column conditional formatting
+  thresholds
+- [`excel_generic_format()`](https://sedzinfo.github.io/rwf/reference/excel_generic_format.md)
+  : Format an Excel worksheet with styles, comments, and frozen panes
+- [`excel_matrix()`](https://sedzinfo.github.io/rwf/reference/excel_matrix.md)
+  : Write a matrix or data frame to an Excel worksheet with optional
+  conditional formatting
+
 ## Other functions
 
 - [`alpha_diagnostics()`](https://sedzinfo.github.io/rwf/reference/alpha_diagnostics.md)
@@ -231,16 +276,6 @@ code and more standardized output.
   data frame to a target number of rows with NAs
 - [`environment_options()`](https://sedzinfo.github.io/rwf/reference/environment_options.md)
   : Load environment options
-- [`excel_confusion_matrix()`](https://sedzinfo.github.io/rwf/reference/excel_confusion_matrix.md)
-  : Write matrix or dataframe to excel sheet
-- [`excel_critical_value()`](https://sedzinfo.github.io/rwf/reference/excel_critical_value.md)
-  : Write a data frame to Excel with per-column conditional formatting
-  thresholds
-- [`excel_generic_format()`](https://sedzinfo.github.io/rwf/reference/excel_generic_format.md)
-  : Format an Excel worksheet with styles, comments, and frozen panes
-- [`excel_matrix()`](https://sedzinfo.github.io/rwf/reference/excel_matrix.md)
-  : Write a matrix or data frame to an Excel worksheet with optional
-  conditional formatting
 - [`extract_components()`](https://sedzinfo.github.io/rwf/reference/extract_components.md)
   : Extract and plot variance components from a mixed model
 - [`extract_tirt_params()`](https://sedzinfo.github.io/rwf/reference/extract_tirt_params.md)
@@ -291,8 +326,6 @@ code and more standardized output.
   : Extract the upper or lower triangle of a matrix
 - [`mean_sd_alpha()`](https://sedzinfo.github.io/rwf/reference/mean_sd_alpha.md)
   : Mean and SD of scale scores
-- [`mgsub()`](https://sedzinfo.github.io/rwf/reference/mgsub.md) : Apply
-  gsub for multiple patterns with a single replacement
 - [`min_max_index()`](https://sedzinfo.github.io/rwf/reference/min_max_index.md)
   : Indices of the minimum and maximum values in a vector
 - [`model_loadings()`](https://sedzinfo.github.io/rwf/reference/model_loadings.md)
@@ -307,8 +340,6 @@ code and more standardized output.
   : Compare logistic regression models models
 - [`output_separator()`](https://sedzinfo.github.io/rwf/reference/output_separator.md)
   : Print a formatted console output block with separators
-- [`proper()`](https://sedzinfo.github.io/rwf/reference/proper.md) :
-  Convert a string to proper case
 - [`proportion_accurate()`](https://sedzinfo.github.io/rwf/reference/proportion_accurate.md)
   : Proportion overall accuracy of a confusion matrix
 - [`questions_by_keys()`](https://sedzinfo.github.io/rwf/reference/questions_by_keys.md)
@@ -357,31 +388,8 @@ code and more standardized output.
 - [`simulate_correlation_from_sample()`](https://sedzinfo.github.io/rwf/reference/simulate_correlation_from_sample.md)
   : Simulate data preserving the correlation structure of an input data
   frame
-- [`split_str()`](https://sedzinfo.github.io/rwf/reference/split_str.md)
-  : Split a string vector into a data frame of parts
-- [`split_str_df()`](https://sedzinfo.github.io/rwf/reference/split_str_df.md)
-  : Split a string column or row names in a data frame into separate
-  columns
 - [`stat_word_char()`](https://sedzinfo.github.io/rwf/reference/stat_word_char.md)
   : Text similarity measures
-- [`str_count()`](https://sedzinfo.github.io/rwf/reference/str_count.md)
-  : Count the number of pattern matches in a string
-- [`str_pad()`](https://sedzinfo.github.io/rwf/reference/str_pad.md) :
-  Pad a string to a minimum width
-- [`str_replace()`](https://sedzinfo.github.io/rwf/reference/str_replace.md)
-  : Replace the first pattern match in a string
-- [`str_replace_all()`](https://sedzinfo.github.io/rwf/reference/str_replace_all.md)
-  : Replace all pattern matches in a string
-- [`str_split_fixed()`](https://sedzinfo.github.io/rwf/reference/str_split_fixed.md)
-  : Split strings into a fixed-width matrix of pieces
-- [`str_squish()`](https://sedzinfo.github.io/rwf/reference/str_squish.md)
-  : Remove leading, trailing, and internal extra whitespace
-- [`str_wrap()`](https://sedzinfo.github.io/rwf/reference/str_wrap.md) :
-  Wrap long strings to a specified line width
-- [`string_aes()`](https://sedzinfo.github.io/rwf/reference/string_aes.md)
-  : Clean and format string aesthetics
-- [`sub_str()`](https://sedzinfo.github.io/rwf/reference/sub_str.md) :
-  Extract n characters from the left or right of a string
 - [`swap()`](https://sedzinfo.github.io/rwf/reference/swap.md) :
   Reverse-score a numeric vector
 - [`symmetric_matrix()`](https://sedzinfo.github.io/rwf/reference/symmetric_matrix.md)
@@ -390,8 +398,6 @@ code and more standardized output.
   Part of speech tagging
 - [`text_similarity()`](https://sedzinfo.github.io/rwf/reference/text_similarity.md)
   : Text similarity measures
-- [`trim_df()`](https://sedzinfo.github.io/rwf/reference/trim_df.md) :
-  Trim whitespace from all character cells in a data frame
 - [`ts_smoothing()`](https://sedzinfo.github.io/rwf/reference/ts_smoothing.md)
   : Time series smoothing with multiple bandwidth levels
 - [`wrapper()`](https://sedzinfo.github.io/rwf/reference/wrapper.md) :

@@ -147,8 +147,8 @@ key_to_cfa_model<-function(key) {
 #' diag(correlation_martix)<-1
 #' df<-round(generate_correlation_matrix(correlation_martix,nrows=1000),0)+5
 #' psych::alpha(df)
-#' raw_alpha(df=df)
-raw_alpha<-function(df) {
+#' compute_raw_alpha(df=df)
+compute_raw_alpha<-function(df) {
   covariance_matrix<-stats::cov(df,use="pairwise.complete.obs")
   # if(sapply(df,max)==1 && sapply(df,min)==0) {
   #   tetrachoric<-psych::tetrachoric(df,smooth=FALSE,global=FALSE,na.rm=TRUE,delete=TRUE)$rho

@@ -60,7 +60,7 @@ numeric values.
 ## Examples
 
 ``` r
-generate_data(nrows=10,ncols=5,mean=0,sd=1,type="normal")
+generate_data(nrows = 10, ncols = 5, mean = 0, sd = 1, type = "normal")
 #>          X1      X2        X3       X4       X5
 #> 1   0.94488  1.2176  0.766118  1.31139 -0.18585
 #> 2  -1.25487 -1.2320  0.218231  0.94533 -0.74540
@@ -72,7 +72,7 @@ generate_data(nrows=10,ncols=5,mean=0,sd=1,type="normal")
 #> 8  -0.40318  1.1987 -0.852113  0.22825  0.56622
 #> 9   0.10913  0.5136  0.783902 -1.04528 -1.42042
 #> 10 -0.09981  1.3459  0.008476 -1.20273 -1.19551
-generate_data(nrows=10,ncols=5,min=1,max=5,type="uniform")
+generate_data(nrows = 10, ncols = 5, min = 1, max = 5, type = "uniform")
 #>    X1 X2 X3 X4 X5
 #> 1   5  5  2  1  4
 #> 2   1  4  2  4  4

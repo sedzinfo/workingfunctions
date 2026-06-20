@@ -35,6 +35,15 @@ jobs:
           install.packages(c("remotes", "rcmdcheck"))
           remotes::install_deps(dependencies = TRUE)
         shell: Rscript {0}
+      - name: Install TinyTeX for PDF manual
+        run: |
+          install.packages("tinytex")
+          tinytex::install_tinytex()
+        shell: Rscript {0}
+      - name: Build PDF manual
+        run: R CMD Rd2pdf rwf --force --output=rwf.pdf
+      - name: Build package tarball
+        run: R CMD build rwf --resave-data
       - name: Check
         run: rcmdcheck::rcmdcheck(args = "--no-manual", error_on = "error")
         shell: Rscript {0}

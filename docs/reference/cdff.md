@@ -78,7 +78,7 @@ guaranteed — lexicographic order is used instead.
 ## Examples
 
 ``` r
-cdff(df=mtcars,parralel=TRUE)
+cdff(df = mtcars, parralel = TRUE)
 #> $summary
 #>   COLLUMNS ROWS TOTAL EMPTY null NAN na INF FIN FACTOR
 #> 1       11   32   352     0    0   0  0   0 352      0
@@ -97,7 +97,7 @@ cdff(df=mtcars,parralel=TRUE)
 #> 10  gear     0    0  0     32   0   0  32     3   3.69   4.00   0.74     3     5 numeric double numeric  FALSE
 #> 11  carb     0    0  0     32   0   0  32     6   2.81   2.00   1.62     1     8 numeric double numeric  FALSE
 #> 
-cdff(df=change_data_type(mtcars,"factor"),nuniques=3)
+cdff(df = change_data_type(mtcars, "factor"), nuniques = 3)
 #> $summary
 #>   COLLUMNS ROWS TOTAL EMPTY null NAN na INF FIN FACTOR
 #> 1       11   32   352     0    0   0  0   0 352     11
@@ -116,7 +116,7 @@ cdff(df=change_data_type(mtcars,"factor"),nuniques=3)
 #> 10  gear     0    0  0     32   0   0  32     3   NA     NA NA     3     5 numeric integer factor   TRUE    3, 4, 5   3, 4, 5
 #> 11  carb     0    0  0     32   0   0  32     6   NA     NA NA     1     8 numeric integer factor   TRUE  6 Uniques  6 Levels
 #> 
-cdff(df=data.frame(t(mtcars)),file="mtcars",nuniques=10)
+cdff(df = data.frame(t(mtcars)), file = "mtcars", nuniques = 10)
 #> $summary
 #>   COLLUMNS ROWS TOTAL EMPTY null NAN na INF FIN FACTOR
 #> 1       32   11   352     0    0   0  0   0 352      0
@@ -156,7 +156,7 @@ cdff(df=data.frame(t(mtcars)),file="mtcars",nuniques=10)
 #> 31       Maserati.Bora     0    0  0     11   0   0  11    10 63.16   8.00 126.32   0   335 numeric double numeric  FALSE     0, 1, 14.6, 15, 3.54, 3.57, 301, 335, 5, 8
 #> 32          Volvo.142E     0    0  0     11   0   0  11     9 26.26   4.00  44.50   1   121 numeric double numeric  FALSE      1, 109, 121, 18.6, 2, 2.78, 21.4, 4, 4.11
 #> 
-cdff(df=mtcars)
+cdff(df = mtcars)
 #> $summary
 #>   COLLUMNS ROWS TOTAL EMPTY null NAN na INF FIN FACTOR
 #> 1       11   32   352     0    0   0  0   0 352      0
@@ -175,7 +175,7 @@ cdff(df=mtcars)
 #> 10  gear     0    0  0     32   0   0  32     3   3.69   4.00   0.74     3     5 numeric double numeric  FALSE
 #> 11  carb     0    0  0     32   0   0  32     6   2.81   2.00   1.62     1     8 numeric double numeric  FALSE
 #> 
-cdff(df=generate_missing(mtcars))
+cdff(df = generate_missing(mtcars))
 #> $summary
 #>   COLLUMNS ROWS TOTAL EMPTY null NAN na INF FIN FACTOR
 #> 1       11   32   352     0    0   0 55   0 297      0
@@ -194,7 +194,7 @@ cdff(df=generate_missing(mtcars))
 #> 10  gear     0    0  5     27   0   0  27     4   3.74   4.00   0.76     3     5 numeric double numeric  FALSE
 #> 11  carb     0    0  5     27   0   0  27     6   2.63   2.00   1.33     1     6 numeric double numeric  FALSE
 #> 
-cdff(df=infert,nuniques=10)
+cdff(df = infert, nuniques = 10)
 #> $summary
 #>   COLLUMNS ROWS TOTAL EMPTY null NAN na INF  FIN FACTOR
 #> 1        8  248  1984     0    0   0  0   0 1984      1
@@ -210,7 +210,7 @@ cdff(df=infert,nuniques=10)
 #> 7        stratum     0    0  0    248   0   0 248    83 41.87     42 23.97      1       9 numeric integer integer  FALSE               83 Uniques                         
 #> 8 pooled.stratum     0    0  0    248   0   0 248    63 33.58     36 17.27      1      63 numeric  double numeric  FALSE               63 Uniques                         
 #> 
-cdff(df=infert)
+cdff(df = infert)
 #> $summary
 #>   COLLUMNS ROWS TOTAL EMPTY null NAN na INF  FIN FACTOR
 #> 1        8  248  1984     0    0   0  0   0 1984      1
@@ -226,11 +226,13 @@ cdff(df=infert)
 #> 7        stratum     0    0  0    248   0   0 248    83 41.87     42 23.97      1       9 numeric integer integer  FALSE
 #> 8 pooled.stratum     0    0  0    248   0   0 248    63 33.58     36 17.27      1      63 numeric  double numeric  FALSE
 #> 
-df<-data.frame(infert,
-               date=seq(as.Date("2010-1-1"),
-                    as.Date("2020-1-1"),
-                    length.out=nrow(infert)))
-cdff(df=df)
+df <- data.frame(infert,
+  date = seq(as.Date("2010-1-1"),
+    as.Date("2020-1-1"),
+    length.out = nrow(infert)
+  )
+)
+cdff(df = df)
 #> $summary
 #>   COLLUMNS ROWS TOTAL EMPTY null NAN na INF  FIN FACTOR
 #> 1        9  248  2232     0    0   0  0   0 2232      1

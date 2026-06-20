@@ -6,10 +6,6 @@
 \usage{
 alpha_diagnostics(df)
 }
-\arguments{
-\item{df}{A data frame whose columns are the items of a single scale. All
-columns must be numeric.}
-}
 \value{
 A data frame with one row per item and the following columns:
   \describe{

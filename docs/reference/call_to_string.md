@@ -24,8 +24,8 @@ A character scalar with the model call, whitespace removed.
 ## Examples
 
 ``` r
-df<-generate_correlation_matrix()
-model<-lm(df$X1~df$X2)
+df <- generate_correlation_matrix()
+model <- lm(df$X1 ~ df$X2)
 call_to_string(model)
 #> [1] "lm(formula=df$X1~df$X2)"
 ```

@@ -30,15 +30,15 @@ A named list with two elements:
 ## Examples
 
 ``` r
-vector1<-c(1,2,3,4,5,4,3,2,1)
-vector2<-c(1,2,3,4,5,5,3,2,1)
-vector3<-c(1,2,3,5,5,4,3,2,1)
-vector4<-c(1,2,3,4,6,4,3,2,1)
-vector5<-c(1,6,3,4,6,4,3,2,1)
-vector<-vector1
-which(vector==max(vector),arr.ind=TRUE)
+vector1 <- c(1, 2, 3, 4, 5, 4, 3, 2, 1)
+vector2 <- c(1, 2, 3, 4, 5, 5, 3, 2, 1)
+vector3 <- c(1, 2, 3, 5, 5, 4, 3, 2, 1)
+vector4 <- c(1, 2, 3, 4, 6, 4, 3, 2, 1)
+vector5 <- c(1, 6, 3, 4, 6, 4, 3, 2, 1)
+vector <- vector1
+which(vector == max(vector), arr.ind = TRUE)
 #> [1] 5
-which(vector==min(vector),arr.ind=TRUE)
+which(vector == min(vector), arr.ind = TRUE)
 #> [1] 1 9
 min_max_index(vector1)
 #> $max_index

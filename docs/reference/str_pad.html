@@ -96,15 +96,15 @@ Pads string with pad characters on the left,
 <span class="r-in"><span><span class="fu">str_pad</span><span class="op">(</span><span class="st">"hello"</span>, width<span class="op">=</span><span class="fl">11</span>, side<span class="op">=</span><span class="st">"both"</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] "   hello   "</span>
 <span class="r-in"><span><span class="co"># Zero-pad single digit numbers on the left</span></span></span>
-<span class="r-in"><span><span class="fu">str_pad</span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"1"</span>, <span class="st">"10"</span>, <span class="st">"100"</span><span class="op">)</span>, width<span class="op">=</span><span class="fl">3</span>, side<span class="op">=</span><span class="st">"left"</span>, pad<span class="op">=</span><span class="st">"0"</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu">str_pad</span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"1"</span>, <span class="st">"10"</span>, <span class="st">"100"</span><span class="op">)</span>, width <span class="op">=</span> <span class="fl">3</span>, side <span class="op">=</span> <span class="st">"left"</span>, pad <span class="op">=</span> <span class="st">"0"</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] "001" "010" "100"</span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># Right-pad to align labels</span></span></span>
-<span class="r-in"><span><span class="fu">str_pad</span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"Name"</span>, <span class="st">"Age"</span>, <span class="st">"Score"</span><span class="op">)</span>, width<span class="op">=</span><span class="fl">10</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu">str_pad</span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"Name"</span>, <span class="st">"Age"</span>, <span class="st">"Score"</span><span class="op">)</span>, width <span class="op">=</span> <span class="fl">10</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] "Name      " "Age       " "Score     "</span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># Pad on both sides (centers the string)</span></span></span>
-<span class="r-in"><span><span class="fu">str_pad</span><span class="op">(</span><span class="st">"hello"</span>, width<span class="op">=</span><span class="fl">11</span>, side<span class="op">=</span><span class="st">"both"</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu">str_pad</span><span class="op">(</span><span class="st">"hello"</span>, width <span class="op">=</span> <span class="fl">11</span>, side <span class="op">=</span> <span class="st">"both"</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] "   hello   "</span>
 </code></pre></div>
     </div>

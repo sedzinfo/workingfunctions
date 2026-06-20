@@ -71,6 +71,6 @@ str_replace_all("remove all spaces", fixed(" "), "")
 #> [1] "removeallspaces"
 
 # Named vector: multiple replacements applied in order
-str_replace_all("aabbcc", c("a"="X", "b"="Y"))
+str_replace_all("aabbcc", c("a" = "X", "b" = "Y"))
 #> [1] "XXYYcc"
 ```

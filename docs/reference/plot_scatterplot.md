@@ -21,7 +21,7 @@ plot_scatterplot(
   all_orders = FALSE,
   title = "",
   combinations = NULL,
-  string_aes = TRUE
+  str_aes = TRUE
 )
 ```
 
@@ -67,11 +67,11 @@ plot_scatterplot(
   the x-variable name, column 2 is the y-variable name. When `NULL`
   (default) all pairs are derived automatically from `df`.
 
-- string_aes:
+- str_aes:
 
   Logical. If `TRUE` variable names are passed through
-  [`string_aes()`](https://sedzinfo.github.io/rwf/reference/string_aes.md)
-  to clean axis labels. Default `TRUE`.
+  [`str_aes()`](https://sedzinfo.github.io/rwf/reference/str_aes.md) to
+  clean axis labels. Default `TRUE`.
 
 ## Value
 

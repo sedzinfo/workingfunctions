@@ -53,9 +53,11 @@ A named list of ggplot objects (one 6-panel plot per IV-DV pair), named
 
 ``` r
 nrows <- 1000
-df <- data.frame(generate_factor(vector=LETTERS[1:5], nrows=nrows, ncols=10, type="random"),
-                 generate_data(nrows=nrows, ncols=5, type="normal"))
-result <- plot_oneway_diagnostics(df=df, dv=11:15, iv=1:10)
+df <- data.frame(
+  generate_factor(vector = LETTERS[1:5], nrows = nrows, ncols = 10, type = "random"),
+  generate_data(nrows = nrows, ncols = 5, type = "normal")
+)
+result <- plot_oneway_diagnostics(df = df, dv = 11:15, iv = 1:10)
 #> Warning: `fortify(<lm>)` was deprecated in ggplot2 4.0.0.
 #> ℹ Please use `broom::augment(<lm>)` instead.
 #> ℹ The deprecated feature was likely used in the ggfortify package.
@@ -67,7 +69,7 @@ result <- plot_oneway_diagnostics(df=df, dv=11:15, iv=1:10)
 #>   Please report the issue at <https://github.com/sinhrks/ggfortify/issues>.
 
 # Single DV, multiple IVs
-plot_oneway_diagnostics(df=mtcars, dv=1, iv=9:10)
+plot_oneway_diagnostics(df = mtcars, dv = 1, iv = 9:10)
 #> $am_mpg
 
 #> 
@@ -76,7 +78,7 @@ plot_oneway_diagnostics(df=mtcars, dv=1, iv=9:10)
 #> 
 
 # Multiple DVs and IVs
-plot_oneway_diagnostics(df=mtcars, dv=1:2, iv=9:10)
+plot_oneway_diagnostics(df = mtcars, dv = 1:2, iv = 9:10)
 #> $am_mpg
 
 #> 

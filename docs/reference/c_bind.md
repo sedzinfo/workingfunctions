@@ -38,7 +38,7 @@ Ananda Mahto
 ## Examples
 
 ``` r
-c_bind(rnorm(10),rnorm(11),rnorm(12),rnorm(13))
+c_bind(rnorm(10), rnorm(11), rnorm(12), rnorm(13))
 #>     rnorm(10)  rnorm(11)  rnorm(12)  rnorm(13)
 #> 1  -0.3487804  0.9647606 -0.8958523 -0.4249012
 #> 2  -1.0257007  0.2614347  0.2505683  1.4671976

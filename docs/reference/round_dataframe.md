@@ -55,7 +55,7 @@ have been rounded or transformed according to `type`.
 ## Examples
 
 ``` r
-round_dataframe(df=change_data_type(df=mtcars,type="factor"),digits=0)
+round_dataframe(df = change_data_type(df = mtcars, type = "factor"), digits = 0)
 #>                      mpg cyl  disp  hp drat    wt  qsec vs am gear carb
 #> Mazda RX4             21   6   160 110  3.9  2.62 16.46  0  1    4    4
 #> Mazda RX4 Wag         21   6   160 110  3.9 2.875 17.02  0  1    4    4
@@ -89,7 +89,7 @@ round_dataframe(df=change_data_type(df=mtcars,type="factor"),digits=0)
 #> Ferrari Dino        19.7   6   145 175 3.62  2.77  15.5  0  1    5    6
 #> Maserati Bora         15   8   301 335 3.54  3.57  14.6  0  1    5    8
 #> Volvo 142E          21.4   4   121 109 4.11  2.78  18.6  1  1    4    2
-round_dataframe(df=change_data_type(df=mtcars,type="character"),digits=0)
+round_dataframe(df = change_data_type(df = mtcars, type = "character"), digits = 0)
 #>                      mpg cyl  disp  hp drat    wt  qsec vs am gear carb
 #> Mazda RX4             21   6   160 110  3.9  2.62 16.46  0  1    4    4
 #> Mazda RX4 Wag         21   6   160 110  3.9 2.875 17.02  0  1    4    4
@@ -123,7 +123,7 @@ round_dataframe(df=change_data_type(df=mtcars,type="character"),digits=0)
 #> Ferrari Dino        19.7   6   145 175 3.62  2.77  15.5  0  1    5    6
 #> Maserati Bora         15   8   301 335 3.54  3.57  14.6  0  1    5    8
 #> Volvo 142E          21.4   4   121 109 4.11  2.78  18.6  1  1    4    2
-round_dataframe(df=mtcars,digits=0)
+round_dataframe(df = mtcars, digits = 0)
 #>                     mpg cyl disp  hp drat wt qsec vs am gear carb
 #> Mazda RX4            21   6  160 110    4  3   16  0  1    4    4
 #> Mazda RX4 Wag        21   6  160 110    4  3   17  0  1    4    4
@@ -157,7 +157,7 @@ round_dataframe(df=mtcars,digits=0)
 #> Ferrari Dino         20   6  145 175    4  3   16  0  1    5    6
 #> Maserati Bora        15   8  301 335    4  4   15  0  1    5    8
 #> Volvo 142E           21   4  121 109    4  3   19  1  1    4    2
-round_dataframe(df=mtcars,digits=0,type="ceiling")
+round_dataframe(df = mtcars, digits = 0, type = "ceiling")
 #>                     mpg cyl disp  hp drat wt qsec vs am gear carb
 #> Mazda RX4            21   6  160 110    4  3   17  0  1    4    4
 #> Mazda RX4 Wag        21   6  160 110    4  3   18  0  1    4    4
@@ -191,7 +191,7 @@ round_dataframe(df=mtcars,digits=0,type="ceiling")
 #> Ferrari Dino         20   6  145 175    4  3   16  0  1    5    6
 #> Maserati Bora        15   8  301 335    4  4   15  0  1    5    8
 #> Volvo 142E           22   4  121 109    5  3   19  1  1    4    2
-round_dataframe(df=mtcars,digits=0,type="floor")
+round_dataframe(df = mtcars, digits = 0, type = "floor")
 #>                     mpg cyl disp  hp drat wt qsec vs am gear carb
 #> Mazda RX4            21   6  160 110    3  2   16  0  1    4    4
 #> Mazda RX4 Wag        21   6  160 110    3  2   17  0  1    4    4
@@ -225,7 +225,7 @@ round_dataframe(df=mtcars,digits=0,type="floor")
 #> Ferrari Dino         19   6  145 175    3  2   15  0  1    5    6
 #> Maserati Bora        15   8  301 335    3  3   14  0  1    5    8
 #> Volvo 142E           21   4  121 109    4  2   18  1  1    4    2
-round_dataframe(df=mtcars*100,digits=2,type="tenth")
+round_dataframe(df = mtcars * 100, digits = 2, type = "tenth")
 #>                     mpg cyl disp   hp drat    wt  qsec vs am gear carb
 #> Mazda RX4           210  60 1600 1100 39.0 26.20 164.6  0 10   40   40
 #> Mazda RX4 Wag       210  60 1600 1100 39.0 28.75 170.2  0 10   40   40

@@ -52,7 +52,7 @@ converted as specified.
 ## Examples
 
 ``` r
-cdf(df=change_data_type(df=mtcars,"character"))
+cdf(df = change_data_type(df = mtcars, "character"))
 #> $summary
 #>   COLLUMNS ROWS TOTAL EMPTY null NAN na INF FIN FACTOR
 #> 1       11   32   352     0    0   0  0   0   0      0
@@ -71,7 +71,7 @@ cdf(df=change_data_type(df=mtcars,"character"))
 #> 10  gear     0    0  0     32   0   0   0     3   NA     NA NA     3     5 character character character  FALSE
 #> 11  carb     0    0  0     32   0   0   0     6   NA     NA NA     1     8 character character character  FALSE
 #> 
-cdf(df=change_data_type(df=mtcars,"numeric"))
+cdf(df = change_data_type(df = mtcars, "numeric"))
 #> $summary
 #>   COLLUMNS ROWS TOTAL EMPTY null NAN na INF FIN FACTOR
 #> 1       11   32   352     0    0   0  0   0 352      0
@@ -90,7 +90,7 @@ cdf(df=change_data_type(df=mtcars,"numeric"))
 #> 10  gear     0    0  0     32   0   0  32     3   3.69      4   0.74     3     5 numeric double numeric  FALSE
 #> 11  carb     0    0  0     32   0   0  32     6   2.81      2   1.62     1     8 numeric double numeric  FALSE
 #> 
-cdf(df=change_data_type(df=mtcars,"factor"))
+cdf(df = change_data_type(df = mtcars, "factor"))
 #> $summary
 #>   COLLUMNS ROWS TOTAL EMPTY null NAN na INF FIN FACTOR
 #> 1       11   32   352     0    0   0  0   0 352     11
@@ -109,8 +109,8 @@ cdf(df=change_data_type(df=mtcars,"factor"))
 #> 10  gear     0    0  0     32   0   0  32     3   NA     NA NA     3     5 numeric integer factor   TRUE
 #> 11  carb     0    0  0     32   0   0  32     6   NA     NA NA     1     8 numeric integer factor   TRUE
 #> 
-df<-change_data_type(df=mtcars,"factor")
-cdf(df=change_data_type(df=df,"factor_character"))
+df <- change_data_type(df = mtcars, "factor")
+cdf(df = change_data_type(df = df, "factor_character"))
 #> $summary
 #>   COLLUMNS ROWS TOTAL EMPTY null NAN na INF FIN FACTOR
 #> 1       11   32   352     0    0   0  0   0   0      0

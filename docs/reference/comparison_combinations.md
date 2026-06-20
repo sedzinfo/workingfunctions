@@ -34,7 +34,7 @@ representing one variable pair.
 ## Examples
 
 ``` r
-comparison_combinations(generate_correlation_matrix(n=10)[,1:4])
+comparison_combinations(generate_correlation_matrix(n = 10)[, 1:4])
 #>    X1 X2
 #> 1  X1 X2
 #> 2  X1 X3

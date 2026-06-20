@@ -7,9 +7,6 @@
 mean_sd_alpha(df, divisor = NULL)
 }
 \arguments{
-\item{df}{A data frame whose columns are the items of a single scale. All
-columns must be numeric.}
-
 \item{divisor}{Numeric scalar used to divide the row sum before computing
 the mean and SD. When \code{NULL} (default) row means are used instead.}
 }

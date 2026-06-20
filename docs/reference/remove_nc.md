@@ -62,13 +62,13 @@ flags, rows and/or columns removed.
 ## Examples
 
 ``` r
-df<-mtcars
-df[1,]<-as.numeric(NaN)
-df[2,]<-as.numeric(Inf)
-df[3,]<-as.numeric(-Inf)
-df[4,]<-as.numeric(NA)
-df[5,]<-""
-remove_nc(df=df,value=NA)
+df <- mtcars
+df[1, ] <- as.numeric(NaN)
+df[2, ] <- as.numeric(Inf)
+df[3, ] <- as.numeric(-Inf)
+df[4, ] <- as.numeric(NA)
+df[5, ] <- ""
+remove_nc(df = df, value = NA)
 #>                      mpg  cyl  disp   hp drat    wt  qsec   vs   am gear carb
 #> Mazda RX4           <NA> <NA>  <NA> <NA> <NA>  <NA>  <NA> <NA> <NA> <NA> <NA>
 #> Mazda RX4 Wag       <NA> <NA>  <NA> <NA> <NA>  <NA>  <NA> <NA> <NA> <NA> <NA>
@@ -102,7 +102,7 @@ remove_nc(df=df,value=NA)
 #> Ferrari Dino        19.7    6   145  175 3.62  2.77  15.5    0    1    5    6
 #> Maserati Bora         15    8   301  335 3.54  3.57  14.6    0    1    5    8
 #> Volvo 142E          21.4    4   121  109 4.11  2.78  18.6    1    1    4    2
-cdf(remove_nc(df=df,value=NA))
+cdf(remove_nc(df = df, value = NA))
 #> $summary
 #>   COLLUMNS ROWS TOTAL EMPTY null NAN na INF FIN FACTOR
 #> 1       11   32   352     0    0   0 55   0   0      0
@@ -121,8 +121,8 @@ cdf(remove_nc(df=df,value=NA))
 #> 10  gear     0    0  5     27   0   0   0     4   NA     NA NA     3     5 character character character  FALSE
 #> 11  carb     0    0  5     27   0   0   0     7   NA     NA NA     1     8 character character character  FALSE
 #> 
-df<-generate_missing(mtcars,missing=5)
-remove_nc(df,remove_rows=TRUE,aggressive=FALSE)
+df <- generate_missing(mtcars, missing = 5)
+remove_nc(df, remove_rows = TRUE, aggressive = FALSE)
 #>                      mpg cyl  disp  hp drat    wt  qsec vs am gear carb
 #> Mazda RX4           21.0   6 160.0 110 3.90 2.620 16.46 NA  1    4   NA
 #> Mazda RX4 Wag       21.0   6 160.0  NA 3.90 2.875 17.02  0 NA    4    4
@@ -156,23 +156,23 @@ remove_nc(df,remove_rows=TRUE,aggressive=FALSE)
 #> Ferrari Dino        19.7   6 145.0 175   NA 2.770 15.50  0  1    5    6
 #> Maserati Bora       15.0   8 301.0 335 3.54 3.570 14.60  0  1    5    8
 #> Volvo 142E          21.4   4 121.0 109 4.11 2.780 18.60  1  1    4   NA
-remove_nc(df,remove_rows=TRUE,aggressive=TRUE)
+remove_nc(df, remove_rows = TRUE, aggressive = TRUE)
 #>                     mpg cyl  disp  hp drat    wt  qsec vs am gear carb
 #> Cadillac Fleetwood 10.4   8 472.0 205 2.93 5.250 17.98  0  0    3    4
 #> Chrysler Imperial  14.7   8 440.0 230 3.23 5.345 17.42  0  0    3    4
 #> Fiat 128           32.4   4  78.7  66 4.08 2.200 19.47  1  1    4    1
 #> Maserati Bora      15.0   8 301.0 335 3.54 3.570 14.60  0  1    5    8
-df<-generate_missing(generate_correlation_matrix(nrows=5),missing=2)
-df$X2<-NA
-df$X3<-1
-remove_nc(df,remove_cols=TRUE,remove_zero_variance=FALSE)
+df <- generate_missing(generate_correlation_matrix(nrows = 5), missing = 2)
+df$X2 <- NA
+df$X3 <- 1
+remove_nc(df, remove_cols = TRUE, remove_zero_variance = FALSE)
 #>        X1 X3     X4       X5
 #> 1 -0.8192  1     NA       NA
 #> 2  0.5864  1  0.777  0.80379
 #> 3      NA  1 -1.753       NA
 #> 4      NA  1 -2.927 -0.48276
 #> 5 -0.4498  1     NA  0.03428
-remove_nc(df,remove_cols=TRUE,remove_zero_variance=TRUE)
+remove_nc(df, remove_cols = TRUE, remove_zero_variance = TRUE)
 #>        X1     X4       X5
 #> 1 -0.8192     NA       NA
 #> 2  0.5864  0.777  0.80379

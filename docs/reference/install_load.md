@@ -35,7 +35,7 @@ install_load("car")
 #> Loading required package: carData
 #>  car 
 #> TRUE 
-install_load(c("car","ggplot2"))
+install_load(c("car", "ggplot2"))
 #>     car ggplot2 
 #>    TRUE    TRUE 
 ```

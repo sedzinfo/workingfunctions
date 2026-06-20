@@ -83,7 +83,7 @@ All list elements are named `"iv1_iv2_dv"`.
 
 ``` r
 # Single DV, two IVs
-plot_interaction(df=mtcars, dv=2, iv=8:9, base_size=20, type="se")
+plot_interaction(df = mtcars, dv = 2, iv = 8:9, base_size = 20, type = "se")
 #> $plot_data
 #> $plot_data$am_vs_cyl
 #>   am vs  N   cyl    sd     se     ci
@@ -121,7 +121,7 @@ plot_interaction(df=mtcars, dv=2, iv=8:9, base_size=20, type="se")
 #> 
 
 # Multiple DVs, two IVs
-plot_interaction(df=mtcars, dv=2:3, iv=8:9, base_size=20, type="se")
+plot_interaction(df = mtcars, dv = 2:3, iv = 8:9, base_size = 20, type = "se")
 #> $plot_data
 #> $plot_data$am_vs_cyl
 #>   am vs  N   cyl    sd     se     ci
@@ -185,7 +185,7 @@ plot_interaction(df=mtcars, dv=2:3, iv=8:9, base_size=20, type="se")
 
 #> 
 #> 
-plot_interaction(df=mtcars, dv=2:3, iv=8:9, base_size=20, type="ci")
+plot_interaction(df = mtcars, dv = 2:3, iv = 8:9, base_size = 20, type = "ci")
 #> $plot_data
 #> $plot_data$am_vs_cyl
 #>   am vs  N   cyl    sd     se     ci
@@ -249,7 +249,7 @@ plot_interaction(df=mtcars, dv=2:3, iv=8:9, base_size=20, type="ci")
 
 #> 
 #> 
-plot_interaction(df=mtcars, dv=2:3, iv=9:10, base_size=20, type="sd")
+plot_interaction(df = mtcars, dv = 2:3, iv = 9:10, base_size = 20, type = "sd")
 #> $plot_data
 #> $plot_data$gear_am_cyl
 #>   gear am  N   cyl     sd     se     ci
@@ -315,7 +315,7 @@ plot_interaction(df=mtcars, dv=2:3, iv=9:10, base_size=20, type="sd")
 #> 
 
 # No error bars, unordered factor axis
-plot_interaction(df=mtcars, dv=2, iv=9:10, base_size=20, type="", order_factor=FALSE)
+plot_interaction(df = mtcars, dv = 2, iv = 9:10, base_size = 20, type = "", order_factor = FALSE)
 #> $plot_data
 #> $plot_data$gear_am_cyl
 #>   gear am  N   cyl     sd     se     ci

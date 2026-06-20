@@ -91,44 +91,52 @@ applied row by row, skipping `NA` values.
 ## Examples
 
 ``` r
-comment<-list(mpg="Miles/(US) gallon",
-              cyl="Number of cylinders",
-              disp="Displacement (cu.in.)",
-              hp="Gross horsepower",
-              drat="Rear axle ratio",
-              wt="Weight (1000 lbs)",
-              qsec="1/4 mile time",
-              vs="Engine (0=V-shaped,1=straight)",
-              am="Transmission (0=automatic,1=manual)",
-              gear="Number of forward gears",
-              carb="Number of carburetors",
-              extra_comment1="test1",
-              extra_comment2="test2")
-filename<-"excel_critical_value.xlsx"
+comment <- list(
+  mpg = "Miles/(US) gallon",
+  cyl = "Number of cylinders",
+  disp = "Displacement (cu.in.)",
+  hp = "Gross horsepower",
+  drat = "Rear axle ratio",
+  wt = "Weight (1000 lbs)",
+  qsec = "1/4 mile time",
+  vs = "Engine (0=V-shaped,1=straight)",
+  am = "Transmission (0=automatic,1=manual)",
+  gear = "Number of forward gears",
+  carb = "Number of carburetors",
+  extra_comment1 = "test1",
+  extra_comment2 = "test2"
+)
+filename <- "excel_critical_value.xlsx"
 if (file.exists(filename)) file.remove(filename)
 #> [1] TRUE
-wb<-openxlsx::createWorkbook()
-df<-generate_missing(generate_correlation_matrix())
-critical<-list(X1="<0.05",X5="<0")
-excel_critical_value(df=df,workbook=wb,sheet="critical",comment=list(X1="test"),
-                     numFmt="#0.00",critical=critical)
-openxlsx::saveWorkbook(wb,invisible(paste(filename)),TRUE)
-filename<-"excel_critical_value_comment.xlsx"
+wb <- openxlsx::createWorkbook()
+df <- generate_missing(generate_correlation_matrix())
+critical <- list(X1 = "<0.05", X5 = "<0")
+excel_critical_value(
+  df = df, workbook = wb, sheet = "critical", comment = list(X1 = "test"),
+  numFmt = "#0.00", critical = critical
+)
+openxlsx::saveWorkbook(wb, invisible(paste(filename)), TRUE)
+filename <- "excel_critical_value_comment.xlsx"
 if (file.exists(filename)) file.remove(filename)
 #> [1] TRUE
-wb<-openxlsx::createWorkbook()
-df<-generate_missing(mtcars)
-critical<-list(mpg=">20",am="=0")
-excel_critical_value(df=df,workbook=wb,sheet="critical",comment=comment,
-                     numFmt="#0.00",critical=critical)
-openxlsx::saveWorkbook(wb,invisible(paste(filename)),TRUE)
-filename<-"excel_critical_value_comment_min_max.xlsx"
+wb <- openxlsx::createWorkbook()
+df <- generate_missing(mtcars)
+critical <- list(mpg = ">20", am = "=0")
+excel_critical_value(
+  df = df, workbook = wb, sheet = "critical", comment = comment,
+  numFmt = "#0.00", critical = critical
+)
+openxlsx::saveWorkbook(wb, invisible(paste(filename)), TRUE)
+filename <- "excel_critical_value_comment_min_max.xlsx"
 if (file.exists(filename)) file.remove(filename)
 #> [1] TRUE
-wb<-openxlsx::createWorkbook()
-df<-generate_missing(mtcars)
-critical<-list(mpg=c(">20","<11"),am="=0")
-excel_critical_value(df=df,workbook=wb,sheet="critical",comment=comment,
-                     numFmt="#0.00",critical=critical)
-openxlsx::saveWorkbook(wb,invisible(paste(filename)),TRUE)
+wb <- openxlsx::createWorkbook()
+df <- generate_missing(mtcars)
+critical <- list(mpg = c(">20", "<11"), am = "=0")
+excel_critical_value(
+  df = df, workbook = wb, sheet = "critical", comment = comment,
+  numFmt = "#0.00", critical = critical
+)
+openxlsx::saveWorkbook(wb, invisible(paste(filename)), TRUE)
 ```

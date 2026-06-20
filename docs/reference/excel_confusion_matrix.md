@@ -30,12 +30,12 @@ excel_confusion_matrix(
 ## Examples
 
 ``` r
-filename<-"excel_confusion_matrix.xlsx"
+filename <- "excel_confusion_matrix.xlsx"
 if (file.exists(filename)) file.remove(filename)
 #> [1] TRUE
-observed<-factor(round(rnorm(10000,m=10,sd=1)))
-predicted<-factor(round(rnorm(10000,m=10,sd=1)))
-confusion(observed,predicted)
+observed <- factor(round(rnorm(10000, m = 10, sd = 1)))
+predicted <- factor(round(rnorm(10000, m = 10, sd = 1)))
+confusion(observed, predicted)
 #>          observed
 #> predicted    6    7    8    9   10   11   12   13   14
 #>        6     0    0    0    0    1    1    0    0    0
@@ -47,8 +47,8 @@ confusion(observed,predicted)
 #>        12    0    4   41  156  214  158   25    1    0
 #>        13    0    0    5   16   23    9    2    0    0
 #>        14    0    0    0    0    0    1    0    0    0
-cm<-confusion_matrix_percent(observed,predicted)
-wb<-openxlsx::createWorkbook()
-excel_confusion_matrix(cm,wb)
-openxlsx::saveWorkbook(wb,invisible(paste(filename)),TRUE)
+cm <- confusion_matrix_percent(observed, predicted)
+wb <- openxlsx::createWorkbook()
+excel_confusion_matrix(cm, wb)
+openxlsx::saveWorkbook(wb, invisible(paste(filename)), TRUE)
 ```

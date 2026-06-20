@@ -3,8 +3,7 @@
 Computes contingency tables (frequency counts and percentages) for pairs
 of categorical variables. Variable pairs can be supplied explicitly via
 `combinations`, or all unique pairs within a set of columns can be
-generated automatically via `factor_index`. A progress bar is displayed
-during computation.
+generated automatically via `factor_index`.
 
 ## Usage
 
@@ -68,7 +67,6 @@ Variable pairs with zero total observations are silently dropped.
 combinations <- data.frame(index1 = c("vs", "am", "gear"), 
                            index2 = c("cyl", "cyl", "cyl"))
 compute_crosstable(df = mtcars, combinations = combinations)
-#>   |                                                                                                                                                                                                      |                                                                                                                                                                                              |   0%  |                                                                                                                                                                                                      |===============================================================                                                                                                                               |  33%  |                                                                                                                                                                                                      |===============================================================================================================================                                                               |  67%  |                                                                                                                                                                                                      |==============================================================================================================================================================================================| 100%
 #>      f1  f2 l1 l2 Frequency Percent
 #> 1    vs cyl  0  4         1   3.125
 #> 2    vs cyl  1  4        10  31.250
@@ -94,7 +92,6 @@ compute_crosstable(df = mtcars, combinations = combinations)
 combinations <- data.frame(index1 = c("vs", "am"), 
                            index2 = c("cyl", "cyl"))
 compute_crosstable(df = mtcars, combinations = combinations)
-#>   |                                                                                                                                                                                                      |                                                                                                                                                                                              |   0%  |                                                                                                                                                                                                      |===============================================================================================                                                                                               |  50%  |                                                                                                                                                                                                      |==============================================================================================================================================================================================| 100%
 #>    f1  f2 l1 l2 Frequency Percent
 #> 1  vs cyl  0  4         1   3.125
 #> 2  vs cyl  1  4        10  31.250
@@ -109,7 +106,6 @@ compute_crosstable(df = mtcars, combinations = combinations)
 #> 11 am cyl  0  8        12  37.500
 #> 12 am cyl  1  8         2   6.250
 compute_crosstable(df = mtcars, factor_index = 8:10)
-#>   |                                                                                                                                                                                                      |                                                                                                                                                                                              |   0%  |                                                                                                                                                                                                      |===============================================================                                                                                                                               |  33%  |                                                                                                                                                                                                      |===============================================================================================================================                                                               |  67%  |                                                                                                                                                                                                      |==============================================================================================================================================================================================| 100%
 #>      f1 f2 l1 l2 Frequency Percent
 #> 1    am vs  0  0        12  37.500
 #> 2    am vs  1  0         6  18.750

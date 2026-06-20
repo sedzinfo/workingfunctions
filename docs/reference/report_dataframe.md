@@ -30,21 +30,27 @@ report_dataframe(df, file = NULL, type = "critical_value", ...)
 ## Examples
 
 ``` r
-comment<-list(mpg="Miles/(US) gallon",
-              cyl="Number of cylinders",
-              disp="Displacement (cu.in.)",
-              hp="Gross horsepower",
-              drat="Rear axle ratio",
-              wt="Weight (1000 lbs)",
-              qsec="1/4 mile time",
-              vs="Engine (0=V-shaped,1=straight)",
-              am="Transmission (0=automatic,1=manual)",
-              gear="Number of forward gears",
-              carb="Number of carburetors")
-report_dataframe(mtcars,sheet="report",file="mtcars",comment=comment,numFmt="#0.00",
-                 critical=list(am="<0.05"))
-report_dataframe(mtcars,sheet="report",file=NULL,comment=comment,numFmt="#0.00",
-                 critical=list(am="<0.05"))
+comment <- list(
+  mpg = "Miles/(US) gallon",
+  cyl = "Number of cylinders",
+  disp = "Displacement (cu.in.)",
+  hp = "Gross horsepower",
+  drat = "Rear axle ratio",
+  wt = "Weight (1000 lbs)",
+  qsec = "1/4 mile time",
+  vs = "Engine (0=V-shaped,1=straight)",
+  am = "Transmission (0=automatic,1=manual)",
+  gear = "Number of forward gears",
+  carb = "Number of carburetors"
+)
+report_dataframe(mtcars,
+  sheet = "report", file = "mtcars", comment = comment, numFmt = "#0.00",
+  critical = list(am = "<0.05")
+)
+report_dataframe(mtcars,
+  sheet = "report", file = NULL, comment = comment, numFmt = "#0.00",
+  critical = list(am = "<0.05")
+)
 #>                      mpg cyl  disp  hp drat    wt  qsec vs am gear carb
 #> Mazda RX4           21.0   6 160.0 110 3.90 2.620 16.46  0  1    4    4
 #> Mazda RX4 Wag       21.0   6 160.0 110 3.90 2.875 17.02  0  1    4    4

@@ -74,6 +74,7 @@ reference:
       - compute_posthoc
       - compute_power_r
       - compute_power_r_matrix
+      - compute_raw_alpha
       - compute_residual_stats
       - compute_scores
       - compute_se_theta
@@ -199,7 +200,7 @@ reference:
       - rank3_to_triplets
       - rank_df_to_binary
       - rank_to_binary
-      - raw_alpha
+
       - rbind_all
       - recode_scale_dummy
       - remove_nc

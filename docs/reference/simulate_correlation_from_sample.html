@@ -77,7 +77,7 @@ Accuracy of the reproduced correlations improves with larger <code>nrows</code>.
 
     <div class="section level2">
     <h2 id="ref-examples">Examples<a class="anchor" aria-label="anchor" href="#ref-examples"></a></h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="va">correlation_matrix</span><span class="op">&lt;-</span><span class="fu"><a href="generate_correlation_matrix.html">generate_correlation_matrix</a></span><span class="op">(</span><span class="op">)</span></span></span>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="va">correlation_matrix</span> <span class="op">&lt;-</span> <span class="fu"><a href="generate_correlation_matrix.html">generate_correlation_matrix</a></span><span class="op">(</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="fu">stats</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/r/stats/cor.html" class="external-link">cor</a></span><span class="op">(</span><span class="va">correlation_matrix</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>           X1       X2       X3       X4         X5        X6         X7       X8         X9        X10</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> X1   1.00000  0.09580 -0.25574 -0.02698 -0.3356306  0.255192  0.2066641  0.03531  0.5440387 -0.1113586</span>
@@ -90,7 +90,7 @@ Accuracy of the reproduced correlations improves with larger <code>nrows</code>.
 <span class="r-out co"><span class="r-pr">#&gt;</span> X8   0.03531 -0.16911  0.28539 -0.13466  0.0174080 -0.152937  0.4776469  1.00000 -0.5063058 -0.4670543</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> X9   0.54404  0.07459 -0.64221 -0.07335  0.1736131 -0.005531  0.0009845 -0.50631  1.0000000  0.3485074</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> X10 -0.11136  0.18808 -0.13380 -0.08311  0.0000937  0.213570 -0.7419928 -0.46705  0.3485074  1.0000000</span>
-<span class="r-in"><span><span class="fu">simulate_correlation_from_sample</span><span class="op">(</span><span class="va">correlation_matrix</span>,nrows<span class="op">=</span><span class="fl">1000</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu">simulate_correlation_from_sample</span><span class="op">(</span><span class="va">correlation_matrix</span>, nrows <span class="op">=</span> <span class="fl">1000</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>              X1         X2         X3          X4        X5           X6           X7        X8        X9       X10</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 1    -1.7162086 -1.4379621 -0.9026742 -1.61267795  1.985939 -0.055199436 -0.110722205 -0.381150  0.744683  0.724182</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 2    -0.0223775  0.5645829 -0.2071432  0.35583839 -0.974335  0.668863707 -0.239035161 -0.506924 -0.630996 -1.509920</span>
@@ -1092,7 +1092,7 @@ Accuracy of the reproduced correlations improves with larger <code>nrows</code>.
 <span class="r-out co"><span class="r-pr">#&gt;</span> 998   1.2578391  0.2671504 -0.3682257  0.07326784 -0.143727  0.597788660 -0.195387679 -0.652495  0.965099  0.752898</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 999  -0.3962725  0.2356143 -0.7851022  0.31836209 -0.122863 -0.256781151 -0.291947570  0.154385  0.776040  1.499563</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 1000  1.2875845  0.2435326 -0.2322288  0.45093529 -1.329865  0.362306597 -0.017712599 -0.282893  0.685335 -0.555380</span>
-<span class="r-in"><span><span class="fu">stats</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/r/stats/cor.html" class="external-link">cor</a></span><span class="op">(</span><span class="fu">simulate_correlation_from_sample</span><span class="op">(</span><span class="va">correlation_matrix</span>,nrows<span class="op">=</span><span class="fl">1000</span><span class="op">)</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu">stats</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/r/stats/cor.html" class="external-link">cor</a></span><span class="op">(</span><span class="fu">simulate_correlation_from_sample</span><span class="op">(</span><span class="va">correlation_matrix</span>, nrows <span class="op">=</span> <span class="fl">1000</span><span class="op">)</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>           X1       X2       X3       X4        X5       X6       X7        X8       X9       X10</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> X1   1.00000  0.05495 -0.20129 -0.03842 -0.319477  0.22968  0.25923  0.135959  0.50610 -0.165808</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> X2   0.05495  1.00000 -0.48071  0.65300 -0.437591  0.05192 -0.34755 -0.132063  0.01562  0.118833</span>

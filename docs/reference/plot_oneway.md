@@ -88,12 +88,14 @@ All list elements are named `"iv_dv"`.
 
 ``` r
 nrows <- 1000
-df <- data.frame(generate_factor(vector=LETTERS[1:5], nrows=nrows, ncols=10, type="random"),
-                 generate_data(nrows=nrows, ncols=5, type="normal"))
-result <- plot_oneway(df=df, dv=11:15, iv=1:10)
+df <- data.frame(
+  generate_factor(vector = LETTERS[1:5], nrows = nrows, ncols = 10, type = "random"),
+  generate_data(nrows = nrows, ncols = 5, type = "normal")
+)
+result <- plot_oneway(df = df, dv = 11:15, iv = 1:10)
 
 # Single IV, single DV
-plot_oneway(df=mtcars, dv=2, iv=9)
+plot_oneway(df = mtcars, dv = 2, iv = 9)
 #> $plot_data
 #> $plot_data$am_cyl
 #>   am  N   cyl    sd     se     ci
@@ -113,7 +115,7 @@ plot_oneway(df=mtcars, dv=2, iv=9)
 #> 
 
 # Multiple IVs and DVs
-plot_oneway(df=mtcars, dv=2:3, iv=9:10)
+plot_oneway(df = mtcars, dv = 2:3, iv = 9:10)
 #> $plot_data
 #> $plot_data$am_cyl
 #>   am  N   cyl    sd     se     ci
@@ -167,7 +169,7 @@ plot_oneway(df=mtcars, dv=2:3, iv=9:10)
 #> 
 
 # Error bar types
-plot_oneway(df=mtcars, dv=2:3, iv=9:10, type="se")
+plot_oneway(df = mtcars, dv = 2:3, iv = 9:10, type = "se")
 #> $plot_data
 #> $plot_data$am_cyl
 #>   am  N   cyl    sd     se     ci
@@ -219,7 +221,7 @@ plot_oneway(df=mtcars, dv=2:3, iv=9:10, type="se")
 
 #> 
 #> 
-plot_oneway(df=mtcars, dv=2:3, iv=9:10, type="ci")
+plot_oneway(df = mtcars, dv = 2:3, iv = 9:10, type = "ci")
 #> $plot_data
 #> $plot_data$am_cyl
 #>   am  N   cyl    sd     se     ci
@@ -271,7 +273,7 @@ plot_oneway(df=mtcars, dv=2:3, iv=9:10, type="ci")
 
 #> 
 #> 
-plot_oneway(df=mtcars, dv=2:3, iv=9:10, type="sd")
+plot_oneway(df = mtcars, dv = 2:3, iv = 9:10, type = "sd")
 #> $plot_data
 #> $plot_data$am_cyl
 #>   am  N   cyl    sd     se     ci
@@ -323,7 +325,7 @@ plot_oneway(df=mtcars, dv=2:3, iv=9:10, type="sd")
 
 #> 
 #> 
-plot_oneway(df=mtcars, dv=2:3, iv=9:10, type="")
+plot_oneway(df = mtcars, dv = 2:3, iv = 9:10, type = "")
 #> $plot_data
 #> $plot_data$am_cyl
 #>   am  N   cyl    sd     se     ci
@@ -377,7 +379,7 @@ plot_oneway(df=mtcars, dv=2:3, iv=9:10, type="")
 #> 
 
 # Factor ordering
-plot_oneway(df=mtcars, dv=2:3, iv=9:10, type="", order_factor=FALSE)
+plot_oneway(df = mtcars, dv = 2:3, iv = 9:10, type = "", order_factor = FALSE)
 #> $plot_data
 #> $plot_data$am_cyl
 #>   am  N   cyl    sd     se     ci
@@ -429,7 +431,7 @@ plot_oneway(df=mtcars, dv=2:3, iv=9:10, type="", order_factor=FALSE)
 
 #> 
 #> 
-plot_oneway(df=mtcars, dv=2:3, iv=9:10, type="", order_factor=TRUE)
+plot_oneway(df = mtcars, dv = 2:3, iv = 9:10, type = "", order_factor = TRUE)
 #> $plot_data
 #> $plot_data$am_cyl
 #>   am  N   cyl    sd     se     ci

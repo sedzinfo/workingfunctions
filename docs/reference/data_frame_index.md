@@ -21,7 +21,7 @@ data_frame_index(nrow, ncol)
 ## Examples
 
 ``` r
-data_frame_index(5,5)
+data_frame_index(5, 5)
 #>       ri ci
 #>  [1,]  1  1
 #>  [2,]  2  1

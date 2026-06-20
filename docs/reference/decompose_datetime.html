@@ -94,13 +94,13 @@ This argument is used if extended=TRUE</p></dd>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 1 2026            06          20 2026-06-20</span>
 <span class="r-in"><span><span class="fu">decompose_datetime</span><span class="op">(</span>x<span class="op">=</span><span class="va">d2</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   YEAR MONTH_NUMERIC DAY_NUMERIC HOUR MINUTE SECOND MILLISECOND  FULL_DATE FULL_TIME</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 1 2026            06          20   14     04     27      934151 2026-06-20     14:04</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1 2026            06          20   14     17     41      486462 2026-06-20     14:17</span>
 <span class="r-in"><span><span class="fu">decompose_datetime</span><span class="op">(</span>x<span class="op">=</span><span class="va">d1</span>,extended<span class="op">=</span><span class="cn">TRUE</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   QUARTER MONTH     JULIAN  WEEKDAY DAY_PERIOD YEAR MONTH_NUMERIC DAY_NUMERIC  FULL_DATE</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 1      Q2  June 20624 days Saturday       &lt;NA&gt; 2026            06          20 2026-06-20</span>
 <span class="r-in"><span><span class="fu">decompose_datetime</span><span class="op">(</span>x<span class="op">=</span><span class="va">d2</span>,extended<span class="op">=</span><span class="cn">TRUE</span><span class="op">)</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   QUARTER MONTH        JULIAN  WEEKDAY DAY_PERIOD YEAR MONTH_NUMERIC DAY_NUMERIC HOUR MINUTE SECOND MILLISECOND  FULL_DATE FULL_TIME</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 1      Q2  June 20624.59 days Saturday       Noon 2026            06          20   14     04     27      934151 2026-06-20     14:04</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   QUARTER MONTH       JULIAN  WEEKDAY DAY_PERIOD YEAR MONTH_NUMERIC DAY_NUMERIC HOUR MINUTE SECOND MILLISECOND  FULL_DATE FULL_TIME</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1      Q2  June 20624.6 days Saturday       Noon 2026            06          20   14     17     41      486462 2026-06-20     14:17</span>
 <span class="r-in"><span><span class="fu">decompose_datetime</span><span class="op">(</span>x<span class="op">=</span><span class="st">"01/15/1900"</span>,format<span class="op">=</span><span class="st">"%m/%e/%Y"</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   YEAR MONTH_NUMERIC DAY_NUMERIC  FULL_DATE</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 1 1900            01          15 1900-01-15</span>
