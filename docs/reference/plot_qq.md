@@ -1,6 +1,11 @@
-# qq plots
+# Q-Q plots against the normal distribution
 
-qq plots
+Produces one quantile-quantile plot per numeric column of `df`,
+comparing the empirical distribution to the theoretical normal. A
+reference line is fitted through the 25th and 75th percentiles (the same
+convention used by [`qqline`](https://rdrr.io/r/stats/qqnorm.html)).
+Non-numeric columns are skipped silently. A progress bar is printed to
+the console.
 
 ## Usage
 
@@ -12,19 +17,19 @@ plot_qq(df, title = "", base_size = 10)
 
 - df:
 
-  dataframe or vector with continous or ordinal data
+  Data frame or vector. Non-numeric columns are skipped.
 
 - title:
 
-  plot title
+  Character string used as the plot title. Default is `""`.
 
 - base_size:
 
-  numeric base font size
+  Base font size passed to `theme_bw()`. Default is `10`.
 
-## Details
+## Value
 
-uses ggplot
+A named list of `ggplot` objects, one per numeric column.
 
 ## Examples
 

@@ -23,5 +23,5 @@ Calculates Bonferroni and Šidák corrected alpha thresholds for
 a given family-wise alpha level and number of tests.
 }
 \examples{
-compute_adjustment(0.05,100)
+compute_adjustment(0.05, 100)
 }

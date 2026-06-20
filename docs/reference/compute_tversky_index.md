@@ -53,12 +53,6 @@ Both `x` and `y` are treated as *sets* — duplicate elements within each
 vector are ignored. Inputs are coerced to character before comparison,
 so `1L` and `"1"` are treated as equal.
 
-## See also
-
-[`intersect`](https://rdrr.io/r/base/sets.html),
-[`setdiff`](https://rdrr.io/r/base/sets.html),
-[`cdf`](https://sedzinfo.github.io/rwf/reference/cdf.md)
-
 ## Examples
 
 ``` r

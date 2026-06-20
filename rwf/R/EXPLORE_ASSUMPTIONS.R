@@ -1,15 +1,28 @@
 ##########################################################################################
 # PLOT NORMALITY ASSUMPTIONS BASE PLOT
 ##########################################################################################
-#' @title Normality plots
-#' @description plot histogram density boxplot qq plot
-#' @details uses plot base
-#' @param df dataframe or vector with continous or ordinal data
-#' @param breaks number of bars to display
-#' @param title plot title
-#' @param file output filename
-#' @param w width of pdf file
-#' @param h height of pdf file
+#' @title Normality diagnostic plots (histogram, density, boxplot, Q-Q)
+#' @description For each numeric column of \code{df}, produces a 2×2 panel of
+#'   base-graphics normality diagnostics: histogram, density curve, boxplot, and
+#'   Q-Q plot with a reference line. A progress bar is printed to the console.
+#'   When \code{file} is supplied the panels are also written to a PDF via
+#'   \code{\link{report_pdf}}.
+#' @param df Data frame or numeric vector. Non-numeric columns are silently
+#'   dropped. Columns with fewer than three non-missing values or zero variance
+#'   are skipped.
+#' @param breaks Histogram breaks passed to \code{\link[graphics]{hist}}. May
+#'   be a method name (\code{"Sturges"}, \code{"Scott"}, \code{"FD"}) or a
+#'   positive integer specifying the number of bins. Default is
+#'   \code{"Sturges"}.
+#' @param title Character string used as the outer plot title and as the PDF
+#'   title. Default is \code{""}.
+#' @param file Character string naming the output PDF file (without extension).
+#'   When \code{NULL} (default) no PDF is written.
+#' @param w Width of the PDF in inches. Default is \code{10}.
+#' @param h Height of the PDF in inches. Default is \code{10}.
+#' @return A named list of recorded plots (one element per numeric column),
+#'   returned invisibly. Each element is a \code{\link[grDevices]{recordPlot}}
+#'   object.
 #' @importFrom graphics plot par hist boxplot title
 #' @importFrom stats qqnorm qqline na.omit density
 #' @importFrom utils txtProgressBar setTxtProgressBar
@@ -66,11 +79,29 @@ plot_normality_diagnostics<-function(df,breaks=NULL,title="",file=NULL,w=10,h=10
 ##########################################################################################
 # PLOT OUTLIER
 ##########################################################################################
-#' @title Outlier graph using mean median and boxplot algorythms
-#' @param df dataframe or vector with continous or ordinal data
-#' @param method "mean" "median" "boxplot"
-#' @param title plot title
-#' @param base_size base font size
+#' @title Dot plot of outliers by detection method
+#' @description For each numeric column of \code{df}, draws a dot plot with
+#'   observations coloured by outlier status and row-name labels repelled away
+#'   from flagged points. Three outlier-detection rules are available via
+#'   \code{method}: mean ± 2 SD, median ± 2 MAD (rescaled), or boxplot IQR
+#'   fences. Reference lines for the centre and the upper/lower bounds are
+#'   overlaid on each plot.
+#' @param df Data frame or numeric vector. Non-numeric columns are silently
+#'   dropped.
+#' @param method Character string selecting the outlier-detection rule:
+#'   \describe{
+#'     \item{\code{"mean"}}{Flags observations more than 2 standard deviations
+#'       from the mean.}
+#'     \item{\code{"median"}}{Flags observations more than 2 rescaled MADs
+#'       (\eqn{2 \times \mathrm{MAD}/0.6745}) from the median.}
+#'     \item{\code{"boxplot"}}{Flags observations outside
+#'       \eqn{Q1 - 1.5 \times IQR} or \eqn{Q3 + 1.5 \times IQR}.}
+#'   }
+#'   Default is \code{"mean"}.
+#' @param title Character string used as the plot title. Default is \code{""}.
+#' @param base_size Base font size passed to \code{theme_bw()}. Default is
+#'   \code{10}.
+#' @return A named list of \code{ggplot} objects, one per numeric column.
 #' @import ggplot2
 #' @importFrom stats median sd quantile na.omit
 #' @importFrom ggrepel geom_text_repel
@@ -152,17 +183,25 @@ plot_outlier<-function(df,method="mean",title="",base_size=10) {
 ##########################################################################################
 #  PLOT HISTOGRAM
 ##########################################################################################
-#' @title Histograms with density function
-#' @description Histograms with density function
-#' @details uses ggplot
-#' @param df dataframe or vector with continous or ordinal data
-#' @param bins number of bars to display
-#' @param xlims x axis limits
-#' @param title plot title
-#' @param ylab y label
-#' @param base_size numeric base font size
-#' @param fill color of bar
-#' @param color color of bar outline
+#' @title Histograms per numeric column
+#' @description Produces one \code{ggplot} histogram per numeric column of
+#'   \code{df}. Each plot caption shows the observation count, mean, SD, and
+#'   median of the column. A progress bar is printed to the console.
+#' @param df Data frame or numeric vector. Non-numeric columns are silently
+#'   dropped.
+#' @param bins Number of histogram bins passed to
+#'   \code{\link[ggplot2]{geom_histogram}}. Default is \code{30}.
+#' @param xlims Length-2 numeric vector setting the x-axis limits, e.g.
+#'   \code{c(0, 50)}. When \code{NULL} (default) limits are determined
+#'   automatically.
+#' @param title Character string used as the plot title. Default is \code{""}.
+#' @param ylab Y-axis label. Default is \code{"Count"}.
+#' @param base_size Base font size passed to \code{theme_bw()}. Default is
+#'   \code{10}.
+#' @param fill Fill colour of the histogram bars. Default is \code{"gray25"}.
+#' @param color Outline colour of the histogram bars. Default is
+#'   \code{"gray50"}.
+#' @return A named list of \code{ggplot} objects, one per numeric column.
 #' @import ggplot2
 #' @importFrom stats sd median na.omit
 #' @keywords assumptions
@@ -207,12 +246,17 @@ plot_histogram<-function(df,bins=30,title="",base_size=10,xlims=NULL,fill="gray2
 ##########################################################################################
 # PLOT QQ
 ##########################################################################################
-#' @title qq plots
-#' @description qq plots
-#' @details uses ggplot
-#' @param df dataframe or vector with continous or ordinal data
-#' @param title plot title
-#' @param base_size numeric base font size
+#' @title Q-Q plots against the normal distribution
+#' @description Produces one quantile-quantile plot per numeric column of
+#'   \code{df}, comparing the empirical distribution to the theoretical normal.
+#'   A reference line is fitted through the 25th and 75th percentiles (the same
+#'   convention used by \code{\link[stats]{qqline}}). Non-numeric columns are
+#'   skipped silently. A progress bar is printed to the console.
+#' @param df Data frame or vector. Non-numeric columns are skipped.
+#' @param title Character string used as the plot title. Default is \code{""}.
+#' @param base_size Base font size passed to \code{theme_bw()}. Default is
+#'   \code{10}.
+#' @return A named list of \code{ggplot} objects, one per numeric column.
 #' @import ggplot2 
 #' @importFrom stats quantile qnorm
 #' @keywords assumptions
@@ -258,12 +302,16 @@ plot_qq<-function(df,title="",base_size=10) {
 ##########################################################################################
 # PLOT BOXPLOT
 ##########################################################################################
-#' @title Boxplot
-#' @description Boxplot
-#' @details uses ggplot
-#' @param df dataframe or vector with continous or ordinal data
-#' @param title Plot title
-#' @param base_size numeric base font size
+#' @title Side-by-side boxplots for all numeric columns
+#' @description Melts all numeric columns of \code{df} into a single long
+#'   format and draws them as side-by-side horizontal boxplots on one plot.
+#'   Non-numeric columns are silently dropped.
+#' @param df Data frame or numeric vector. Non-numeric columns are silently
+#'   dropped.
+#' @param title Character string used as the plot title. Default is \code{""}.
+#' @param base_size Base font size passed to \code{theme_bw()}. Default is
+#'   \code{10}.
+#' @return A single \code{ggplot} object.
 #' @import ggplot2
 #' @importFrom reshape2 melt
 #' @keywords assumptions
@@ -292,12 +340,21 @@ plot_boxplot<-function(df,title="",base_size=10) {
 ##########################################################################################
 # NORMALITY TESTS
 ##########################################################################################
-#' @title Normality tests
-#' @description Shapiro-Wilk Anderson-Darling Cramer-von-Mises Shapiro-Francia\cr 
-#' Jarque-Bera Kolmogorov-Smirnov Lilliefors Pearson X2
-#' @details returns xlsx file
-#' @param df dataframe with continous or ordinal data
-#' @param file output filename
+#' @title Battery of normality tests
+#' @description Runs eight normality tests on each numeric column of \code{df}:
+#'   Shapiro-Wilk, Anderson-Darling, Cramér-von Mises, Shapiro-Francia,
+#'   Jarque-Bera, Kolmogorov-Smirnov, Lilliefors, and Pearson chi-squared.
+#'   Each column is z-standardised before testing. Columns with fewer than 8 or
+#'   more than 4999 non-missing observations are skipped with a console message.
+#'   Results are printed to the console; when \code{file} is supplied they are
+#'   also written to a \code{.log} file and a colour-coded \code{.xlsx} file
+#'   with significant p-values (\eqn{p \le 0.05}) highlighted.
+#' @param df Data frame or numeric vector.
+#' @param file Character string naming the output files (without extension).
+#'   When supplied, a \code{.log} and an \code{.xlsx} file are written.
+#'   When \code{NULL} (default) no files are written.
+#' @return Invisibly returns \code{NULL}. Called for its side effects of
+#'   printing results and optionally writing output files.
 #' @importFrom plyr rbind.fill
 #' @importFrom DescTools AndersonDarlingTest CramerVonMisesTest ShapiroFranciaTest JarqueBeraTest LillieTest PearsonTest
 #' @importFrom stats ks.test na.omit shapiro.test
@@ -372,9 +429,20 @@ report_normality_tests<-function(df,file=NULL) {
 ##########################################################################################
 # OUTLIERS
 ##########################################################################################
-#' @title Percent of outliers in vector
-#' @details returns dataframe
-#' @param vector numeric vector
+#' @title Percentage of outliers at three z-score thresholds
+#' @description Z-standardises \code{vector} and counts the percentage of
+#'   observations whose absolute z-score exceeds 1.96, 2.58, and 3.29,
+#'   corresponding approximately to the 95 \%, 99 \%, and 99.9 \% tails of the
+#'   normal distribution. Designed to be applied across columns with
+#'   \code{sapply}.
+#' @param vector Numeric vector. Missing values are removed before
+#'   z-standardisation and counts.
+#' @return A one-row data frame with three character columns:
+#'   \describe{
+#'     \item{abs_z_1.96}{Percentage of observations with \eqn{|z| \ge 1.96}.}
+#'     \item{abs_z_2.58}{Percentage of observations with \eqn{|z| \ge 2.58}.}
+#'     \item{abs_z_3.29}{Percentage of observations with \eqn{|z| \ge 3.29}.}
+#'   }
 #' @importFrom stats sd na.omit
 #' @keywords assumptions
 #' @export
@@ -403,11 +471,21 @@ outlier_summary<-function(vector) {
 ##########################################################################################
 # OUTLIERS
 ##########################################################################################
-#' @title Remove outliers
-#' @param vector numeric
-#' @param probs numeric vector with lowest and highest quantiles
-#' @param na.rm if TRUE removes NA values
-#' @param ... arguments passed to quantile
+#' @title Replace outliers with NA using IQR fences
+#' @description Replaces values outside the boxplot fences with \code{NA}.
+#'   The fences are computed as \eqn{Q1 - 1.5 \times IQR} and
+#'   \eqn{Q3 + 1.5 \times IQR}, where \eqn{Q1} and \eqn{Q3} are the quantiles
+#'   specified by \code{probs}. Designed to be applied across columns with
+#'   \code{sapply}.
+#' @param vector Numeric vector.
+#' @param probs Length-2 numeric vector giving the lower and upper quantile
+#'   probabilities used to define the fence boundaries. Default is
+#'   \code{c(0.25, 0.75)} (standard quartiles).
+#' @param na.rm Logical; whether to remove \code{NA} values when computing
+#'   quantiles and IQR. Default is \code{TRUE}.
+#' @param ... Additional arguments passed to \code{\link[stats]{quantile}}.
+#' @return A numeric vector the same length as \code{vector} with outlying
+#'   values replaced by \code{NA}.
 #' @importFrom stats quantile IQR
 #' @keywords assumptions
 #' @export

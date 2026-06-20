@@ -110,32 +110,46 @@ using utils::combn.
 The function also calls report_dataframe to generate a formatted report.
 }
 \examples{
-report_ttests(df=df_insurance,
-              dv=which("charges"==names(df_insurance)),
-              iv=c(2))
-report_ttests(df=df_insurance,
-              dv=which("charges"==names(df_insurance)),
-              iv=c(4))
-report_ttests(df=df_insurance,
-              dv=which("charges"==names(df_insurance)),
-              iv=c(2,4))
-report_ttests(df=df_insurance,
-              dv=which("charges"==names(df_insurance)),
-              iv=c(2,4),
-              alternative="two.sided")
-report_ttests(df=df_insurance,
-              dv=which("charges"==names(df_insurance)),
-              iv=c(2,4),
-              alternative="less")
-report_ttests(df=df_insurance,
-              dv=which("charges"==names(df_insurance)),
-              iv=c(2,4),
-              alternative="greater")
-report_ttests(df=df_insurance,
-              dv=which("charges"==names(df_insurance)),
-              iv=c(2,4),
-              var.equal=TRUE)
-report_ttests(df=mtcars,dv=1:7,iv=8:10,var.equal=TRUE,file="ttest")
+report_ttests(
+  df = df_insurance,
+  dv = which("charges" == names(df_insurance)),
+  iv = c(2)
+)
+report_ttests(
+  df = df_insurance,
+  dv = which("charges" == names(df_insurance)),
+  iv = c(4)
+)
+report_ttests(
+  df = df_insurance,
+  dv = which("charges" == names(df_insurance)),
+  iv = c(2, 4)
+)
+report_ttests(
+  df = df_insurance,
+  dv = which("charges" == names(df_insurance)),
+  iv = c(2, 4),
+  alternative = "two.sided"
+)
+report_ttests(
+  df = df_insurance,
+  dv = which("charges" == names(df_insurance)),
+  iv = c(2, 4),
+  alternative = "less"
+)
+report_ttests(
+  df = df_insurance,
+  dv = which("charges" == names(df_insurance)),
+  iv = c(2, 4),
+  alternative = "greater"
+)
+report_ttests(
+  df = df_insurance,
+  dv = which("charges" == names(df_insurance)),
+  iv = c(2, 4),
+  var.equal = TRUE
+)
+report_ttests(df = mtcars, dv = 1:7, iv = 8:10, var.equal = TRUE, file = "ttest")
 }
 \keyword{effect-size}
 \keyword{inference}

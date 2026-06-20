@@ -1,6 +1,8 @@
-# Trim whitespace in dataframe
+# Trim whitespace from all character cells in a data frame
 
-Trim whitespace in dataframe
+Applies [`strwrap`](https://rdrr.io/r/base/strwrap.html) to every
+character cell in a data frame, removing leading and trailing
+whitespace.
 
 ## Usage
 
@@ -12,7 +14,12 @@ trim_df(df)
 
 - df:
 
-  dataframe
+  A data frame containing one or more character columns.
+
+## Value
+
+A data frame of the same dimensions with whitespace trimmed from all
+character cells. Non-character cells are unchanged.
 
 ## Examples
 

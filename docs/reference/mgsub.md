@@ -1,6 +1,8 @@
-# Sub for multiple patterns
+# Apply gsub for multiple patterns with a single replacement
 
-Sub for multiple patterns
+Iterates over a vector of patterns, applying
+[`gsub`](https://rdrr.io/r/base/grep.html) sequentially with the same
+replacement string for each.
 
 ## Usage
 
@@ -12,19 +14,25 @@ mgsub(mydata, pattern, replacement, ...)
 
 - mydata:
 
-  Character
+  Character vector to search within.
 
 - pattern:
 
-  Character to search for
+  Character vector of patterns to search for.
 
 - replacement:
 
-  Replacement character
+  Character. The replacement string applied for all patterns.
 
 - ...:
 
-  arguments passed to gsub
+  Additional arguments passed to
+  [`gsub`](https://rdrr.io/r/base/grep.html), such as `fixed` or
+  `ignore.case`.
+
+## Value
+
+A character vector with all pattern matches replaced.
 
 ## Examples
 

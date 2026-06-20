@@ -123,36 +123,52 @@ additional arguments through ....
 The function also calls report_dataframe to generate a formatted report.
 }
 \examples{
-report_wtests(df=df_insurance,
-              dv=which("charges"==names(df_insurance)),
-              iv=c(2))
-report_wtests(df=df_insurance,
-              dv=which("charges"==names(df_insurance)),
-              iv=c(4))
-report_wtests(df=df_insurance,
-              dv=which("charges"==names(df_insurance)),
-              iv=c(2,4))
-report_wtests(df=df_insurance,
-              dv=which("charges"==names(df_insurance)),
-              iv=c(2,4),
-              alternative="two.sided")
-report_wtests(df=df_insurance,
-              dv=which("charges"==names(df_insurance)),
-              iv=c(2,4),
-              alternative="less")
-report_wtests(df=df_insurance,
-              dv=which("charges"==names(df_insurance)),
-              iv=c(2,4),
-              alternative="greater")
-report_wtests(df=df_insurance,
-              dv=which("charges"==names(df_insurance)),
-              iv=c(2,4),
-              var.equal=TRUE)
-report_wtests(df=df_insurance,
-              dv=which("charges"==names(df_insurance)),
-              iv=c(2,4),
-              var.equal=TRUE,
-              file="wilcoxontest")
+report_wtests(
+  df = df_insurance,
+  dv = which("charges" == names(df_insurance)),
+  iv = c(2)
+)
+report_wtests(
+  df = df_insurance,
+  dv = which("charges" == names(df_insurance)),
+  iv = c(4)
+)
+report_wtests(
+  df = df_insurance,
+  dv = which("charges" == names(df_insurance)),
+  iv = c(2, 4)
+)
+report_wtests(
+  df = df_insurance,
+  dv = which("charges" == names(df_insurance)),
+  iv = c(2, 4),
+  alternative = "two.sided"
+)
+report_wtests(
+  df = df_insurance,
+  dv = which("charges" == names(df_insurance)),
+  iv = c(2, 4),
+  alternative = "less"
+)
+report_wtests(
+  df = df_insurance,
+  dv = which("charges" == names(df_insurance)),
+  iv = c(2, 4),
+  alternative = "greater"
+)
+report_wtests(
+  df = df_insurance,
+  dv = which("charges" == names(df_insurance)),
+  iv = c(2, 4),
+  var.equal = TRUE
+)
+report_wtests(
+  df = df_insurance,
+  dv = which("charges" == names(df_insurance)),
+  iv = c(2, 4),
+  var.equal = TRUE,
+  file = "wilcoxontest"
+)
 }
 \keyword{effect-size}
 \keyword{inference}

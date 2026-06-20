@@ -77,13 +77,6 @@ Formatting applied:
 
 - Base font set to Liberation Sans 10pt
 
-## See also
-
-[`createWorkbook`](https://rdrr.io/pkg/openxlsx/man/createWorkbook.html),
-[`addWorksheet`](https://rdrr.io/pkg/openxlsx/man/addWorksheet.html),
-[`writeData`](https://rdrr.io/pkg/openxlsx/man/writeData.html),
-[`saveWorkbook`](https://rdrr.io/pkg/openxlsx/man/saveWorkbook.html)
-
 ## Examples
 
 ``` r

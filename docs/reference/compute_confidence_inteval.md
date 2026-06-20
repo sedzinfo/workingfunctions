@@ -18,7 +18,7 @@ compute_confidence_inteval(vector)
 
 ``` r
 set.seed(1)
-vector<-rnorm(1000)
+vector <- rnorm(1000)
 compute_confidence_inteval(vector)
 #> [1] 0.06414357
 ```

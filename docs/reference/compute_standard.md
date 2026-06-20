@@ -1,6 +1,8 @@
-# compute standard scores
+# Compute standard scores from a numeric vector
 
-compute standard scores
+Transforms a numeric vector into one of several standard score formats,
+including z-scores, T-scores, stens, stanines, percentiles, and others.
+Can operate on raw scores or pre-standardised z-scores.
 
 ## Usage
 
@@ -12,62 +14,121 @@ compute_standard(vector, mean = 0, sd = 1, type = "z", input = "non_standard")
 
 - vector:
 
-  vector
+  Numeric vector of raw scores or z-scores (see `input`).
 
 - mean:
 
-  numeric applicable to "uz"
+  Numeric. Population mean used for `"uz"` and density types. Default is
+  `0`.
 
 - sd:
 
-  numeric applicable to "uz"
+  Numeric. Population standard deviation used for `"uz"` and density
+  types. Default is `1`.
 
 - type:
 
-  "z" "uz" "sten" "t" "stanine" "center" "center_reversed" "percent"
-  "percentile" "scale_zero_one" "normal_density" "cumulative_density"
-  "all"
+  Character. The output score type. One of:
+
+  `"z"`
+
+  :   Z-scores (mean=0, sd=1).
+
+  `"uz"`
+
+  :   Unstandardise: convert z-scores back to raw scores using supplied
+      `mean` and `sd`.
+
+  `"sten"`
+
+  :   Sten scores (1–10, mean=5.5, sd=2).
+
+  `"t"`
+
+  :   T-scores (mean=50, sd=10).
+
+  `"stanine"`
+
+  :   Stanine scores (1–9, mean=5, sd=2).
+
+  `"center"`
+
+  :   Mean-centred scores.
+
+  `"center_reversed"`
+
+  :   Reversed mean-centred scores.
+
+  `"percent"`
+
+  :   Percentage of the maximum observed value.
+
+  `"percentile"`
+
+  :   Cumulative normal percentile (0–100).
+
+  `"scale_zero_one"`
+
+  :   Min-max scaled scores (0–1).
+
+  `"normal_density"`
+
+  :   Normal density values.
+
+  `"cumulative_density"`
+
+  :   Cumulative sum of the input vector.
+
+  `"all"`
+
+  :   Returns a data frame with all score types, sorted by z-score.
 
 - input:
 
-  "standard" "non_standard" standard inputs are z scores and non
-  standard are raw scores
+  Character. Whether `vector` contains raw scores (`"non_standard"`) or
+  already-standardised z-scores (`"standard"`). Default is
+  `"non_standard"`.
+
+## Value
+
+A numeric vector of transformed scores, or a data frame when
+`type = "all"`.
 
 ## Examples
 
 ``` r
-vector<-c(rnorm(10),NA,rnorm(10))
-compute_standard(vector,type="z")
+vector <- c(rnorm(10), NA, rnorm(10))
+compute_standard(vector, type = "z")
 #>  [1]  1.2800617  1.2595127 -0.5093531  0.4555107  0.3294185 -1.2158177  0.9908949 -1.4385837 -0.8447783  1.1580067         NA -0.2150299  0.0744687 -1.1794970 -1.0269639  0.5805701  0.1117861
 #> [18] -0.2601330 -0.9226393 -0.7114428  2.0840086
-compute_standard(vector,mean=0,sd=1,type="uz")
+compute_standard(vector, mean = 0, sd = 1, type = "uz")
 #>  [1]  1.13496509  1.11193185 -0.87077763  0.21073159  0.06939565 -1.66264885  0.81083998 -1.91234580 -1.24675343  0.99815445          NA -0.54087274 -0.21637579 -1.62193729 -1.45096397  0.35090973
 #> [17] -0.17454693 -0.59142847 -1.33402726 -1.09729850  2.03610361
-compute_standard(vector,type="sten")
+compute_standard(vector, type = "sten")
 #>  [1]  8  8  4  6  6  3  7  3  4  8 NA  5  6  3  3  7  6  5  4  4 10
-compute_standard(vector,type="t")
+compute_standard(vector, type = "t")
 #>  [1] 62.80062 62.59513 44.90647 54.55511 53.29418 37.84182 59.90895 35.61416 41.55222 61.58007       NA 47.84970 50.74469 38.20503 39.73036 55.80570 51.11786 47.39867 40.77361 42.88557 70.84009
-compute_standard(vector,type="stanine")
+compute_standard(vector, type = "stanine")
 #>  [1]  8  8  4  6  6  3  7  2  3  7 NA  5  5  3  3  6  5  4  3  4  9
-compute_standard(vector,type="center")
+compute_standard(vector, type = "center")
 #>  [1]  1.43481233  1.41177908 -0.57093040  0.51057882  0.36924288 -1.36280162  1.11068722 -1.61249856 -0.94690619  1.29800168          NA -0.24102551  0.08347145 -1.32209006 -1.15111673  0.65075697
 #> [17]  0.12530031 -0.29158123 -1.03418002 -0.79745126  2.33595085
-compute_standard(vector,type="center_reversed")
+compute_standard(vector, type = "center_reversed")
 #>  [1] -1.43481233 -1.41177908  0.57093040 -0.51057882 -0.36924288  1.36280162 -1.11068722  1.61249856  0.94690619 -1.29800168          NA  0.24102551 -0.08347145  1.32209006  1.15111673 -0.65075697
 #> [17] -0.12530031  0.29158123  1.03418002  0.79745126 -2.33595085
-compute_standard(vector,type="percent")
+compute_standard(vector, type = "percent")
 #>  [1]  55.742011  54.610769 -42.766863  10.349748   3.408257 -81.658362  39.823120 -93.921831 -61.232318  49.022773         NA -26.564107 -10.626954 -79.658878 -71.261794  17.234375  -8.572596
 #> [18] -29.047071 -65.518633 -53.892076 100.000000
-compute_standard(vector,type="scale_zero_one")
+compute_standard(vector, type = "scale_zero_one")
 #>  [1] 0.77177407 0.76594058 0.26379170 0.53769902 0.50190372 0.06323924 0.68968486 0.00000000 0.16857057 0.73712487         NA 0.34734472 0.42952811 0.07355001 0.11685140 0.57320110 0.44012185
 #> [18] 0.33454078 0.14646725 0.20642212 1.00000000
-ndf<-compute_standard(seq(-6,6,.01),mean=0,sd=1,type="normal_density")
+ndf <- compute_standard(seq(-6, 6, .01), mean = 0, sd = 1, type = "normal_density")
 plot(ndf)
 
-cdf<-compute_standard(ndf,mean=0,sd=1,type="cumulative_density")
+cdf <- compute_standard(ndf, mean = 0, sd = 1, type = "cumulative_density")
 plot(cdf)
 
-compute_standard(vector,type="all")
+compute_standard(vector, type = "all")
 #>          score          z sten        t stanine    percent percentile  scale_0_1
 #> 8  -1.91234580 -1.4385837    3 35.61416       2 -93.921831   7.513425 0.00000000
 #> 6  -1.66264885 -1.2158177    3 37.84182       3 -81.658362  11.202719 0.06323924
@@ -90,7 +151,7 @@ compute_standard(vector,type="all")
 #> 1   1.13496509  1.2800617    8 62.80062       8  55.742011  89.973828 0.77177407
 #> 21  2.03610361  2.0840086   10 70.84009       9 100.000000  98.142031 1.00000000
 #> 11          NA         NA   NA       NA      NA         NA         NA         NA
-compute_standard(seq(-6,6,.1),type="all",input="standard")
+compute_standard(seq(-6, 6, .1), type = "all", input = "standard")
 #>     score    z sten   t stanine     percent   percentile   scale_0_1
 #> 1    -6.0 -6.0    1 -10       1 -100.000000 9.865876e-08 0.000000000
 #> 2    -5.9 -5.9    1  -9       1  -98.333333 1.817508e-07 0.008333333

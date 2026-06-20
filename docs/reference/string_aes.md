@@ -1,8 +1,8 @@
-# Adjust string aesthetics
+# Clean and format string aesthetics
 
-Treats spesific characters such as ".", as separating characters and
-separates strings with space. Trims leading and trailing spaces and
-capitalizes the first letter of the string and lowers the rest.
+Replaces a list of separator characters (e.g. `"."`, `"_"`, HTML tags)
+with spaces, trims leading and trailing whitespace, collapses internal
+whitespace, and optionally applies proper case.
 
 ## Usage
 
@@ -19,15 +19,27 @@ string_aes(
 
 - vector:
 
-  Vector
+  Character vector to clean.
 
 - characterlist:
 
-  List the list of characters to treat as separating characters
+  Character vector of strings to treat as separators, each replaced by a
+  single space. Defaults to common punctuation and HTML tags including
+  `"."`, `"_"`, `"-"`, `"<p>"`, `"<br>"`, `"&nbsp"`, and others.
 
 - proper:
 
-  Logical TRUE capitalizes the first letter in sentense format
+  Logical. If `TRUE`, capitalises the first letter and lowercases the
+  rest of each string. Default is `TRUE`.
+
+## Value
+
+A character vector of the same length as `vector` with separators
+replaced, whitespace normalised, and optional proper casing.
+
+## See also
+
+[`proper`](https://sedzinfo.github.io/rwf/reference/proper.md)
 
 ## Examples
 

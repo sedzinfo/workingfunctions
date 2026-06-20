@@ -1107,7 +1107,7 @@ check_heywood<-function(fit_model,verbose=TRUE) {
   if (verbose) {
     cat("\n=== SUMMARY ===\n")
     if (has_issues) {
-      cat("⚠️  Issues found:\n")
+      cat("WARNING: Issues found:\n")
       if (!is.null(issues$negative_variances)) 
         cat(sprintf(" -%d negative variance(s) (~~)\n",nrow(issues$negative_variances)))
       if (!is.null(issues$negative_residuals)) 
@@ -1121,7 +1121,7 @@ check_heywood<-function(fit_model,verbose=TRUE) {
       if (!is.null(issues$convergence)) 
         cat(" -Convergence issue\n")
     } else {
-      cat("✓ No Heywood cases or major issues detected!\n")
+      cat("OK: No Heywood cases or major issues detected!\n")
     }
   }
   

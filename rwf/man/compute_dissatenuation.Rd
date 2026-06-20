@@ -22,7 +22,7 @@ A numeric scalar. The disattenuated (corrected) correlation
   between \code{variable1} and \code{variable2}.
 }
 \description{
-Estimates the true correlation between two variables by 
+Estimates the true correlation between two variables by
 correcting the observed correlation for attenuation due to measurement error
 in both variables.
 }
@@ -36,5 +36,5 @@ where \eqn{R_1} and \eqn{R_2} are the reliability estimates.
 }
 \examples{
 set.seed(1)
-compute_dissatenuation(rnorm(10),rnorm(10),rnorm(10),rnorm(10))
+compute_dissatenuation(rnorm(10), rnorm(10), rnorm(10), rnorm(10))
 }

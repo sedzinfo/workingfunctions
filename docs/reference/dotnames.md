@@ -10,21 +10,6 @@ Extends a data frame to `rowsneeded` rows by appending (or prepending)
 dotnames(...)
 ```
 
-## Arguments
-
-- df:
-
-  A data frame to pad.
-
-- rowsneeded:
-
-  Integer target row count. Must be greater than or equal to `nrow(df)`.
-
-- first:
-
-  Logical. When `TRUE` (default) `NA` rows are appended at the bottom;
-  when `FALSE` they are prepended at the top.
-
 ## Value
 
 A data frame with `rowsneeded` rows and the same columns as `df`.

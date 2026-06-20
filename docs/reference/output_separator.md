@@ -1,7 +1,7 @@
-# Output separator
+# Print a formatted console output block with separators
 
-Heading, main output, and instructions for output for the console
-environment
+Prints a heading, optional instructions, and optional output to the
+console, surrounded by `#` separator lines for visual clarity.
 
 ## Usage
 
@@ -18,19 +18,26 @@ output_separator(
 
 - string:
 
-  Title of output
+  Character. The title displayed between the main separators.
 
 - output:
 
-  object to print
+  Object or `NULL`. The main content to print below the heading. If
+  `NULL`, nothing is printed in its place. Default is `NULL`.
 
 - instruction:
 
-  Character provided instructions regarding the output
+  Character or `NULL`. Explanatory text printed between the heading and
+  the output, followed by a shorter separator. Default is `NULL`.
 
 - length:
 
-  Numeric Length of separator measured in number of characters
+  Numeric. Width of the main separator in characters. Default is half
+  the current console width (`getOption("width") / 2`).
+
+## Value
+
+Called for its side effects. Returns `NULL` invisibly.
 
 ## Examples
 

@@ -171,16 +171,20 @@ The function also calls report_dataframe to generate a formatted report.
 ## Examples
 
 ``` r
-report_ttests(df=df_insurance,
-              dv=which("charges"==names(df_insurance)),
-              iv=c(2))
+report_ttests(
+  df = df_insurance,
+  dv = which("charges" == names(df_insurance)),
+  iv = c(2)
+)
 #>    DV      IV level1 level2  n1  n2      t   df       p  CI_l   CI_u alternative                  method mean1 mean2   sd1   sd2 sd_pooled      d       r k_squared[bartlett] df[bartlett] p[bartlett]
 #> 1 sex charges female   male 662 676 -2.101 1313 0.03584 -2682 -91.86   two.sided Welch Two Sample t-test 12570 13957 11129 12971     12085 0.1148 0.02789               15.59            1  0.00007887
 #>   bonferroni_p significant
 #> 1         0.05        TRUE
-report_ttests(df=df_insurance,
-              dv=which("charges"==names(df_insurance)),
-              iv=c(4))
+report_ttests(
+  df = df_insurance,
+  dv = which("charges" == names(df_insurance)),
+  iv = c(4)
+)
 #>          DV      IV level1 level2  n1  n2       t     df           p  CI_l   CI_u alternative                  method mean1 mean2   sd1   sd2 sd_pooled       d        r k_squared[bartlett]
 #> 1  children charges      0      1 574 324 -0.4418 679.59 0.658783431 -1988 1257.9   two.sided Welch Two Sample t-test 12366 12731 12023 11824     11924 0.03063 0.007014              0.1153
 #> 2  children charges      0      3 574 157 -2.7061 243.21 0.007290553 -5165 -813.4   two.sided Welch Two Sample t-test 12366 15355 12023 12331     12178 0.24547 0.039752              0.1576
@@ -213,9 +217,11 @@ report_ttests(df=df_insurance,
 #> 13            1 0.0000005855     0.003333        TRUE
 #> 14            1 0.0396047045     0.003333       FALSE
 #> 15            1 0.0004649248     0.003333       FALSE
-report_ttests(df=df_insurance,
-              dv=which("charges"==names(df_insurance)),
-              iv=c(2,4))
+report_ttests(
+  df = df_insurance,
+  dv = which("charges" == names(df_insurance)),
+  iv = c(2, 4)
+)
 #>          DV      IV level1 level2  n1  n2       t      df           p  CI_l    CI_u alternative                  method mean1 mean2   sd1   sd2 sd_pooled       d        r k_squared[bartlett]
 #> 1       sex charges female   male 662 676 -2.1009 1313.36 0.035841015 -2682  -91.86   two.sided Welch Two Sample t-test 12570 13957 11129 12971     12085 0.11478 0.027893             15.5852
 #> 2  children charges      0      1 574 324 -0.4418  679.59 0.658783431 -1988 1257.87   two.sided Welch Two Sample t-test 12366 12731 12023 11824     11924 0.03063 0.007014              0.1153
@@ -250,10 +256,12 @@ report_ttests(df=df_insurance,
 #> 14            1 0.0000005855     0.003125        TRUE
 #> 15            1 0.0396047045     0.003125       FALSE
 #> 16            1 0.0004649248     0.003125       FALSE
-report_ttests(df=df_insurance,
-              dv=which("charges"==names(df_insurance)),
-              iv=c(2,4),
-              alternative="two.sided")
+report_ttests(
+  df = df_insurance,
+  dv = which("charges" == names(df_insurance)),
+  iv = c(2, 4),
+  alternative = "two.sided"
+)
 #>          DV      IV level1 level2  n1  n2       t      df           p  CI_l    CI_u alternative                  method mean1 mean2   sd1   sd2 sd_pooled       d        r k_squared[bartlett]
 #> 1       sex charges female   male 662 676 -2.1009 1313.36 0.035841015 -2682  -91.86   two.sided Welch Two Sample t-test 12570 13957 11129 12971     12085 0.11478 0.027893             15.5852
 #> 2  children charges      0      1 574 324 -0.4418  679.59 0.658783431 -1988 1257.87   two.sided Welch Two Sample t-test 12366 12731 12023 11824     11924 0.03063 0.007014              0.1153
@@ -288,10 +296,12 @@ report_ttests(df=df_insurance,
 #> 14            1 0.0000005855     0.003125        TRUE
 #> 15            1 0.0396047045     0.003125       FALSE
 #> 16            1 0.0004649248     0.003125       FALSE
-report_ttests(df=df_insurance,
-              dv=which("charges"==names(df_insurance)),
-              iv=c(2,4),
-              alternative="less")
+report_ttests(
+  df = df_insurance,
+  dv = which("charges" == names(df_insurance)),
+  iv = c(2, 4),
+  alternative = "less"
+)
 #>          DV      IV level1 level2  n1  n2       t      df        p CI_l    CI_u alternative                  method mean1 mean2   sd1   sd2 sd_pooled       d        r k_squared[bartlett] df[bartlett]
 #> 1       sex charges female   male 662 676 -2.1009 1313.36 0.017921 -Inf  -300.3        less Welch Two Sample t-test 12570 13957 11129 12971     12085 0.11478 0.027893             15.5852            1
 #> 2  children charges      0      1 574 324 -0.4418  679.59 0.329392 -Inf   996.4        less Welch Two Sample t-test 12366 12731 12023 11824     11924 0.03063 0.007014              0.1153            1
@@ -326,10 +336,12 @@ report_ttests(df=df_insurance,
 #> 14 0.0000005855     0.003125       FALSE
 #> 15 0.0396047045     0.003125       FALSE
 #> 16 0.0004649248     0.003125       FALSE
-report_ttests(df=df_insurance,
-              dv=which("charges"==names(df_insurance)),
-              iv=c(2,4),
-              alternative="greater")
+report_ttests(
+  df = df_insurance,
+  dv = which("charges" == names(df_insurance)),
+  iv = c(2, 4),
+  alternative = "greater"
+)
 #>          DV      IV level1 level2  n1  n2       t      df           p  CI_l CI_u alternative                  method mean1 mean2   sd1   sd2 sd_pooled       d        r k_squared[bartlett]
 #> 1       sex charges female   male 662 676 -2.1009 1313.36 0.982079493 -2474  Inf     greater Welch Two Sample t-test 12570 13957 11129 12971     12085 0.11478 0.027893             15.5852
 #> 2  children charges      0      1 574 324 -0.4418  679.59 0.670608284 -1727  Inf     greater Welch Two Sample t-test 12366 12731 12023 11824     11924 0.03063 0.007014              0.1153
@@ -364,10 +376,12 @@ report_ttests(df=df_insurance,
 #> 14            1 0.0000005855     0.003125        TRUE
 #> 15            1 0.0396047045     0.003125       FALSE
 #> 16            1 0.0004649248     0.003125       FALSE
-report_ttests(df=df_insurance,
-              dv=which("charges"==names(df_insurance)),
-              iv=c(2,4),
-              var.equal=TRUE)
+report_ttests(
+  df = df_insurance,
+  dv = which("charges" == names(df_insurance)),
+  iv = c(2, 4),
+  var.equal = TRUE
+)
 #>          DV      IV level1 level2  n1  n2       t   df        p    CI_l     CI_u alternative             method mean1 mean2   sd1   sd2 sd_pooled       d        r k_squared[bartlett] df[bartlett]
 #> 1       sex charges female   male 662 676 -2.0975 1336 0.036133 -2684.5   -89.81   two.sided  Two Sample t-test 12570 13957 11129 12971     12085 0.11478 0.027893             15.5852            1
 #> 2  children charges      0      1 574 324 -0.4397  896 0.660238 -1995.1  1264.76   two.sided  Two Sample t-test 12366 12731 12023 11824     11924 0.03063 0.007014              0.1153            1
@@ -402,7 +416,7 @@ report_ttests(df=df_insurance,
 #> 14 0.0000005855     0.003125       FALSE
 #> 15 0.0396047045     0.003125       FALSE
 #> 16 0.0004649248     0.003125       FALSE
-report_ttests(df=mtcars,dv=1:7,iv=8:10,var.equal=TRUE,file="ttest")
+report_ttests(df = mtcars, dv = 1:7, iv = 8:10, var.equal = TRUE, file = "ttest")
 #>      DV   IV level1 level2 n1 n2        t df             p       CI_l      CI_u alternative             method   mean1   mean2      sd1      sd2 sd_pooled       d       r k_squared[bartlett]
 #> 1    vs  mpg      0      1 18 14 -4.86438 30 0.00003415937  -11.27422  -4.60673   two.sided  Two Sample t-test  16.617  24.557   3.8607   5.3790    4.6818 1.69603 0.29447           1.5848659
 #> 2    am  mpg      1      0 13 19 -4.10613 30 0.00028502074  -10.84837  -3.64151   two.sided  Two Sample t-test  24.392  17.147   6.1665   3.8340    5.1344 1.41105 0.25393           3.2258823

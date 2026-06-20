@@ -1,7 +1,13 @@
-# Normality tests
+# Battery of normality tests
 
-Shapiro-Wilk Anderson-Darling Cramer-von-Mises Shapiro-Francia  
-Jarque-Bera Kolmogorov-Smirnov Lilliefors Pearson X2
+Runs eight normality tests on each numeric column of `df`: Shapiro-Wilk,
+Anderson-Darling, Cramér-von Mises, Shapiro-Francia, Jarque-Bera,
+Kolmogorov-Smirnov, Lilliefors, and Pearson chi-squared. Each column is
+z-standardised before testing. Columns with fewer than 8 or more than
+4999 non-missing observations are skipped with a console message.
+Results are printed to the console; when `file` is supplied they are
+also written to a `.log` file and a colour-coded `.xlsx` file with
+significant p-values (\\p \le 0.05\\) highlighted.
 
 ## Usage
 
@@ -13,15 +19,18 @@ report_normality_tests(df, file = NULL)
 
 - df:
 
-  dataframe with continous or ordinal data
+  Data frame or numeric vector.
 
 - file:
 
-  output filename
+  Character string naming the output files (without extension). When
+  supplied, a `.log` and an `.xlsx` file are written. When `NULL`
+  (default) no files are written.
 
-## Details
+## Value
 
-returns xlsx file
+Invisibly returns `NULL`. Called for its side effects of printing
+results and optionally writing output files.
 
 ## Examples
 

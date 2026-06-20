@@ -198,16 +198,20 @@ The function also calls report_dataframe to generate a formatted report.
 ## Examples
 
 ``` r
-report_wtests(df=df_insurance,
-              dv=which("charges"==names(df_insurance)),
-              iv=c(2))
+report_wtests(
+  df = df_insurance,
+  dv = which("charges" == names(df_insurance)),
+  iv = c(2)
+)
 #>    DV      IV level1 level2  n1  n2      W      p   CI_l  CI_u alternative                                            method mean1 mean2   sd1   sd2 sd_pooled      d        r k_squared[bartlett]
 #> 1 sex charges female   male 662 676 221304 0.7287 -929.1 566.9   two.sided Wilcoxon rank sum test with continuity correction 12570 13957 11129 12971     12085 0.1148 0.009486               15.59
 #>   df[bartlett] p[bartlett] bonferroni_p significant
 #> 1            1  0.00007887         0.05       FALSE
-report_wtests(df=df_insurance,
-              dv=which("charges"==names(df_insurance)),
-              iv=c(4))
+report_wtests(
+  df = df_insurance,
+  dv = which("charges" == names(df_insurance)),
+  iv = c(4)
+)
 #>          DV      IV level1 level2  n1  n2     W          p     CI_l    CI_u alternative                                            method mean1 mean2   sd1   sd2 sd_pooled       d        r
 #> 1  children charges      0      1 574 324 87794 0.16411342 -1563.03   309.0   two.sided Wilcoxon rank sum test with continuity correction 12366 12731 12023 11824     11924 0.03063 0.046435
 #> 2  children charges      0      3 574 157 35692 0.00006472 -4120.05 -1707.1   two.sided Wilcoxon rank sum test with continuity correction 12366 15355 12023 12331     12178 0.24547 0.147765
@@ -240,9 +244,11 @@ report_wtests(df=df_insurance,
 #> 13             24.9594            1 0.0000005855     0.003333       FALSE
 #> 14              4.2347            1 0.0396047045     0.003333       FALSE
 #> 15             12.2513            1 0.0004649248     0.003333       FALSE
-report_wtests(df=df_insurance,
-              dv=which("charges"==names(df_insurance)),
-              iv=c(2,4))
+report_wtests(
+  df = df_insurance,
+  dv = which("charges" == names(df_insurance)),
+  iv = c(2, 4)
+)
 #>          DV      IV level1 level2  n1  n2      W          p     CI_l    CI_u alternative                                            method mean1 mean2   sd1   sd2 sd_pooled       d        r
 #> 1       sex charges female   male 662 676 221304 0.72865109  -929.07   566.9   two.sided Wilcoxon rank sum test with continuity correction 12570 13957 11129 12971     12085 0.11478 0.009486
 #> 2  children charges      0      1 574 324  87794 0.16411342 -1563.03   309.0   two.sided Wilcoxon rank sum test with continuity correction 12366 12731 12023 11824     11924 0.03063 0.046435
@@ -277,10 +283,12 @@ report_wtests(df=df_insurance,
 #> 14             24.9594            1 0.0000005855     0.003125       FALSE
 #> 15              4.2347            1 0.0396047045     0.003125       FALSE
 #> 16             12.2513            1 0.0004649248     0.003125       FALSE
-report_wtests(df=df_insurance,
-              dv=which("charges"==names(df_insurance)),
-              iv=c(2,4),
-              alternative="two.sided")
+report_wtests(
+  df = df_insurance,
+  dv = which("charges" == names(df_insurance)),
+  iv = c(2, 4),
+  alternative = "two.sided"
+)
 #>          DV      IV level1 level2  n1  n2      W          p     CI_l    CI_u alternative                                            method mean1 mean2   sd1   sd2 sd_pooled       d        r
 #> 1       sex charges female   male 662 676 221304 0.72865109  -929.07   566.9   two.sided Wilcoxon rank sum test with continuity correction 12570 13957 11129 12971     12085 0.11478 0.009486
 #> 2  children charges      0      1 574 324  87794 0.16411342 -1563.03   309.0   two.sided Wilcoxon rank sum test with continuity correction 12366 12731 12023 11824     11924 0.03063 0.046435
@@ -315,10 +323,12 @@ report_wtests(df=df_insurance,
 #> 14             24.9594            1 0.0000005855     0.003125       FALSE
 #> 15              4.2347            1 0.0396047045     0.003125       FALSE
 #> 16             12.2513            1 0.0004649248     0.003125       FALSE
-report_wtests(df=df_insurance,
-              dv=which("charges"==names(df_insurance)),
-              iv=c(2,4),
-              alternative="less")
+report_wtests(
+  df = df_insurance,
+  dv = which("charges" == names(df_insurance)),
+  iv = c(2, 4),
+  alternative = "less"
+)
 #>          DV      IV level1 level2  n1  n2      W          p CI_l    CI_u alternative                                            method mean1 mean2   sd1   sd2 sd_pooled       d        r
 #> 1       sex charges female   male 662 676 221304 0.36432554 -Inf   480.1        less Wilcoxon rank sum test with continuity correction 12570 13957 11129 12971     12085 0.11478 0.009486
 #> 2  children charges      0      1 574 324  87794 0.08205671 -Inf   141.8        less Wilcoxon rank sum test with continuity correction 12366 12731 12023 11824     11924 0.03063 0.046435
@@ -353,10 +363,12 @@ report_wtests(df=df_insurance,
 #> 14             24.9594            1 0.0000005855     0.003125       FALSE
 #> 15              4.2347            1 0.0396047045     0.003125       FALSE
 #> 16             12.2513            1 0.0004649248     0.003125       FALSE
-report_wtests(df=df_insurance,
-              dv=which("charges"==names(df_insurance)),
-              iv=c(2,4),
-              alternative="greater")
+report_wtests(
+  df = df_insurance,
+  dv = which("charges" == names(df_insurance)),
+  iv = c(2, 4),
+  alternative = "greater"
+)
 #>          DV      IV level1 level2  n1  n2      W       p    CI_l CI_u alternative                                            method mean1 mean2   sd1   sd2 sd_pooled       d        r
 #> 1       sex charges female   male 662 676 221304 0.63573  -791.8  Inf     greater Wilcoxon rank sum test with continuity correction 12570 13957 11129 12971     12085 0.11478 0.009486
 #> 2  children charges      0      1 574 324  87794 0.91798 -1412.4  Inf     greater Wilcoxon rank sum test with continuity correction 12366 12731 12023 11824     11924 0.03063 0.046435
@@ -391,10 +403,12 @@ report_wtests(df=df_insurance,
 #> 14             24.9594            1 0.0000005855     0.003125       FALSE
 #> 15              4.2347            1 0.0396047045     0.003125       FALSE
 #> 16             12.2513            1 0.0004649248     0.003125       FALSE
-report_wtests(df=df_insurance,
-              dv=which("charges"==names(df_insurance)),
-              iv=c(2,4),
-              var.equal=TRUE)
+report_wtests(
+  df = df_insurance,
+  dv = which("charges" == names(df_insurance)),
+  iv = c(2, 4),
+  var.equal = TRUE
+)
 #>          DV      IV level1 level2  n1  n2      W          p     CI_l    CI_u alternative                                            method mean1 mean2   sd1   sd2 sd_pooled       d        r
 #> 1       sex charges female   male 662 676 221304 0.72865109  -929.07   566.9   two.sided Wilcoxon rank sum test with continuity correction 12570 13957 11129 12971     12085 0.11478 0.009486
 #> 2  children charges      0      1 574 324  87794 0.16411342 -1563.03   309.0   two.sided Wilcoxon rank sum test with continuity correction 12366 12731 12023 11824     11924 0.03063 0.046435
@@ -429,11 +443,13 @@ report_wtests(df=df_insurance,
 #> 14             24.9594            1 0.0000005855     0.003125       FALSE
 #> 15              4.2347            1 0.0396047045     0.003125       FALSE
 #> 16             12.2513            1 0.0004649248     0.003125       FALSE
-report_wtests(df=df_insurance,
-              dv=which("charges"==names(df_insurance)),
-              iv=c(2,4),
-              var.equal=TRUE,
-              file="wilcoxontest")
+report_wtests(
+  df = df_insurance,
+  dv = which("charges" == names(df_insurance)),
+  iv = c(2, 4),
+  var.equal = TRUE,
+  file = "wilcoxontest"
+)
 #>          DV      IV level1 level2  n1  n2      W          p     CI_l    CI_u alternative                                            method mean1 mean2   sd1   sd2 sd_pooled       d        r
 #> 1       sex charges female   male 662 676 221304 0.72865109  -929.07   566.9   two.sided Wilcoxon rank sum test with continuity correction 12570 13957 11129 12971     12085 0.11478 0.009486
 #> 2  children charges      0      1 574 324  87794 0.16411342 -1563.03   309.0   two.sided Wilcoxon rank sum test with continuity correction 12366 12731 12023 11824     11924 0.03063 0.046435

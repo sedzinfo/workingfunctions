@@ -1,9 +1,7 @@
-# Combine upper and lower triangles from two matrices
+# Make a symmetric matrix by duplicating one triangle
 
-Merges two matrices by taking the upper triangle from one and the lower
-triangle from the other, with flexible control over the diagonal. Useful
-for displaying two related statistics (e.g. correlations and p-values)
-in a single compact matrix.
+Mirrors either the lower or upper triangle of a matrix to the opposite
+side, producing a symmetric matrix. Optionally sets the diagonal.
 
 ## Usage
 
@@ -13,34 +11,24 @@ symmetric_matrix(matrix, duplicate = "lower", diagonal = NULL)
 
 ## Arguments
 
+- matrix:
+
+  A square numeric matrix.
+
+- duplicate:
+
+  Character. Which triangle to use as the source. One of: `"lower"`
+  mirrors the lower triangle to the upper, or `"upper"` mirrors the
+  upper triangle to the lower. Default is `"lower"`.
+
 - diagonal:
 
-  Controls the diagonal of the returned matrix. One of:
-
-  - `"upper"` — use the diagonal of `m_upper`.
-
-  - `"lower"` — use the diagonal of `m_lower`.
-
-  - `NA` — fill the diagonal with `NA`.
-
-  - A numeric or character vector of length `nrow(m_upper)` — use the
-    supplied values directly.
-
-  Default is `NA`.
-
-- m_upper:
-
-  A numeric matrix. Its upper triangle is used in the result.
-
-- m_lower:
-
-  A numeric matrix of the same dimensions as `m_upper`. Its lower
-  triangle is used in the result.
+  Value to place on the diagonal. If omitted, the original diagonal of
+  `matrix` is preserved. Pass `NA` to fill with `NA`.
 
 ## Value
 
-A matrix of the same dimensions as the inputs, combining the upper
-triangle of `m_upper` and the lower triangle of `m_lower`.
+A symmetric matrix of the same dimensions as the input.
 
 ## See also
 

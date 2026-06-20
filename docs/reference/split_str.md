@@ -1,6 +1,7 @@
-# Split string to dataframe
+# Split a string vector into a data frame of parts
 
-Split string to dataframe
+Splits each element of a character vector by a separator and returns the
+parts as columns of a data frame, one row per input element.
 
 ## Usage
 
@@ -12,15 +13,21 @@ split_str(vector, split = "/", include_original = FALSE)
 
 - vector:
 
-  String
+  Character vector to split.
 
 - split:
 
-  Separation character
+  Character. The separator to split on. Default is `"/"`.
 
 - include_original:
 
-  if TRUE it will return the input on a separate collumn
+  Logical. If `TRUE`, appends the original input as a final column.
+  Default is `FALSE`.
+
+## Value
+
+A data frame with one row per element of `vector` and one column per
+split part. Assumes all elements produce the same number of parts.
 
 ## Examples
 

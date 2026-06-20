@@ -1,6 +1,6 @@
-# Return n characters from left or right
+# Extract n characters from the left or right of a string
 
-Return n characters from left or right
+Extract n characters from the left or right of a string
 
 ## Usage
 
@@ -12,15 +12,19 @@ sub_str(x, n = 2, type)
 
 - x:
 
-  Character
+  Character vector.
 
 - n:
 
-  Number of characters to return
+  Integer. Number of characters to extract. Default is `2`.
 
 - type:
 
-  "right" "left"
+  Character. One of `"left"` or `"right"`.
+
+## Value
+
+A character vector of the same length as `x`.
 
 ## Examples
 

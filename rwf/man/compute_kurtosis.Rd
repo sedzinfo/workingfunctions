@@ -15,8 +15,8 @@ A numeric scalar. A value of 0 indicates a normal distribution;
   indicate lighter tails (platykurtic).
 }
 \description{
-Calculates the excess kurtosis of a numeric vector using the 
-\eqn{b_2} formula consistent with MINITAB and BMDP. Missing values are 
+Calculates the excess kurtosis of a numeric vector using the
+\eqn{b_2} formula consistent with MINITAB and BMDP. Missing values are
 removed before computation.
 }
 \note{
@@ -26,7 +26,7 @@ Formula used: \eqn{b_2 = m_4 / s^4 - 3 = (g_2 + 3)(1 - 1/n)^2 - 3}.
 }
 \examples{
 set.seed(1)
-vector<-rnorm(1000)
+vector <- rnorm(1000)
 compute_kurtosis(vector)
 e1071::kurtosis(vector)
 }

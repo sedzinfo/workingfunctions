@@ -1,6 +1,10 @@
-# Normality plots
+# Normality diagnostic plots (histogram, density, boxplot, Q-Q)
 
-plot histogram density boxplot qq plot
+For each numeric column of `df`, produces a 2×2 panel of base-graphics
+normality diagnostics: histogram, density curve, boxplot, and Q-Q plot
+with a reference line. A progress bar is printed to the console. When
+`file` is supplied the panels are also written to a PDF via
+[`report_pdf`](https://sedzinfo.github.io/rwf/reference/report_pdf.md).
 
 ## Usage
 
@@ -19,31 +23,40 @@ plot_normality_diagnostics(
 
 - df:
 
-  dataframe or vector with continous or ordinal data
+  Data frame or numeric vector. Non-numeric columns are silently
+  dropped. Columns with fewer than three non-missing values or zero
+  variance are skipped.
 
 - breaks:
 
-  number of bars to display
+  Histogram breaks passed to
+  [`hist`](https://rdrr.io/r/graphics/hist.html). May be a method name
+  (`"Sturges"`, `"Scott"`, `"FD"`) or a positive integer specifying the
+  number of bins. Default is `"Sturges"`.
 
 - title:
 
-  plot title
+  Character string used as the outer plot title and as the PDF title.
+  Default is `""`.
 
 - file:
 
-  output filename
+  Character string naming the output PDF file (without extension). When
+  `NULL` (default) no PDF is written.
 
 - w:
 
-  width of pdf file
+  Width of the PDF in inches. Default is `10`.
 
 - h:
 
-  height of pdf file
+  Height of the PDF in inches. Default is `10`.
 
-## Details
+## Value
 
-uses plot base
+A named list of recorded plots (one element per numeric column),
+returned invisibly. Each element is a
+[`recordPlot`](https://rdrr.io/r/grDevices/recordplot.html) object.
 
 ## Examples
 

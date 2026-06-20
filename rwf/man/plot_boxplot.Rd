@@ -2,22 +2,26 @@
 % Please edit documentation in R/EXPLORE_ASSUMPTIONS.R
 \name{plot_boxplot}
 \alias{plot_boxplot}
-\title{Boxplot}
+\title{Side-by-side boxplots for all numeric columns}
 \usage{
 plot_boxplot(df, title = "", base_size = 10)
 }
 \arguments{
-\item{df}{dataframe or vector with continous or ordinal data}
+\item{df}{Data frame or numeric vector. Non-numeric columns are silently
+dropped.}
 
-\item{title}{Plot title}
+\item{title}{Character string used as the plot title. Default is \code{""}.}
 
-\item{base_size}{numeric base font size}
+\item{base_size}{Base font size passed to \code{theme_bw()}. Default is
+\code{10}.}
+}
+\value{
+A single \code{ggplot} object.
 }
 \description{
-Boxplot
-}
-\details{
-uses ggplot
+Melts all numeric columns of \code{df} into a single long
+  format and draws them as side-by-side horizontal boxplots on one plot.
+  Non-numeric columns are silently dropped.
 }
 \examples{
 vector<-generate_missing(rnorm(1000))

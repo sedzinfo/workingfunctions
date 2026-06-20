@@ -79,11 +79,11 @@ fit <- cfa(HS.model, data = HolzingerSwineford1939)
 chk <- check_heywood(fit, verbose = TRUE)
 #> 
 #> === SUMMARY ===
-#> ✓ No Heywood cases or major issues detected!
+#> OK: No Heywood cases or major issues detected!
 
 # Programmatic use
 check_heywood(fit, verbose = TRUE)
 #> 
 #> === SUMMARY ===
-#> ✓ No Heywood cases or major issues detected!
+#> OK: No Heywood cases or major issues detected!
 ```

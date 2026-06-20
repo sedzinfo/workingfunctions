@@ -1,6 +1,8 @@
-# Model call to string
+# Convert a model call to a compact string
 
-Takes a call object and convert it to string
+Extracts the call from a model object and returns it as a single
+whitespace-free string. Tries `model$call` first, falling back to
+`model$Call` if the first is `NULL`.
 
 ## Usage
 
@@ -12,7 +14,12 @@ call_to_string(model)
 
 - model:
 
-  Model object
+  A model object with a `call` or `Call` element (e.g. from `lm`, `glm`,
+  `coxph`).
+
+## Value
+
+A character scalar with the model call, whitespace removed.
 
 ## Examples
 

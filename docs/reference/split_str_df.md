@@ -1,6 +1,7 @@
-# Split string in dataframe
+# Split a string column or row names in a data frame into separate columns
 
-Split string in dataframe
+Splits a delimited string — either from row names or a specified column
+— and prepends the resulting parts as new columns to the data frame.
 
 ## Usage
 
@@ -12,27 +13,43 @@ split_str_df(df, split = "/", type = "row", index, ...)
 
 - df:
 
-  dataframe
+  A data frame.
 
 - split:
 
-  Separation character
+  Character. The separator to split on. Default is `"/"`.
 
 - type:
 
-  "row" "collumn" if "row" it will split the string of row names and it
-  will display it on seperate collumns if "collumn" it will split the
-  string of a spesified collumn and it will display it on separate
-  collumns
+  Character. Where to read the string from. One of:
+
+  `"row"`
+
+  :   Splits the row names of `df`.
+
+  `"collumn"`
+
+  :   Splits the column specified by `index`.
+
+  Default is `"row"`.
 
 - index:
 
-  Numeric index of collumn to split. This is only relevant if
-  type="collumn"
+  Integer. Column index to split when `type = "collumn"`.
 
 - ...:
 
-  arguments passed to split_str
+  Additional arguments passed to
+  [`split_str`](https://sedzinfo.github.io/rwf/reference/split_str.md).
+
+## Value
+
+A data frame with the split parts prepended as new columns, followed by
+the original columns of `df`.
+
+## See also
+
+[`split_str`](https://sedzinfo.github.io/rwf/reference/split_str.md)
 
 ## Examples
 

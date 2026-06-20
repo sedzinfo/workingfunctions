@@ -2,21 +2,32 @@
 % Please edit documentation in R/EXPLORE_ASSUMPTIONS.R
 \name{remove_outliers}
 \alias{remove_outliers}
-\title{Remove outliers}
+\title{Replace outliers with NA using IQR fences}
 \usage{
 remove_outliers(vector, probs = c(0.25, 0.75), na.rm = TRUE, ...)
 }
 \arguments{
-\item{vector}{numeric}
+\item{vector}{Numeric vector.}
 
-\item{probs}{numeric vector with lowest and highest quantiles}
+\item{probs}{Length-2 numeric vector giving the lower and upper quantile
+probabilities used to define the fence boundaries. Default is
+\code{c(0.25, 0.75)} (standard quartiles).}
 
-\item{na.rm}{if TRUE removes NA values}
+\item{na.rm}{Logical; whether to remove \code{NA} values when computing
+quantiles and IQR. Default is \code{TRUE}.}
 
-\item{...}{arguments passed to quantile}
+\item{...}{Additional arguments passed to \code{\link[stats]{quantile}}.}
+}
+\value{
+A numeric vector the same length as \code{vector} with outlying
+  values replaced by \code{NA}.
 }
 \description{
-Remove outliers
+Replaces values outside the boxplot fences with \code{NA}.
+  The fences are computed as \eqn{Q1 - 1.5 \times IQR} and
+  \eqn{Q3 + 1.5 \times IQR}, where \eqn{Q1} and \eqn{Q3} are the quantiles
+  specified by \code{probs}. Designed to be applied across columns with
+  \code{sapply}.
 }
 \examples{
 vector<-generate_missing(rnorm(1000))

@@ -2,22 +2,27 @@
 % Please edit documentation in R/EXPLORE_ASSUMPTIONS.R
 \name{plot_qq}
 \alias{plot_qq}
-\title{qq plots}
+\title{Q-Q plots against the normal distribution}
 \usage{
 plot_qq(df, title = "", base_size = 10)
 }
 \arguments{
-\item{df}{dataframe or vector with continous or ordinal data}
+\item{df}{Data frame or vector. Non-numeric columns are skipped.}
 
-\item{title}{plot title}
+\item{title}{Character string used as the plot title. Default is \code{""}.}
 
-\item{base_size}{numeric base font size}
+\item{base_size}{Base font size passed to \code{theme_bw()}. Default is
+\code{10}.}
+}
+\value{
+A named list of \code{ggplot} objects, one per numeric column.
 }
 \description{
-qq plots
-}
-\details{
-uses ggplot
+Produces one quantile-quantile plot per numeric column of
+  \code{df}, comparing the empirical distribution to the theoretical normal.
+  A reference line is fitted through the 25th and 75th percentiles (the same
+  convention used by \code{\link[stats]{qqline}}). Non-numeric columns are
+  skipped silently. A progress bar is printed to the console.
 }
 \examples{
 vector<-generate_missing(rnorm(1000))

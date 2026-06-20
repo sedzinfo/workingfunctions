@@ -2,21 +2,40 @@
 % Please edit documentation in R/EXPLORE_ASSUMPTIONS.R
 \name{plot_outlier}
 \alias{plot_outlier}
-\title{Outlier graph using mean median and boxplot algorythms}
+\title{Dot plot of outliers by detection method}
 \usage{
 plot_outlier(df, method = "mean", title = "", base_size = 10)
 }
 \arguments{
-\item{df}{dataframe or vector with continous or ordinal data}
+\item{df}{Data frame or numeric vector. Non-numeric columns are silently
+dropped.}
 
-\item{method}{"mean" "median" "boxplot"}
+\item{method}{Character string selecting the outlier-detection rule:
+\describe{
+  \item{\code{"mean"}}{Flags observations more than 2 standard deviations
+    from the mean.}
+  \item{\code{"median"}}{Flags observations more than 2 rescaled MADs
+    (\eqn{2 \times \mathrm{MAD}/0.6745}) from the median.}
+  \item{\code{"boxplot"}}{Flags observations outside
+    \eqn{Q1 - 1.5 \times IQR} or \eqn{Q3 + 1.5 \times IQR}.}
+}
+Default is \code{"mean"}.}
 
-\item{title}{plot title}
+\item{title}{Character string used as the plot title. Default is \code{""}.}
 
-\item{base_size}{base font size}
+\item{base_size}{Base font size passed to \code{theme_bw()}. Default is
+\code{10}.}
+}
+\value{
+A named list of \code{ggplot} objects, one per numeric column.
 }
 \description{
-Outlier graph using mean median and boxplot algorythms
+For each numeric column of \code{df}, draws a dot plot with
+  observations coloured by outlier status and row-name labels repelled away
+  from flagged points. Three outlier-detection rules are available via
+  \code{method}: mean ± 2 SD, median ± 2 MAD (rescaled), or boxplot IQR
+  fences. Reference lines for the centre and the upper/lower bounds are
+  overlaid on each plot.
 }
 \examples{
 vector<-generate_missing(rnorm(1000))

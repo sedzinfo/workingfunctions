@@ -1,6 +1,6 @@
-# Capitalize first character and lowercase the rest
+# Convert a string to proper case
 
-Capitalize first character and lowercase the rest
+Capitalises the first character and lowercases the rest of each element.
 
 ## Usage
 
@@ -12,7 +12,11 @@ proper(x)
 
 - x:
 
-  Character
+  Character vector.
+
+## Value
+
+A character vector of the same length as `x`.
 
 ## Examples
 

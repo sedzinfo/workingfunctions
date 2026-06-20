@@ -17,11 +17,11 @@
 #'
 #' @export
 #' @examples
-#' compute_adjustment(0.05,100)
-compute_adjustment<-function(a,ntests) {
-  sidak<-1-((1-a)^(1/ntests))
-  bonferroni<-a/ntests
-  result<-list(sidak=sidak,bonferroni=bonferroni)
+#' compute_adjustment(0.05, 100)
+compute_adjustment <- function(a, ntests) {
+  sidak <- 1 - ((1 - a)^(1 / ntests))
+  bonferroni <- a / ntests
+  result <- list(sidak = sidak, bonferroni = bonferroni)
   return(result)
 }
 ##########################################################################################
@@ -67,73 +67,83 @@ compute_adjustment<-function(a,ntests) {
 #'
 #' @export
 #' @examples
-#' vector<-c(rnorm(10),NA,rnorm(10))
-#' compute_standard(vector,type="z")
-#' compute_standard(vector,mean=0,sd=1,type="uz")
-#' compute_standard(vector,type="sten")
-#' compute_standard(vector,type="t")
-#' compute_standard(vector,type="stanine")
-#' compute_standard(vector,type="center")
-#' compute_standard(vector,type="center_reversed")
-#' compute_standard(vector,type="percent")
-#' compute_standard(vector,type="scale_zero_one")
-#' ndf<-compute_standard(seq(-6,6,.01),mean=0,sd=1,type="normal_density")
+#' vector <- c(rnorm(10), NA, rnorm(10))
+#' compute_standard(vector, type = "z")
+#' compute_standard(vector, mean = 0, sd = 1, type = "uz")
+#' compute_standard(vector, type = "sten")
+#' compute_standard(vector, type = "t")
+#' compute_standard(vector, type = "stanine")
+#' compute_standard(vector, type = "center")
+#' compute_standard(vector, type = "center_reversed")
+#' compute_standard(vector, type = "percent")
+#' compute_standard(vector, type = "scale_zero_one")
+#' ndf <- compute_standard(seq(-6, 6, .01), mean = 0, sd = 1, type = "normal_density")
 #' plot(ndf)
-#' cdf<-compute_standard(ndf,mean=0,sd=1,type="cumulative_density")
+#' cdf <- compute_standard(ndf, mean = 0, sd = 1, type = "cumulative_density")
 #' plot(cdf)
-#' compute_standard(vector,type="all")
-#' compute_standard(seq(-6,6,.1),type="all",input="standard")
-compute_standard<-function(vector,mean=0,sd=1,type="z",input="non_standard") {
-  if(input=="non_standard"){
-    z<-(vector-mean(vector,na.rm=TRUE))/stats::sd(vector,na.rm=TRUE)
+#' compute_standard(vector, type = "all")
+#' compute_standard(seq(-6, 6, .1), type = "all", input = "standard")
+compute_standard <- function(vector, mean = 0, sd = 1, type = "z", input = "non_standard") {
+  if (input == "non_standard") {
+    z <- (vector - mean(vector, na.rm = TRUE)) / stats::sd(vector, na.rm = TRUE)
   }
-  if(input=="standard")
-    z<-vector
-  if (type=="z")
-    result<-z
-  if (type=="uz")
-    result<-vector*sd+mean
-  if (type=="sten"){
-    result<-round((z*2)+5.5,0)
-    result[result<1]<-1
-    result[result>10]<-10
+  if (input == "standard") {
+    z <- vector
   }
-  if(type=="t")
-    result<-(z*10)+50
-  if(type=="stanine"){
-    result<-(z*2)+5
-    result[result<1]<-1
-    result[result>9]<-9
-    result<-round(result,0)
+  if (type == "z") {
+    result <- z
   }
-  if(type=="center")
-    result<-vector-mean(vector,na.rm=TRUE)
-  if(type=="center_reversed")
-    result<-mean(vector,na.rm=TRUE)-vector
-  if(type=="percent")
-    result<-(vector/max(vector,na.rm=TRUE))*100
-  if(type=="percentile")
-    result<-pnorm(z) * 100
-  if(type=="scale_zero_one")
-    result<-(vector-min(vector,na.rm=TRUE))/(max(vector,na.rm=TRUE)-min(vector,na.rm=TRUE))
-  if(type=="normal_density")
-    result<-(1/(sqrt(sd*pi)))*exp(-0.5*((vector-mean)/sd)^2)
-  if(type=="cumulative_density") {
-    result<-cumsum(vector)
+  if (type == "uz") {
+    result <- vector * sd + mean
+  }
+  if (type == "sten") {
+    result <- round((z * 2) + 5.5, 0)
+    result[result < 1] <- 1
+    result[result > 10] <- 10
+  }
+  if (type == "t") {
+    result <- (z * 10) + 50
+  }
+  if (type == "stanine") {
+    result <- (z * 2) + 5
+    result[result < 1] <- 1
+    result[result > 9] <- 9
+    result <- round(result, 0)
+  }
+  if (type == "center") {
+    result <- vector - mean(vector, na.rm = TRUE)
+  }
+  if (type == "center_reversed") {
+    result <- mean(vector, na.rm = TRUE) - vector
+  }
+  if (type == "percent") {
+    result <- (vector / max(vector, na.rm = TRUE)) * 100
+  }
+  if (type == "percentile") {
+    result <- pnorm(z) * 100
+  }
+  if (type == "scale_zero_one") {
+    result <- (vector - min(vector, na.rm = TRUE)) / (max(vector, na.rm = TRUE) - min(vector, na.rm = TRUE))
+  }
+  if (type == "normal_density") {
+    result <- (1 / (sqrt(sd * pi))) * exp(-0.5 * ((vector - mean) / sd)^2)
+  }
+  if (type == "cumulative_density") {
+    result <- cumsum(vector)
     # result<-cumprod(vector)
     # result<-cummax(vector)
     # result<-cummin(vector)
   }
-  if(type=="all") {
-    mydata<-data.frame(score=vector)
-    mydata$z<-compute_standard(mydata$score,type="z",input=input)
-    mydata$sten<-compute_standard(mydata$score,type="sten",input=input)
-    mydata$t<-compute_standard(mydata$score,type="t",input=input)
-    mydata$stanine<-compute_standard(mydata$score,type="stanine",input=input)
-    mydata$percent<-compute_standard(mydata$score,type="percent",input=input)
-    mydata$percentile<-compute_standard(mydata$score,type="percentile",input=input)
-    mydata$scale_0_1<-compute_standard(mydata$score,type="scale_zero_one",input=input)
-    result<-data.frame(mydata[order(mydata$z),])
+  if (type == "all") {
+    mydata <- data.frame(score = vector)
+    mydata$z <- compute_standard(mydata$score, type = "z", input = input)
+    mydata$sten <- compute_standard(mydata$score, type = "sten", input = input)
+    mydata$t <- compute_standard(mydata$score, type = "t", input = input)
+    mydata$stanine <- compute_standard(mydata$score, type = "stanine", input = input)
+    mydata$percent <- compute_standard(mydata$score, type = "percent", input = input)
+    mydata$percentile <- compute_standard(mydata$score, type = "percentile", input = input)
+    mydata$scale_0_1 <- compute_standard(mydata$score, type = "scale_zero_one", input = input)
+    result <- data.frame(mydata[order(mydata$z), ])
   }
   return(result)
 }
@@ -142,7 +152,7 @@ compute_standard<-function(vector,mean=0,sd=1,type="z",input="non_standard") {
 ##########################################################################################
 #' @title Compute the disattenuation correction for measurement error
 #'
-#' @description Estimates the true correlation between two variables by 
+#' @description Estimates the true correlation between two variables by
 #' correcting the observed correlation for attenuation due to measurement error
 #' in both variables.
 #'
@@ -169,12 +179,12 @@ compute_standard<-function(vector,mean=0,sd=1,type="z",input="non_standard") {
 #' @export
 #' @examples
 #' set.seed(1)
-#' compute_dissatenuation(rnorm(10),rnorm(10),rnorm(10),rnorm(10))
-compute_dissatenuation<-function(variable1,error1,variable2,error2) {
-  correlation<-stats::cov(variable1+error1,variable2+error2)/sqrt(stats::var(variable1+error1)*stats::var(variable2+error2))
-  Rb<-stats::var(variable1)/(stats::var(variable1)+stats::var(error1))
-  Rth<-stats::var(variable2)/(stats::var(variable2)+stats::var(error2))
-  p<-correlation/sqrt(Rb*Rth)
+#' compute_dissatenuation(rnorm(10), rnorm(10), rnorm(10), rnorm(10))
+compute_dissatenuation <- function(variable1, error1, variable2, error2) {
+  correlation <- stats::cov(variable1 + error1, variable2 + error2) / sqrt(stats::var(variable1 + error1) * stats::var(variable2 + error2))
+  Rb <- stats::var(variable1) / (stats::var(variable1) + stats::var(error1))
+  Rth <- stats::var(variable2) / (stats::var(variable2) + stats::var(error2))
+  p <- correlation / sqrt(Rb * Rth)
   return(p)
 }
 ##########################################################################################
@@ -182,7 +192,7 @@ compute_dissatenuation<-function(variable1,error1,variable2,error2) {
 ##########################################################################################
 #' @title Compute skewness of a numeric vector
 #'
-#' @description Calculates the skewness of a numeric vector using the \eqn{b_1} 
+#' @description Calculates the skewness of a numeric vector using the \eqn{b_1}
 #' formula consistent with MINITAB and BMDP. Missing values are removed before
 #' computation.
 #'
@@ -194,20 +204,20 @@ compute_dissatenuation<-function(variable1,error1,variable2,error2) {
 #' @note Formula used: \eqn{b_1 = m_3 / s^3 = g_1 ((n-1)/n)^{3/2}}.
 #'   Used in MINITAB and BMDP.
 #'   Results match \code{e1071::skewness()} with \code{type = 2}.
-#'   
-#'   
+#'
+#'
 #' @export
 #' @examples
 #' set.seed(1)
-#' vector<-rnorm(1000)
+#' vector <- rnorm(1000)
 #' compute_skewness(vector)
 #' e1071::skewness(vector)
-compute_skewness<-function(vector) {
-  vector<-na.omit(vector)
-  n<-length(vector)
-  x<-vector-mean(vector)
-  y<-sqrt(n)*sum(x^3)/(sum(x^2)^(3/2))
-  y<-y*((1-1/n))^(3/2)
+compute_skewness <- function(vector) {
+  vector <- na.omit(vector)
+  n <- length(vector)
+  x <- vector - mean(vector)
+  y <- sqrt(n) * sum(x^3) / (sum(x^2)^(3 / 2))
+  y <- y * ((1 - 1 / n))^(3 / 2)
   return(y)
 }
 ##########################################################################################
@@ -215,8 +225,8 @@ compute_skewness<-function(vector) {
 ##########################################################################################
 #' @title Compute kurtosis of a numeric vector
 #'
-#' @description Calculates the excess kurtosis of a numeric vector using the 
-#' \eqn{b_2} formula consistent with MINITAB and BMDP. Missing values are 
+#' @description Calculates the excess kurtosis of a numeric vector using the
+#' \eqn{b_2} formula consistent with MINITAB and BMDP. Missing values are
 #' removed before computation.
 #'
 #' @param vector Numeric vector.
@@ -224,23 +234,23 @@ compute_skewness<-function(vector) {
 #' @return A numeric scalar. A value of 0 indicates a normal distribution;
 #'   positive values indicate heavier tails (leptokurtic); negative values
 #'   indicate lighter tails (platykurtic).
-#'   
+#'
 #' @note Formula used: \eqn{b_2 = m_4 / s^4 - 3 = (g_2 + 3)(1 - 1/n)^2 - 3}.
 #'   Used in MINITAB and BMDP.
 #'   Results match \code{e1071::kurtosis()} with \code{type = 2}.
-#' 
+#'
 #' @export
 #' @examples
 #' set.seed(1)
-#' vector<-rnorm(1000)
+#' vector <- rnorm(1000)
 #' compute_kurtosis(vector)
 #' e1071::kurtosis(vector)
-compute_kurtosis<-function(vector) {
-  vector<-na.omit(vector)
-  n<-length(vector)
-  x<-vector-mean(vector)
-  r<-n*sum(x^4)/(sum(x^2)^2)
-  y<-r*(1-1/n)^2-3
+compute_kurtosis <- function(vector) {
+  vector <- na.omit(vector)
+  n <- length(vector)
+  x <- vector - mean(vector)
+  r <- n * sum(x^4) / (sum(x^2)^2)
+  y <- r * (1 - 1 / n)^2 - 3
   return(y)
 }
 ##########################################################################################
@@ -255,11 +265,11 @@ compute_kurtosis<-function(vector) {
 #' @export
 #' @examples
 #' set.seed(1)
-#' vector<-rnorm(1000)
+#' vector <- rnorm(1000)
 #' compute_standard_error(vector)
-compute_standard_error<-function(vector) {
-  x<-na.omit(vector)
-  y<-sqrt(var(x)/length(x))
+compute_standard_error <- function(vector) {
+  x <- na.omit(vector)
+  y <- sqrt(var(x) / length(x))
   return(y)
 }
 ##########################################################################################
@@ -271,15 +281,12 @@ compute_standard_error<-function(vector) {
 #' @export
 #' @examples
 #' set.seed(1)
-#' vector<-rnorm(1000)
+#' vector <- rnorm(1000)
 #' compute_confidence_inteval(vector)
-compute_confidence_inteval<-function(vector) {
-  x<-na.omit(vector)
-  n<-length(x)
-  s<-sd(x)
-  y<-qnorm(0.975)*s/sqrt(n)
+compute_confidence_inteval <- function(vector) {
+  x <- na.omit(vector)
+  n <- length(x)
+  s <- sd(x)
+  y <- qnorm(0.975) * s / sqrt(n)
   return(y)
 }
-
-
-

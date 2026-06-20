@@ -86,8 +86,7 @@ applied row by row, skipping `NA` values.
 ## See also
 
 [`excel_generic_format`](https://sedzinfo.github.io/rwf/reference/excel_generic_format.md),
-[`excel_matrix`](https://sedzinfo.github.io/rwf/reference/excel_matrix.md),
-[`conditionalFormatting`](https://rdrr.io/pkg/openxlsx/man/conditionalFormatting.html)
+[`excel_matrix`](https://sedzinfo.github.io/rwf/reference/excel_matrix.md)
 
 ## Examples
 

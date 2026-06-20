@@ -1,8 +1,7 @@
 # Flatten a two-dimensional list into a data frame
 
-Converts a two-dimensional list to a data frame by applying
-[`ldply`](https://rdrr.io/pkg/plyr/man/ldply.html) across the top-level
-elements.
+Converts a two-dimensional list to a data frame by applying `ldply`
+across the top-level elements.
 
 ## Usage
 

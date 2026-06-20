@@ -1,6 +1,11 @@
-# Outlier graph using mean median and boxplot algorythms
+# Dot plot of outliers by detection method
 
-Outlier graph using mean median and boxplot algorythms
+For each numeric column of `df`, draws a dot plot with observations
+coloured by outlier status and row-name labels repelled away from
+flagged points. Three outlier-detection rules are available via
+`method`: mean ± 2 SD, median ± 2 MAD (rescaled), or boxplot IQR fences.
+Reference lines for the centre and the upper/lower bounds are overlaid
+on each plot.
 
 ## Usage
 
@@ -12,19 +17,40 @@ plot_outlier(df, method = "mean", title = "", base_size = 10)
 
 - df:
 
-  dataframe or vector with continous or ordinal data
+  Data frame or numeric vector. Non-numeric columns are silently
+  dropped.
 
 - method:
 
-  "mean" "median" "boxplot"
+  Character string selecting the outlier-detection rule:
+
+  `"mean"`
+
+  :   Flags observations more than 2 standard deviations from the mean.
+
+  `"median"`
+
+  :   Flags observations more than 2 rescaled MADs (\\2 \times
+      \mathrm{MAD}/0.6745\\) from the median.
+
+  `"boxplot"`
+
+  :   Flags observations outside \\Q1 - 1.5 \times IQR\\ or \\Q3 + 1.5
+      \times IQR\\.
+
+  Default is `"mean"`.
 
 - title:
 
-  plot title
+  Character string used as the plot title. Default is `""`.
 
 - base_size:
 
-  base font size
+  Base font size passed to `theme_bw()`. Default is `10`.
+
+## Value
+
+A named list of `ggplot` objects, one per numeric column.
 
 ## Author
 

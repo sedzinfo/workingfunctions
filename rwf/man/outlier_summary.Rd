@@ -2,18 +2,28 @@
 % Please edit documentation in R/EXPLORE_ASSUMPTIONS.R
 \name{outlier_summary}
 \alias{outlier_summary}
-\title{Percent of outliers in vector}
+\title{Percentage of outliers at three z-score thresholds}
 \usage{
 outlier_summary(vector)
 }
 \arguments{
-\item{vector}{numeric vector}
+\item{vector}{Numeric vector. Missing values are removed before
+z-standardisation and counts.}
+}
+\value{
+A one-row data frame with three character columns:
+  \describe{
+    \item{abs_z_1.96}{Percentage of observations with \eqn{|z| \ge 1.96}.}
+    \item{abs_z_2.58}{Percentage of observations with \eqn{|z| \ge 2.58}.}
+    \item{abs_z_3.29}{Percentage of observations with \eqn{|z| \ge 3.29}.}
+  }
 }
 \description{
-Percent of outliers in vector
-}
-\details{
-returns dataframe
+Z-standardises \code{vector} and counts the percentage of
+  observations whose absolute z-score exceeds 1.96, 2.58, and 3.29,
+  corresponding approximately to the 95 \%, 99 \%, and 99.9 \% tails of the
+  normal distribution. Designed to be applied across columns with
+  \code{sapply}.
 }
 \examples{
 vector<-generate_missing(rnorm(1000))

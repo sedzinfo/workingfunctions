@@ -2,21 +2,30 @@
 % Please edit documentation in R/EXPLORE_ASSUMPTIONS.R
 \name{report_normality_tests}
 \alias{report_normality_tests}
-\title{Normality tests}
+\title{Battery of normality tests}
 \usage{
 report_normality_tests(df, file = NULL)
 }
 \arguments{
-\item{df}{dataframe with continous or ordinal data}
+\item{df}{Data frame or numeric vector.}
 
-\item{file}{output filename}
+\item{file}{Character string naming the output files (without extension).
+When supplied, a \code{.log} and an \code{.xlsx} file are written.
+When \code{NULL} (default) no files are written.}
+}
+\value{
+Invisibly returns \code{NULL}. Called for its side effects of
+  printing results and optionally writing output files.
 }
 \description{
-Shapiro-Wilk Anderson-Darling Cramer-von-Mises Shapiro-Francia\cr 
-Jarque-Bera Kolmogorov-Smirnov Lilliefors Pearson X2
-}
-\details{
-returns xlsx file
+Runs eight normality tests on each numeric column of \code{df}:
+  Shapiro-Wilk, Anderson-Darling, Cramér-von Mises, Shapiro-Francia,
+  Jarque-Bera, Kolmogorov-Smirnov, Lilliefors, and Pearson chi-squared.
+  Each column is z-standardised before testing. Columns with fewer than 8 or
+  more than 4999 non-missing observations are skipped with a console message.
+  Results are printed to the console; when \code{file} is supplied they are
+  also written to a \code{.log} file and a colour-coded \code{.xlsx} file
+  with significant p-values (\eqn{p \le 0.05}) highlighted.
 }
 \examples{
 vector<-generate_missing(rnorm(1000))

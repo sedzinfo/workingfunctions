@@ -30,10 +30,10 @@ structure.
 
 ## Details
 
-Uses [`mvrnorm`](https://rdrr.io/pkg/MASS/man/mvrnorm.html) to draw from
-a multivariate normal distribution parameterised by the sample
-covariance matrix and column means of `cordata`. Accuracy of the
-reproduced correlations improves with larger `nrows`.
+Uses `mvrnorm` to draw from a multivariate normal distribution
+parameterised by the sample covariance matrix and column means of
+`cordata`. Accuracy of the reproduced correlations improves with larger
+`nrows`.
 
 ## See also
 

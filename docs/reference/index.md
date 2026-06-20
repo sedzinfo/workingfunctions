@@ -13,13 +13,13 @@ Summary statistics, frequencies and reliability
 - [`compute_frequencies()`](https://sedzinfo.github.io/rwf/reference/compute_frequencies.md)
   : Frequency table for categorical variables
 - [`compute_skewness()`](https://sedzinfo.github.io/rwf/reference/compute_skewness.md)
-  : Compute skewness
+  : Compute skewness of a numeric vector
 - [`compute_kurtosis()`](https://sedzinfo.github.io/rwf/reference/compute_kurtosis.md)
-  : Compute kurtosis
+  : Compute kurtosis of a numeric vector
 - [`compute_standard()`](https://sedzinfo.github.io/rwf/reference/compute_standard.md)
-  : compute standard scores
+  : Compute standard scores from a numeric vector
 - [`compute_standard_error()`](https://sedzinfo.github.io/rwf/reference/compute_standard_error.md)
-  : Compute standard error
+  : Compute the standard error of the mean
 - [`compute_confidence_inteval()`](https://sedzinfo.github.io/rwf/reference/compute_confidence_inteval.md)
   : Compute confidence interval
 - [`compute_scores()`](https://sedzinfo.github.io/rwf/reference/compute_scores.md)
@@ -54,7 +54,7 @@ Correlation matrices, power analysis and related utilities
 - [`matrix_triangle()`](https://sedzinfo.github.io/rwf/reference/matrix_triangle.md)
   : Extract the upper or lower triangle of a matrix
 - [`symmetric_matrix()`](https://sedzinfo.github.io/rwf/reference/symmetric_matrix.md)
-  : Combine upper and lower triangles from two matrices
+  : Make a symmetric matrix by duplicating one triangle
 - [`off_diagonal_index()`](https://sedzinfo.github.io/rwf/reference/off_diagonal_index.md)
   : Get off-diagonal indices for a square matrix
 - [`report_correlation()`](https://sedzinfo.github.io/rwf/reference/report_correlation.md)
@@ -121,7 +121,7 @@ Correlation matrices, power analysis and related utilities
 - [`compute_icc_thurstonian()`](https://sedzinfo.github.io/rwf/reference/compute_icc_thurstonian.md)
   : Compute item characteristic curves for thurstonian models
 - [`compute_dissatenuation()`](https://sedzinfo.github.io/rwf/reference/compute_dissatenuation.md)
-  : Compute dissatenuation
+  : Compute the disattenuation correction for measurement error
 - [`report_irt()`](https://sedzinfo.github.io/rwf/reference/report_irt.md)
   : Output for irt model
 - [`plot_irt_onefactor()`](https://sedzinfo.github.io/rwf/reference/plot_irt_onefactor.md)
@@ -227,9 +227,9 @@ Correlation matrices, power analysis and related utilities
 ## Plotting & Visualisation
 
 - [`plot_boxplot()`](https://sedzinfo.github.io/rwf/reference/plot_boxplot.md)
-  : Boxplot
+  : Side-by-side boxplots for all numeric columns
 - [`plot_histogram()`](https://sedzinfo.github.io/rwf/reference/plot_histogram.md)
-  : Histograms with density function
+  : Histograms per numeric column
 - [`plot_scatterplot()`](https://sedzinfo.github.io/rwf/reference/plot_scatterplot.md)
   : Scatter plots for all variable pairs in a data frame
 - [`plot_interaction()`](https://sedzinfo.github.io/rwf/reference/plot_interaction.md)
@@ -245,15 +245,15 @@ Correlation matrices, power analysis and related utilities
 - [`plot_multiplot()`](https://sedzinfo.github.io/rwf/reference/plot_multiplot.md)
   : Arrange multiple ggplot objects in a grid layout
 - [`plot_normality_diagnostics()`](https://sedzinfo.github.io/rwf/reference/plot_normality_diagnostics.md)
-  : Normality plots
+  : Normality diagnostic plots (histogram, density, boxplot, Q-Q)
 - [`plot_response_frequencies()`](https://sedzinfo.github.io/rwf/reference/plot_response_frequencies.md)
   : Horizontal bar charts of response frequencies
 - [`plot_separability()`](https://sedzinfo.github.io/rwf/reference/plot_separability.md)
   : Plot separability
 - [`plot_outlier()`](https://sedzinfo.github.io/rwf/reference/plot_outlier.md)
-  : Outlier graph using mean median and boxplot algorythms
+  : Dot plot of outliers by detection method
 - [`plot_qq()`](https://sedzinfo.github.io/rwf/reference/plot_qq.md) :
-  qq plots
+  Q-Q plots against the normal distribution
 - [`plot_acf()`](https://sedzinfo.github.io/rwf/reference/plot_acf.md) :
   Autocorrelation, autocovariance, and partial autocorrelation plot
 - [`plot_ts()`](https://sedzinfo.github.io/rwf/reference/plot_ts.md) :
@@ -268,11 +268,11 @@ Correlation matrices, power analysis and related utilities
 - [`report_dataframe()`](https://sedzinfo.github.io/rwf/reference/report_dataframe.md)
   : Write matrix or dataframe to excel sheet
 - [`report_normality_tests()`](https://sedzinfo.github.io/rwf/reference/report_normality_tests.md)
-  : Normality tests
+  : Battery of normality tests
 - [`report_pdf()`](https://sedzinfo.github.io/rwf/reference/report_pdf.md)
   : Save or display a list of plots as a multi-page PDF
 - [`output_separator()`](https://sedzinfo.github.io/rwf/reference/output_separator.md)
-  : Output separator
+  : Print a formatted console output block with separators
 - [`excel_generic_format()`](https://sedzinfo.github.io/rwf/reference/excel_generic_format.md)
   : Format an Excel worksheet with styles, comments, and frozen panes
 - [`excel_critical_value()`](https://sedzinfo.github.io/rwf/reference/excel_critical_value.md)
@@ -297,7 +297,7 @@ Correlation matrices, power analysis and related utilities
 - [`drop_levels()`](https://sedzinfo.github.io/rwf/reference/drop_levels.md)
   : Drop unused factor levels and collapse rare levels into "Other"
 - [`trim_df()`](https://sedzinfo.github.io/rwf/reference/trim_df.md) :
-  Trim whitespace in dataframe
+  Trim whitespace from all character cells in a data frame
 - [`round_dataframe()`](https://sedzinfo.github.io/rwf/reference/round_dataframe.md)
   : Round numeric columns in a data frame
 - [`padNA()`](https://sedzinfo.github.io/rwf/reference/padNA.md) : Pad a
@@ -305,9 +305,9 @@ Correlation matrices, power analysis and related utilities
 - [`replace_na_with_previous()`](https://sedzinfo.github.io/rwf/reference/replace_na_with_previous.md)
   : Last observation carried forward (LOCF) imputation
 - [`remove_outliers()`](https://sedzinfo.github.io/rwf/reference/remove_outliers.md)
-  : Remove outliers
+  : Replace outliers with NA using IQR fences
 - [`outlier_summary()`](https://sedzinfo.github.io/rwf/reference/outlier_summary.md)
-  : Percent of outliers in vector
+  : Percentage of outliers at three z-score thresholds
 - [`k_fold()`](https://sedzinfo.github.io/rwf/reference/k_fold.md) :
   K-Fold train test sampling
 - [`k_sample()`](https://sedzinfo.github.io/rwf/reference/k_sample.md) :
@@ -350,13 +350,14 @@ Correlation matrices, power analysis and related utilities
 - [`str_wrap()`](https://sedzinfo.github.io/rwf/reference/str_wrap.md) :
   Wrap long strings to a specified line width
 - [`sub_str()`](https://sedzinfo.github.io/rwf/reference/sub_str.md) :
-  Return n characters from left or right
+  Extract n characters from the left or right of a string
 - [`split_str()`](https://sedzinfo.github.io/rwf/reference/split_str.md)
-  : Split string to dataframe
+  : Split a string vector into a data frame of parts
 - [`split_str_df()`](https://sedzinfo.github.io/rwf/reference/split_str_df.md)
-  : Split string in dataframe
-- [`mgsub()`](https://sedzinfo.github.io/rwf/reference/mgsub.md) : Sub
-  for multiple patterns
+  : Split a string column or row names in a data frame into separate
+  columns
+- [`mgsub()`](https://sedzinfo.github.io/rwf/reference/mgsub.md) : Apply
+  gsub for multiple patterns with a single replacement
 - [`stat_word_char()`](https://sedzinfo.github.io/rwf/reference/stat_word_char.md)
   : Text similarity measures
 - [`text_similarity()`](https://sedzinfo.github.io/rwf/reference/text_similarity.md)
@@ -366,11 +367,11 @@ Correlation matrices, power analysis and related utilities
 - [`clear_stopwords()`](https://sedzinfo.github.io/rwf/reference/clear_stopwords.md)
   : Remove stopwods
 - [`proper()`](https://sedzinfo.github.io/rwf/reference/proper.md) :
-  Capitalize first character and lowercase the rest
+  Convert a string to proper case
 - [`remove_nc()`](https://sedzinfo.github.io/rwf/reference/remove_nc.md)
   : Replace and remove non-computable values
 - [`string_aes()`](https://sedzinfo.github.io/rwf/reference/string_aes.md)
-  : Adjust string aesthetics
+  : Clean and format string aesthetics
 - [`tag_pos()`](https://sedzinfo.github.io/rwf/reference/tag_pos.md) :
   Part of speech tagging
 - [`wrapper()`](https://sedzinfo.github.io/rwf/reference/wrapper.md) :
@@ -393,7 +394,7 @@ Correlation matrices, power analysis and related utilities
 - [`getfwp()`](https://sedzinfo.github.io/rwf/reference/getfwp.md) : Get
   the file path of the currently running script
 - [`call_to_string()`](https://sedzinfo.github.io/rwf/reference/call_to_string.md)
-  : Model call to string
+  : Convert a model call to a compact string
 - [`dotnames()`](https://sedzinfo.github.io/rwf/reference/dotnames.md) :
   Pad a data frame to a target number of rows with NAs
 - [`fixed()`](https://sedzinfo.github.io/rwf/reference/fixed.md) : Mark
@@ -407,7 +408,7 @@ Correlation matrices, power analysis and related utilities
 - [`compute_solve()`](https://sedzinfo.github.io/rwf/reference/compute_solve.md)
   : Solve Linear Systems or Invert a Matrix (Gauss-Jordan)
 - [`compute_adjustment()`](https://sedzinfo.github.io/rwf/reference/compute_adjustment.md)
-  : Compute adjustments
+  : Compute multiple comparison alpha adjustments
 - [`compute_moving_average()`](https://sedzinfo.github.io/rwf/reference/compute_moving_average.md)
   : Centered moving average
 - [`compute_residual_stats()`](https://sedzinfo.github.io/rwf/reference/compute_residual_stats.md)

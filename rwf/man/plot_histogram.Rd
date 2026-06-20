@@ -2,7 +2,7 @@
 % Please edit documentation in R/EXPLORE_ASSUMPTIONS.R
 \name{plot_histogram}
 \alias{plot_histogram}
-\title{Histograms with density function}
+\title{Histograms per numeric column}
 \usage{
 plot_histogram(
   df,
@@ -16,27 +16,35 @@ plot_histogram(
 )
 }
 \arguments{
-\item{df}{dataframe or vector with continous or ordinal data}
+\item{df}{Data frame or numeric vector. Non-numeric columns are silently
+dropped.}
 
-\item{bins}{number of bars to display}
+\item{bins}{Number of histogram bins passed to
+\code{\link[ggplot2]{geom_histogram}}. Default is \code{30}.}
 
-\item{title}{plot title}
+\item{title}{Character string used as the plot title. Default is \code{""}.}
 
-\item{base_size}{numeric base font size}
+\item{base_size}{Base font size passed to \code{theme_bw()}. Default is
+\code{10}.}
 
-\item{xlims}{x axis limits}
+\item{xlims}{Length-2 numeric vector setting the x-axis limits, e.g.
+\code{c(0, 50)}. When \code{NULL} (default) limits are determined
+automatically.}
 
-\item{fill}{color of bar}
+\item{fill}{Fill colour of the histogram bars. Default is \code{"gray25"}.}
 
-\item{color}{color of bar outline}
+\item{color}{Outline colour of the histogram bars. Default is
+\code{"gray50"}.}
 
-\item{ylab}{y label}
+\item{ylab}{Y-axis label. Default is \code{"Count"}.}
+}
+\value{
+A named list of \code{ggplot} objects, one per numeric column.
 }
 \description{
-Histograms with density function
-}
-\details{
-uses ggplot
+Produces one \code{ggplot} histogram per numeric column of
+  \code{df}. Each plot caption shows the observation count, mean, SD, and
+  median of the column. A progress bar is printed to the console.
 }
 \examples{
 vector<-generate_missing(rnorm(1000))

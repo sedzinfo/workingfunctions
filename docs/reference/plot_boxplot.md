@@ -1,6 +1,8 @@
-# Boxplot
+# Side-by-side boxplots for all numeric columns
 
-Boxplot
+Melts all numeric columns of `df` into a single long format and draws
+them as side-by-side horizontal boxplots on one plot. Non-numeric
+columns are silently dropped.
 
 ## Usage
 
@@ -12,19 +14,20 @@ plot_boxplot(df, title = "", base_size = 10)
 
 - df:
 
-  dataframe or vector with continous or ordinal data
+  Data frame or numeric vector. Non-numeric columns are silently
+  dropped.
 
 - title:
 
-  Plot title
+  Character string used as the plot title. Default is `""`.
 
 - base_size:
 
-  numeric base font size
+  Base font size passed to `theme_bw()`. Default is `10`.
 
-## Details
+## Value
 
-uses ggplot
+A single `ggplot` object.
 
 ## Examples
 

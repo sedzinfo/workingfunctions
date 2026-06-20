@@ -1,6 +1,9 @@
-# Remove outliers
+# Replace outliers with NA using IQR fences
 
-Remove outliers
+Replaces values outside the boxplot fences with `NA`. The fences are
+computed as \\Q1 - 1.5 \times IQR\\ and \\Q3 + 1.5 \times IQR\\, where
+\\Q1\\ and \\Q3\\ are the quantiles specified by `probs`. Designed to be
+applied across columns with `sapply`.
 
 ## Usage
 
@@ -12,19 +15,28 @@ remove_outliers(vector, probs = c(0.25, 0.75), na.rm = TRUE, ...)
 
 - vector:
 
-  numeric
+  Numeric vector.
 
 - probs:
 
-  numeric vector with lowest and highest quantiles
+  Length-2 numeric vector giving the lower and upper quantile
+  probabilities used to define the fence boundaries. Default is
+  `c(0.25, 0.75)` (standard quartiles).
 
 - na.rm:
 
-  if TRUE removes NA values
+  Logical; whether to remove `NA` values when computing quantiles and
+  IQR. Default is `TRUE`.
 
 - ...:
 
-  arguments passed to quantile
+  Additional arguments passed to
+  [`quantile`](https://rdrr.io/r/stats/quantile.html).
+
+## Value
+
+A numeric vector the same length as `vector` with outlying values
+replaced by `NA`.
 
 ## Examples
 

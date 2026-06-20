@@ -14,7 +14,7 @@ A numeric scalar. Positive values indicate right skew, negative
   values indicate left skew.
 }
 \description{
-Calculates the skewness of a numeric vector using the \eqn{b_1} 
+Calculates the skewness of a numeric vector using the \eqn{b_1}
 formula consistent with MINITAB and BMDP. Missing values are removed before
 computation.
 }
@@ -25,7 +25,7 @@ Formula used: \eqn{b_1 = m_3 / s^3 = g_1 ((n-1)/n)^{3/2}}.
 }
 \examples{
 set.seed(1)
-vector<-rnorm(1000)
+vector <- rnorm(1000)
 compute_skewness(vector)
 e1071::skewness(vector)
 }

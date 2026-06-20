@@ -1,6 +1,8 @@
-# Histograms with density function
+# Histograms per numeric column
 
-Histograms with density function
+Produces one `ggplot` histogram per numeric column of `df`. Each plot
+caption shows the observation count, mean, SD, and median of the column.
+A progress bar is printed to the console.
 
 ## Usage
 
@@ -21,39 +23,43 @@ plot_histogram(
 
 - df:
 
-  dataframe or vector with continous or ordinal data
+  Data frame or numeric vector. Non-numeric columns are silently
+  dropped.
 
 - bins:
 
-  number of bars to display
+  Number of histogram bins passed to
+  [`geom_histogram`](https://ggplot2.tidyverse.org/reference/geom_histogram.html).
+  Default is `30`.
 
 - title:
 
-  plot title
+  Character string used as the plot title. Default is `""`.
 
 - base_size:
 
-  numeric base font size
+  Base font size passed to `theme_bw()`. Default is `10`.
 
 - xlims:
 
-  x axis limits
+  Length-2 numeric vector setting the x-axis limits, e.g. `c(0, 50)`.
+  When `NULL` (default) limits are determined automatically.
 
 - fill:
 
-  color of bar
+  Fill colour of the histogram bars. Default is `"gray25"`.
 
 - color:
 
-  color of bar outline
+  Outline colour of the histogram bars. Default is `"gray50"`.
 
 - ylab:
 
-  y label
+  Y-axis label. Default is `"Count"`.
 
-## Details
+## Value
 
-uses ggplot
+A named list of `ggplot` objects, one per numeric column.
 
 ## Examples
 

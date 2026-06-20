@@ -14,7 +14,7 @@ Compute confidence interval
 }
 \examples{
 set.seed(1)
-vector<-rnorm(1000)
+vector <- rnorm(1000)
 compute_confidence_inteval(vector)
 }
 \keyword{functions}

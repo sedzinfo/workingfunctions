@@ -2,7 +2,7 @@
 % Please edit documentation in R/EXPLORE_ASSUMPTIONS.R
 \name{plot_normality_diagnostics}
 \alias{plot_normality_diagnostics}
-\title{Normality plots}
+\title{Normality diagnostic plots (histogram, density, boxplot, Q-Q)}
 \usage{
 plot_normality_diagnostics(
   df,
@@ -14,23 +14,36 @@ plot_normality_diagnostics(
 )
 }
 \arguments{
-\item{df}{dataframe or vector with continous or ordinal data}
+\item{df}{Data frame or numeric vector. Non-numeric columns are silently
+dropped. Columns with fewer than three non-missing values or zero variance
+are skipped.}
 
-\item{breaks}{number of bars to display}
+\item{breaks}{Histogram breaks passed to \code{\link[graphics]{hist}}. May
+be a method name (\code{"Sturges"}, \code{"Scott"}, \code{"FD"}) or a
+positive integer specifying the number of bins. Default is
+\code{"Sturges"}.}
 
-\item{title}{plot title}
+\item{title}{Character string used as the outer plot title and as the PDF
+title. Default is \code{""}.}
 
-\item{file}{output filename}
+\item{file}{Character string naming the output PDF file (without extension).
+When \code{NULL} (default) no PDF is written.}
 
-\item{w}{width of pdf file}
+\item{w}{Width of the PDF in inches. Default is \code{10}.}
 
-\item{h}{height of pdf file}
+\item{h}{Height of the PDF in inches. Default is \code{10}.}
+}
+\value{
+A named list of recorded plots (one element per numeric column),
+  returned invisibly. Each element is a \code{\link[grDevices]{recordPlot}}
+  object.
 }
 \description{
-plot histogram density boxplot qq plot
-}
-\details{
-uses plot base
+For each numeric column of \code{df}, produces a 2×2 panel of
+  base-graphics normality diagnostics: histogram, density curve, boxplot, and
+  Q-Q plot with a reference line. A progress bar is printed to the console.
+  When \code{file} is supplied the panels are also written to a PDF via
+  \code{\link{report_pdf}}.
 }
 \examples{
 vector<-generate_missing(rnorm(1000))

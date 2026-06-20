@@ -1,6 +1,6 @@
-# Compute standard error
+# Compute the standard error of the mean
 
-Compute standard error
+Compute the standard error of the mean
 
 ## Usage
 
@@ -12,13 +12,17 @@ compute_standard_error(vector)
 
 - vector:
 
-  vector
+  Numeric vector. Missing values are removed before computation.
+
+## Value
+
+A numeric scalar. The standard error of the mean.
 
 ## Examples
 
 ``` r
 set.seed(1)
-vector<-rnorm(1000)
+vector <- rnorm(1000)
 compute_standard_error(vector)
 #> [1] 0.03272691
 ```

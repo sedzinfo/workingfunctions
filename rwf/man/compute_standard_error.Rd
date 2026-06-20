@@ -17,6 +17,6 @@ Compute the standard error of the mean
 }
 \examples{
 set.seed(1)
-vector<-rnorm(1000)
+vector <- rnorm(1000)
 compute_standard_error(vector)
 }
