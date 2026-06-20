@@ -4,7 +4,7 @@
 \alias{plot_qq}
 \title{Q-Q plots against the normal distribution}
 \usage{
-plot_qq(df, title = "", base_size = 10)
+plot_qq(df, title = "", base_size = 10, pb = FALSE)
 }
 \arguments{
 \item{df}{Data frame or vector. Non-numeric columns are skipped.}
@@ -13,6 +13,9 @@ plot_qq(df, title = "", base_size = 10)
 
 \item{base_size}{Base font size passed to \code{theme_bw()}. Default is
 \code{10}.}
+
+\item{pb}{Logical; whether to display a progress bar in the console.
+Default is \code{FALSE}.}
 }
 \value{
 A named list of \code{ggplot} objects, one per numeric column.
@@ -25,10 +28,10 @@ Produces one quantile-quantile plot per numeric column of
   skipped silently. A progress bar is printed to the console.
 }
 \examples{
-vector<-generate_missing(rnorm(1000))
-df<-generate_missing(mtcars[,1:2])
-plot_qq(df=vector)
-plot_qq(df=df)
-plot_multiplot(plotlist=plot_qq(df=mtcars),cols=4)
+vector <- generate_missing(rnorm(1000), missing = 10)
+df <- generate_missing(mtcars[, 1:2], missing = 10)
+plot_qq(df = vector)
+plot_qq(df = df)
+plot_multiplot(plotlist = plot_qq(df = mtcars), cols = 4)
 }
 \keyword{assumptions}

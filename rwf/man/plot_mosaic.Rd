@@ -4,7 +4,7 @@
 \alias{plot_mosaic}
 \title{Mosaic plots for pairwise categorical variables}
 \usage{
-plot_mosaic(df, factor_index, base_size = 10, title = "")
+plot_mosaic(df, factor_index, base_size = 10, title = "", pb = FALSE)
 }
 \arguments{
 \item{df}{A data frame containing the variables to plot.}
@@ -17,6 +17,9 @@ categorical variables. All ordered pairs of distinct columns are plotted.}
 
 \item{title}{Character string prepended to each plot title. Default is
 \code{""}.}
+
+\item{pb}{Logical; whether to display a progress bar in the console.
+Default is \code{FALSE}.}
 }
 \value{
 A named list of \code{ggplot} objects, one per ordered variable
@@ -37,7 +40,8 @@ Creates a mosaic plot for every ordered pair of categorical
   excluded pair-wise. A progress bar is displayed during computation.
 }
 \examples{
-plot_mosaic(df=mtcars,factor_index=8:9)
-plot_mosaic(df=mtcars,factor_index=9:10)
+plot_mosaic(df = mtcars, factor_index = 8:9)
+plot_mosaic(df = mtcars, factor_index = 9:10)
+plot_mosaic(df = mtcars, factor_index = 9:10, pb = TRUE)
 }
 \keyword{descriptives}

@@ -88,50 +88,50 @@ xgb_classification<-xgboost::xgb.train(
                     data=train_test_classification$xgb$f1$train,
                     evals=train_test_classification$xgb$f1$watchlist,
                     nround=20)
-#> [1]  train-logloss:0.605650  test-logloss:0.510043 
-#> [2]  train-logloss:0.581905  test-logloss:0.479165 
-#> [3]  train-logloss:0.567342  test-logloss:0.458180 
-#> [4]  train-logloss:0.558139  test-logloss:0.445293 
-#> [5]  train-logloss:0.552146  test-logloss:0.436102 
-#> [6]  train-logloss:0.548177  test-logloss:0.429405 
-#> [7]  train-logloss:0.545518  test-logloss:0.424525 
-#> [8]  train-logloss:0.543717  test-logloss:0.420934 
-#> [9]  train-logloss:0.542515  test-logloss:0.418269 
-#> [10] train-logloss:0.541637  test-logloss:0.416274 
-#> [11] train-logloss:0.541022  test-logloss:0.414769 
-#> [12] train-logloss:0.540482  test-logloss:0.415183 
-#> [13] train-logloss:0.540138  test-logloss:0.415564 
-#> [14] train-logloss:0.539898  test-logloss:0.415916 
-#> [15] train-logloss:0.539619  test-logloss:0.415344 
-#> [16] train-logloss:0.539465  test-logloss:0.415745 
-#> [17] train-logloss:0.539090  test-logloss:0.413128 
-#> [18] train-logloss:0.538914  test-logloss:0.413898 
-#> [19] train-logloss:0.538612  test-logloss:0.411544 
-#> [20] train-logloss:0.538448  test-logloss:0.412395 
+#> [1]  train-logloss:0.596514  test-logloss:0.560550 
+#> [2]  train-logloss:0.569360  test-logloss:0.556052 
+#> [3]  train-logloss:0.553321  test-logloss:0.557129 
+#> [4]  train-logloss:0.543112  test-logloss:0.561428 
+#> [5]  train-logloss:0.537027  test-logloss:0.564347 
+#> [6]  train-logloss:0.532440  test-logloss:0.569725 
+#> [7]  train-logloss:0.529694  test-logloss:0.572771 
+#> [8]  train-logloss:0.527461  test-logloss:0.577550 
+#> [9]  train-logloss:0.526133  test-logloss:0.578102 
+#> [10] train-logloss:0.524974  test-logloss:0.582957 
+#> [11] train-logloss:0.524261  test-logloss:0.584912 
+#> [12] train-logloss:0.523564  test-logloss:0.585951 
+#> [13] train-logloss:0.522776  test-logloss:0.590383 
+#> [14] train-logloss:0.522043  test-logloss:0.591078 
+#> [15] train-logloss:0.521643  test-logloss:0.592417 
+#> [16] train-logloss:0.521196  test-logloss:0.593165 
+#> [17] train-logloss:0.520913  test-logloss:0.593832 
+#> [18] train-logloss:0.520448  test-logloss:0.595736 
+#> [19] train-logloss:0.520109  test-logloss:0.597917 
+#> [20] train-logloss:0.519697  test-logloss:0.601429 
 xgb_regression<-xgboost::xgb.train(
                 data=train_test_regression$xgb$f1$train,
                 evals=train_test_regression$xgb$f1$watchlist,
                 nround=20)
-#> [1]  train-rmse:6.870495 test-rmse:6.140053 
-#> [2]  train-rmse:5.174978 test-rmse:4.766540 
-#> [3]  train-rmse:3.989148 test-rmse:3.912938 
-#> [4]  train-rmse:3.164143 test-rmse:3.379425 
-#> [5]  train-rmse:2.550406 test-rmse:3.113676 
-#> [6]  train-rmse:2.125212 test-rmse:2.908214 
-#> [7]  train-rmse:1.772546 test-rmse:2.832399 
-#> [8]  train-rmse:1.503942 test-rmse:2.749718 
-#> [9]  train-rmse:1.318182 test-rmse:2.715418 
-#> [10] train-rmse:1.196557 test-rmse:2.703126 
-#> [11] train-rmse:1.076994 test-rmse:2.665380 
-#> [12] train-rmse:0.985250 test-rmse:2.638356 
-#> [13] train-rmse:0.921539 test-rmse:2.628089 
-#> [14] train-rmse:0.861602 test-rmse:2.613303 
-#> [15] train-rmse:0.816591 test-rmse:2.608229 
-#> [16] train-rmse:0.768588 test-rmse:2.585280 
-#> [17] train-rmse:0.730496 test-rmse:2.577266 
-#> [18] train-rmse:0.689913 test-rmse:2.566552 
-#> [19] train-rmse:0.667255 test-rmse:2.578248 
-#> [20] train-rmse:0.648527 test-rmse:2.588789 
+#> [1]  train-rmse:6.779953 test-rmse:7.883347 
+#> [2]  train-rmse:5.127539 test-rmse:6.805361 
+#> [3]  train-rmse:3.979874 test-rmse:6.234165 
+#> [4]  train-rmse:3.123993 test-rmse:5.462813 
+#> [5]  train-rmse:2.556359 test-rmse:5.253136 
+#> [6]  train-rmse:2.092734 test-rmse:4.789814 
+#> [7]  train-rmse:1.769000 test-rmse:4.495935 
+#> [8]  train-rmse:1.531660 test-rmse:4.194864 
+#> [9]  train-rmse:1.365019 test-rmse:3.970766 
+#> [10] train-rmse:1.222465 test-rmse:3.856196 
+#> [11] train-rmse:1.129154 test-rmse:3.867602 
+#> [12] train-rmse:1.046333 test-rmse:3.842552 
+#> [13] train-rmse:0.997830 test-rmse:3.839760 
+#> [14] train-rmse:0.929822 test-rmse:3.861990 
+#> [15] train-rmse:0.886331 test-rmse:3.845626 
+#> [16] train-rmse:0.847879 test-rmse:3.822468 
+#> [17] train-rmse:0.770942 test-rmse:3.743698 
+#> [18] train-rmse:0.738418 test-rmse:3.738625 
+#> [19] train-rmse:0.686716 test-rmse:3.728543 
+#> [20] train-rmse:0.671315 test-rmse:3.736515 
 if (FALSE) { # \dontrun{
 report_xgboost(model=xgb_classification,
                validation_data=train_test_classification$f$test$f1,

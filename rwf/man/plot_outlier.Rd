@@ -4,7 +4,7 @@
 \alias{plot_outlier}
 \title{Dot plot of outliers by detection method}
 \usage{
-plot_outlier(df, method = "mean", title = "", base_size = 10)
+plot_outlier(df, method = "mean", title = "", base_size = 10, pb = FALSE)
 }
 \arguments{
 \item{df}{Data frame or numeric vector. Non-numeric columns are silently
@@ -25,6 +25,9 @@ Default is \code{"mean"}.}
 
 \item{base_size}{Base font size passed to \code{theme_bw()}. Default is
 \code{10}.}
+
+\item{pb}{Logical; whether to display a progress bar in the console.
+Default is \code{FALSE}.}
 }
 \value{
 A named list of \code{ggplot} objects, one per numeric column.
@@ -38,15 +41,15 @@ For each numeric column of \code{df}, draws a dot plot with
   overlaid on each plot.
 }
 \examples{
-vector<-generate_missing(rnorm(1000))
-df<-generate_missing(mtcars[,1:2])
-plot_outlier(df=vector,method="mean",title="random vector")
-plot_outlier(df=vector,method="median")
-plot_outlier(df=vector,method="boxplot")
-plot_outlier(df=df,method="mean",title="random vector")
-plot_outlier(df=df,method="median")
-plot_outlier(df=df,method="boxplot")
-plot_multiplot(plotlist=plot_outlier(df=mtcars[,2:5],method="mean"),cols=2)
+vector <- generate_missing(rnorm(1000), missing = 10)
+df <- generate_missing(mtcars[, 1:2], missing = 10)
+plot_outlier(df = vector, method = "mean", title = "random vector")
+plot_outlier(df = vector, method = "median")
+plot_outlier(df = vector, method = "boxplot")
+plot_outlier(df = df, method = "mean", title = "random vector")
+plot_outlier(df = df, method = "median")
+plot_outlier(df = df, method = "boxplot")
+plot_multiplot(plotlist = plot_outlier(df = mtcars[, 2:5], method = "mean"), cols = 2)
 }
 \author{
 unknown

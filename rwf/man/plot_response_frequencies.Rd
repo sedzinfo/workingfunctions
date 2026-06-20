@@ -44,6 +44,8 @@ Creates one horizontal bar chart per variable showing the
   dropped from the output.
 }
 \examples{
-plot_response_frequencies(df=mtcars,factor_index=1:10)
+df_ocean_N<-df_ocean[,grep("N",names(df_ocean))]
+plot_response_frequencies(df = df_ocean_N)
+plot_response_frequencies(df = df_ocean_N, factor_index = 1)
 }
 \keyword{descriptives}

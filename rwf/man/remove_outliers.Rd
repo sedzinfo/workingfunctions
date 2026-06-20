@@ -30,9 +30,9 @@ Replaces values outside the boxplot fences with \code{NA}.
   \code{sapply}.
 }
 \examples{
-vector<-generate_missing(rnorm(1000))
-df<-generate_missing(mtcars[,1:2])
+vector <- generate_missing(rnorm(1000), missing = 10)
+df <- generate_missing(mtcars[, 1:2], missing = 10)
 remove_outliers(vector)
-data.frame(sapply(df,remove_outliers))
+data.frame(sapply(df, remove_outliers))
 }
 \keyword{assumptions}

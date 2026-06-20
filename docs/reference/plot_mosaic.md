@@ -11,7 +11,7 @@ pair-wise. A progress bar is displayed during computation.
 ## Usage
 
 ``` r
-plot_mosaic(df, factor_index, base_size = 10, title = "")
+plot_mosaic(df, factor_index, base_size = 10, title = "", pb = FALSE)
 ```
 
 ## Arguments
@@ -33,6 +33,11 @@ plot_mosaic(df, factor_index, base_size = 10, title = "")
 
   Character string prepended to each plot title. Default is `""`.
 
+- pb:
+
+  Logical; whether to display a progress bar in the console. Default is
+  `FALSE`.
+
 ## Value
 
 A named list of `ggplot` objects, one per ordered variable pair. Each
@@ -46,15 +51,21 @@ level.
 ## Examples
 
 ``` r
-plot_mosaic(df=mtcars,factor_index=8:9)
-#>   |                                                                                                                                                                                                      |                                                                                                                                                                                              |   0%  |                                                                                                                                                                                                      |===============================================================================================                                                                                               |  50%  |                                                                                                                                                                                                      |==============================================================================================================================================================================================| 100%
+plot_mosaic(df = mtcars, factor_index = 8:9)
 #> $`vs am`
 
 #> 
 #> $`am vs`
 
 #> 
-plot_mosaic(df=mtcars,factor_index=9:10)
+plot_mosaic(df = mtcars, factor_index = 9:10)
+#> $`am gear`
+
+#> 
+#> $`gear am`
+
+#> 
+plot_mosaic(df = mtcars, factor_index = 9:10, pb = TRUE)
 #>   |                                                                                                                                                                                                      |                                                                                                                                                                                              |   0%  |                                                                                                                                                                                                      |===============================================================================================                                                                                               |  50%  |                                                                                                                                                                                                      |==============================================================================================================================================================================================| 100%
 #> $`am gear`
 

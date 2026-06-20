@@ -47,9 +47,9 @@ Computes a comprehensive set of descriptive statistics for all
   combination. Results can be exported to an Excel file.
 }
 \examples{
-compute_aggregate(df=mtcars,iv=9)
-compute_aggregate(df=mtcars,iv=9:10)
-compute_aggregate(df=mtcars,iv=9:11)
-compute_aggregate(df=mtcars,iv=9:11,file="descriptives")
+compute_aggregate(df = mtcars, iv = 9)
+compute_aggregate(df = mtcars, iv = 9:10)
+compute_aggregate(df = mtcars, iv = 9:11)
+compute_aggregate(df = mtcars, iv = 9:11, file = "descriptives")
 }
 \keyword{descriptives}

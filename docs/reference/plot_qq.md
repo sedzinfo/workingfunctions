@@ -10,7 +10,7 @@ the console.
 ## Usage
 
 ``` r
-plot_qq(df, title = "", base_size = 10)
+plot_qq(df, title = "", base_size = 10, pb = FALSE)
 ```
 
 ## Arguments
@@ -27,6 +27,11 @@ plot_qq(df, title = "", base_size = 10)
 
   Base font size passed to `theme_bw()`. Default is `10`.
 
+- pb:
+
+  Logical; whether to display a progress bar in the console. Default is
+  `FALSE`.
+
 ## Value
 
 A named list of `ggplot` objects, one per numeric column.
@@ -34,26 +39,23 @@ A named list of `ggplot` objects, one per numeric column.
 ## Examples
 
 ``` r
-vector<-generate_missing(rnorm(1000))
-df<-generate_missing(mtcars[,1:2])
-plot_qq(df=vector)
-#>   |                                                                                                                                                                                                      |                                                                                                                                                                                              |   0%  |                                                                                                                                                                                                      |==============================================================================================================================================================================================| 100%
+vector <- generate_missing(rnorm(1000), missing = 10)
+df <- generate_missing(mtcars[, 1:2], missing = 10)
+plot_qq(df = vector)
 #> $vector
-#> Warning: Removed 5 rows containing non-finite outside the scale range (`stat_qq()`).
+#> Warning: Removed 10 rows containing non-finite outside the scale range (`stat_qq()`).
 
 #> 
-plot_qq(df=df)
-#>   |                                                                                                                                                                                                      |                                                                                                                                                                                              |   0%  |                                                                                                                                                                                                      |===============================================================================================                                                                                               |  50%  |                                                                                                                                                                                                      |==============================================================================================================================================================================================| 100%
+plot_qq(df = df)
 #> $mpg
-#> Warning: Removed 5 rows containing non-finite outside the scale range (`stat_qq()`).
+#> Warning: Removed 10 rows containing non-finite outside the scale range (`stat_qq()`).
 
 #> 
 #> $cyl
-#> Warning: Removed 5 rows containing non-finite outside the scale range (`stat_qq()`).
+#> Warning: Removed 10 rows containing non-finite outside the scale range (`stat_qq()`).
 
 #> 
-plot_multiplot(plotlist=plot_qq(df=mtcars),cols=4)
-#>   |                                                                                                                                                                                                      |                                                                                                                                                                                              |   0%  |                                                                                                                                                                                                      |=================                                                                                                                                                                             |   9%  |                                                                                                                                                                                                      |===================================                                                                                                                                                           |  18%  |                                                                                                                                                                                                      |====================================================                                                                                                                                          |  27%  |                                                                                                                                                                                                      |=====================================================================                                                                                                                         |  36%  |                                                                                                                                                                                                      |======================================================================================                                                                                                        |  45%  |                                                                                                                                                                                                      |========================================================================================================                                                                                      |  55%  |                                                                                                                                                                                                      |=========================================================================================================================                                                                     |  64%  |                                                                                                                                                                                                      |==========================================================================================================================================                                                    |  73%  |                                                                                                                                                                                                      |===========================================================================================================================================================                                   |  82%  |                                                                                                                                                                                                      |=============================================================================================================================================================================                 |  91%  |                                                                                                                                                                                                      |==============================================================================================================================================================================================| 100%
+plot_multiplot(plotlist = plot_qq(df = mtcars), cols = 4)
 
 #> [[1]]
 #> 

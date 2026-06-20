@@ -16,7 +16,8 @@ plot_crosstable(
   shape = 16,
   angle = 0,
   base_size = 10,
-  title = ""
+  title = "",
+  pb = FALSE
 )
 ```
 
@@ -55,6 +56,11 @@ plot_crosstable(
 
   Character string used as the plot title. Default is `""`.
 
+- pb:
+
+  Logical; whether to display a progress bar in the console. Default is
+  `FALSE`.
+
 ## Value
 
 A named list of `ggplot` objects, one per variable pair. Each element is
@@ -66,13 +72,23 @@ dropped.
 ## Examples
 
 ``` r
-combinations<-data.frame(index1=c("vs","am","gear"),index2=c("cyl","cyl","cyl"))
-plot_crosstable(df=mtcars,factor_index=8:9)
-#>   |                                                                                                                                                                                                      |                                                                                                                                                                                              |   0%  |                                                                                                                                                                                                      |==============================================================================================================================================================================================| 100%
+combinations <- data.frame(index1 = c("vs", "am", "gear"),
+                           index2 = c("cyl", "cyl", "cyl"))
+plot_crosstable(df = mtcars, factor_index = 8:9)
 #> $am_vs
 
 #> 
-plot_crosstable(df=mtcars,combinations=combinations)
+plot_crosstable(df = mtcars, combinations = combinations)
+#> $vs_cyl
+
+#> 
+#> $am_cyl
+
+#> 
+#> $gear_cyl
+
+#> 
+plot_crosstable(df = mtcars, combinations = combinations, pb = TRUE)
 #>   |                                                                                                                                                                                                      |                                                                                                                                                                                              |   0%  |                                                                                                                                                                                                      |===============================================================                                                                                                                               |  33%  |                                                                                                                                                                                                      |===============================================================================================================================                                                               |  67%  |                                                                                                                                                                                                      |==============================================================================================================================================================================================| 100%
 #> $vs_cyl
 

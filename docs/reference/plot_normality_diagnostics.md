@@ -15,7 +15,8 @@ plot_normality_diagnostics(
   title = "",
   file = NULL,
   w = 10,
-  h = 10
+  h = 10,
+  pb = FALSE
 )
 ```
 
@@ -52,6 +53,11 @@ plot_normality_diagnostics(
 
   Height of the PDF in inches. Default is `10`.
 
+- pb:
+
+  Logical; whether to display a progress bar in the console. Default is
+  `FALSE`.
+
 ## Value
 
 A named list of recorded plots (one element per numeric column),
@@ -61,26 +67,21 @@ returned invisibly. Each element is a
 ## Examples
 
 ``` r
-vector<-generate_missing(rnorm(1000))
-df<-generate_missing(mtcars[,1:2])
-plot_normality_diagnostics(df=vector,title="",file="rnorm",breaks=30)
-#>   |                                                                                                                                                                                                      |                                                                                                                                                                                              |   0%  |                                                                                                                                                                                                      |==============================================================================================================================================================================================| 100%
+vector <- generate_missing(rnorm(1000), missing = 10)
+df <- generate_missing(mtcars[, 1:2], missing = 10)
+plot_normality_diagnostics(df = vector, file = "rnorm", breaks = 30)
 
-#> 
-plot_normality_diagnostics(df=vector,title="")
-#>   |                                                                                                                                                                                                      |                                                                                                                                                                                              |   0%  |                                                                                                                                                                                                      |==============================================================================================================================================================================================| 100%
+plot_normality_diagnostics(df = vector)
 
-#> 
-plot_normality_diagnostics(df=df,title="mtcars")
+plot_normality_diagnostics(df = df, title = "mtcars")
+
+
+plot_normality_diagnostics(df = df, title = "mtcars", pb = TRUE)
 #>   |                                                                                                                                                                                                      |                                                                                                                                                                                              |   0%  |                                                                                                                                                                                                      |===============================================================================================                                                                                               |  50%
 
 #>   |                                                                                                                                                                                                      |==============================================================================================================================================================================================| 100%
 
 #> 
-plot_normality_diagnostics(df=df,title="mtcars",file="rnorm")
-#>   |                                                                                                                                                                                                      |                                                                                                                                                                                              |   0%  |                                                                                                                                                                                                      |===============================================================================================                                                                                               |  50%
+plot_normality_diagnostics(df = df, title = "mtcars", file = "rnorm")
 
-#>   |                                                                                                                                                                                                      |==============================================================================================================================================================================================| 100%
-
-#> 
 ```

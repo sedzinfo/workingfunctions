@@ -35,8 +35,9 @@ Computes frequency counts, proportions, and percentages for
   exported to an Excel file.
 }
 \examples{
-compute_frequencies(df=generate_missing(generate_factor(nrows=10,ncols=10),missing=5))
-compute_frequencies(df=generate_factor())
-compute_frequencies(df=generate_factor(),file="descriptives")
+df = generate_missing(generate_factor(nrows = 10, ncols = 10), missing = 5)
+compute_frequencies(df = df)
+compute_frequencies(df = generate_factor())
+compute_frequencies(df = generate_factor(), file = "descriptives")
 }
 \keyword{descriptives}

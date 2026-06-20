@@ -40,8 +40,8 @@ Produces a faceted ggplot2 chart showing the autocorrelation
   Missing values are excluded via \code{na.action = stats::na.exclude}.
 }
 \examples{
-ts_data<-ts(UKDriverDeaths,start=1969,end=1984,frequency=12)
-plot_acf(df=ts_data,base_size=20)
+ts_data <- ts(UKDriverDeaths, start = 1969, end = 1984, frequency = 12)
+plot_acf(df = ts_data, base_size = 20)
 }
 \keyword{series}
 \keyword{time}

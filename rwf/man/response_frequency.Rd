@@ -57,11 +57,22 @@ Tabulates how often each response category was chosen for one
   function returns \code{NULL}.
 }
 \examples{
-response_frequency(mtcars[,c("gear","carb")],uniqueitems=1:8,type="frequency")
-response_frequency(mtcars[,c("gear")],uniqueitems=1:8,type="proportion")
-response_frequency(mtcars[,c("gear","carb")],uniqueitems=1:8,type="percent")
-response_frequency(mtcars[,c("gear","carb")],uniqueitems=1:8,type="all")
-response_frequency(mtcars[,c("gear","carb")],uniqueitems=1:8,type="all",
-                   file="descriptives")
+df_ocean_N<-df_ocean[,grep("N",names(df_ocean))]
+response_frequency(df_ocean_N)
+response_frequency(df_ocean_N,
+                   uniqueitems = 1:5)
+response_frequency(df_ocean_N,
+                   uniqueitems = 1:5,
+                   type = "proportion")
+response_frequency(df_ocean_N,
+                   uniqueitems = 1:5,
+                   type = "percent")
+response_frequency(df_ocean_N,
+                   uniqueitems = 1:5,
+                   type = "all")
+response_frequency(df_ocean_N,
+                   uniqueitems = 1:5,
+                   type = "all",
+  file = "descriptives")
 }
 \keyword{descriptives}

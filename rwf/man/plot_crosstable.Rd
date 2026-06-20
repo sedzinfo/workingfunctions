@@ -11,7 +11,8 @@ plot_crosstable(
   shape = 16,
   angle = 0,
   base_size = 10,
-  title = ""
+  title = "",
+  pb = FALSE
 )
 }
 \arguments{
@@ -36,6 +37,9 @@ plot. Takes precedence over \code{factor_index}.}
 \code{10}.}
 
 \item{title}{Character string used as the plot title. Default is \code{""}.}
+
+\item{pb}{Logical; whether to display a progress bar in the console.
+Default is \code{FALSE}.}
 }
 \value{
 A named list of \code{ggplot} objects, one per variable pair. Each
@@ -53,8 +57,10 @@ Creates a bubble (point) plot for each pair of categorical
   during computation.
 }
 \examples{
-combinations<-data.frame(index1=c("vs","am","gear"),index2=c("cyl","cyl","cyl"))
-plot_crosstable(df=mtcars,factor_index=8:9)
-plot_crosstable(df=mtcars,combinations=combinations)
+combinations <- data.frame(index1 = c("vs", "am", "gear"),
+                           index2 = c("cyl", "cyl", "cyl"))
+plot_crosstable(df = mtcars, factor_index = 8:9)
+plot_crosstable(df = mtcars, combinations = combinations)
+plot_crosstable(df = mtcars, combinations = combinations, pb = TRUE)
 }
 \keyword{descriptives}

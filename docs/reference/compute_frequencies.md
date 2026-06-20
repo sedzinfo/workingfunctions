@@ -58,7 +58,8 @@ variable, containing the following columns:
 ## Examples
 
 ``` r
-compute_frequencies(df=generate_missing(generate_factor(nrows=10,ncols=10),missing=5))
+df = generate_missing(generate_factor(nrows = 10, ncols = 10), missing = 5)
+compute_frequencies(df = df)
 #>    variable Observation Frequency Proportion Percent
 #> 1        X1           D         2        0.4      40
 #> 2        X1           A         1        0.2      20
@@ -110,7 +111,7 @@ compute_frequencies(df=generate_missing(generate_factor(nrows=10,ncols=10),missi
 #> 48      X10           B         1        0.2      20
 #> 49      X10           D         1        0.2      20
 #> 50      X10           C         0        0.0       0
-compute_frequencies(df=generate_factor())
+compute_frequencies(df = generate_factor())
 #>    variable Observation Frequency Proportion Percent
 #> 1        X1           A         1        0.5      50
 #> 2        X1           C         1        0.5      50
@@ -162,7 +163,7 @@ compute_frequencies(df=generate_factor())
 #> 48      X10           A         0        0.0       0
 #> 49      X10           C         0        0.0       0
 #> 50      X10           E         0        0.0       0
-compute_frequencies(df=generate_factor(),file="descriptives")
+compute_frequencies(df = generate_factor(), file = "descriptives")
 #>    variable Observation Frequency Proportion Percent
 #> 1        X1           A         1        0.5      50
 #> 2        X1           D         1        0.5      50

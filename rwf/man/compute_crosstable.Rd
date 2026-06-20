@@ -40,10 +40,12 @@ Computes contingency tables (frequency counts and percentages)
   bar is displayed during computation.
 }
 \examples{
-combinations<-data.frame(index1=c("vs","am","gear"),index2=c("cyl","cyl","cyl"))
-compute_crosstable(df=mtcars,combinations=combinations)
-combinations<-data.frame(index1=c("vs","am"),index2=c("cyl","cyl"))
-compute_crosstable(df=mtcars,combinations=combinations)
-compute_crosstable(df=mtcars,factor_index=8:10)
+combinations <- data.frame(index1 = c("vs", "am", "gear"), 
+                           index2 = c("cyl", "cyl", "cyl"))
+compute_crosstable(df = mtcars, combinations = combinations)
+combinations <- data.frame(index1 = c("vs", "am"), 
+                           index2 = c("cyl", "cyl"))
+compute_crosstable(df = mtcars, combinations = combinations)
+compute_crosstable(df = mtcars, factor_index = 8:10)
 }
 \keyword{descriptives}

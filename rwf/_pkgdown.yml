@@ -19,189 +19,187 @@ navbar:
       aria-label: GitHub
 
 reference:
-  - title: "Descriptives & Reliability"
-    desc: "Summary statistics, frequencies and reliability"
+  - title: "Plot functions"
     contents:
-      - cdf
-      - cdff
-      - compute_descriptives
-      - compute_frequencies
-      - compute_skewness
-      - compute_kurtosis
-      - compute_standard
-      - compute_standard_error
-      - compute_confidence_inteval
-      - compute_scores
-      - compute_aggregate
-      - raw_alpha
-      - alpha_diagnostics
-      - mean_sd_alpha
-      - report_alpha
-
-  - title: "Correlation & Covariance"
-    desc: "Correlation matrices, power analysis and related utilities"
-    contents:
-      - generate_correlation_matrix
-      - simulate_correlation_from_sample
-      - compute_power_r
-      - compute_power_r_matrix
-      - display_upper_lower_triangle
-      - matrix_triangle
-      - symmetric_matrix
-      - off_diagonal_index
-      - report_correlation
-      - report_choric_serial
-      - plot_corrplot
-      - plot_mtmm
-
-  - title: "Exploratory Factor Analysis"
-    contents:
-      - compute_map
-      - report_efa
-      - plot_scree
-      - plot_loadings
-
-  - title: "Confirmatory Factor Analysis & SEM"
-    contents:
-      - key_to_cfa_model
-      - model_loadings
-      - cfa_icc_index
-      - icc_cfa
-      - check_heywood
-      - extract_components
-      - simulate_cfa_fit
-      - report_cfa
+      - plot_acf
+      - plot_boxplot
       - plot_cfa
       - plot_cfa_gg
+      - plot_confusion
+      - plot_corrplot
+      - plot_crosstable
+      - plot_histogram
+      - plot_icc_thurstonian
+      - plot_interaction
+      - plot_irt_onefactor
+      - plot_loadings
+      - plot_logistic_model
+      - plot_mosaic
+      - plot_mtmm
+      - plot_multiplot
+      - plot_normality_diagnostics
+      - plot_oneway
+      - plot_oneway_diagnostics
+      - plot_outlier
+      - plot_qq
+      - plot_response_frequencies
+      - plot_roc
+      - plot_scatterplot
+      - plot_scree
+      - plot_separability
+      - plot_trees_xgboost
+      - plot_ts
 
-  - title: "Item Response Theory"
+  - title: "Compute functions"
     contents:
       - compute_ability
-      - compute_unidimensional_ability
-      - compute_unidimensional_theta
-      - compute_se_theta
+      - compute_adjustment
+      - compute_aggregate
+      - compute_aov_es
+      - compute_confidence_inteval
+      - compute_crosstable
+      - compute_descriptives
+      - compute_dissatenuation
+      - compute_dummy_comparisons
+      - compute_frequencies
+      - compute_icc_thurstonian
       - compute_info_1pl
       - compute_info_2pl
       - compute_info_3pl
-      - compute_icc_thurstonian
-      - compute_dissatenuation
-      - report_irt
-      - plot_irt_onefactor
-      - plot_icc_thurstonian
+      - compute_kruskal_wallis_test
+      - compute_kurtosis
+      - compute_map
+      - compute_moving_average
+      - compute_one_way_test
+      - compute_posthoc
+      - compute_power_r
+      - compute_power_r_matrix
+      - compute_residual_stats
+      - compute_scores
+      - compute_se_theta
+      - compute_skewness
+      - compute_solve
+      - compute_standard
+      - compute_standard_error
+      - compute_tversky_index
+      - compute_unidimensional_ability
+      - compute_unidimensional_theta
+      - compute_y_logistic
 
-  - title: "Thurstonian IRT / Forced Choice"
+  - title: "Report functions"
     contents:
-      - score_tirt
-      - score_tirt_pattern
+      - report_alpha
+      - report_cfa
+      - report_choric_serial
+      - report_correlation
+      - report_dataframe
+      - report_efa
+      - report_factorial_anova
+      - report_hlr
+      - report_irt
+      - report_lda
+      - report_logistic
+      - report_manova
+      - report_normality_tests
+      - report_oneway
+      - report_pdf
+      - report_regression
+      - report_ttests
+      - report_wtests
+      - report_xgboost
+
+  - title: "Other functions"
+    contents:
+      - alpha_diagnostics
+      - c_bind
+      - call_to_string
+      - cdf
+      - cdff
+      - cfa_icc_index
+      - change_data_type
+      - check_heywood
+      - clear_stopwords
+      - clear_text
+      - comparison_combinations
+      - confusion
+      - confusion_matrix_percent
+      - convert_excel_unix_timestamp
+      - data_frame_index
+      - decompose_datetime
+      - deg2rad
+      - detach_package
+      - display_upper_lower_triangle
+      - drop_levels
+      - dummy_arrange
+      - dotnames
+      - duplicate_y_axis
+      - hinvert_title_grob
+      - padNA
+      - environment_options
+      - excel_confusion_matrix
+      - excel_critical_value
+      - excel_generic_format
+      - excel_matrix
+      - extract_components
       - extract_tirt_params
+      - fixed
+      - flatten_list
+      - generate_comparisons_matrix
+      - generate_correlation_matrix
+      - generate_data
+      - generate_factor
+      - generate_matrix_A
+      - generate_matrix_lambda_hat
+      - generate_missing
+      - generate_multiple_responce_vector
+      - generate_string
+      - generate_unique_comparisons_index
+      - get_script_directory
+      - getfwp
+      - icc_cfa
+      - increase_index
+      - install_all_packages
+      - install_load
+      - k_fold
+      - k_sample
+      - key_to_cfa_model
+      - matrix_triangle
+      - mean_sd_alpha
+      - mgsub
+      - min_max_index
+      - model_loadings
+      - name_triplet_pairs
+      - off_diagonal_index
+      - outlier_summary
+      - output_compare_model_logistic
+      - output_separator
+      - proper
+      - proportion_accurate
+      - questions_by_keys
+      - questions_dimensions_dataframe
+      - rad2deg
       - rank3_to_triplets
       - rank_df_to_binary
       - rank_to_binary
-      - generate_comparisons_matrix
-      - generate_unique_comparisons_index
-      - generate_matrix_A
-      - generate_matrix_lambda_hat
-      - name_triplet_pairs
-      - comparison_combinations
-
-  - title: "Regression & Logistic"
-    contents:
-      - report_regression
-      - report_hlr
-      - report_logistic
-      - output_compare_model_logistic
-      - compute_y_logistic
-      - compute_dummy_comparisons
-      - dummy_arrange
-      - plot_logistic_model
-      - proportion_accurate
-      - plot_roc
-
-  - title: "ANOVA & Group Comparisons"
-    contents:
-      - compute_one_way_test
-      - compute_aov_es
-      - compute_posthoc
-      - compute_kruskal_wallis_test
-      - report_oneway
-      - report_factorial_anova
-      - report_manova
-      - report_ttests
-      - report_wtests
-      - plot_oneway
-      - plot_oneway_diagnostics
-
-  - title: "Classification & Confusion"
-    contents:
-      - confusion
-      - confusion_matrix_percent
-      - result_confusion_performance
-      - plot_confusion
-      - excel_confusion_matrix
-      - report_lda
-      - report_xgboost
-      - plot_trees_xgboost
-
-  - title: "Plotting & Visualisation"
-    contents:
-      - plot_boxplot
-      - plot_histogram
-      - plot_scatterplot
-      - plot_interaction
-      - compute_crosstable
-      - compute_tversky_index
-      - plot_crosstable
-      - plot_mosaic
-      - plot_multiplot
-      - plot_normality_diagnostics
-      - plot_response_frequencies
-      - plot_separability
-      - plot_outlier
-      - plot_qq
-      - plot_acf
-      - plot_ts
-      - duplicate_y_axis
-      - hinvert_title_grob
-
-  - title: "Reporting & Export"
-    contents:
-      - report_dataframe
-      - report_normality_tests
-      - report_pdf
-      - output_separator
-      - excel_generic_format
-      - excel_critical_value
-      - excel_matrix
-      - write_txt
-
-  - title: "Data Manipulation"
-    contents:
-      - c_bind
+      - raw_alpha
       - rbind_all
-      - change_data_type
       - recode_scale_dummy
-      - drop_levels
-      - trim_df
-      - round_dataframe
-      - padNA
-      - replace_na_with_previous
+      - remove_nc
       - remove_outliers
-      - outlier_summary
-      - k_fold
-      - k_sample
-      - generate_missing
-      - generate_data
-      - generate_factor
-      - generate_string
-      - generate_multiple_responce_vector
-      - data_frame_index
-      - increase_index
-      - min_max_index
-      - flatten_list
-      - swap
-
-  - title: "String Utilities"
-    contents:
+      - remove_user_packages
+      - replace_na_with_previous
+      - response_dimension
+      - response_frequency
+      - result_confusion_performance
+      - round_dataframe
+      - score_tirt
+      - score_tirt_pattern
+      - shrout
+      - simulate_cfa_fit
+      - simulate_correlation_from_sample
+      - split_str
+      - split_str_df
+      - stat_word_char
       - str_count
       - str_pad
       - str_replace
@@ -209,49 +207,18 @@ reference:
       - str_split_fixed
       - str_squish
       - str_wrap
-      - sub_str
-      - split_str
-      - split_str_df
-      - mgsub
-      - stat_word_char
-      - text_similarity
-      - clear_text
-      - clear_stopwords
-      - proper
-      - remove_nc
       - string_aes
+      - sub_str
+      - swap
+      - symmetric_matrix
       - tag_pos
-      - wrapper
-
-  - title: "Utilities & Environment"
-    contents:
-      - install_load
-      - install_all_packages
-      - detach_package
-      - remove_user_packages
-      - environment_options
-      - get_script_directory
-      - getfwp
-      - call_to_string
-      - dotnames
-      - fixed
-      - deg2rad
-      - rad2deg
-      - shrout
-      - compute_solve
-      - compute_adjustment
-      - compute_moving_average
-      - compute_residual_stats
+      - text_similarity
+      - trim_df
       - ts_smoothing
-      - decompose_datetime
-      - convert_excel_unix_timestamp
-      - questions_by_keys
-      - questions_dimensions_dataframe
-      - response_dimension
-      - response_frequency
+      - wrapper
+      - write_txt
 
   - title: "Datasets"
-    desc: "Example datasets bundled with the package"
     contents:
       - df_admission
       - df_automotive_data
@@ -266,3 +233,4 @@ reference:
       - df_responses_state
       - df_sexual_comp
       - df_titanic
+

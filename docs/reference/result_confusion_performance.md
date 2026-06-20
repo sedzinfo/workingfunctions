@@ -79,13 +79,13 @@ result_confusion_performance(observed=round(abs(df$X1),0),
 #> $cut_performance
 #>     cut_point Overall Collumn_Observed.1 Collumn_Observed.2 Row_Predicted.1 Row_Predicted.2 Mean_proportion
 #> 1        0.00    0.29               1.00               0.29            0.00            1.00          0.5725
-#> 2        0.01    0.32               1.00               0.30            0.04            1.00          0.5850
-#> 3        0.02    0.35               1.00               0.31            0.09            1.00          0.6000
-#> 4        0.03    0.38               1.00               0.32            0.12            1.00          0.6100
+#> 2        0.01    0.32               1.00               0.30            0.05            1.00          0.5875
+#> 3        0.02    0.36               1.00               0.31            0.09            1.00          0.6000
+#> 4        0.03    0.38               1.00               0.32            0.13            1.00          0.6125
 #> 5        0.04    0.42               1.00               0.33            0.17            1.00          0.6250
 #> 6        0.05    0.44               1.00               0.34            0.21            1.00          0.6375
 #> 7        0.06    0.48               1.00               0.36            0.26            1.00          0.6550
-#> 8        0.07    0.51               1.00               0.38            0.31            1.00          0.6725
+#> 8        0.07    0.52               1.00               0.38            0.31            1.00          0.6725
 #> 9        0.08    0.55               1.00               0.40            0.37            1.00          0.6925
 #> 10       0.09    0.59               1.00               0.42            0.42            1.00          0.7100
 #> 11       0.10    0.62               1.00               0.43            0.46            1.00          0.7225
@@ -193,16 +193,15 @@ result_confusion_performance(observed=round(abs(df$X1),0),
 result_confusion_performance(observed=c(1,2,3,1,2,3),
                              predicted=abs(rnorm(6,0,sd=0.1)))
 #> $plot_performance
-#> `geom_line()`: Each group consists of only one observation.
-#> ℹ Do you need to adjust the group aesthetic?
 
 #> 
 #> $cut_performance
 #>   cut_point Overall Collumn_Observed.1 Collumn_Observed.2 Collumn_Observed.3 Collumn_Observed.4 Row_Predicted.1 Row_Predicted.2 Row_Predicted.3 Row_Predicted.4 Mean_proportion
-#> 1  0.004771    0.17                  0                0.2                  0                  0               0             0.5               0               0          0.0875
+#> 1   0.02026    0.17                  0                0.2                  0                  0               0             0.5               0               0          0.0875
+#> 2   0.12026    0.00                  0                0.0                  0                  0               0             0.0               0               0          0.0000
 #> 
 #> $cut
-#> [1] 0.004771
+#> [1] 0.02026
 #> 
 #> $confusion_matrix
 #>        0    1    2    3  sum    p

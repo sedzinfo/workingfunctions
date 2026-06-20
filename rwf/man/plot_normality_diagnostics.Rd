@@ -10,7 +10,8 @@ plot_normality_diagnostics(
   title = "",
   file = NULL,
   w = 10,
-  h = 10
+  h = 10,
+  pb = FALSE
 )
 }
 \arguments{
@@ -32,6 +33,9 @@ When \code{NULL} (default) no PDF is written.}
 \item{w}{Width of the PDF in inches. Default is \code{10}.}
 
 \item{h}{Height of the PDF in inches. Default is \code{10}.}
+
+\item{pb}{Logical; whether to display a progress bar in the console.
+Default is \code{FALSE}.}
 }
 \value{
 A named list of recorded plots (one element per numeric column),
@@ -46,11 +50,12 @@ For each numeric column of \code{df}, produces a 2×2 panel of
   \code{\link{report_pdf}}.
 }
 \examples{
-vector<-generate_missing(rnorm(1000))
-df<-generate_missing(mtcars[,1:2])
-plot_normality_diagnostics(df=vector,title="",file="rnorm",breaks=30)
-plot_normality_diagnostics(df=vector,title="")
-plot_normality_diagnostics(df=df,title="mtcars")
-plot_normality_diagnostics(df=df,title="mtcars",file="rnorm")
+vector <- generate_missing(rnorm(1000), missing = 10)
+df <- generate_missing(mtcars[, 1:2], missing = 10)
+plot_normality_diagnostics(df = vector, file = "rnorm", breaks = 30)
+plot_normality_diagnostics(df = vector)
+plot_normality_diagnostics(df = df, title = "mtcars")
+plot_normality_diagnostics(df = df, title = "mtcars", pb = TRUE)
+plot_normality_diagnostics(df = df, title = "mtcars", file = "rnorm")
 }
 \keyword{assumptions}

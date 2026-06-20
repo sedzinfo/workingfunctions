@@ -26,7 +26,7 @@ Smooths every numeric column of a data frame by replacing each
   so the average is computed over fewer observations.
 }
 \examples{
-compute_moving_average(df=mtcars,w=5)
+compute_moving_average(df = mtcars, w = 5)
 }
 \keyword{series}
 \keyword{time}

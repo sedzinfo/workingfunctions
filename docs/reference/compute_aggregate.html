@@ -123,7 +123,7 @@ extension). When <code>NULL</code> (default) no file is written.</p></dd>
 
     <div class="section level2">
     <h2 id="ref-examples">Examples<a class="anchor" aria-label="anchor" href="#ref-examples"></a></h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="fu">compute_aggregate</span><span class="op">(</span>df<span class="op">=</span><span class="va">mtcars</span>,iv<span class="op">=</span><span class="fl">9</span><span class="op">)</span></span></span>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="fu">compute_aggregate</span><span class="op">(</span>df <span class="op">=</span> <span class="va">mtcars</span>, iv <span class="op">=</span> <span class="fl">9</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>      statistic am         mpg        cyl         disp           hp        drat         wt       qsec         vs        gear       carb</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 1         mean  0 17.14736842  6.9473684 290.37894737 160.26315789  3.28631579  3.7688947 18.1831579  0.3684211  3.21052632  2.7368421</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 2         mean  1 24.39230769  5.0769231 143.53076923 126.84615385  4.05000000  2.4110000 17.3600000  0.5384615  4.38461538  2.9230769</span>
@@ -151,7 +151,7 @@ extension). When <code>NULL</code> (default) no file is written.</p></dd>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 24         IQR  1  9.40000000  2.0000000  81.00000000  47.00000000  0.37000000  0.8450000  2.1500000  1.0000000  1.00000000  3.0000000</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 25          SE  0  0.87957221  0.3543686  25.27510920  12.36738829  0.09000068  0.1783478  0.4017775  0.1136972  0.09609168  0.2631579</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 26          SE  1  1.71028044  0.4305860  24.18603482  23.31469388  0.10096966  0.1711199  0.4971109  0.1439099  0.14044168  0.6040625</span>
-<span class="r-in"><span><span class="fu">compute_aggregate</span><span class="op">(</span>df<span class="op">=</span><span class="va">mtcars</span>,iv<span class="op">=</span><span class="fl">9</span><span class="op">:</span><span class="fl">10</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu">compute_aggregate</span><span class="op">(</span>df <span class="op">=</span> <span class="va">mtcars</span>, iv <span class="op">=</span> <span class="fl">9</span><span class="op">:</span><span class="fl">10</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>      statistic am gear         mpg        cyl         disp           hp        drat          wt        qsec         vs       carb</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 1         mean  0    3 16.10666667  7.4666667 326.30000000 176.13333333  3.13266667  3.89260000 17.69200000  0.2000000  2.6666667</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 2         mean  0    4 21.05000000  5.0000000 155.67500000 100.75000000  3.86250000  3.30500000 20.02500000  1.0000000  3.0000000</span>
@@ -205,7 +205,7 @@ extension). When <code>NULL</code> (default) no file is written.</p></dd>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 50          SE  0    4  1.53487242  0.5773503   6.98944144  14.50502786  0.05750000  0.07836879  1.02092687  0.0000000  0.5773503</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 51          SE  1    4  1.91430237  0.3273268  13.13909702   8.54700762  0.12229849  0.16292253  0.40973859  0.1636634  0.4629100</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 52          SE  1    5  2.97798590  0.8944272  51.64898257  45.98869426  0.17420103  0.36623457  0.50556899  0.2000000  1.1661904</span>
-<span class="r-in"><span><span class="fu">compute_aggregate</span><span class="op">(</span>df<span class="op">=</span><span class="va">mtcars</span>,iv<span class="op">=</span><span class="fl">9</span><span class="op">:</span><span class="fl">11</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu">compute_aggregate</span><span class="op">(</span>df <span class="op">=</span> <span class="va">mtcars</span>, iv <span class="op">=</span> <span class="fl">9</span><span class="op">:</span><span class="fl">11</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>       statistic am gear carb           mpg        cyl          disp          hp          drat            wt          qsec         vs</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 1          mean  0    3    1  2.033333e+01  5.3333333  2.010333e+02 104.0000000  3.180000e+00  3.046667e+00  1.989000e+01  1.0000000</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 2          mean  0    3    2  1.715000e+01  8.0000000  3.455000e+02 162.5000000  3.035000e+00  3.560000e+00  1.706000e+01  0.0000000</span>
@@ -376,7 +376,7 @@ extension). When <code>NULL</code> (default) no file is written.</p></dd>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 167          SE  1    5    4            NA         NA            NA          NA            NA            NA            NA         NA</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 168          SE  1    5    6            NA         NA            NA          NA            NA            NA            NA         NA</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 169          SE  1    5    8            NA         NA            NA          NA            NA            NA            NA         NA</span>
-<span class="r-in"><span><span class="fu">compute_aggregate</span><span class="op">(</span>df<span class="op">=</span><span class="va">mtcars</span>,iv<span class="op">=</span><span class="fl">9</span><span class="op">:</span><span class="fl">11</span>,file<span class="op">=</span><span class="st">"descriptives"</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu">compute_aggregate</span><span class="op">(</span>df <span class="op">=</span> <span class="va">mtcars</span>, iv <span class="op">=</span> <span class="fl">9</span><span class="op">:</span><span class="fl">11</span>, file <span class="op">=</span> <span class="st">"descriptives"</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>       statistic am gear carb           mpg        cyl          disp          hp          drat            wt          qsec         vs</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 1          mean  0    3    1  2.033333e+01  5.3333333  2.010333e+02 104.0000000  3.180000e+00  3.046667e+00  1.989000e+01  1.0000000</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 2          mean  0    3    2  1.715000e+01  8.0000000  3.455000e+02 162.5000000  3.035000e+00  3.560000e+00  1.706000e+01  0.0000000</span>

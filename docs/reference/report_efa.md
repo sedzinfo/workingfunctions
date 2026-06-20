@@ -60,7 +60,6 @@ Orthogonal=varimax, Oblique=oblimin
 ``` r
 model<-psych::fa(mtcars,nfactors=2,rotate="oblimin",fm="minres",oblique.scores=TRUE)
 report_efa(model=model,df=mtcars,file="efa")
-#>   |                                                                                                                                                                                                      |                                                                                                                                                                                              |   0%  |                                                                                                                                                                                                      |==============================================================================================================================================================================================| 100%
 #> $correlation_loadings
 #> 
 #> $plot_barplot
@@ -224,7 +223,6 @@ report_efa(model=model,df=mtcars,file="efa")
 #> 
 model<-psych::fa(mtcars,nfactors=2,rotate="oblimin",fm="uls",oblique.scores=TRUE)
 report_efa(model=model,df=mtcars)
-#>   |                                                                                                                                                                                                      |                                                                                                                                                                                              |   0%  |                                                                                                                                                                                                      |==============================================================================================================================================================================================| 100%
 
 #> $correlation_loadings
 
@@ -378,7 +376,6 @@ report_efa(model=model,df=mtcars)
 #> 
 model<-psych::fa(mtcars,nfactors=2,rotate="oblimin",fm="ols",oblique.scores=TRUE)
 report_efa(model=model,df=mtcars)
-#>   |                                                                                                                                                                                                      |                                                                                                                                                                                              |   0%  |                                                                                                                                                                                                      |==============================================================================================================================================================================================| 100%
 
 #> $correlation_loadings
 
@@ -532,7 +529,6 @@ report_efa(model=model,df=mtcars)
 #> 
 model<-psych::fa(mtcars,nfactors=2,rotate="oblimin",fm="wls",oblique.scores=TRUE)
 report_efa(model=model,df=mtcars)
-#>   |                                                                                                                                                                                                      |                                                                                                                                                                                              |   0%  |                                                                                                                                                                                                      |==============================================================================================================================================================================================| 100%
 
 #> $correlation_loadings
 
@@ -686,7 +682,6 @@ report_efa(model=model,df=mtcars)
 #> 
 model<-psych::fa(mtcars,nfactors=2,rotate="oblimin",fm="gls",oblique.scores=TRUE)
 report_efa(model=model,df=mtcars)
-#>   |                                                                                                                                                                                                      |                                                                                                                                                                                              |   0%  |                                                                                                                                                                                                      |==============================================================================================================================================================================================| 100%
 
 #> $correlation_loadings
 
@@ -840,7 +835,6 @@ report_efa(model=model,df=mtcars)
 #> 
 model<-psych::fa(mtcars,nfactors=2,rotate="oblimin",fm="pa",oblique.scores=TRUE)
 report_efa(model=model,df=mtcars)
-#>   |                                                                                                                                                                                                      |                                                                                                                                                                                              |   0%  |                                                                                                                                                                                                      |==============================================================================================================================================================================================| 100%
 
 #> $correlation_loadings
 
@@ -994,7 +988,6 @@ report_efa(model=model,df=mtcars)
 #> 
 model<-psych::fa(mtcars,nfactors=2,rotate="oblimin",fm="ml",oblique.scores=TRUE)
 report_efa(model=model,df=mtcars)
-#>   |                                                                                                                                                                                                      |                                                                                                                                                                                              |   0%  |                                                                                                                                                                                                      |==============================================================================================================================================================================================| 100%
 
 #> $correlation_loadings
 
@@ -1148,7 +1141,6 @@ report_efa(model=model,df=mtcars)
 #> 
 model<-psych::fa(mtcars,nfactors=2,rotate="oblimin",fm="minchi",oblique.scores=TRUE)
 report_efa(model=model,df=mtcars)
-#>   |                                                                                                                                                                                                      |                                                                                                                                                                                              |   0%  |                                                                                                                                                                                                      |==============================================================================================================================================================================================| 100%
 
 #> $correlation_loadings
 
@@ -1303,7 +1295,6 @@ report_efa(model=model,df=mtcars)
 model<-psych::fa(mtcars,nfactors=2,rotate="oblimin",fm="minrank",oblique.scores=TRUE)
 #> Loading required namespace: Rcsdp
 report_efa(model=model,df=mtcars)
-#>   |                                                                                                                                                                                                      |                                                                                                                                                                                              |   0%  |                                                                                                                                                                                                      |==============================================================================================================================================================================================| 100%
 
 #> $correlation_loadings
 
@@ -1457,7 +1448,6 @@ report_efa(model=model,df=mtcars)
 #> 
 model<-psych::fa(mtcars,nfactors=2,rotate="oblimin",fm="old.min",oblique.scores=TRUE)
 report_efa(model=model,df=mtcars)
-#>   |                                                                                                                                                                                                      |                                                                                                                                                                                              |   0%  |                                                                                                                                                                                                      |==============================================================================================================================================================================================| 100%
 
 #> $correlation_loadings
 

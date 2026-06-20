@@ -38,18 +38,19 @@ number of observations.
 ## Examples
 
 ``` r
-ts_data<-ts(UKDriverDeaths,start=1969,end=1984,frequency=12)
-result<-plot_ts(ts_data,title="UK driver deaths")
-for(i in 1969:1984)
-  result<-result+geom_vline(xintercept=i,color="blue",size=1,alpha=.5)
+ts_data <- ts(UKDriverDeaths, start = 1969, end = 1984, frequency = 12)
+result <- plot_ts(ts_data, title = "UK driver deaths")
+for (i in 1969:1984) {
+  result <- result + geom_vline(xintercept = i, color = "blue", size = 1, alpha = .5)
+}
 result
 
-autoplot(stl(ts_data,s.window='periodic'))+
-  theme_bw(base_size=10)+
-  labs(title="UK driver deaths")
+autoplot(stl(ts_data, s.window = "periodic")) +
+  theme_bw(base_size = 10) +
+  labs(title = "UK driver deaths")
 
-forecast::gglagplot(data.frame(ts_data),do.lines=FALSE,lags=100)+
-  theme_bw(base_size=10)+labs(title="UK driver deaths",y="count")
+forecast::gglagplot(data.frame(ts_data), do.lines = FALSE, lags = 100) +
+  theme_bw(base_size = 10) + labs(title = "UK driver deaths", y = "count")
 #> Registered S3 methods overwritten by 'forecast':
 #>   method                 from     
 #>   autoplot.Arima         ggfortify

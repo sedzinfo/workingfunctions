@@ -56,35 +56,38 @@ total observations shown in the caption.
 ## Examples
 
 ``` r
-plot_response_frequencies(df=mtcars,factor_index=1:10)
-#> $mpg
+df_ocean_N<-df_ocean[,grep("N",names(df_ocean))]
+plot_response_frequencies(df = df_ocean_N)
+#> $N1
 
 #> 
-#> $cyl
+#> $N2
 
 #> 
-#> $disp
+#> $N3
 
 #> 
-#> $hp
+#> $N4
 
 #> 
-#> $drat
+#> $N5
 
 #> 
-#> $wt
+#> $N6
 
 #> 
-#> $qsec
+#> $N7
 
 #> 
-#> $vs
+#> $N8
 
 #> 
-#> $am
+#> $N9
 
 #> 
-#> $gear
+#> $N10
 
 #> 
+plot_response_frequencies(df = df_ocean_N, factor_index = 1)
+#> list()
 ```

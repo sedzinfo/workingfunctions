@@ -92,30 +92,30 @@ and prepends the resulting parts as new columns to the data frame.</p>
 <span class="r-in"><span>               <span class="fu"><a href="generate_string.html">generate_string</a></span><span class="op">(</span>nchar<span class="op">=</span><span class="fl">2</span>,vector_length<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/nrow.html" class="external-link">nrow</a></span><span class="op">(</span><span class="va">df</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/base/row.names.html" class="external-link">row.names</a></span><span class="op">(</span><span class="va">df</span><span class="op">)</span><span class="op">&lt;-</span><span class="va">string</span></span></span>
 <span class="r-in"><span><span class="fu">split_str_df</span><span class="op">(</span><span class="va">df</span>,split<span class="op">=</span><span class="st">"/"</span>,type<span class="op">=</span><span class="st">"row"</span><span class="op">)</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>             X1 X2 X3 X4     X1.1     X2.1    X3.1     X4.1       X5       X6      X7      X8       X9     X10</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 1/lS/IG/6j   1 lS IG 6j  0.99906  1.21123  0.8995  0.64414  0.21056  1.82092 -0.6279 -0.6098 -0.35991  1.7332</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 2/36/l9/lU   2 36 l9 lU -0.47599  0.62060  0.3498  1.63266  0.75119 -0.07826  0.5440  0.7785 -0.69674  0.9300</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 3/xN/Hg/6F   3 xN Hg 6F -0.25266 -0.87823 -0.6045 -1.82607 -0.50380 -0.24917 -2.0538 -0.4064  1.03562 -0.9871</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 4/Cp/1V/dT   4 Cp 1V dT  0.63591  1.03589  0.7587  0.08931  0.37483 -0.25427  1.6935  1.0676 -0.03758  1.0068</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 5/0A/Wq/rD   5 0A Wq rD -1.45662  1.01288 -1.3829 -1.51889  0.09287  0.54339 -0.5576 -1.3335  0.45380 -2.6119</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 6/0M/xh/zZ   6 0M xh zZ -0.49781  0.96090 -1.0961  0.77763 -0.87664  0.15742  1.4443  0.4908  1.08376 -0.6139</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 7/cl/4a/Qe   7 cl 4a Qe -0.25974  0.15619  0.6793  0.59443  0.51417  0.74907 -1.5983 -0.7983  0.87091 -0.3298</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 8/ne/k4/Wa   8 ne k4 Wa -0.86672  0.14754 -0.5986  0.74467 -1.61436 -0.05793 -0.6250  0.9740 -0.36662  0.7707</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 9/zA/Ba/aC   9 zA Ba aC  0.06371  0.03177  0.5437 -0.25066  1.88604 -0.20975 -0.2750 -1.3820 -0.11024  0.3414</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 10/2M/VO/1P 10 2M VO 1P  0.12008  0.15832  1.0289 -1.12683 -1.63485  0.25595  0.1481 -1.2167 -2.03075  1.1114</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>             X1 X2 X3 X4     X1.1     X2.1    X3.1    X4.1       X5       X6      X7      X8      X9      X10</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1/36/l9/lU   1 36 l9 lU  1.04893  1.79565 -0.6492  1.5664  0.47028 -1.28105  1.1235 -1.2460 -1.6611  1.30895</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2/xN/Hg/6F   2 xN Hg 6F -0.03332  1.06540  0.1620 -0.8575 -0.80892 -0.11693  0.3616 -0.9486  0.4610 -0.82077</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 3/Cp/1V/dT   3 Cp 1V dT -1.19467 -0.30959  0.9639  0.7247 -0.02675  1.94821  0.3133  0.9916  0.4518  1.25972</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 4/0A/Wq/rD   4 0A Wq rD  1.57968  0.57108  1.0985  1.1842 -0.22987  0.80735 -0.1985  0.3354  0.8270 -0.17282</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 5/0M/xh/zZ   5 0M xh zZ  1.06210 -0.51993  1.2677  1.4146 -0.72530  1.04822 -1.4909 -2.3841  1.4014 -0.23837</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 6/cl/4a/Qe   6 cl 4a Qe -0.59785 -1.04960 -0.6237  1.5585 -0.42596  0.06129  0.1647  0.8393  0.6548 -0.94387</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 7/ne/k4/Wa   7 ne k4 Wa  2.34955  0.08238 -0.3837 -0.3828 -0.16507 -0.50489 -1.2331 -1.5700 -0.3363  0.11692</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 8/zA/Ba/aC   8 zA Ba aC  1.01641  0.14942  1.1559 -0.3076  0.69598  0.66733 -0.9380  1.3293  0.9407  1.57286</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 9/2M/VO/1P   9 2M VO 1P  0.91118 -2.45914 -0.3563 -0.3728  0.29088  0.65588  0.9739  0.3094 -0.1346 -0.16139</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 10/IG/6j/9P 10 IG 6j 9P -0.76379 -0.34879 -0.1575  0.6524 -0.50372  0.26231  0.4198  0.1651 -1.7970  0.08575</span>
 <span class="r-in"><span><span class="va">df</span><span class="op">[</span>,<span class="fl">1</span><span class="op">]</span><span class="op">&lt;-</span><span class="va">string</span></span></span>
 <span class="r-in"><span><span class="fu">split_str_df</span><span class="op">(</span><span class="va">df</span>,split<span class="op">=</span><span class="st">"/"</span>,type<span class="op">=</span><span class="st">"collumn"</span>,index<span class="op">=</span><span class="fl">1</span><span class="op">)</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>             X1 X2 X3 X4        X1.1     X2.1    X3.1     X4.1       X5       X6      X7      X8       X9     X10</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 1/lS/IG/6j   1 lS IG 6j  1/lS/IG/6j  1.21123  0.8995  0.64414  0.21056  1.82092 -0.6279 -0.6098 -0.35991  1.7332</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 2/36/l9/lU   2 36 l9 lU  2/36/l9/lU  0.62060  0.3498  1.63266  0.75119 -0.07826  0.5440  0.7785 -0.69674  0.9300</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 3/xN/Hg/6F   3 xN Hg 6F  3/xN/Hg/6F -0.87823 -0.6045 -1.82607 -0.50380 -0.24917 -2.0538 -0.4064  1.03562 -0.9871</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 4/Cp/1V/dT   4 Cp 1V dT  4/Cp/1V/dT  1.03589  0.7587  0.08931  0.37483 -0.25427  1.6935  1.0676 -0.03758  1.0068</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 5/0A/Wq/rD   5 0A Wq rD  5/0A/Wq/rD  1.01288 -1.3829 -1.51889  0.09287  0.54339 -0.5576 -1.3335  0.45380 -2.6119</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 6/0M/xh/zZ   6 0M xh zZ  6/0M/xh/zZ  0.96090 -1.0961  0.77763 -0.87664  0.15742  1.4443  0.4908  1.08376 -0.6139</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 7/cl/4a/Qe   7 cl 4a Qe  7/cl/4a/Qe  0.15619  0.6793  0.59443  0.51417  0.74907 -1.5983 -0.7983  0.87091 -0.3298</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 8/ne/k4/Wa   8 ne k4 Wa  8/ne/k4/Wa  0.14754 -0.5986  0.74467 -1.61436 -0.05793 -0.6250  0.9740 -0.36662  0.7707</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 9/zA/Ba/aC   9 zA Ba aC  9/zA/Ba/aC  0.03177  0.5437 -0.25066  1.88604 -0.20975 -0.2750 -1.3820 -0.11024  0.3414</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 10/2M/VO/1P 10 2M VO 1P 10/2M/VO/1P  0.15832  1.0289 -1.12683 -1.63485  0.25595  0.1481 -1.2167 -2.03075  1.1114</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>             X1 X2 X3 X4        X1.1     X2.1    X3.1    X4.1       X5       X6      X7      X8      X9      X10</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1/36/l9/lU   1 36 l9 lU  1/36/l9/lU  1.79565 -0.6492  1.5664  0.47028 -1.28105  1.1235 -1.2460 -1.6611  1.30895</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2/xN/Hg/6F   2 xN Hg 6F  2/xN/Hg/6F  1.06540  0.1620 -0.8575 -0.80892 -0.11693  0.3616 -0.9486  0.4610 -0.82077</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 3/Cp/1V/dT   3 Cp 1V dT  3/Cp/1V/dT -0.30959  0.9639  0.7247 -0.02675  1.94821  0.3133  0.9916  0.4518  1.25972</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 4/0A/Wq/rD   4 0A Wq rD  4/0A/Wq/rD  0.57108  1.0985  1.1842 -0.22987  0.80735 -0.1985  0.3354  0.8270 -0.17282</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 5/0M/xh/zZ   5 0M xh zZ  5/0M/xh/zZ -0.51993  1.2677  1.4146 -0.72530  1.04822 -1.4909 -2.3841  1.4014 -0.23837</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 6/cl/4a/Qe   6 cl 4a Qe  6/cl/4a/Qe -1.04960 -0.6237  1.5585 -0.42596  0.06129  0.1647  0.8393  0.6548 -0.94387</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 7/ne/k4/Wa   7 ne k4 Wa  7/ne/k4/Wa  0.08238 -0.3837 -0.3828 -0.16507 -0.50489 -1.2331 -1.5700 -0.3363  0.11692</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 8/zA/Ba/aC   8 zA Ba aC  8/zA/Ba/aC  0.14942  1.1559 -0.3076  0.69598  0.66733 -0.9380  1.3293  0.9407  1.57286</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 9/2M/VO/1P   9 2M VO 1P  9/2M/VO/1P -2.45914 -0.3563 -0.3728  0.29088  0.65588  0.9739  0.3094 -0.1346 -0.16139</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 10/IG/6j/9P 10 IG 6j 9P 10/IG/6j/9P -0.34879 -0.1575  0.6524 -0.50372  0.26231  0.4198  0.1651 -1.7970  0.08575</span>
 </code></pre></div>
     </div>
   </main><aside class="col-md-3"><nav id="toc" aria-label="Table of contents"><h2>On this page</h2>

@@ -24,10 +24,10 @@ Melts all numeric columns of \code{df} into a single long
   Non-numeric columns are silently dropped.
 }
 \examples{
-vector<-generate_missing(rnorm(1000))
-df<-generate_missing(mtcars[,1:2])
-plot_boxplot(df=vector)
-plot_boxplot(df=generate_missing(vector))
-plot_boxplot(df=df)
+vector <- generate_missing(rnorm(1000), missing = 10)
+df <- generate_missing(mtcars[, 1:2], missing = 10)
+plot_boxplot(df = vector)
+plot_boxplot(df = generate_missing(vector))
+plot_boxplot(df = df)
 }
 \keyword{assumptions}

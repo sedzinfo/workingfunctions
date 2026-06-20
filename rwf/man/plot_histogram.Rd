@@ -12,7 +12,8 @@ plot_histogram(
   xlims = NULL,
   fill = "gray25",
   color = "gray50",
-  ylab = "Count"
+  ylab = "Count",
+  pb = FALSE
 )
 }
 \arguments{
@@ -37,6 +38,9 @@ automatically.}
 \code{"gray50"}.}
 
 \item{ylab}{Y-axis label. Default is \code{"Count"}.}
+
+\item{pb}{Logical; whether to display a progress bar in the console.
+Default is \code{FALSE}.}
 }
 \value{
 A named list of \code{ggplot} objects, one per numeric column.
@@ -47,11 +51,11 @@ Produces one \code{ggplot} histogram per numeric column of
   median of the column. A progress bar is printed to the console.
 }
 \examples{
-vector<-generate_missing(rnorm(1000))
-df<-generate_missing(mtcars[,1:2])
-plot_histogram(df=vector)
-plot_histogram(df=df,xlims=c(0,50))
-plot_histogram(df=df)
-plot_multiplot(plotlist=plot_histogram(df=mtcars),cols=4)
+vector <- generate_missing(rnorm(1000), missing = 10)
+df <- generate_missing(mtcars[, 1:2], missing = 10)
+plot_histogram(df = vector)
+plot_histogram(df = df, xlims = c(0, 50))
+plot_histogram(df = df)
+plot_multiplot(plotlist = plot_histogram(df = mtcars), cols = 4)
 }
 \keyword{assumptions}

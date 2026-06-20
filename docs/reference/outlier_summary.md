@@ -37,12 +37,12 @@ A one-row data frame with three character columns:
 ## Examples
 
 ``` r
-vector<-generate_missing(rnorm(1000))
-df<-generate_missing(mtcars[,1:2])
+vector <- generate_missing(rnorm(1000), missing = 10)
+df <- generate_missing(mtcars[, 1:2], missing = 10)
 outlier_summary(vector)
 #>   abs_z_1.96 abs_z_2.58 abs_z_3.29
-#> 1     5.03 %     1.01 %      0.1 %
-data.frame(sapply(mtcars,outlier_summary))
+#> 1     4.95 %     1.11 %      0.1 %
+data.frame(sapply(mtcars, outlier_summary))
 #>               mpg cyl disp     hp   drat     wt   qsec  vs  am gear   carb
 #> abs_z_1.96 6.25 % 0 %  0 % 3.12 % 3.12 % 9.38 % 3.12 % 0 % 0 %  0 % 6.25 %
 #> abs_z_2.58    0 % 0 %  0 % 3.12 %    0 %    0 % 3.12 % 0 % 0 %  0 % 3.12 %

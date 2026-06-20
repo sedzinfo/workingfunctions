@@ -38,14 +38,14 @@ string<-paste0(1:10,"/",
                generate_string(nchar=2,vector_length=10))
 split_str(string,split="/")
 #>    X1 X2 X3 X4
-#> 1   1 Ij Mj tk
-#> 2   2 Oz NA yQ
-#> 3   3 YZ 7d zy
-#> 4   4 5k fL nE
-#> 5   5 8a qH jK
-#> 6   6 Rk aa Ic
-#> 7   7 Tx jr 5M
-#> 8   8 Ur XH re
-#> 9   9 KK fC 5M
-#> 10 10 cM FO 2e
+#> 1   1 zY A7 Qz
+#> 2   2 Z5 df yn
+#> 3   3 k8 Lq Ej
+#> 4   4 aR Ha KI
+#> 5   5 kT aj c5
+#> 6   6 xU rX Mr
+#> 7   7 rK Hf e5
+#> 8   8 Kc CF M2
+#> 9   9 MM Ot eP
+#> 10 10 jN ky uE
 ```

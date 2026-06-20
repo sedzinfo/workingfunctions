@@ -33,7 +33,7 @@ each value has been replaced by its centred moving average.
 ## Examples
 
 ``` r
-compute_moving_average(df=mtcars,w=5)
+compute_moving_average(df = mtcars, w = 5)
 #>                          mpg      cyl     disp       hp     drat       wt     qsec        vs         am     gear     carb
 #> Mazda RX4           20.50000 6.000000 211.8333 117.1667 3.440000 2.988333 18.12833 0.5000000 0.50000000 3.500000 2.166667
 #> Mazda RX4 Wag       19.61429 6.285714 233.0000 135.4286 3.407143 3.071429 17.80143 0.4285714 0.42857143 3.428571 2.428571

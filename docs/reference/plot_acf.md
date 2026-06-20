@@ -58,6 +58,6 @@ Each facet includes dashed horizontal lines for the 95% CI lower bound
 ## Examples
 
 ``` r
-ts_data<-ts(UKDriverDeaths,start=1969,end=1984,frequency=12)
-plot_acf(df=ts_data,base_size=20)
+ts_data <- ts(UKDriverDeaths, start = 1969, end = 1984, frequency = 12)
+plot_acf(df = ts_data, base_size = 20)
 ```
