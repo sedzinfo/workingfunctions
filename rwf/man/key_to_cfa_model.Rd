@@ -22,12 +22,12 @@ Converts the named list key format used by
   factor definition line of the form \code{factorname =~ item1+item2+...}.
 }
 \examples{
-population_model<-'t1=~x1+.5*x2+.5*x3
+population_model <- "t1=~x1+.5*x2+.5*x3
                    t2=~x4+.5*x5+.5*x6
-                   t3=~x7+.5*x8+.5*x9'
-model_data<-lavaan::simulateData(population_model,sample.nobs=1000)
-key<-list(f1=paste0("x",1:3),f2=paste0("x",4:6),f3=paste0("x",7:9))
-model<-key_to_cfa_model(key)
-fit<-lavaan::cfa(model,model_data)
+                   t3=~x7+.5*x8+.5*x9"
+model_data <- lavaan::simulateData(population_model, sample.nobs = 1000)
+key <- list(f1 = paste0("x", 1:3), f2 = paste0("x", 4:6), f3 = paste0("x", 7:9))
+model <- key_to_cfa_model(key)
+fit <- lavaan::cfa(model, model_data)
 }
 \keyword{reliability}

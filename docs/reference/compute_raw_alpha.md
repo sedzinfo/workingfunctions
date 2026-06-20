@@ -1,40 +1,30 @@
-# Item-total correlations and alpha-if-item-removed diagnostics
+# Cronbach's alpha (raw)
 
-Computes item-level reliability diagnostics for a unidimensional scale.
-For each item the function returns the corrected and uncorrected
-item-total correlations and Cronbach's alpha recalculated with that item
-excluded. Use this alongside `raw_alpha` to identify items that reduce
-scale reliability.
+Computes Cronbach's alpha directly from the covariance matrix of a
+unidimensional set of items using the formula \\\alpha =
+\frac{k}{k-1}\left(1 -
+\frac{\sum\text{diag}(\Sigma)}{\sum\Sigma}\right)\\, where \\k\\ is the
+number of items and \\\Sigma\\ is the covariance matrix. Pairwise
+complete observations are used so that missing data on individual items
+does not discard entire rows.
 
 ## Usage
 
 ``` r
-alpha_diagnostics(df)
+compute_raw_alpha(df)
 ```
+
+## Arguments
+
+- df:
+
+  A data frame whose columns are the items of a single scale. All
+  columns must be numeric.
 
 ## Value
 
-A data frame with one row per item and the following columns:
-
-- item:
-
-  Item name.
-
-- alpha.if.item.removed:
-
-  Cronbach's alpha computed on the remaining items after excluding this
-  item.
-
-- item.total.correlation:
-
-  Pearson correlation between this item and the sum of all items
-  (uncorrected).
-
-- item.total.correlation.r.drop:
-
-  Pearson correlation between this item and the sum of all other items
-  (corrected item-total correlation, also known as r-drop). Values below
-  0.30 typically indicate a problematic item.
+A single numeric value: Cronbach's alpha for the scale. Values above
+0.70 are generally considered acceptable for research purposes.
 
 ## Examples
 
@@ -83,6 +73,6 @@ psych::alpha(df)
 #> X4 0 0.01 0.05 0.25 0.39 0.24 0.06 0.01 0    0
 #> X5 0 0.01 0.05 0.25 0.39 0.23 0.07 0.00 0    0
 #> X6 0 0.01 0.06 0.24 0.40 0.23 0.05 0.01 0    0
-alpha_diagnostics(df=df)
-#> Error in raw_alpha(df[, -i]): could not find function "raw_alpha"
+compute_raw_alpha(df=df)
+#> [1] 0.8375375
 ```

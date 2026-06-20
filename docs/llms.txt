@@ -111,6 +111,8 @@ code and more standardized output.
   : Compute r power curve
 - [`compute_power_r_matrix()`](https://sedzinfo.github.io/rwf/reference/compute_power_r_matrix.md)
   : Compute correlation matrix
+- [`compute_raw_alpha()`](https://sedzinfo.github.io/rwf/reference/compute_raw_alpha.md)
+  : Cronbach's alpha (raw)
 - [`compute_residual_stats()`](https://sedzinfo.github.io/rwf/reference/compute_residual_stats.md)
   : Residuals for matrices
 - [`compute_scores()`](https://sedzinfo.github.io/rwf/reference/compute_scores.md)
@@ -355,8 +357,6 @@ code and more standardized output.
   blocks
 - [`rank_to_binary()`](https://sedzinfo.github.io/rwf/reference/rank_to_binary.md)
   : Convert scale to thurstonian binary with n items per ranking block
-- [`raw_alpha()`](https://sedzinfo.github.io/rwf/reference/raw_alpha.md)
-  : Cronbach's alpha (raw)
 - [`rbind_all()`](https://sedzinfo.github.io/rwf/reference/rbind_all.md)
   : Row-bind two data frames with different column sets
 - [`recode_scale_dummy()`](https://sedzinfo.github.io/rwf/reference/recode_scale_dummy.md)

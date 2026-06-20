@@ -75,16 +75,20 @@ Computes Cronbach's alpha and a comprehensive set of
 }
 \examples{
 set.seed(12345)
-df<-data.frame(matrix(.5,ncol=6,nrow=6))
-correlation_martix<-as.matrix(df)
-diag(correlation_martix)<-1
-df<-round(generate_correlation_matrix(correlation_martix,nrows=1000),0)+5
-key<-list(f1=c("X1","X2","X3"),
-          f2=c("X4","X5","X6"))
-reverse<-list(f1=c(1,1,1),
-              f2=c(1,1,1))
-report_alpha(df=df,key=key,cumulative=TRUE,n.iter=1)
-report_alpha(df=df,key=key,reverse=reverse,check.keys=FALSE,n.iter=2)
-report_alpha(df=df,key=key,check.keys=FALSE,n.iter=2,file="alpha")
+df <- data.frame(matrix(.5, ncol = 6, nrow = 6))
+correlation_martix <- as.matrix(df)
+diag(correlation_martix) <- 1
+df <- round(generate_correlation_matrix(correlation_martix, nrows = 1000), 0) + 5
+key <- list(
+  f1 = c("X1", "X2", "X3"),
+  f2 = c("X4", "X5", "X6")
+)
+reverse <- list(
+  f1 = c(1, 1, 1),
+  f2 = c(1, 1, 1)
+)
+report_alpha(df = df, key = key, cumulative = TRUE, n.iter = 1)
+report_alpha(df = df, key = key, reverse = reverse, check.keys = FALSE, n.iter = 2)
+report_alpha(df = df, key = key, check.keys = FALSE, n.iter = 2, file = "alpha")
 }
 \keyword{reliability}

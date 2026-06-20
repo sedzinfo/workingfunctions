@@ -77,8 +77,5 @@ model_data$method<-c(rep("m1",1000),rep("m2",1000),rep("m3",1000))
 model_data$id<-rep(1:1000,3)
 key<-list(t1=paste0("x",1:3),t2=paste0("x",4:6),t3=paste0("x",7:9))
 plot_mtmm(df=model_data,key=key,method="method",subject="id")
-#> Warning: Using `size` aesthetic for lines was deprecated in ggplot2 3.4.0.
-#> ℹ Please use `linewidth` instead.
-#> ℹ The deprecated feature was likely used in the rwf package.
-#>   Please report the issue at <https://github.com/sedzinfo/rwf/issues>.
+#> Error in raw_alpha(df[df[, method] %in% z, key[[i]]]): could not find function "raw_alpha"
 ```

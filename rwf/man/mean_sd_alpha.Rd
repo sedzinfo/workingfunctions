@@ -7,6 +7,9 @@
 mean_sd_alpha(df, divisor = NULL)
 }
 \arguments{
+\item{df}{A data frame whose columns are the items of a single scale. All
+columns must be numeric.}
+
 \item{divisor}{Numeric scalar used to divide the row sum before computing
 the mean and SD. When \code{NULL} (default) row means are used instead.}
 }
@@ -25,11 +28,11 @@ Computes the mean and standard deviation of respondent scale
 }
 \examples{
 set.seed(12345)
-df<-data.frame(matrix(.5,ncol=6,nrow=6))
-correlation_martix<-as.matrix(df)
-diag(correlation_martix)<-1
-df<-round(generate_correlation_matrix(correlation_martix,nrows=1000),0)+5
+df <- data.frame(matrix(.5, ncol = 6, nrow = 6))
+correlation_martix <- as.matrix(df)
+diag(correlation_martix) <- 1
+df <- round(generate_correlation_matrix(correlation_martix, nrows = 1000), 0) + 5
 mean_sd_alpha(df)
-mean_sd_alpha(df,divisor=100)
+mean_sd_alpha(df, divisor = 100)
 }
 \keyword{reliability}

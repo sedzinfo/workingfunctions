@@ -55,6 +55,7 @@ reference:
       - compute_ability
       - compute_adjustment
       - compute_aggregate
+      - compute_alpha_diagnostics
       - compute_aov_es
       - compute_confidence_inteval
       - compute_crosstable
@@ -78,6 +79,7 @@ reference:
       - compute_residual_stats
       - compute_scores
       - compute_se_theta
+      - compute_shrout
       - compute_skewness
       - compute_solve
       - compute_standard
@@ -135,7 +137,6 @@ reference:
 
   - title: "Other functions"
     contents:
-      - alpha_diagnostics
       - c_bind
       - call_to_string
       - cdf
@@ -200,7 +201,6 @@ reference:
       - rank3_to_triplets
       - rank_df_to_binary
       - rank_to_binary
-
       - rbind_all
       - recode_scale_dummy
       - remove_nc
@@ -213,7 +213,6 @@ reference:
       - round_dataframe
       - score_tirt
       - score_tirt_pattern
-      - shrout
       - simulate_cfa_fit
       - simulate_correlation_from_sample
       - stat_word_char

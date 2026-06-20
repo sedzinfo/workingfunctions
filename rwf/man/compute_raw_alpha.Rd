@@ -24,11 +24,11 @@ Computes Cronbach's alpha directly from the covariance matrix
 }
 \examples{
 set.seed(12345)
-df<-data.frame(matrix(.5,ncol=6,nrow=6))
-correlation_martix<-as.matrix(df)
-diag(correlation_martix)<-1
-df<-round(generate_correlation_matrix(correlation_martix,nrows=1000),0)+5
+df <- data.frame(matrix(.5, ncol = 6, nrow = 6))
+correlation_martix <- as.matrix(df)
+diag(correlation_martix) <- 1
+df <- round(generate_correlation_matrix(correlation_martix, nrows = 1000), 0) + 5
 psych::alpha(df)
-compute_raw_alpha(df=df)
+compute_raw_alpha(df = df)
 }
 \keyword{reliability}

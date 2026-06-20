@@ -50,6 +50,8 @@ p2<-ggplot(ChickWeight,aes(x=Time,y=weight,colour=Diet))+
            geom_smooth(alpha=.2,size=1,method="loess",formula="y~x")+
            ggtitle("Fitted growth curve per diet")+
            theme_bw()
+#> Warning: Using `size` aesthetic for lines was deprecated in ggplot2 3.4.0.
+#> ℹ Please use `linewidth` instead.
 p3<-ggplot(subset(ChickWeight,Time==21),aes(x=weight,colour=Diet))+
            geom_density()+
            ggtitle("Final weight, by diet")+theme_bw()
