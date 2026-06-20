@@ -22,6 +22,7 @@ Converts the named list key format used by
   factor definition line of the form \code{factorname =~ item1+item2+...}.
 }
 \examples{
+set.seed(12345)
 population_model <- "t1=~x1+.5*x2+.5*x3
                      t2=~x4+.5*x5+.5*x6
                      t3=~x7+.5*x8+.5*x9"

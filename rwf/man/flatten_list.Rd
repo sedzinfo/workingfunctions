@@ -17,3 +17,4 @@ A data frame combining all list elements row-wise, with an
 Converts a two-dimensional list to a data frame by applying
 \code{ldply} across the top-level elements.
 }
+\keyword{recode}

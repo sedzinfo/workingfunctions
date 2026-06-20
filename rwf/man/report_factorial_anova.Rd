@@ -67,48 +67,58 @@ Plot means with standard error for every level in a dataframe
 }
 \examples{
 set.seed(12345)
-df<-data.frame(id=rep(seq(1,80),each=81,1),
-               IV1=rep(LETTERS[1:3],each=1,2160),
-               IV2=rep(LETTERS[4:6],each=3,720),
-               IV3=rep(LETTERS[7:9],each=9,240),
-               IV4=rep(LETTERS[10:12],each=27,80),
-               stringsAsFactors=FALSE)
-cdf<-data.frame(matrix(.01,ncol=4,nrow=4))
-correlation_martix<-as.matrix(cdf)
-diag(correlation_martix)<-1
-cdf<-generate_correlation_matrix(correlation_martix,nrows=nrow(df))+10
-names(cdf)<-paste0("DV",1:4)
-df<-data.frame(df,cdf)
-df$DV2<-df$DV2+10
-df$DV3<-df$DV3+20
-df$DV4<-df$DV4+30
-df[df$IV1\%in\%"A",]$DV1<-df[df$IV1\%in\%"A",]$DV1+1
-df[df$IV1\%in\%"B",]$DV1<-df[df$IV1\%in\%"B",]$DV1+2
-df[df$IV1\%in\%"C",]$DV1<-df[df$IV1\%in\%"C",]$DV1+3
+df <- data.frame(
+  id = rep(seq(1, 80), each = 81, 1),
+  IV1 = rep(LETTERS[1:3], each = 1, 2160),
+  IV2 = rep(LETTERS[4:6], each = 3, 720),
+  IV3 = rep(LETTERS[7:9], each = 9, 240),
+  IV4 = rep(LETTERS[10:12], each = 27, 80),
+  stringsAsFactors = FALSE
+)
+cdf <- data.frame(matrix(.01, ncol = 4, nrow = 4))
+correlation_martix <- as.matrix(cdf)
+diag(correlation_martix) <- 1
+cdf <- generate_correlation_matrix(correlation_martix, nrows = nrow(df)) + 10
+names(cdf) <- paste0("DV", 1:4)
+df <- data.frame(df, cdf)
+df$DV2 <- df$DV2 + 10
+df$DV3 <- df$DV3 + 20
+df$DV4 <- df$DV4 + 30
+df[df$IV1 \%in\% "A", ]$DV1 <- df[df$IV1 \%in\% "A", ]$DV1 + 1
+df[df$IV1 \%in\% "B", ]$DV1 <- df[df$IV1 \%in\% "B", ]$DV1 + 2
+df[df$IV1 \%in\% "C", ]$DV1 <- df[df$IV1 \%in\% "C", ]$DV1 + 3
 cdf(df)
-r1<-report_factorial_anova(df=df,wid="id",dv=c("DV1","DV2"),
-                           within=c("IV1","IV2"),within_full=c("IV1","IV2"),
-                           between=NULL,
-                           within_covariates=NULL,between_covariates=NULL,
-                           file="anova_within",
-                           post_hoc=TRUE)
-r2<-report_factorial_anova(df=df,wid="id",dv=c("DV1","DV2"),
-                           within=NULL,within_full=NULL,
-                           between=c("IV1","IV2"),
-                           within_covariates=NULL,between_covariates=NULL,
-                           file="anova_between",
-                           post_hoc=TRUE)
-r3<-report_factorial_anova(df=df,wid="id",dv=c("DV1","DV2"),
-                           within=c("IV3","IV4"),within_full=c("IV3","IV4"),
-                           between=c("IV1","IV2"),
-                           within_covariates=NULL,between_covariates=NULL,
-                           file="anova_mixed",
-                           post_hoc=FALSE)
-r4<-report_factorial_anova(df=df,wid="id",dv=c("DV1","DV2"),
-                           within=c("IV1","IV2"),within_full=c("IV1","IV2"),
-                           between=NULL,
-                           within_covariates=c("DV3","DV4"),between_covariates=NULL,
-                           file="anova_within_cov",
-                           post_hoc=TRUE)
+r1 <- report_factorial_anova(
+  df = df, wid = "id", dv = c("DV1", "DV2"),
+  within = c("IV1", "IV2"), within_full = c("IV1", "IV2"),
+  between = NULL,
+  within_covariates = NULL, between_covariates = NULL,
+  file = "anova_within",
+  post_hoc = TRUE
+)
+r2 <- report_factorial_anova(
+  df = df, wid = "id", dv = c("DV1", "DV2"),
+  within = NULL, within_full = NULL,
+  between = c("IV1", "IV2"),
+  within_covariates = NULL, between_covariates = NULL,
+  file = "anova_between",
+  post_hoc = TRUE
+)
+r3 <- report_factorial_anova(
+  df = df, wid = "id", dv = c("DV1", "DV2"),
+  within = c("IV3", "IV4"), within_full = c("IV3", "IV4"),
+  between = c("IV1", "IV2"),
+  within_covariates = NULL, between_covariates = NULL,
+  file = "anova_mixed",
+  post_hoc = FALSE
+)
+r4 <- report_factorial_anova(
+  df = df, wid = "id", dv = c("DV1", "DV2"),
+  within = c("IV1", "IV2"), within_full = c("IV1", "IV2"),
+  between = NULL,
+  within_covariates = c("DV3", "DV4"), between_covariates = NULL,
+  file = "anova_within_cov",
+  post_hoc = TRUE
+)
 }
 \keyword{ANOVA}

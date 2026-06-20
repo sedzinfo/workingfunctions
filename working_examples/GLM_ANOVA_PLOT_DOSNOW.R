@@ -22,110 +22,118 @@
 #' @keywords ANOVA
 #' @export
 #' @examples
-#' nrows=1000
-#' df<-data.frame(generate_factor(vector=LETTERS[1:5],nrows=nrows,ncols=10,type="random"),
-#'                generate_data(nrows=nrows,ncols=5,type="normal"))
-#' result<-plot_oneway(df=df,dv=11:15,iv=1:10)
-#' plot_oneway(df=mtcars,dv=2,iv=9)
-#' plot_oneway(df=mtcars,dv=2,iv=9:10)
-#' plot_oneway(df=mtcars,dv=2:3,iv=10)
-#' plot_oneway(df=mtcars,dv=2:3,iv=9:10)
-#' plot_oneway(df=mtcars,dv=2:3,iv=9:10,type="se")
-#' plot_oneway(df=mtcars,dv=2:3,iv=9:10,type="ci")
-#' plot_oneway(df=mtcars,dv=2:3,iv=9:10,type="sd")
-#' plot_oneway(df=mtcars,dv=2:3,iv=9:10,type="",order_factor=FALSE)
-#' plot_oneway(df=mtcars,dv=2:3,iv=9:10,type="",order_factor=TRUE)
-plot_oneway<-function(df,dv,iv,base_size=20,type="se",order_factor=TRUE,title="",note="",width=60) {
-  se<-ci<-NULL
-  output_data<-function(i) {
-    index<-as.character(combinations[i,])
-    tempdata<-df[complete.cases(df[,index]),index]
-    if(length(unique(tempdata[,combinations$iv[i]]))>1)
-      Rmisc::summarySE(tempdata,measurevar=combinations$dv[i],groupvars=combinations$iv[i],na.rm=TRUE)
+#' nrows <- 1000
+#' df <- data.frame(
+#'   generate_factor(vector = LETTERS[1:5], nrows = nrows, ncols = 10, type = "random"),
+#'   generate_data(nrows = nrows, ncols = 5, type = "normal")
+#' )
+#' result <- plot_oneway(df = df, dv = 11:15, iv = 1:10)
+#' plot_oneway(df = mtcars, dv = 2, iv = 9)
+#' plot_oneway(df = mtcars, dv = 2, iv = 9:10)
+#' plot_oneway(df = mtcars, dv = 2:3, iv = 10)
+#' plot_oneway(df = mtcars, dv = 2:3, iv = 9:10)
+#' plot_oneway(df = mtcars, dv = 2:3, iv = 9:10, type = "se")
+#' plot_oneway(df = mtcars, dv = 2:3, iv = 9:10, type = "ci")
+#' plot_oneway(df = mtcars, dv = 2:3, iv = 9:10, type = "sd")
+#' plot_oneway(df = mtcars, dv = 2:3, iv = 9:10, type = "", order_factor = FALSE)
+#' plot_oneway(df = mtcars, dv = 2:3, iv = 9:10, type = "", order_factor = TRUE)
+plot_oneway <- function(df, dv, iv, base_size = 20, type = "se", order_factor = TRUE, title = "", note = "", width = 60) {
+  se <- ci <- NULL
+  output_data <- function(i) {
+    index <- as.character(combinations[i, ])
+    tempdata <- df[complete.cases(df[, index]), index]
+    if (length(unique(tempdata[, combinations$iv[i]])) > 1) {
+      Rmisc::summarySE(tempdata, measurevar = combinations$dv[i], groupvars = combinations$iv[i], na.rm = TRUE)
+    }
   }
-  output_plot<-function(i) {
-    tempdata<-plot_data[[i]]
-    if (!is.null(tempdata)){
-      if(order_factor)
-        means_plot<-ggplot(tempdata,aes(x=reorder(tempdata[,1],-tempdata[,3]),y=tempdata[,3]))
-      else
-        means_plot<-ggplot(tempdata,aes(x=tempdata[,1],y=tempdata[,3]))
-      means_plot<-means_plot+
-        geom_point()+
-        labs(y=string_aes(names(tempdata)[3]),
-             x=wrapper(string_aes(names(tempdata)[1]),width=width),
-             title=title,
-             caption=note)+
-        theme_bw(base_size=base_size)+
-        scale_x_discrete(labels=scales::wrap_format(width))+
+  output_plot <- function(i) {
+    tempdata <- plot_data[[i]]
+    if (!is.null(tempdata)) {
+      if (order_factor) {
+        means_plot <- ggplot(tempdata, aes(x = reorder(tempdata[, 1], -tempdata[, 3]), y = tempdata[, 3]))
+      } else {
+        means_plot <- ggplot(tempdata, aes(x = tempdata[, 1], y = tempdata[, 3]))
+      }
+      means_plot <- means_plot +
+        geom_point() +
+        labs(
+          y = string_aes(names(tempdata)[3]),
+          x = wrapper(string_aes(names(tempdata)[1]), width = width),
+          title = title,
+          caption = note
+        ) +
+        theme_bw(base_size = base_size) +
+        scale_x_discrete(labels = scales::wrap_format(width)) +
         coord_flip()
-      if(type=="se")
-        means_plot<-means_plot+geom_errorbar(aes(ymin=tempdata[,3]-se,ymax=tempdata[,3]+se),width=.1)+
-        labs(caption=paste("Bars are standard errors",note))
-      if(type=="ci")
-        means_plot<-means_plot+geom_errorbar(aes(ymin=tempdata[,3]-ci,ymax=tempdata[,3]+ci),width=.1)+
-        labs(caption=paste("Bars are confidence intervals",note))
-      if(type=="sd")
-        means_plot<-means_plot+geom_errorbar(aes(ymin=tempdata[,3]-sd,ymax=tempdata[,3]+sd),width=.1)+
-        labs(caption=paste("Bars are standard deviations",note))
-      if(type=="") {}
-      minaxis<-ggplot_build(means_plot)$layout$panel_scales_y[[1]]$range$range[[1]]
-      if(is.null(minaxis)) {}
-      else {
-        means_plot<-means_plot+annotate("text",x=tempdata[,1],y=minaxis,label=paste0("N:",tempdata$N),alpha=.5,size=base_size/10*2,hjust=0,vjust=2)
+      if (type == "se") {
+        means_plot <- means_plot + geom_errorbar(aes(ymin = tempdata[, 3] - se, ymax = tempdata[, 3] + se), width = .1) +
+          labs(caption = paste("Bars are standard errors", note))
+      }
+      if (type == "ci") {
+        means_plot <- means_plot + geom_errorbar(aes(ymin = tempdata[, 3] - ci, ymax = tempdata[, 3] + ci), width = .1) +
+          labs(caption = paste("Bars are confidence intervals", note))
+      }
+      if (type == "sd") {
+        means_plot <- means_plot + geom_errorbar(aes(ymin = tempdata[, 3] - sd, ymax = tempdata[, 3] + sd), width = .1) +
+          labs(caption = paste("Bars are standard deviations", note))
+      }
+      if (type == "") {}
+      minaxis <- ggplot_build(means_plot)$layout$panel_scales_y[[1]]$range$range[[1]]
+      if (is.null(minaxis)) {} else {
+        means_plot <- means_plot + annotate("text", x = tempdata[, 1], y = minaxis, label = paste0("N:", tempdata$N), alpha = .5, size = base_size / 10 * 2, hjust = 0, vjust = 2)
       }
       ggpubr::as_ggplot(gridExtra::arrangeGrob(means_plot))
     }
   }
-  df[,iv]<-change_data_type(data.frame(df[,iv]),"factor")
-  
-  combinations<-expand.grid(names(df)[iv],names(df)[dv])
-  names(combinations)<-c("iv","dv")
-  row.names(combinations)<-paste0(combinations$iv,"_",combinations$dv)
-  combinations<-change_data_type(combinations,type="character")
-  
-  n_rows<-nrow(combinations)
-  n_cores<-parallel::detectCores()
-  if(n_cores*4<n_rows) {
-    print(paste("parralel process with",n_cores,"workers for",n_rows,"tasks"))
-    parralel=TRUE
+  df[, iv] <- change_data_type(data.frame(df[, iv]), "factor")
+
+  combinations <- expand.grid(names(df)[iv], names(df)[dv])
+  names(combinations) <- c("iv", "dv")
+  row.names(combinations) <- paste0(combinations$iv, "_", combinations$dv)
+  combinations <- change_data_type(combinations, type = "character")
+
+  n_rows <- nrow(combinations)
+  n_cores <- parallel::detectCores()
+  if (n_cores * 4 < n_rows) {
+    print(paste("parralel process with", n_cores, "workers for", n_rows, "tasks"))
+    parralel <- TRUE
   } else {
-    parralel=FALSE
+    parralel <- FALSE
   }
-  
-  pb<-txtProgressBar(min=0,max=nrow(combinations),style=3)
-  # 
-  if(parralel) {
-    cl<-parallel::makeCluster(parallel::detectCores())
+
+  pb <- txtProgressBar(min = 0, max = nrow(combinations), style = 3)
+  #
+  if (parralel) {
+    cl <- parallel::makeCluster(parallel::detectCores())
     doSNOW::registerDoSNOW(cl)
-    progress<-function(n) setTxtProgressBar(pb,n)
-    opts<-list(progress=progress)
-    plot_data<-foreach(i=1:nrow(combinations),.final=function(x) setNames(x,row.names(combinations)),.packages=c("rwf"),.options.snow=opts) %dopar% {
+    progress <- function(n) setTxtProgressBar(pb, n)
+    opts <- list(progress = progress)
+    plot_data <- foreach(i = 1:nrow(combinations), .final = function(x) setNames(x, row.names(combinations)), .packages = c("rwf"), .options.snow = opts) %dopar% {
       output_data(i)
     }
-    plots<-foreach(i=1:length(plot_data),.final=function(x) setNames(x,row.names(combinations)),.packages=c("rwf"),.options.snow=opts) %dopar% {
+    plots <- foreach(i = 1:length(plot_data), .final = function(x) setNames(x, row.names(combinations)), .packages = c("rwf"), .options.snow = opts) %dopar% {
       output_plot(i)
     }
     close(pb)
     parallel::stopCluster(cl)
   } else {
-    plot_data<-plots<-list()
-    for(i in 1:nrow(combinations)) {
-      setTxtProgressBar(pb,i)
-      plot_data[[row.names(combinations)[i]]]<-output_data(i)
+    plot_data <- plots <- list()
+    for (i in 1:nrow(combinations)) {
+      setTxtProgressBar(pb, i)
+      plot_data[[row.names(combinations)[i]]] <- output_data(i)
     }
-    for(i in 1:length(plot_data)) {
-      setTxtProgressBar(pb,i)
-      plots[[row.names(combinations)[i]]]<-output_plot(i)
+    for (i in 1:length(plot_data)) {
+      setTxtProgressBar(pb, i)
+      plots[[row.names(combinations)[i]]] <- output_plot(i)
     }
     close(pb)
   }
-  plot_data_df<-Reduce(plyr::rbind.fill,plot_data)
-  names_input_missing<-setdiff(names(df)[c(iv,dv)],names(plot_data_df))
-  names_input<-names(df)[c(iv,dv)]
-  names_input<-names_input[!names_input%in%names_input_missing]
-  plot_data_df<-plot_data_df[,c(names_input,"N","sd","se","ci")]
-  result<-list(plot_data=plot_data,plot_data_df=plot_data_df,plots=plots)
+  plot_data_df <- Reduce(plyr::rbind.fill, plot_data)
+  names_input_missing <- setdiff(names(df)[c(iv, dv)], names(plot_data_df))
+  names_input <- names(df)[c(iv, dv)]
+  names_input <- names_input[!names_input %in% names_input_missing]
+  plot_data_df <- plot_data_df[, c(names_input, "N", "sd", "se", "ci")]
+  result <- list(plot_data = plot_data, plot_data_df = plot_data_df, plots = plots)
   return(result)
 }
 ##########################################################################################
@@ -142,133 +150,151 @@ plot_oneway<-function(df,dv,iv,base_size=20,type="se",order_factor=TRUE,title=""
 #' @importFrom scales wrap_format
 #' @importFrom ggpubr as_ggplot
 #' @importFrom gridExtra arrangeGrob
-#' @importFrom stringr str_wrap
 #' @keywords ANOVA
 #' @export
 #' @examples
-#' nrows=1000
-#' df<-data.frame(generate_factor(vector=LETTERS[1:5],nrows=nrows,ncols=10,type="random"),
-#'                generate_data(nrows=nrows,ncols=5,type="normal"))
-#' #result<-plot_interaction(df=df,dv=11:15,iv=1:10)
-#' plot_interaction(df=mtcars,dv=2:3,iv=8:9,base_size=20,title="",type="se")
-#' plot_interaction(df=mtcars,dv=2,iv=8:9,base_size=20,title="",type="se")
-#' plot_interaction(df=mtcars,dv=2:3,iv=8:9,base_size=20,title="",type="ci")
-#' plot_interaction(df=mtcars,dv=2:3,iv=9:10,base_size=20,title="",type="ci")
-#' plot_interaction(df=mtcars,dv=2:3,iv=9:10,base_size=20,title="",type="sd")
-#' plot_interaction(df=mtcars,dv=2,iv=9:10,base_size=20,
-#'                  title="",type="",order_factor=FALSE)
-plot_interaction<-function(df,dv,iv,base_size=20,type="se",order_factor=TRUE,title="",note="") {
-  se<-ci<-NULL
-  output_data<-function(i) {
-    factors<-c(combinations$iv1[i],combinations$iv2[i])
-    cors<-combinations$dv[i]
-    tempdata_complete_cases<-df[complete.cases(df[,c(factors,cors)]),c(factors,cors)]
-    if(nrow(tempdata_complete_cases)>1)
-      Rmisc::summarySE(tempdata_complete_cases,measurevar=cors,groupvars=factors,na.rm=TRUE,.drop=TRUE)
+#' nrows <- 1000
+#' df <- data.frame(
+#'   generate_factor(vector = LETTERS[1:5], nrows = nrows, ncols = 10, type = "random"),
+#'   generate_data(nrows = nrows, ncols = 5, type = "normal")
+#' )
+#' # result<-plot_interaction(df=df,dv=11:15,iv=1:10)
+#' plot_interaction(df = mtcars, dv = 2:3, iv = 8:9, base_size = 20, title = "", type = "se")
+#' plot_interaction(df = mtcars, dv = 2, iv = 8:9, base_size = 20, title = "", type = "se")
+#' plot_interaction(df = mtcars, dv = 2:3, iv = 8:9, base_size = 20, title = "", type = "ci")
+#' plot_interaction(df = mtcars, dv = 2:3, iv = 9:10, base_size = 20, title = "", type = "ci")
+#' plot_interaction(df = mtcars, dv = 2:3, iv = 9:10, base_size = 20, title = "", type = "sd")
+#' plot_interaction(
+#'   df = mtcars, dv = 2, iv = 9:10, base_size = 20,
+#'   title = "", type = "", order_factor = FALSE
+#' )
+plot_interaction <- function(df, dv, iv, base_size = 20, type = "se", order_factor = TRUE, title = "", note = "") {
+  se <- ci <- NULL
+  output_data <- function(i) {
+    factors <- c(combinations$iv1[i], combinations$iv2[i])
+    cors <- combinations$dv[i]
+    tempdata_complete_cases <- df[complete.cases(df[, c(factors, cors)]), c(factors, cors)]
+    if (nrow(tempdata_complete_cases) > 1) {
+      Rmisc::summarySE(tempdata_complete_cases, measurevar = cors, groupvars = factors, na.rm = TRUE, .drop = TRUE)
+    }
   }
-  output_plot<-function(i) {
-    tempdata<-plot_data[[i]]
-    if(!is.null(tempdata)){
-      factors<-c(combinations$iv1[i],combinations$iv2[i])
-      cors<-combinations$dv[i]
-      tempdata_cases<-plyr::ddply(tempdata,factors[1],plyr::numcolwise(sum,na.rm=TRUE))
-      if(order_factor)
-        interactions_plot<-ggplot(tempdata,aes(x=reorder(tempdata[,factors[1]],-tempdata[,cors]),
-                                               y=tempdata[,cors],
-                                               color=stringr::str_wrap(tempdata[,factors[2]],width=25),
-                                               group=stringr::str_wrap(tempdata[,factors[2]],width=25)))
-      else 
-        interactions_plot<-ggplot(tempdata,aes(x=tempdata[,factors[1]],
-                                               y=tempdata[,cors],
-                                               color=stringr::str_wrap(tempdata[,factors[2]],width=25),
-                                               group=stringr::str_wrap(tempdata[,factors[2]],width=25)))
-      interactions_plot<-interactions_plot+
-        scale_color_discrete(breaks=c(levels(tempdata[,factors[2]])),name=factors[2])+
-        geom_line()+
-        geom_point(size=5)+
-        #theme(legend.title=element_blank())+
-        theme_bw(base_size=base_size)+
-        guides(color=guide_legend(ncol=1))+
-        labs(y=stringr::str_wrap(string_aes(cors),width=25),
-             x=stringr::str_wrap(string_aes(factors[1]),width=25),
-             title=title,
-             caption=note,
-             color=stringr::str_wrap(string_aes(tempdata[,factors[2]]),width=25))+
-        scale_x_discrete(labels=scales::wrap_format(100))+
+  output_plot <- function(i) {
+    tempdata <- plot_data[[i]]
+    if (!is.null(tempdata)) {
+      factors <- c(combinations$iv1[i], combinations$iv2[i])
+      cors <- combinations$dv[i]
+      tempdata_cases <- plyr::ddply(tempdata, factors[1], plyr::numcolwise(sum, na.rm = TRUE))
+      if (order_factor) {
+        interactions_plot <- ggplot(tempdata, aes(
+          x = reorder(tempdata[, factors[1]], -tempdata[, cors]),
+          y = tempdata[, cors],
+          color = str_wrap(tempdata[, factors[2]], width = 25),
+          group = str_wrap(tempdata[, factors[2]], width = 25)
+        ))
+      } else {
+        interactions_plot <- ggplot(tempdata, aes(
+          x = tempdata[, factors[1]],
+          y = tempdata[, cors],
+          color = str_wrap(tempdata[, factors[2]], width = 25),
+          group = str_wrap(tempdata[, factors[2]], width = 25)
+        ))
+      }
+      interactions_plot <- interactions_plot +
+        scale_color_discrete(breaks = c(levels(tempdata[, factors[2]])), name = factors[2]) +
+        geom_line() +
+        geom_point(size = 5) +
+        # theme(legend.title=element_blank())+
+        theme_bw(base_size = base_size) +
+        guides(color = guide_legend(ncol = 1)) +
+        labs(
+          y = str_wrap(string_aes(cors), width = 25),
+          x = str_wrap(string_aes(factors[1]), width = 25),
+          title = title,
+          caption = note,
+          color = str_wrap(string_aes(tempdata[, factors[2]]), width = 25)
+        ) +
+        scale_x_discrete(labels = scales::wrap_format(100)) +
         coord_flip()
-      if(type=="se")
-        interactions_plot<-interactions_plot+
-        geom_errorbar(aes(ymin=tempdata[,cors]-se,ymax=tempdata[,cors]+se),width=.1,position=position_dodge(0.1))+
-        labs(caption=paste("Bars are standard errors",note))
-      if(type=="ci")
-        interactions_plot<-interactions_plot+
-        geom_errorbar(aes(ymin=tempdata[,cors]-ci,ymax=tempdata[,cors]+ci),width=.1,position=position_dodge(0.1))+
-        labs(caption=paste("Bars are confidence intervals",note))
-      if(type=="sd")
-        interactions_plot<-interactions_plot+
-        geom_errorbar(aes(ymin=tempdata[,cors]-sd,ymax=tempdata[,cors]+sd),width=.1,position=position_dodge(0.1))+
-        labs(caption=paste("Bars are standard deviations",note))
-      if(type=="") {}
-      minaxis<-ggplot_build(interactions_plot)$layout$panel_scales_y[[1]]$range$range[[1]]
-      if(is.null(minaxis)) {}
-      else
-        interactions_plot<-interactions_plot+
-        annotate("text",x=tempdata_cases[,factors[1]],y=minaxis,label=paste("N:",tempdata_cases$N),alpha=.5,size=base_size/10*2,hjust=0,vjust=2)
+      if (type == "se") {
+        interactions_plot <- interactions_plot +
+          geom_errorbar(aes(ymin = tempdata[, cors] - se, ymax = tempdata[, cors] + se), width = .1, position = position_dodge(0.1)) +
+          labs(caption = paste("Bars are standard errors", note))
+      }
+      if (type == "ci") {
+        interactions_plot <- interactions_plot +
+          geom_errorbar(aes(ymin = tempdata[, cors] - ci, ymax = tempdata[, cors] + ci), width = .1, position = position_dodge(0.1)) +
+          labs(caption = paste("Bars are confidence intervals", note))
+      }
+      if (type == "sd") {
+        interactions_plot <- interactions_plot +
+          geom_errorbar(aes(ymin = tempdata[, cors] - sd, ymax = tempdata[, cors] + sd), width = .1, position = position_dodge(0.1)) +
+          labs(caption = paste("Bars are standard deviations", note))
+      }
+      if (type == "") {}
+      minaxis <- ggplot_build(interactions_plot)$layout$panel_scales_y[[1]]$range$range[[1]]
+      if (is.null(minaxis)) {} else {
+        interactions_plot <- interactions_plot +
+          annotate("text", x = tempdata_cases[, factors[1]], y = minaxis, label = paste("N:", tempdata_cases$N), alpha = .5, size = base_size / 10 * 2, hjust = 0, vjust = 2)
+      }
       ggpubr::as_ggplot(gridExtra::arrangeGrob(interactions_plot))
     }
   }
-  df[,iv]<-change_data_type(df[,iv],type="factor")
-  
-  combinations<-expand.grid(names(df)[iv],names(df)[iv],names(df)[dv])
-  names(combinations)<-c("iv1","iv2","dv")
-  row.names(combinations)<-paste0(combinations$iv1,"_",combinations$iv2,"_",combinations$dv)
-  combinations<-change_data_type(combinations,type="character")
-  combinations<-combinations[-which(combinations$iv1==combinations$iv2),]
-  combinations<-combinations[!duplicated(combinations),]
-  
-  n_rows<-nrow(combinations)
-  n_cores<-parallel::detectCores()
-  if(n_cores*4<n_rows) {
-    print(paste("parralel process with",n_cores,"workers for",n_rows,"tasks"))
-    parralel=TRUE
+  df[, iv] <- change_data_type(df[, iv], type = "factor")
+
+  combinations <- expand.grid(names(df)[iv], names(df)[iv], names(df)[dv])
+  names(combinations) <- c("iv1", "iv2", "dv")
+  row.names(combinations) <- paste0(combinations$iv1, "_", combinations$iv2, "_", combinations$dv)
+  combinations <- change_data_type(combinations, type = "character")
+  combinations <- combinations[-which(combinations$iv1 == combinations$iv2), ]
+  combinations <- combinations[!duplicated(combinations), ]
+
+  n_rows <- nrow(combinations)
+  n_cores <- parallel::detectCores()
+  if (n_cores * 4 < n_rows) {
+    print(paste("parralel process with", n_cores, "workers for", n_rows, "tasks"))
+    parralel <- TRUE
   } else {
-    parralel=FALSE
+    parralel <- FALSE
   }
-  
-  pb<-txtProgressBar(min=0,max=nrow(combinations),style=3)
-  
-  if(parralel) {
-    cl<-parallel::makeCluster(parallel::detectCores())
+
+  pb <- txtProgressBar(min = 0, max = nrow(combinations), style = 3)
+
+  if (parralel) {
+    cl <- parallel::makeCluster(parallel::detectCores())
     doSNOW::registerDoSNOW(cl)
-    progress<-function(n) setTxtProgressBar(pb,n)
-    opts<-list(progress=progress)
-    plot_data<-foreach(i=1:nrow(combinations),.final=function(x) setNames(x,row.names(combinations)),
-                       .packages=c("rwf"),.options.snow=opts) %dopar% {
+    progress <- function(n) setTxtProgressBar(pb, n)
+    opts <- list(progress = progress)
+    plot_data <- foreach(
+      i = 1:nrow(combinations), .final = function(x) setNames(x, row.names(combinations)),
+      .packages = c("rwf"), .options.snow = opts
+    ) %dopar% {
       output_data(i)
     }
-    plots<-foreach(i=1:length(plot_data),.final=function(x) setNames(x,row.names(combinations)),
-                   .packages=c("rwf","stringr"),.options.snow=opts) %dopar% {
+    plots <- foreach(
+      i = 1:length(plot_data), .final = function(x) setNames(x, row.names(combinations)),
+      .packages = c("rwf", "stringr"), .options.snow = opts
+    ) %dopar% {
       output_plot(i)
     }
     close(pb)
     parallel::stopCluster(cl)
-    gc(full=TRUE)
+    gc(full = TRUE)
   } else {
-    plot_data<-plots<-list()
-    for(i in 1:nrow(combinations)) {
-      setTxtProgressBar(pb,i)
-      plot_data[[row.names(combinations)[i]]]<-output_data(i)
+    plot_data <- plots <- list()
+    for (i in 1:nrow(combinations)) {
+      setTxtProgressBar(pb, i)
+      plot_data[[row.names(combinations)[i]]] <- output_data(i)
     }
-    for(i in 1:length(plot_data)) {
-      setTxtProgressBar(pb,i)
-      plots[[row.names(combinations)[i]]]<-output_plot(i)
+    for (i in 1:length(plot_data)) {
+      setTxtProgressBar(pb, i)
+      plots[[row.names(combinations)[i]]] <- output_plot(i)
     }
     close(pb)
   }
-  
-  plot_data_df<-Reduce(plyr::rbind.fill,plot_data)
-  plot_data_df<-plot_data_df[,c(names(df)[c(iv,dv)],setdiff(c("N","sd","se","ci"),names(df)[c(iv,dv)]))]
-  result<-list(plot_data=plot_data,plot_data_df=plot_data_df,plots=plots)
+
+  plot_data_df <- Reduce(plyr::rbind.fill, plot_data)
+  plot_data_df <- plot_data_df[, c(names(df)[c(iv, dv)], setdiff(c("N", "sd", "se", "ci"), names(df)[c(iv, dv)]))]
+  result <- list(plot_data = plot_data, plot_data_df = plot_data_df, plots = plots)
   return(result)
 }
 ##########################################################################################
@@ -289,63 +315,65 @@ plot_interaction<-function(df,dv,iv,base_size=20,type="se",order_factor=TRUE,tit
 #' @keywords ANOVA
 #' @export
 #' @examples
-#' nrows=1000
-#' df<-data.frame(generate_factor(vector=LETTERS[1:5],nrows=nrows,ncols=10,type="random"),
-#'                generate_data(nrows=nrows,ncols=5,type="normal"))
-#' result<-plot_oneway_diagnostics(df=df,dv=11:15,iv=1:10)
-#' plot_oneway_diagnostics(df=mtcars,dv=1:2,iv=9:10)
-plot_oneway_diagnostics<-function(df,dv,iv,base_size=10) {
-  output_plot<-function(i) {
-    factors<-combinations$iv[i]
-    cors<-combinations$dv[i]
-    tempdata<-df[complete.cases(df[,c(cors,factors)]),]
-    tempdata<-tempdata[tempdata[,factors] %in% names(table(tempdata[,factors]))[table(tempdata[,factors])>1],]
-    tempdata[,factors]<-factor(tempdata[,factors])
-    if(length(unique(tempdata[,factors]))>1) {
-      form<-stats::formula(paste0(cors,"~",factors))
-      model<-stats::lm(form,data=tempdata)
-      autoplot(model,which=1:6,ncol=2,label.size=3)+
-        labs(caption=paste0(deparse(model$terms),"\nobservations=",nrow(model$model)))+
-        theme_bw(base_size=base_size)+
-        theme(axis.text.x=element_text(angle=45,hjust=1))
+#' nrows <- 1000
+#' df <- data.frame(
+#'   generate_factor(vector = LETTERS[1:5], nrows = nrows, ncols = 10, type = "random"),
+#'   generate_data(nrows = nrows, ncols = 5, type = "normal")
+#' )
+#' result <- plot_oneway_diagnostics(df = df, dv = 11:15, iv = 1:10)
+#' plot_oneway_diagnostics(df = mtcars, dv = 1:2, iv = 9:10)
+plot_oneway_diagnostics <- function(df, dv, iv, base_size = 10) {
+  output_plot <- function(i) {
+    factors <- combinations$iv[i]
+    cors <- combinations$dv[i]
+    tempdata <- df[complete.cases(df[, c(cors, factors)]), ]
+    tempdata <- tempdata[tempdata[, factors] %in% names(table(tempdata[, factors]))[table(tempdata[, factors]) > 1], ]
+    tempdata[, factors] <- factor(tempdata[, factors])
+    if (length(unique(tempdata[, factors])) > 1) {
+      form <- stats::formula(paste0(cors, "~", factors))
+      model <- stats::lm(form, data = tempdata)
+      autoplot(model, which = 1:6, ncol = 2, label.size = 3) +
+        labs(caption = paste0(deparse(model$terms), "\nobservations=", nrow(model$model))) +
+        theme_bw(base_size = base_size) +
+        theme(axis.text.x = element_text(angle = 45, hjust = 1))
     }
   }
-  
-  combinations<-expand.grid(names(df)[iv],names(df)[dv])
-  names(combinations)<-c("iv","dv")
-  row.names(combinations)<-paste0(combinations$iv,"_",combinations$dv)
-  combinations<-change_data_type(combinations,type="character")
-  
-  n_rows<-nrow(combinations)
-  n_cores<-parallel::detectCores()
-  if(n_cores*4<n_rows) {
-    print(paste("parralel process with",n_cores,"workers for",n_rows,"tasks"))
-    parralel=TRUE
+
+  combinations <- expand.grid(names(df)[iv], names(df)[dv])
+  names(combinations) <- c("iv", "dv")
+  row.names(combinations) <- paste0(combinations$iv, "_", combinations$dv)
+  combinations <- change_data_type(combinations, type = "character")
+
+  n_rows <- nrow(combinations)
+  n_cores <- parallel::detectCores()
+  if (n_cores * 4 < n_rows) {
+    print(paste("parralel process with", n_cores, "workers for", n_rows, "tasks"))
+    parralel <- TRUE
   } else {
-    parralel=FALSE
+    parralel <- FALSE
   }
-  
-  pb<-txtProgressBar(min=0,max=nrow(combinations),style=3)
-  if(parralel){
-    cl<-parallel::makeCluster(parallel::detectCores())
+
+  pb <- txtProgressBar(min = 0, max = nrow(combinations), style = 3)
+  if (parralel) {
+    cl <- parallel::makeCluster(parallel::detectCores())
     doSNOW::registerDoSNOW(cl)
-    progress<-function(n) setTxtProgressBar(pb,n)
-    opts<-list(progress=progress)
-    plots<-foreach(i=1:nrow(combinations),.final=function(x) setNames(x,row.names(combinations)),.packages=c("rwf","ggplot2","ggfortify"),.options.snow=opts) %dopar% {
+    progress <- function(n) setTxtProgressBar(pb, n)
+    opts <- list(progress = progress)
+    plots <- foreach(i = 1:nrow(combinations), .final = function(x) setNames(x, row.names(combinations)), .packages = c("rwf", "ggplot2", "ggfortify"), .options.snow = opts) %dopar% {
       output_plot(i)
     }
     close(pb)
     parallel::stopCluster(cl)
-    gc(full=TRUE)
+    gc(full = TRUE)
   } else {
-    plots<-list()
-    for(i in 1:nrow(combinations)) {
-      setTxtProgressBar(pb,i)
-      plots[[row.names(combinations)[i]]]<-output_plot(i)
+    plots <- list()
+    for (i in 1:nrow(combinations)) {
+      setTxtProgressBar(pb, i)
+      plots[[row.names(combinations)[i]]] <- output_plot(i)
     }
     close(pb)
   }
-  
+
   return(plots)
 }
 # ##########################################################################################

@@ -19,7 +19,56 @@ navbar:
       aria-label: GitHub
 
 reference:
-  - title: "Plot functions"
+
+  - title: "Compute"
+    contents:
+      - compute_ability
+      - compute_adjustment
+      - compute_aggregate
+      - compute_alpha_diagnostics
+      - compute_aov_es
+      - compute_confidence_inteval
+      - compute_crosstable
+      - compute_descriptives
+      - compute_dissatenuation
+      - compute_dummy_comparisons
+      - compute_frequencies
+      - compute_icc_thurstonian
+      - compute_info_1pl
+      - compute_info_2pl
+      - compute_info_3pl
+      - compute_kruskal_wallis_test
+      - compute_kurtosis
+      - compute_map
+      - compute_mean_sd_alpha
+      - compute_moving_average
+      - compute_one_way_test
+      - compute_posthoc
+      - compute_power_r
+      - compute_power_r_matrix
+      - compute_raw_alpha
+      - compute_residual_stats
+      - compute_scores
+      - compute_se_theta
+      - compute_shrout
+      - compute_skewness
+      - compute_solve
+      - compute_standard
+      - compute_standard_error
+      - compute_text_similarity
+      - compute_tversky_index
+      - compute_unidimensional_ability
+      - compute_unidimensional_theta
+      - compute_y_logistic
+
+  - title: "Excel output"
+    contents:
+      - excel_confusion_matrix
+      - excel_critical_value
+      - excel_generic_format
+      - excel_matrix
+
+  - title: "Plot"
     contents:
       - plot_acf
       - plot_boxplot
@@ -52,46 +101,7 @@ reference:
       - plot_trees_xgboost
       - plot_ts
 
-  - title: "Compute functions"
-    contents:
-      - compute_ability
-      - compute_adjustment
-      - compute_aggregate
-      - compute_alpha_diagnostics
-      - compute_aov_es
-      - compute_confidence_inteval
-      - compute_crosstable
-      - compute_descriptives
-      - compute_dissatenuation
-      - compute_dummy_comparisons
-      - compute_frequencies
-      - compute_icc_thurstonian
-      - compute_info_1pl
-      - compute_info_2pl
-      - compute_info_3pl
-      - compute_kruskal_wallis_test
-      - compute_kurtosis
-      - compute_map
-      - compute_moving_average
-      - compute_one_way_test
-      - compute_posthoc
-      - compute_power_r
-      - compute_power_r_matrix
-      - compute_raw_alpha
-      - compute_residual_stats
-      - compute_scores
-      - compute_se_theta
-      - compute_shrout
-      - compute_skewness
-      - compute_solve
-      - compute_standard
-      - compute_standard_error
-      - compute_tversky_index
-      - compute_unidimensional_ability
-      - compute_unidimensional_theta
-      - compute_y_logistic
-
-  - title: "Report functions"
+  - title: "Report"
     contents:
       - report_alpha
       - report_cfa
@@ -130,14 +140,20 @@ reference:
       - str_trim_df
       - str_wrap
 
-  - title: "Excel output"
+  - title: "Generate"
     contents:
-      - excel_confusion_matrix
-      - excel_critical_value
-      - excel_generic_format
-      - excel_matrix
+      - generate_comparisons_matrix
+      - generate_correlation_matrix
+      - generate_data
+      - generate_factor
+      - generate_matrix_A
+      - generate_matrix_lambda_hat
+      - generate_missing
+      - generate_multiple_responce_vector
+      - generate_string
+      - generate_unique_comparisons_index
 
-  - title: "Other functions"
+  - title: "Other"
     contents:
       - c_bind
       - call_to_string
@@ -166,16 +182,6 @@ reference:
       - extract_tirt_params
       - fixed
       - flatten_list
-      - generate_comparisons_matrix
-      - generate_correlation_matrix
-      - generate_data
-      - generate_factor
-      - generate_matrix_A
-      - generate_matrix_lambda_hat
-      - generate_missing
-      - generate_multiple_responce_vector
-      - generate_string
-      - generate_unique_comparisons_index
       - get_script_directory
       - getfwp
       - icc_cfa
@@ -186,7 +192,7 @@ reference:
       - k_sample
       - key_to_cfa_model
       - matrix_triangle
-      - mean_sd_alpha
+      - compute_mean_sd_alpha
       - min_max_index
       - model_loadings
       - name_triplet_pairs
@@ -219,7 +225,6 @@ reference:
       - swap
       - symmetric_matrix
       - tag_pos
-      - text_similarity
       - ts_smoothing
       - write_txt
 

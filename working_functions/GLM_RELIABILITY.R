@@ -34,6 +34,7 @@
 #' @keywords reliability
 #' @export
 #' @examples
+#' set.seed(12345)
 #' population_model <- "t1=~x1+.9*x2+.9*x3
 #'                      t2=~x4+.9*x5+.9*x6
 #'                      t3=~x7+.9*x8+.9*x9"
@@ -110,6 +111,7 @@ plot_mtmm <- function(df, key, method, subject, title = "") {
 #' @keywords reliability
 #' @export
 #' @examples
+#' set.seed(12345)
 #' population_model <- "t1=~x1+.5*x2+.5*x3
 #'                      t2=~x4+.5*x5+.5*x6
 #'                      t3=~x7+.5*x8+.5*x9"
@@ -238,9 +240,9 @@ compute_alpha_diagnostics <- function(df) {
 #' correlation_martix <- as.matrix(df)
 #' diag(correlation_martix) <- 1
 #' df <- round(generate_correlation_matrix(correlation_martix, nrows = 1000), 0) + 5
-#' mean_sd_alpha(df)
-#' mean_sd_alpha(df, divisor = 100)
-mean_sd_alpha <- function(df, divisor = NULL) {
+#' compute_mean_sd_alpha(df)
+#' compute_mean_sd_alpha(df, divisor = 100)
+compute_mean_sd_alpha <- function(df, divisor = NULL) {
   if (is.null(divisor)) {
     result <- data.frame(
       MEAN = mean(rowMeans(df, na.rm = TRUE), na.rm = TRUE),

@@ -23,19 +23,25 @@ returns a binary data frame where each unique response becomes a column, with
 not.
 }
 \examples{
-vector1<-gsub(" ","",
-             generate_multiple_responce_vector(responces=c("Agree","Hi","All"),
-             responded=1:3,length=10),fixed=TRUE)
-vector2<-gsub(" ","",
-             generate_multiple_responce_vector(responces=1:4,responded=1:4,length=10),
-             fixed=TRUE)
-vector3<-sample(1:4,10,replace=TRUE)
-vector4<-sample(LETTERS[1:3],10,replace=TRUE)
-dummy_arrange(vector1)
-dummy_arrange(vector2)
-dummy_arrange(vector3)
-dummy_arrange(vector4)
+vector1 <- gsub(" ", "",
+  generate_multiple_responce_vector(
+    responces = c("Agree", "Hi", "All"),
+    responded = 1:3, length = 10
+  ),
+  fixed = TRUE
+)
+vector2 <- gsub(" ", "",
+  generate_multiple_responce_vector(responces = 1:4, responded = 1:4, length = 10),
+  fixed = TRUE
+)
+vector3 <- sample(1:4, 10, replace = TRUE)
+vector4 <- sample(LETTERS[1:3], 10, replace = TRUE)
+dummy_arrange(vector = vector1)
+dummy_arrange(vector = vector2)
+dummy_arrange(vector = vector3)
+dummy_arrange(vector = vector4)
 }
 \seealso{
 \code{\link{generate_multiple_responce_vector}}
 }
+\keyword{recode}

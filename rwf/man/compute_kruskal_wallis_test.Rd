@@ -40,18 +40,20 @@ Multiplying by 100 gives an approximate percentage-style interpretation
 of explained rank variance.
 }
 \examples{
-form<-formula(bp_before~agegrp)
-kruskal.test(formula=form,data=df_blood_pressure)
-rcompanion::epsilonSquared(x=df_blood_pressure$bp_before,
-                           g=df_blood_pressure$agegrp,
-                           group="row",
-                           ci=TRUE,
-                           conf=0.95,
-                           type="perc",
-                           R=1000,
-                           digits=3)
-rstatix::kruskal_effsize(df_blood_pressure,form,ci=TRUE,conf.level=0.95,ci.type="perc",nboot=100)
-compute_kruskal_wallis_test(formula=form,df=df_blood_pressure)
+form <- formula(bp_before ~ agegrp)
+kruskal.test(formula = form, data = df_blood_pressure)
+rcompanion::epsilonSquared(
+  x = df_blood_pressure$bp_before,
+  g = df_blood_pressure$agegrp,
+  group = "row",
+  ci = TRUE,
+  conf = 0.95,
+  type = "perc",
+  R = 1000,
+  digits = 3
+)
+rstatix::kruskal_effsize(df_blood_pressure, form, ci = TRUE, conf.level = 0.95, ci.type = "perc", nboot = 100)
+compute_kruskal_wallis_test(formula = form, df = df_blood_pressure)
 }
 \keyword{ANOVA}
 \keyword{kruskal}

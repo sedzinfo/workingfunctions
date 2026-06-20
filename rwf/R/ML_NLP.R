@@ -27,7 +27,6 @@ clear_text<-function(text) {
 #' @param text character vector
 #' @param stopwords character words to remove
 #' @importFrom tm stopwords
-#' @importFrom stringr str_replace_all
 #' @keywords NLP
 #' @export
 #' @examples
@@ -45,7 +44,7 @@ clear_text<-function(text) {
 clear_stopwords<-function(text,stopwords=stopwords::stopwords("english")) {
   stopwords_regex=paste(stopwords,collapse='\\b|\\b')
   stopwords_regex=paste0('\\b',stopwords_regex,'\\b')
-  text<-stringr::str_replace_all(text,stopwords_regex,'')
+  text<-str_replace_all(text,stopwords_regex,'')
   text<-clear_text(gsub(" *\\b[[:alpha:]]{1}\\b *"," ",text)) # Remove 1 letter words
   return(text)
 }
@@ -104,11 +103,11 @@ tag_pos<-function(text) {
 #' text3<-unlist(strsplit(text3,split=" "))
 #' text4<-unlist(strsplit(text4,split=" "))
 #' text5<-unlist(strsplit(text5,split=" "))
-#' text_similarity(text1,text1)
-#' text_similarity(text1,text2)
-#' text_similarity(text1,text3)
-#' text_similarity(text1,text4)
-text_similarity<-function(text1,text2) {
+#' compute_text_similarity(text1,text1)
+#' compute_text_similarity(text1,text2)
+#' compute_text_similarity(text1,text3)
+#' compute_text_similarity(text1,text4)
+compute_text_similarity<-function(text1,text2) {
   tversky<-compute_tversky_index(text1,text2)
   intersect<-length(intersect(text1,text2))
   tb1<-table(text1)

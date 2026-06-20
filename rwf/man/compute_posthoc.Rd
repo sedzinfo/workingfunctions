@@ -15,7 +15,7 @@ compute_posthoc(y, x)
 Based on http://www.psych.yorku.ca/cribbie/6130/games_howell.R
 }
 \examples{
-compute_posthoc(y=df_blood_pressure$bp_before,x=df_blood_pressure$agegrp)
-compute_posthoc(y=df_blood_pressure$bp_after,x=df_blood_pressure$agegrp)
+compute_posthoc(y = df_blood_pressure$bp_before, x = df_blood_pressure$agegrp)
+compute_posthoc(y = df_blood_pressure$bp_after, x = df_blood_pressure$agegrp)
 }
 \keyword{ANOVA}

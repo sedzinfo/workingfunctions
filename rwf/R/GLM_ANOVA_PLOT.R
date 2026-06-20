@@ -191,7 +191,6 @@ plot_oneway <- function(df, dv, iv, base_size = 20, type = "se", order_factor = 
 #' @importFrom scales wrap_format
 #' @importFrom ggpubr as_ggplot
 #' @importFrom gridExtra arrangeGrob
-#' @importFrom stringr str_wrap
 #' @keywords ANOVA
 #' @export
 #' @examples
@@ -225,15 +224,15 @@ plot_interaction <- function(df, dv, iv, base_size = 20, type = "se", order_fact
         interactions_plot <- ggplot(tempdata, aes(
           x = reorder(tempdata[, factors[1]], -tempdata[, cors]),
           y = tempdata[, cors],
-          color = stringr::str_wrap(tempdata[, factors[2]], width = 25),
-          group = stringr::str_wrap(tempdata[, factors[2]], width = 25)
+          color = str_wrap(tempdata[, factors[2]], width = 25),
+          group = str_wrap(tempdata[, factors[2]], width = 25)
         ))
       } else {
         interactions_plot <- ggplot(tempdata, aes(
           x = tempdata[, factors[1]],
           y = tempdata[, cors],
-          color = stringr::str_wrap(tempdata[, factors[2]], width = 25),
-          group = stringr::str_wrap(tempdata[, factors[2]], width = 25)
+          color = str_wrap(tempdata[, factors[2]], width = 25),
+          group = str_wrap(tempdata[, factors[2]], width = 25)
         ))
       }
       interactions_plot <- interactions_plot +
@@ -243,11 +242,11 @@ plot_interaction <- function(df, dv, iv, base_size = 20, type = "se", order_fact
         theme_bw(base_size = base_size) +
         guides(color = guide_legend(ncol = 1)) +
         labs(
-          y = stringr::str_wrap(str_aes(cors), width = 25),
-          x = stringr::str_wrap(str_aes(factors[1]), width = 25),
+          y = str_wrap(str_aes(cors), width = 25),
+          x = str_wrap(str_aes(factors[1]), width = 25),
           title = title,
           caption = note,
-          color = stringr::str_wrap(str_aes(tempdata[, factors[2]]), width = 25)
+          color = str_wrap(str_aes(tempdata[, factors[2]]), width = 25)
         ) +
         scale_x_discrete(labels = scales::wrap_format(100)) +
         coord_flip()

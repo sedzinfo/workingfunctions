@@ -26,11 +26,12 @@ level whose frequency is at or below a threshold to \code{"Other"}, then
 drops all unused levels.
 }
 \examples{
-factor1<-factor(c(rep("A",10),rep("B",10)),levels=c("A","B","C","D"))
-factor2<-factor(c(rep("A",10),rep("B",10)),levels=c("A","B","C","D"))
-numeric1<-c(1:20)
-df<-data.frame(numeric1,factor1,factor2)
+factor1 <- factor(c(rep("A", 10), rep("B", 10)), levels = c("A", "B", "C", "D"))
+factor2 <- factor(c(rep("A", 10), rep("B", 10)), levels = c("A", "B", "C", "D"))
+numeric1 <- c(1:20)
+df <- data.frame(numeric1, factor1, factor2)
 df$factor1
-drop_levels(df=df,minimum_frequency=9)
-drop_levels(df=df,minimum_frequency=10)
+drop_levels(df = df, minimum_frequency = 9)
+drop_levels(df = df, minimum_frequency = 10)
 }
+\keyword{recode}

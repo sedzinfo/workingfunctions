@@ -45,6 +45,7 @@
 <url><loc>https://sedzinfo.github.io/rwf/reference/compute_solve.html</loc></url>
 <url><loc>https://sedzinfo.github.io/rwf/reference/compute_standard.html</loc></url>
 <url><loc>https://sedzinfo.github.io/rwf/reference/compute_standard_error.html</loc></url>
+<url><loc>https://sedzinfo.github.io/rwf/reference/compute_text_similarity.html</loc></url>
 <url><loc>https://sedzinfo.github.io/rwf/reference/compute_tversky_index.html</loc></url>
 <url><loc>https://sedzinfo.github.io/rwf/reference/compute_unidimensional_ability.html</loc></url>
 <url><loc>https://sedzinfo.github.io/rwf/reference/compute_unidimensional_theta.html</loc></url>
@@ -122,6 +123,8 @@
 <url><loc>https://sedzinfo.github.io/rwf/reference/plot_confusion.html</loc></url>
 <url><loc>https://sedzinfo.github.io/rwf/reference/plot_corrplot.html</loc></url>
 <url><loc>https://sedzinfo.github.io/rwf/reference/plot_crosstable.html</loc></url>
+<url><loc>https://sedzinfo.github.io/rwf/reference/plot_duplicate_y_axis.html</loc></url>
+<url><loc>https://sedzinfo.github.io/rwf/reference/plot_hinvert_title_grob.html</loc></url>
 <url><loc>https://sedzinfo.github.io/rwf/reference/plot_histogram.html</loc></url>
 <url><loc>https://sedzinfo.github.io/rwf/reference/plot_icc_thurstonian.html</loc></url>
 <url><loc>https://sedzinfo.github.io/rwf/reference/plot_interaction.html</loc></url>

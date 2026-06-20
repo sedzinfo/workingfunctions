@@ -20,14 +20,14 @@ one way test
 eta and omega for Welch statistics are not adequately tested and they should not be consulted
 }
 \examples{
-form<-formula(bp_before~agegrp)
-compute_one_way_test(formula=form,df=df_blood_pressure,var.equal=TRUE)
-compute_one_way_test(formula=form,df=df_blood_pressure,var.equal=FALSE)
-oneway.test(formula=form,data=df_blood_pressure,var.equal=TRUE)
-oneway.test(formula=form,data=df_blood_pressure,var.equal=FALSE)
-car::Anova(aov(form,data=df_blood_pressure),type=2)
-model<-lm(form,data=df_blood_pressure)
-lsr::etaSquared(aov(form,data=df_blood_pressure),type=3,anova=TRUE)
-sjstats::anova_stats(model,digits=22)
+form <- formula(bp_before ~ agegrp)
+compute_one_way_test(formula = form, df = df_blood_pressure, var.equal = TRUE)
+compute_one_way_test(formula = form, df = df_blood_pressure, var.equal = FALSE)
+oneway.test(formula = form, data = df_blood_pressure, var.equal = TRUE)
+oneway.test(formula = form, data = df_blood_pressure, var.equal = FALSE)
+car::Anova(aov(form, data = df_blood_pressure), type = 2)
+model <- lm(form, data = df_blood_pressure)
+lsr::etaSquared(aov(form, data = df_blood_pressure), type = 3, anova = TRUE)
+sjstats::anova_stats(model, digits = 22)
 }
 \keyword{ANOVA}
