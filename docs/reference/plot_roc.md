@@ -52,7 +52,12 @@ different class level orders.
 observed<-round(abs(rnorm(100,m=0,sd=0.5)))
 predicted<-abs(rnorm(100,m=0,sd=0.5))
 plot_roc(observed=observed,predicted=predicted)
-#> Error in roc.default(observed, predicted, ci = TRUE, levels = as.factor(rev(sort(unique(observed)))),     quiet = TRUE): 'levels' argument must have length 2
+#> $`1, 0`
+
+#> 
+#> $`0, 1`
+
+#> 
 
 # Example with generated correlation matrix
 df1<-data.frame(matrix(0.999,ncol=2,nrow=2))

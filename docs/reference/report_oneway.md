@@ -87,14 +87,20 @@ heteroscedasticity
 ## Examples
 
 ``` r
-report_oneway(df=df_blood_pressure,
-              dv=c(which("bp_before"==names(df_blood_pressure)),
-                   which("bp_after"==names(df_blood_pressure))),
-              iv=c(which("sex"==names(df_blood_pressure)),
-                   which("agegrp"==names(df_blood_pressure))),
-              file="anova",
-              plot_diagnostics=FALSE,
-              plot_means=FALSE)
+report_oneway(
+  df = df_blood_pressure,
+  dv = c(
+    which("bp_before" == names(df_blood_pressure)),
+    which("bp_after" == names(df_blood_pressure))
+  ),
+  iv = c(
+    which("sex" == names(df_blood_pressure)),
+    which("agegrp" == names(df_blood_pressure))
+  ),
+  file = "anova",
+  plot_diagnostics = FALSE,
+  plot_means = FALSE
+)
 #>   |                                                                                                                                                                                                      |                                                                                                                                                                                              |   0%  |                                                                                                                                                                                                      |================================================                                                                                                                                              |  25%  |                                                                                                                                                                                                      |===============================================================================================                                                                                               |  50%  |                                                                                                                                                                                                      |==============================================================================================================================================                                                |  75%  |                                                                                                                                                                                                      |==============================================================================================================================================================================================| 100%
 #> $instructions
 #> $instructions$fisher
@@ -180,7 +186,7 @@ report_oneway(df=df_blood_pressure,
 #> 7 Bartlett  bp_after    sex    3.9380    1   NA 0.04721       0.0125       FALSE
 #> 8 Bartlett  bp_after agegrp    1.8026    2   NA 0.40603       0.0125       FALSE
 #> 
-report_oneway(df=mtcars,dv=2:4,iv=9:10,file="anova_oneway_two_factor")
+report_oneway(df = mtcars, dv = 2:4, iv = 9:10, file = "anova_oneway_two_factor")
 #>   |                                                                                                                                                                                                      |                                                                                                                                                                                              |   0%  |                                                                                                                                                                                                      |================================                                                                                                                                                              |  17%  |                                                                                                                                                                                                      |===============================================================                                                                                                                               |  33%  |                                                                                                                                                                                                      |===============================================================================================                                                                                               |  50%  |                                                                                                                                                                                                      |===============================================================================================================================                                                               |  67%  |                                                                                                                                                                                                      |==============================================================================================================================================================                                |  83%  |                                                                                                                                                                                                      |==============================================================================================================================================================================================| 100%
 #> $instructions
 #> $instructions$fisher
@@ -288,7 +294,7 @@ report_oneway(df=mtcars,dv=2:4,iv=9:10,file="anova_oneway_two_factor")
 #> 11 Bartlett   hp   am  2.8208425    1   NA 0.0930476     0.008333       FALSE
 #> 12 Bartlett   hp gear 12.6358064    2   NA 0.0018037     0.008333        TRUE
 #> 
-report_oneway(df=mtcars,dv=2:4,iv=9,file="anova_oneway_one_factor")
+report_oneway(df = mtcars, dv = 2:4, iv = 9, file = "anova_oneway_one_factor")
 #>   |                                                                                                                                                                                                      |                                                                                                                                                                                              |   0%  |                                                                                                                                                                                                      |===============================================================                                                                                                                               |  33%  |                                                                                                                                                                                                      |===============================================================================================================================                                                               |  67%  |                                                                                                                                                                                                      |==============================================================================================================================================================================================| 100%
 #> $instructions
 #> $instructions$fisher
@@ -357,8 +363,10 @@ report_oneway(df=mtcars,dv=2:4,iv=9,file="anova_oneway_one_factor")
 #> 5 Bartlett disp am 0.7310694    1   NA 0.39254      0.01667       FALSE
 #> 6 Bartlett   hp am 2.8208425    1   NA 0.09305      0.01667       FALSE
 #> 
-report_oneway(df=mtcars,dv=2:4,iv=9,file="anova_oneway_one_factor",
-              plot_means=TRUE,plot_diagnostics=TRUE)
+report_oneway(
+  df = mtcars, dv = 2:4, iv = 9, file = "anova_oneway_one_factor",
+  plot_means = TRUE, plot_diagnostics = TRUE
+)
 #>   |                                                                                                                                                                                                      |                                                                                                                                                                                              |   0%  |                                                                                                                                                                                                      |===============================================================                                                                                                                               |  33%  |                                                                                                                                                                                                      |===============================================================================================================================                                                               |  67%  |                                                                                                                                                                                                      |==============================================================================================================================================================================================| 100%
 #> $instructions
 #> $instructions$fisher

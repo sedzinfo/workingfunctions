@@ -31,15 +31,20 @@ are `1` (selected) or `0` (not selected).
 ## Examples
 
 ``` r
-vector1<-gsub(" ","",
-             generate_multiple_responce_vector(responces=c("Agree","Hi","All"),
-             responded=1:3,length=10),fixed=TRUE)
-vector2<-gsub(" ","",
-             generate_multiple_responce_vector(responces=1:4,responded=1:4,length=10),
-             fixed=TRUE)
-vector3<-sample(1:4,10,replace=TRUE)
-vector4<-sample(LETTERS[1:3],10,replace=TRUE)
-dummy_arrange(vector1)
+vector1 <- gsub(" ", "",
+  generate_multiple_responce_vector(
+    responces = c("Agree", "Hi", "All"),
+    responded = 1:3, length = 10
+  ),
+  fixed = TRUE
+)
+vector2 <- gsub(" ", "",
+  generate_multiple_responce_vector(responces = 1:4, responded = 1:4, length = 10),
+  fixed = TRUE
+)
+vector3 <- sample(1:4, 10, replace = TRUE)
+vector4 <- sample(LETTERS[1:3], 10, replace = TRUE)
+dummy_arrange(vector = vector1)
 #>    Agree All Hi
 #> 1      1   1  1
 #> 2      0   1  0
@@ -51,7 +56,7 @@ dummy_arrange(vector1)
 #> 8      1   1  1
 #> 9      1   1  1
 #> 10     1   1  1
-dummy_arrange(vector2)
+dummy_arrange(vector = vector2)
 #>    1 2 3 4
 #> 1  0 1 0 0
 #> 2  1 1 0 0
@@ -63,7 +68,7 @@ dummy_arrange(vector2)
 #> 8  0 1 1 1
 #> 9  0 1 0 0
 #> 10 0 1 1 1
-dummy_arrange(vector3)
+dummy_arrange(vector = vector3)
 #>    1 3 4
 #> 1  0 0 1
 #> 2  0 0 1
@@ -75,7 +80,7 @@ dummy_arrange(vector3)
 #> 8  0 1 0
 #> 9  0 0 1
 #> 10 0 1 0
-dummy_arrange(vector4)
+dummy_arrange(vector = vector4)
 #>    A B C
 #> 1  0 0 1
 #> 2  0 1 0

@@ -29,6 +29,7 @@ with one factor definition per line.
 ## Examples
 
 ``` r
+set.seed(12345)
 population_model <- "t1=~x1+.5*x2+.5*x3
                      t2=~x4+.5*x5+.5*x6
                      t3=~x7+.5*x8+.5*x9"

@@ -109,24 +109,26 @@ report_factorial_anova(
 
 ``` r
 set.seed(12345)
-df<-data.frame(id=rep(seq(1,80),each=81,1),
-               IV1=rep(LETTERS[1:3],each=1,2160),
-               IV2=rep(LETTERS[4:6],each=3,720),
-               IV3=rep(LETTERS[7:9],each=9,240),
-               IV4=rep(LETTERS[10:12],each=27,80),
-               stringsAsFactors=FALSE)
-cdf<-data.frame(matrix(.01,ncol=4,nrow=4))
-correlation_martix<-as.matrix(cdf)
-diag(correlation_martix)<-1
-cdf<-generate_correlation_matrix(correlation_martix,nrows=nrow(df))+10
-names(cdf)<-paste0("DV",1:4)
-df<-data.frame(df,cdf)
-df$DV2<-df$DV2+10
-df$DV3<-df$DV3+20
-df$DV4<-df$DV4+30
-df[df$IV1%in%"A",]$DV1<-df[df$IV1%in%"A",]$DV1+1
-df[df$IV1%in%"B",]$DV1<-df[df$IV1%in%"B",]$DV1+2
-df[df$IV1%in%"C",]$DV1<-df[df$IV1%in%"C",]$DV1+3
+df <- data.frame(
+  id = rep(seq(1, 80), each = 81, 1),
+  IV1 = rep(LETTERS[1:3], each = 1, 2160),
+  IV2 = rep(LETTERS[4:6], each = 3, 720),
+  IV3 = rep(LETTERS[7:9], each = 9, 240),
+  IV4 = rep(LETTERS[10:12], each = 27, 80),
+  stringsAsFactors = FALSE
+)
+cdf <- data.frame(matrix(.01, ncol = 4, nrow = 4))
+correlation_martix <- as.matrix(cdf)
+diag(correlation_martix) <- 1
+cdf <- generate_correlation_matrix(correlation_martix, nrows = nrow(df)) + 10
+names(cdf) <- paste0("DV", 1:4)
+df <- data.frame(df, cdf)
+df$DV2 <- df$DV2 + 10
+df$DV3 <- df$DV3 + 20
+df$DV4 <- df$DV4 + 30
+df[df$IV1 %in% "A", ]$DV1 <- df[df$IV1 %in% "A", ]$DV1 + 1
+df[df$IV1 %in% "B", ]$DV1 <- df[df$IV1 %in% "B", ]$DV1 + 2
+df[df$IV1 %in% "C", ]$DV1 <- df[df$IV1 %in% "C", ]$DV1 + 3
 cdf(df)
 #> $summary
 #>   COLLUMNS ROWS TOTAL EMPTY null NAN na INF   FIN FACTOR
@@ -144,24 +146,28 @@ cdf(df)
 #> 8   DV3     0    0  0   6480   0   0 6480  6480 30.01     30  0.98 26.12652032 33.14197274   numeric    double   numeric  FALSE
 #> 9   DV4     0    0  0   6480   0   0 6480  6480    40  39.99  1.01 36.48240015 43.74431445   numeric    double   numeric  FALSE
 #> 
-r1<-report_factorial_anova(df=df,wid="id",dv=c("DV1","DV2"),
-                           within=c("IV1","IV2"),within_full=c("IV1","IV2"),
-                           between=NULL,
-                           within_covariates=NULL,between_covariates=NULL,
-                           file="anova_within",
-                           post_hoc=TRUE)
+r1 <- report_factorial_anova(
+  df = df, wid = "id", dv = c("DV1", "DV2"),
+  within = c("IV1", "IV2"), within_full = c("IV1", "IV2"),
+  between = NULL,
+  within_covariates = NULL, between_covariates = NULL,
+  file = "anova_within",
+  post_hoc = TRUE
+)
 #> Warning: Collapsing data to cell means first using variables supplied to "within_full", then collapsing the resulting means to means for the cells supplied to "within".
 #> NOTE: Results may be misleading due to involvement in interactions
 #> NOTE: Results may be misleading due to involvement in interactions
 #> Warning: Collapsing data to cell means first using variables supplied to "within_full", then collapsing the resulting means to means for the cells supplied to "within".
 #> NOTE: Results may be misleading due to involvement in interactions
 #> NOTE: Results may be misleading due to involvement in interactions
-r2<-report_factorial_anova(df=df,wid="id",dv=c("DV1","DV2"),
-                           within=NULL,within_full=NULL,
-                           between=c("IV1","IV2"),
-                           within_covariates=NULL,between_covariates=NULL,
-                           file="anova_between",
-                           post_hoc=TRUE)
+r2 <- report_factorial_anova(
+  df = df, wid = "id", dv = c("DV1", "DV2"),
+  within = NULL, within_full = NULL,
+  between = c("IV1", "IV2"),
+  within_covariates = NULL, between_covariates = NULL,
+  file = "anova_between",
+  post_hoc = TRUE
+)
 #> Warning: The column supplied as the wid variable contains non-unique values across levels of the supplied between-Ss variables. Automatically fixing this by generating unique wid labels.
 #> Coefficient covariances computed by hccm()
 #> NOTE: Results may be misleading due to involvement in interactions
@@ -170,12 +176,14 @@ r2<-report_factorial_anova(df=df,wid="id",dv=c("DV1","DV2"),
 #> Coefficient covariances computed by hccm()
 #> NOTE: Results may be misleading due to involvement in interactions
 #> NOTE: Results may be misleading due to involvement in interactions
-r3<-report_factorial_anova(df=df,wid="id",dv=c("DV1","DV2"),
-                           within=c("IV3","IV4"),within_full=c("IV3","IV4"),
-                           between=c("IV1","IV2"),
-                           within_covariates=NULL,between_covariates=NULL,
-                           file="anova_mixed",
-                           post_hoc=FALSE)
+r3 <- report_factorial_anova(
+  df = df, wid = "id", dv = c("DV1", "DV2"),
+  within = c("IV3", "IV4"), within_full = c("IV3", "IV4"),
+  between = c("IV1", "IV2"),
+  within_covariates = NULL, between_covariates = NULL,
+  file = "anova_mixed",
+  post_hoc = FALSE
+)
 #> Warning: The column supplied as the wid variable contains non-unique values across levels of the supplied between-Ss variables. Automatically fixing this by generating unique wid labels.
 #> Warning: Collapsing data to cell means first using variables supplied to "within_full", then collapsing the resulting means to means for the cells supplied to "within".
 #> NOTE: Results may be misleading due to involvement in interactions
@@ -198,12 +206,14 @@ r3<-report_factorial_anova(df=df,wid="id",dv=c("DV1","DV2"),
 #> NOTE: Results may be misleading due to involvement in interactions
 #> NOTE: Results may be misleading due to involvement in interactions
 #> NOTE: Results may be misleading due to involvement in interactions
-r4<-report_factorial_anova(df=df,wid="id",dv=c("DV1","DV2"),
-                           within=c("IV1","IV2"),within_full=c("IV1","IV2"),
-                           between=NULL,
-                           within_covariates=c("DV3","DV4"),between_covariates=NULL,
-                           file="anova_within_cov",
-                           post_hoc=TRUE)
+r4 <- report_factorial_anova(
+  df = df, wid = "id", dv = c("DV1", "DV2"),
+  within = c("IV1", "IV2"), within_full = c("IV1", "IV2"),
+  between = NULL,
+  within_covariates = c("DV3", "DV4"), between_covariates = NULL,
+  file = "anova_within_cov",
+  post_hoc = TRUE
+)
 #> Warning: Implementation of ANCOVA in this version of ez is experimental and not yet fully validated. Also, note that ANCOVA is intended purely as a tool to increase statistical power; ANCOVA can not eliminate confounds in the data. Specifically, covariates should: (1) be uncorrelated with other predictors and (2) should have effects on the DV that are independent of other predictors. Failure to meet these conditions may dramatically increase the rate of false-positives.
 #> Warning: contrasts dropped from factor ezCov due to missing levels
 #> Warning: contrasts dropped from factor ezCov due to missing levels

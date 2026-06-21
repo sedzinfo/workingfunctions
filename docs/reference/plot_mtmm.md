@@ -67,6 +67,7 @@ four MTMM relationship types:
 ## Examples
 
 ``` r
+set.seed(12345)
 population_model <- "t1=~x1+.9*x2+.9*x3
                      t2=~x4+.9*x5+.9*x6
                      t3=~x7+.9*x8+.9*x9"

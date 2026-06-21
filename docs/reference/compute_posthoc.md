@@ -21,7 +21,7 @@ compute_posthoc(y, x)
 ## Examples
 
 ``` r
-compute_posthoc(y=df_blood_pressure$bp_before,x=df_blood_pressure$agegrp)
+compute_posthoc(y = df_blood_pressure$bp_before, x = df_blood_pressure$agegrp)
 #> $input
 #> $input$x
 #>   [1] "30-45" "30-45" "30-45" "30-45" "30-45" "30-45" "30-45" "30-45" "30-45" "30-45" "30-45" "30-45" "30-45" "30-45" "30-45" "30-45" "30-45" "30-45" "30-45" "30-45" "46-59" "46-59" "46-59" "46-59"
@@ -50,7 +50,7 @@ compute_posthoc(y=df_blood_pressure$bp_before,x=df_blood_pressure$agegrp)
 #> 46-59:60+   3.011799 77.66212 9.703539e-03
 #> 
 #> 
-compute_posthoc(y=df_blood_pressure$bp_after,x=df_blood_pressure$agegrp)
+compute_posthoc(y = df_blood_pressure$bp_after, x = df_blood_pressure$agegrp)
 #> $input
 #> $input$x
 #>   [1] "30-45" "30-45" "30-45" "30-45" "30-45" "30-45" "30-45" "30-45" "30-45" "30-45" "30-45" "30-45" "30-45" "30-45" "30-45" "30-45" "30-45" "30-45" "30-45" "30-45" "46-59" "46-59" "46-59" "46-59"

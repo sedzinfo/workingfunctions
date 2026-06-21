@@ -43,6 +43,8 @@ code and more standardized output.
   : Compute kurtosis of a numeric vector
 - [`compute_map()`](https://sedzinfo.github.io/rwf/reference/compute_map.md)
   : Simulate prior distribution
+- [`compute_mean_sd_alpha()`](https://sedzinfo.github.io/rwf/reference/compute_mean_sd_alpha.md)
+  : Mean and SD of scale scores
 - [`compute_moving_average()`](https://sedzinfo.github.io/rwf/reference/compute_moving_average.md)
   : Centered moving average
 - [`compute_one_way_test()`](https://sedzinfo.github.io/rwf/reference/compute_one_way_test.md)
@@ -333,7 +335,7 @@ code and more standardized output.
   : Convert a key list to a lavaan CFA model string
 - [`matrix_triangle()`](https://sedzinfo.github.io/rwf/reference/matrix_triangle.md)
   : Extract the upper or lower triangle of a matrix
-- [`mean_sd_alpha()`](https://sedzinfo.github.io/rwf/reference/mean_sd_alpha.md)
+- [`compute_mean_sd_alpha()`](https://sedzinfo.github.io/rwf/reference/compute_mean_sd_alpha.md)
   : Mean and SD of scale scores
 - [`min_max_index()`](https://sedzinfo.github.io/rwf/reference/min_max_index.md)
   : Indices of the minimum and maximum values in a vector

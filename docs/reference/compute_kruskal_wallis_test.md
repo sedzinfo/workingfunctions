@@ -53,30 +53,32 @@ rank variance.
 ## Examples
 
 ``` r
-form<-formula(bp_before~agegrp)
-kruskal.test(formula=form,data=df_blood_pressure)
+form <- formula(bp_before ~ agegrp)
+kruskal.test(formula = form, data = df_blood_pressure)
 #> 
 #>  Kruskal-Wallis rank sum test
 #> 
 #> data:  bp_before by agegrp
 #> Kruskal-Wallis chi-squared = 19.564, df = 2, p-value = 5.645e-05
 #> 
-rcompanion::epsilonSquared(x=df_blood_pressure$bp_before,
-                           g=df_blood_pressure$agegrp,
-                           group="row",
-                           ci=TRUE,
-                           conf=0.95,
-                           type="perc",
-                           R=1000,
-                           digits=3)
+rcompanion::epsilonSquared(
+  x = df_blood_pressure$bp_before,
+  g = df_blood_pressure$agegrp,
+  group = "row",
+  ci = TRUE,
+  conf = 0.95,
+  type = "perc",
+  R = 1000,
+  digits = 3
+)
 #>   epsilon.squared lower.ci upper.ci
 #> 1           0.164   0.0665    0.305
-rstatix::kruskal_effsize(df_blood_pressure,form,ci=TRUE,conf.level=0.95,ci.type="perc",nboot=100)
+rstatix::kruskal_effsize(df_blood_pressure, form, ci = TRUE, conf.level = 0.95, ci.type = "perc", nboot = 100)
 #> # A tibble: 1 × 7
 #>   .y.           n effsize conf.low conf.high method  magnitude
 #> * <chr>     <int>   <dbl>    <dbl>     <dbl> <chr>   <ord>    
 #> 1 bp_before   120   0.150     0.06       0.3 eta2[H] large    
-compute_kruskal_wallis_test(formula=form,df=df_blood_pressure)
+compute_kruskal_wallis_test(formula = form, df = df_blood_pressure)
 #>              formula                       method     etasq epsilonsq        H df            p
 #> 1 bp_before ~ agegrp Kruskal-Wallis rank sum test 0.1501232 0.1644069 19.56442  2 5.644699e-05
 ```

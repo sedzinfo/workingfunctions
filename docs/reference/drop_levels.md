@@ -36,14 +36,14 @@ renamed to `"Other"` and all unused levels dropped.
 ## Examples
 
 ``` r
-factor1<-factor(c(rep("A",10),rep("B",10)),levels=c("A","B","C","D"))
-factor2<-factor(c(rep("A",10),rep("B",10)),levels=c("A","B","C","D"))
-numeric1<-c(1:20)
-df<-data.frame(numeric1,factor1,factor2)
+factor1 <- factor(c(rep("A", 10), rep("B", 10)), levels = c("A", "B", "C", "D"))
+factor2 <- factor(c(rep("A", 10), rep("B", 10)), levels = c("A", "B", "C", "D"))
+numeric1 <- c(1:20)
+df <- data.frame(numeric1, factor1, factor2)
 df$factor1
 #>  [1] A A A A A A A A A A B B B B B B B B B B
 #> Levels: A B C D
-drop_levels(df=df,minimum_frequency=9)
+drop_levels(df = df, minimum_frequency = 9)
 #>    numeric1 factor1 factor2
 #> 1         1       A       A
 #> 2         2       A       A
@@ -65,7 +65,7 @@ drop_levels(df=df,minimum_frequency=9)
 #> 18       18       B       B
 #> 19       19       B       B
 #> 20       20       B       B
-drop_levels(df=df,minimum_frequency=10)
+drop_levels(df = df, minimum_frequency = 10)
 #>    numeric1 factor1 factor2
 #> 1         1   Other   Other
 #> 2         2   Other   Other

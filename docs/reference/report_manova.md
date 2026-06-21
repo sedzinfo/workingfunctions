@@ -50,10 +50,10 @@ analysis are equal.
 
 ``` r
 ## Set orthogonal contrasts.
-op<-options(contrasts=c("contr.helmert","contr.poly"))
-model_mixed<-manova(cbind(yield,foo)~N*P*K,within(npk,foo<-rnorm(24)))
-model_between<-manova(cbind(rnorm(24),rnorm(24))~round(rnorm(24),0)*round(rnorm(24),0))
-report_manova(model=model_mixed)
+op <- options(contrasts = c("contr.helmert", "contr.poly"))
+model_mixed <- manova(cbind(yield, foo) ~ N * P * K, within(npk, foo <- rnorm(24)))
+model_between <- manova(cbind(rnorm(24), rnorm(24)) ~ round(rnorm(24), 0) * round(rnorm(24), 0))
+report_manova(model = model_mixed)
 #> [1] "####################################################################################################"
 #> [1] "Pillai,Wilks,Hotelling-Lawley,Roy Statistics"
 #> [1] "####################################################################################################"
@@ -110,7 +110,7 @@ report_manova(model=model_mixed)
 #> N:P:K        1     0.162        1      2     15               0.267    
 #> ---
 #> Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
-report_manova(model=model_between)
+report_manova(model = model_between)
 #> [1] "####################################################################################################"
 #> [1] "Pillai,Wilks,Hotelling-Lawley,Roy Statistics"
 #> [1] "####################################################################################################"
