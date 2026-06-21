@@ -10,6 +10,7 @@ Imports: MASS, future, future.apply, gtools, irr, openxlsx, pROC, plyr, psych, r
 Suggests: e1071, forecast, lsr, rcompanion, thurstonianIRT
 URL: https://sedzinfo.github.io/rwf/
 BugReports: https://github.com/sedzinfo/rwf/issues
+Roxygen: list(markdown = FALSE)
 License: GPL (>= 2)
 Encoding: UTF-8
 LazyData: true
