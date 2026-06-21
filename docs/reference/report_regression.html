@@ -81,59 +81,53 @@
 </dl></div>
     <div class="section level2">
     <h2 id="note">Note<a class="anchor" aria-label="anchor" href="#note"></a></h2>
-    <p>(1) Problematic values for standardized residuals &gt; +-1.96 <br>
-**Standardized residuals** are residuals divided by an estimated standard deviation and they can be interpreted as z scores in that: <br>
-- 95.00% of z-scores lie between -1.96 and +1.96 <br>
-- 99.00% of z-scores lie between -2.58 and +2.58 <br>
-- 99.99% of z-scores lie between -3.29 and +3.29 <br>
-(2) **Studentized residuals** indicate the the ability of the model to predict that case. They follow a t distribution <br>
-(3) **DFFits** indicate the difference between the adjusted predicted value and the original predicted value.
-Adjusted predicted value for a case refers to the predicted value of that case, when that case is excluded from model fit. <br>
-(4) **Cook's distance** indicates leverage. Problematic values for cook's distance &gt; 1 Cook and Weisberg (1982). <br>
-(5) **Hat values** indicate leverage. Problematic values for Hat values 2 or 3 times the average (k+1/n) <br>
+
+<ol><li><p>Problematic values for standardized residuals &gt; +-1.96 <br><strong>Standardized residuals</strong> are residuals divided by an estimated standard deviation and they can be interpreted as z scores in that:</p><ul><li><p>95.00% of z-scores lie between -1.96 and +1.96</p></li>
+<li><p>99.00% of z-scores lie between -2.58 and +2.58</p></li>
+<li><p>99.99% of z-scores lie between -3.29 and +3.29</p></li>
+</ul></li>
+<li><p>Studentized residuals: indicate the the ability of the model to predict that case. They follow a t distribution.</p></li>
+<li><p>DFFits: indicate the difference between the adjusted predicted value and the original predicted value.
+Adjusted predicted value for a case refers to the predicted value of that case, when that case is excluded from model fit.</p></li>
+<li><p>Cook's distance: indicates leverage. Problematic values for cook's distance &gt; 1 Cook and Weisberg (1982).</p></li>
+<li><p>Hat values: indicate leverage. Problematic values for Hat values 2 or 3 times the average (k+1/n)
 The average leverage value is defined as (k+1)/n, k=number of predictors, n=number of participants.
-Leverage values lie between 0 (no influence) and 1 (complete influence over prediction) <br>
-- Hoaglin and Welsch (1978) recommends investigating cases with values greater than twice the average (2(k+1)/n) <br>
-- Stevens (2002) recommends investigating cases with values greater than three times the average (3(k+1)/n) <br>
-**T-tests** test the hypothesis that b's are different from 0 <br>
-**Multiple R^2**: Variance Explained <br>
-**Adjusted R^2**: Indicates how much variance in Y would be accounted for if the model is derived from the population from which the sample was taken.
-Idealy, R^2 = Adjusted R^2 <br>
-**F-Statistic** tests the null hypothesis is that the overall model has no effect <br>
-**Covariance ratios** critical values CVR&gt;1+[3(k+1)/n] CRV&lt;1-[3(k+1)/n]. In general we should obtain small values or we may have to remove cases<br>
-**ASSUMPTIONS** <br>
-(1) variable types: All predictors must be quantitative or categorical (with two levels),
-and the outcome variable must be quantitative (interval data),
-continuous and unbounded (no constraints on the variability of the outcome)
-(2) Non-zero variance <br>
-(3) No perfect multicollinearity <br>
-(4) Predictors are uncorrelated with -external variables- <br>
-(5) Homoscedasticity: At each level of the predictor variable(s), the variance of the residual terms should be constant.
-Residuals at each level of the predictor(s) should have similar variance (homoscedasticity) <br>
-(6) Independent errors: For any two observations the residual terms should be uncorrelated (or independent)<br>
-This eventuality is sometimes described as a lack of autocorrelation.
-This assumption can be tested with the Durbin-Watson test,which tests for serial correlations between errors.
-Specifically, it tests whether adjacent residuals are correlated
-The size of the Durbin-Watson statistic depends upon the number of predictors in the model and the number of observations
-As a very conservative rule of thumb, values less than 1 or greater than 3 are definitely cause for concern;
-however,values closer to 2 may still be problematic depending on your sample and model
-R also provides a p-value of the autocorrelation.
-Be very careful with the Durbin-Watson test, though, as it depends on the order of the data: if you reorder your data, you-ll get a different value <br>
-(7) Normally distributed errors: It is assumed that the residuals in the model are random, normally distributed variables with a mean of 0 <br>
-(8) Independence: It is assumed that all of the values of the outcome variable are independent
-(in other words, each value of the outcome variable comes from a separate entity) <br>
-(9) Linearity: The mean values of the outcome variable for each increment of the predictor(s) lie along a straight line <br></p>
-    </div>
+Leverage values lie between 0 (no influence) and 1 (complete influence over prediction).</p><ul><li><p>Hoaglin and Welsch (1978) recommends investigating cases with values greater than twice the average (2(k+1)/n)</p></li>
+<li><p>Stevens (2002) recommends investigating cases with values greater than three times the average (3(k+1)/n)</p></li>
+</ul></li>
+</ol><p><strong>T-tests</strong>: test the hypothesis that b's are different from 0 <br><strong>Multiple R^2</strong>: Variance Explained <br><strong>Adjusted R^2</strong>: Indicates how much variance in Y would be accounted for if the model is derived from the population from which the sample was taken.
+Idealy, R^2 = Adjusted R^2 <br><strong>F-Statistic</strong>: tests the null hypothesis is that the overall model has no effect <br><strong>Covariance ratios</strong>: critical values CVR&gt;1+[3(k+1)/n] CRV&lt;1-[3(k+1)/n]. In general we should obtain small values or we may have to remove cases <br><br><br><strong>ASSUMPTIONS</strong></p><ol><li><p>variable types: All predictors must be quantitative or categorical (with two levels),
+        and the outcome variable must be quantitative (interval data),
+        continuous and unbounded (no constraints on the variability of the outcome)</p></li>
+<li><p>Non-zero variance</p></li>
+<li><p>No perfect multicollinearity</p></li>
+<li><p>Predictors are uncorrelated with -external variables-</p></li>
+<li><p>Homoscedasticity: At each level of the predictor variable(s), the variance of the residual terms should be constant.
+        Residuals at each level of the predictor(s) should have similar variance (homoscedasticity)</p></li>
+<li><p>Independent errors: For any two observations the residual terms should be uncorrelated (or independent)<br>
+        This eventuality is sometimes described as a lack of autocorrelation.
+        This assumption can be tested with the Durbin-Watson test,which tests for serial correlations between errors.
+        Specifically, it tests whether adjacent residuals are correlated
+        The size of the Durbin-Watson statistic depends upon the number of predictors in the model and the number of observations
+        As a very conservative rule of thumb, values less than 1 or greater than 3 are definitely cause for concern;
+        however,values closer to 2 may still be problematic depending on your sample and model
+        R also provides a p-value of the autocorrelation.
+        Be very careful with the Durbin-Watson test, though, as it depends on the order of the data: if you reorder your data, you-ll get a different value</p></li>
+<li><p>Normally distributed errors: It is assumed that the residuals in the model are random, normally distributed variables with a mean of 0</p></li>
+<li><p>Independence: It is assumed that all of the values of the outcome variable are independent
+        (in other words, each value of the outcome variable comes from a separate entity)</p></li>
+<li><p>Linearity: The mean values of the outcome variable for each increment of the predictor(s) lie along a straight line</p></li>
+</ol></div>
 
     <div class="section level2">
     <h2 id="ref-examples">Examples<a class="anchor" aria-label="anchor" href="#ref-examples"></a></h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="va">form</span><span class="op">&lt;-</span><span class="fu"><a href="https://rdrr.io/r/stats/formula.html" class="external-link">formula</a></span><span class="op">(</span><span class="va">mpg</span><span class="op">~</span><span class="va">qsec</span><span class="op">)</span></span></span>
-<span class="r-in"><span><span class="va">regressionmodel</span><span class="op">&lt;-</span><span class="fu"><a href="https://rdrr.io/r/stats/lm.html" class="external-link">lm</a></span><span class="op">(</span><span class="va">form</span>,data<span class="op">=</span><span class="va">mtcars</span><span class="op">)</span></span></span>
-<span class="r-in"><span><span class="va">multipleregressionmodel</span><span class="op">&lt;-</span><span class="fu"><a href="https://rdrr.io/r/stats/lm.html" class="external-link">lm</a></span><span class="op">(</span><span class="va">mpg</span><span class="op">~</span><span class="va">qsec</span><span class="op">*</span><span class="va">hp</span><span class="op">*</span><span class="va">wt</span><span class="op">*</span><span class="va">drat</span>,data<span class="op">=</span><span class="va">mtcars</span><span class="op">)</span></span></span>
-<span class="r-in"><span><span class="va">res</span><span class="op">&lt;-</span><span class="fu">report_regression</span><span class="op">(</span>model<span class="op">=</span><span class="va">regressionmodel</span>,plot_diagnostics<span class="op">=</span><span class="cn">TRUE</span><span class="op">)</span></span></span>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="va">form</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/formula.html" class="external-link">formula</a></span><span class="op">(</span><span class="va">mpg</span> <span class="op">~</span> <span class="va">qsec</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">regressionmodel</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/lm.html" class="external-link">lm</a></span><span class="op">(</span><span class="va">form</span>, data <span class="op">=</span> <span class="va">mtcars</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">multipleregressionmodel</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/lm.html" class="external-link">lm</a></span><span class="op">(</span><span class="va">mpg</span> <span class="op">~</span> <span class="va">qsec</span> <span class="op">*</span> <span class="va">hp</span> <span class="op">*</span> <span class="va">wt</span> <span class="op">*</span> <span class="va">drat</span>, data <span class="op">=</span> <span class="va">mtcars</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">res</span> <span class="op">&lt;-</span> <span class="fu">report_regression</span><span class="op">(</span>model <span class="op">=</span> <span class="va">regressionmodel</span>, plot_diagnostics <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></span>
 <span class="r-plt img"><img src="report_regression-1.png" alt="" width="700" height="433"></span>
 <span class="r-err co"><span class="r-pr">#&gt;</span> <span class="error">Error in eval(model$call$formula):</span> object 'form' not found</span>
-<span class="r-in"><span><span class="va">res</span><span class="op">&lt;-</span><span class="fu">report_regression</span><span class="op">(</span>model<span class="op">=</span><span class="va">multipleregressionmodel</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">res</span> <span class="op">&lt;-</span> <span class="fu">report_regression</span><span class="op">(</span>model <span class="op">=</span> <span class="va">multipleregressionmodel</span><span class="op">)</span></span></span>
 <span class="r-plt img"><img src="report_regression-2.png" alt="" width="700" height="433"></span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> GVIFs computed for predictors</span>
 <span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>longer object length is not a multiple of shorter object length</span>
@@ -252,12 +246,14 @@ Be very careful with the Durbin-Watson test, though, as it depends on the order 
 <span class="r-out co"><span class="r-pr">#&gt;</span> 1 lm(mpg ~ qsec * hp * wt * drat,data=mtcars)</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>                                          call</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 1 lm(mpg ~ qsec * hp * wt * drat,data=mtcars)</span>
-<span class="r-in"><span><span class="va">res</span><span class="op">&lt;-</span><span class="fu">report_regression</span><span class="op">(</span>model<span class="op">=</span><span class="va">regressionmodel</span>,file<span class="op">=</span><span class="st">"regression"</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">res</span> <span class="op">&lt;-</span> <span class="fu">report_regression</span><span class="op">(</span>model <span class="op">=</span> <span class="va">regressionmodel</span>, file <span class="op">=</span> <span class="st">"regression"</span><span class="op">)</span></span></span>
 <span class="r-plt img"><img src="report_regression-3.png" alt="" width="700" height="433"></span>
 <span class="r-err co"><span class="r-pr">#&gt;</span> <span class="error">Error in eval(model$call$formula):</span> object 'form' not found</span>
-<span class="r-in"><span><span class="va">res</span><span class="op">&lt;-</span><span class="fu">report_regression</span><span class="op">(</span>model<span class="op">=</span><span class="va">multipleregressionmodel</span>,</span></span>
-<span class="r-in"><span>                       file<span class="op">=</span><span class="st">"regression"</span>,</span></span>
-<span class="r-in"><span>                       plot_diagnostics<span class="op">=</span><span class="cn">TRUE</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">res</span> <span class="op">&lt;-</span> <span class="fu">report_regression</span><span class="op">(</span></span></span>
+<span class="r-in"><span>  model <span class="op">=</span> <span class="va">multipleregressionmodel</span>,</span></span>
+<span class="r-in"><span>  file <span class="op">=</span> <span class="st">"regression"</span>,</span></span>
+<span class="r-in"><span>  plot_diagnostics <span class="op">=</span> <span class="cn">TRUE</span></span></span>
+<span class="r-in"><span><span class="op">)</span></span></span>
 <span class="r-plt img"><img src="report_regression-4.png" alt="" width="700" height="433"></span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> GVIFs computed for predictors</span>
 <span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>longer object length is not a multiple of shorter object length</span>

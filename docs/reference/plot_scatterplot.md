@@ -81,22 +81,26 @@ pattern `"x_y"`.
 ## Examples
 
 ``` r
-result <- plot_scatterplot(df=mtcars, title="", coord_equal=TRUE, base_size=10)
-plot_multiplot(plotlist=result[1:12], cols=4)
+result <- plot_scatterplot(df = mtcars, title = "", coord_equal = TRUE, base_size = 10)
+plot_multiplot(plotlist = result[1:12], cols = 4)
 
 #> [[1]]
 #> 
 
 # Two-column data frame: first column = predictor, second = outcome
-plot_scatterplot(df=mtcars[,1:2], base_size=10, coord_equal=TRUE, all_orders=FALSE)
+plot_scatterplot(df = mtcars[, 1:2], base_size = 10, coord_equal = TRUE, all_orders = FALSE)
 #> $mpg_cyl
 
 #> 
 
 # Custom variable pairs
-plot_scatterplot(df=mtcars, base_size=10, coord_equal=TRUE,
-                 combinations=data.frame(x=c("mpg","mpg","mpg"),
-                                         y=c("cyl","hp","disp")))
+plot_scatterplot(
+  df = mtcars, base_size = 10, coord_equal = TRUE,
+  combinations = data.frame(
+    x = c("mpg", "mpg", "mpg"),
+    y = c("cyl", "hp", "disp")
+  )
+)
 #> $mpg_cyl
 
 #> 
@@ -109,8 +113,8 @@ plot_scatterplot(df=mtcars, base_size=10, coord_equal=TRUE,
 
 # Simulated near-perfect correlation
 x <- rnorm(1000)
-y <- x + rnorm(x, sd=.1)
-plot_scatterplot(df=data.frame(x,y), title="Random Simulation", coord_equal=TRUE)
+y <- x + rnorm(x, sd = .1)
+plot_scatterplot(df = data.frame(x, y), title = "Random Simulation", coord_equal = TRUE)
 #> $x_y
 
 #> 
