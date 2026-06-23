@@ -20,18 +20,18 @@ report_choric_serial(
 
 - x:
 
-  The input may be in one of four forms:  
+  The input may be in one of four forms:\
   a) a data frame or matrix of dichotmous data (e.g., the lsat6 from the
   bock data set) or discrete numerical (i.e., not too many levels, e.g.,
   the big 5 data set, bfi) for polychoric, or continuous for the case of
-  biserial and polyserial  
+  biserial and polyserial\
   b) a 2 x 2 table of cell counts or cell frequencies (for tetrachoric)
   or an n x m table of cell counts (for both tetrachoric and
-  polychoric)  
+  polychoric)\
   c) a vector with elements corresponding to the four cell frequencies
-  (for tetrachoric)  
+  (for tetrachoric)\
   d) a vector with elements of the two marginal frequencies (row and
-  column) and the comorbidity (for tetrachoric)  
+  column) and the comorbidity (for tetrachoric)\
 
 - y:
 
@@ -65,6 +65,7 @@ report_choric_serial(
 ``` r
 report_choric_serial(generate_data(min=0,max=1,type="uniform"),
               type="tetrachoric",file="tetrachoric")
+#> For i = 4 j = 3  A cell entry of 0 was replaced with correct =  0.5.  Check your data!
 #> Warning: Matrix was not positive definite, smoothing was done
 #> 
 
@@ -72,33 +73,20 @@ report_choric_serial(generate_data(min=0,max=1,type="uniform"),
 #> tetrachoric correlation 
 #>    X1    X2    X3    X4    X5   
 #> X1  1.00                        
-#> X2 -0.45  1.00                  
-#> X3  0.16 -0.53  1.00            
-#> X4 -0.15 -0.15  0.40  1.00      
-#> X5  0.53 -0.16  0.74  0.26  1.00
+#> X2  0.71  1.00                  
+#> X3  0.03  0.55  1.00            
+#> X4  0.00  0.59  0.76  1.00      
+#> X5  0.31 -0.31 -0.17 -0.54  1.00
 #> 
 #>  with tau of 
 #>    X1    X2    X3    X4    X5 
-#> -0.52 -0.52  0.25 -0.25 -0.25 
+#>  0.00  0.00 -0.25  0.25 -0.52 
 report_choric_serial(generate_data(min=1,max=5,type="uniform"),
               type="polychoric")
-
-#> Call: psych::polychoric(x = x)
-#> Polychoric correlations 
-#>    X1    X2    X3    X4    X5   
-#> X1  1.00                        
-#> X2  0.27  1.00                  
-#> X3 -0.33 -0.10  1.00            
-#> X4  0.27  0.14  0.23  1.00      
-#> X5 -0.71 -0.19 -0.27 -0.41  1.00
-#> 
-#>  with tau of 
-#>        1     2     3    4
-#> X1 -0.52  0.25  0.84 1.28
-#> X2 -0.84  0.25  0.52 0.84
-#> X3 -0.52 -0.25 -0.25 0.52
-#> X4 -0.52 -0.25  0.00 0.25
-#> X5 -0.25  0.00  0.52 0.84
+#> Warning: The items do not have an equal number of response alternatives, global set to FALSE.
+#> Warning: NaNs produced
+#> Warning: NaNs produced
+#> Error in if (any(lower > upper)) stop("lower>upper integration limits"): missing value where TRUE/FALSE needed
 report_choric_serial(x=psych::lsat6,y=psych::lsat6,
                      type="polyserial",file="polyserial")
 #>         Q1     Q2      Q3      Q4      Q5
