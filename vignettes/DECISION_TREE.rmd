@@ -1,6 +1,6 @@
 ---
 title: "Regression and Classification Trees"
-author: "Dimitrios Zacharatos"
+author: ""
 output:
   html_document:
     css: styles.css
