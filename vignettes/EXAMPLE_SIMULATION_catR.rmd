@@ -1,19 +1,25 @@
 ---
 title: "CAT Simulation"
-author: "Dimitrios Zacharatos"
+author: ""
 output:
   html_document:
     css: styles.css
     toc: true
     toc_depth: 2
+    toc_float:
+      collapsed: false
+      smooth_scroll: true
     theme: readable
+  pdf_document:
+    toc: true
+    toc_depth: '2'
 vignette: >
   %\VignetteIndexEntry{CAT Simulation}
   %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8}
 ---
 
-```{r options,echo=FALSE,warning=FALSE,message=FALSE}
+```{r options, echo=FALSE, warning=FALSE, message=FALSE}
 options(width=1000)
 hook_output <- function(x, options) {
   paste0('<pre class="r-output">', knitr::knit_print(x), '</pre>')
@@ -22,6 +28,8 @@ knitr::knit_hooks$set(output = hook_output)
 knitr::opts_chunk$set(echo=TRUE)
 options(future.show.progress = FALSE)
 ```
+
+
 
 # Simulating a CAT IRT using catR
 
