@@ -1,6 +1,6 @@
 ---
 title: "Measurement invariance"
-author: "Dimitrios Zacharatos"
+author: ""
 output:
   html_document:
     css: styles.css
@@ -62,7 +62,7 @@ rwf::cdf(model_data,name_length=5)
 
 ## Model spesification
 The spesified model is shown in the figure bellow.
-```{r,spesification,out.width="1000px",out.height="1000px"}
+```{r,spesification,out.width="1000px",out.height="500px",fig.retina=2}
 bf_model<-'f1=~x1+x2+x3
            f2=~x4+x5+x6
            f3=~x7+x8+x9'
@@ -106,7 +106,7 @@ data.frame(Group1=lavaan::fitMeasures(ft,c("rmsea","cfi","tli","rni","rfi","ifi"
 
 ## Test for CONFIGURAL INVARIANCE
 For configural invariance we spesify a model with 2 groups. This procedure estimates 2 lambda theta psi and mu (intercepts) matrices, for each group. By comparing the two lambda and theta matrices we notice that their values are not identical. The question is if the differences between these values are significantly different. In any case, the configural invariance model bellow displays similar fit indices compared with the structural invariance models above. But more importantly, according to fit indices the model fits the data and this suggests configural invariance.
-```{r,configural_invariance,out.width="1000px",out.height="1000px"}
+```{r,configural_invariance,out.width="1000px",out.height="500px",fig.retina=2}
 # CONFIGURAL INVARIANCE
 bf<-lavaan::cfa(bf_model,data=model_data,group="group")
 lavaan::fitMeasures(bf,c("rmsea","cfi","tli","rni","rfi","ifi","srmr","gfi"))
