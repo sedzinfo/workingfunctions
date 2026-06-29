@@ -125,7 +125,7 @@ cat(spesification_mplus$SAVEDATA)
 
 ```{r fit, cache=TRUE}
 fit_lavaan<-fit_TIRT_lavaan(data_tirt,control=list(maxiter=1000))
-fit_mplus<-fit_TIRT_stan(data_tirt)
+# fit_mplus<-fit_TIRT_mplus(data_tirt)
 fit_stan<-fit_TIRT_stan(data_tirt)
 model<-fit_lavaan$fit 
 
@@ -145,17 +145,17 @@ semPlot::semPaths(model,what="paths",rotation=2,reorder=FALSE)
 ```{r evaluate}
 # Fit indices
 pt<-options(fit=c("GFI","AGFI","RMSEA","NFI","NNFI","CFI","RNI","IFI","SRMR","AIC","AICc","BIC","CAIC"))
-fit_index<-data.frame(fit=lavaan::inspect(model,"fit",add.labels=TRUE,add.class=TRUE,list.by.group=TRUE,drop.list.single.group=TRUE))
+fit_index<-data.frame(fit=lavaan::inspect(model,"fit"))
 round(fit_index,2)
 
 # Explained variance
-r_squared<-data.frame(r_squared=lavaan::inspect(model,"rsquare",add.labels=TRUE,add.class=TRUE,list.by.group=TRUE,drop.list.single.group=TRUE))
+r_squared<-data.frame(r_squared=lavaan::inspect(model,"rsquare"))
 r_squared
 
 # Estimates
-unstandardized_estimates<-lavaan::inspect(model,"est",add.labels=TRUE,add.class=TRUE,list.by.group=TRUE,drop.list.single.group=TRUE)
+unstandardized_estimates<-lavaan::inspect(model,"est")
 unstandardized_estimates
-standardized_estimates<-lavaan::inspect(model,"std",add.labels=TRUE,add.class=TRUE,list.by.group=TRUE,drop.list.single.group=TRUE)
+standardized_estimates<-lavaan::inspect(model,"std")
 standardized_estimates
 
 lavaan::parameterEstimates(model,se=TRUE,
@@ -197,7 +197,7 @@ score<-predict(fit_lavaan)
 score<-data.frame(score)
 score<-reshape(score, direction="wide", idvar="id", timevar="trait")
 
-triplets_new<-make_TIRT_data(data=triplets[1,],blocks=blocks,direction="larger",format="pairwise",family="bernoulli",range=c(0,1))
+triplets_new<-make_TIRT_data(data=triplets[1:2,],blocks=blocks,direction="larger",format="pairwise",family="bernoulli",range=c(0,1))
 score_new<-predict(fit_stan,newdata=triplets_new)
 score_new<-data.frame(score_new)
 score_new<-reshape(score_new[,c("id","trait","estimate")], direction="wide", idvar="id", timevar="trait")
@@ -208,7 +208,7 @@ score_new<-reshape(score_new[,c("id","trait","estimate")], direction="wide", idv
 
 ```{r score_new}
 
-score
+head(score)
 
 score_new
 

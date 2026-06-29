@@ -1,7 +1,7 @@
 ---
 title: "NLP"
 author: ""
-date: "`r Sys.Date()`"
+date: ""
 output:
   html_document:
     css: styles.css
@@ -85,10 +85,10 @@ text2<-unlist(strsplit(text2,split=" "))
 text3<-unlist(strsplit(text3,split=" "))
 text4<-unlist(strsplit(text4,split=" "))
 text5<-unlist(strsplit(text5,split=" "))
-text_similarity(text1,text1)
-text_similarity(text1,text2)
-text_similarity(text1,text3)
-text_similarity(text1,text4)
+compute_text_similarity(text1,text1)
+compute_text_similarity(text1,text2)
+compute_text_similarity(text1,text3)
+compute_text_similarity(text1,text4)
 ```
 
 ## Text Statistics
