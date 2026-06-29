@@ -1,12 +1,18 @@
 ---
 title: "Thurstonian IRT Example"
-author: "Dimitrios Zacharatos"
+author: ""
 output:
   html_document:
     css: styles.css
     toc: true
     toc_depth: 2
+    toc_float:
+      collapsed: false
+      smooth_scroll: true
     theme: readable
+  pdf_document:
+    toc: true
+    toc_depth: '2'
 vignette: >
   %\VignetteIndexEntry{Thurstonian IRT Example}
   %\VignetteEngine{knitr::rmarkdown}
