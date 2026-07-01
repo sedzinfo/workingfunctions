@@ -48,7 +48,7 @@ report_regression(
 
 ## Note
 
-1.  Problematic values for standardized residuals \> +-1.96\
+1.  Problematic values for standardized residuals \> +-1.96  
     **Standardized residuals** are residuals divided by an estimated
     standard deviation and they can be interpreted as z scores in that:
 
@@ -81,18 +81,18 @@ report_regression(
     - Stevens (2002) recommends investigating cases with values greater
       than three times the average (3(k+1)/n)
 
-**T-tests**: test the hypothesis that b's are different from 0\
-**Multiple R^2**: Variance Explained\
+**T-tests**: test the hypothesis that b's are different from 0  
+**Multiple R^2**: Variance Explained  
 **Adjusted R^2**: Indicates how much variance in Y would be accounted
 for if the model is derived from the population from which the sample
-was taken. Idealy, R^2 = Adjusted R^2\
+was taken. Idealy, R^2 = Adjusted R^2  
 **F-Statistic**: tests the null hypothesis is that the overall model has
-no effect\
+no effect  
 **Covariance ratios**: critical values CVR\>1+\[3(k+1)/n\]
 CRV\<1-\[3(k+1)/n\]. In general we should obtain small values or we may
-have to remove cases\
-\
-\
+have to remove cases  
+  
+  
 **ASSUMPTIONS**
 
 1.  variable types: All predictors must be quantitative or categorical
@@ -112,7 +112,7 @@ have to remove cases\
     (homoscedasticity)
 
 6.  Independent errors: For any two observations the residual terms
-    should be uncorrelated (or independent)\
+    should be uncorrelated (or independent)  
     This eventuality is sometimes described as a lack of
     autocorrelation. This assumption can be tested with the
     Durbin-Watson test,which tests for serial correlations between
@@ -236,7 +236,7 @@ res <- report_regression(model = multipleregressionmodel)
 #> qsec:hp:wt:drat  1     12      12    2.39        0.14    
 #> Residuals       16     83       5                        
 #> ---
-#> Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+#> Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
 #> [1] "####################################################################################################"
 #> [1] "Deviance"
 #> [1] "####################################################################################################"
@@ -362,7 +362,7 @@ res <- report_regression(
 #> qsec:hp:wt:drat  1     12      12    2.39        0.14    
 #> Residuals       16     83       5                        
 #> ---
-#> Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+#> Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
 #> [1] "####################################################################################################"
 #> [1] "Deviance"
 #> [1] "####################################################################################################"

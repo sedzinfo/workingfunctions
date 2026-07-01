@@ -206,59 +206,94 @@ additional arguments through ....</p>
     <div class="section level2">
     <h2 id="ref-examples">Examples<a class="anchor" aria-label="anchor" href="#ref-examples"></a></h2>
     <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="fu">report_wtests</span><span class="op">(</span></span></span>
-<span class="r-in"><span>  df <span class="op">=</span> <span class="va">df_insurance</span>,</span></span>
-<span class="r-in"><span>  dv <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/which.html" class="external-link">which</a></span><span class="op">(</span><span class="st">"charges"</span> <span class="op">==</span> <span class="fu"><a href="https://rdrr.io/r/base/names.html" class="external-link">names</a></span><span class="op">(</span><span class="va">df_insurance</span><span class="op">)</span><span class="op">)</span>,</span></span>
-<span class="r-in"><span>  iv <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">2</span><span class="op">)</span></span></span>
+<span class="r-in"><span>  df <span class="op">=</span> <span class="va">df_blood_pressure</span>,</span></span>
+<span class="r-in"><span>  dv <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/which.html" class="external-link">which</a></span><span class="op">(</span><span class="st">"bp_before"</span> <span class="op">==</span> <span class="fu"><a href="https://rdrr.io/r/base/names.html" class="external-link">names</a></span><span class="op">(</span><span class="va">df_blood_pressure</span><span class="op">)</span><span class="op">)</span>,</span></span>
+<span class="r-in"><span>  iv <span class="op">=</span> <span class="fl">2</span></span></span>
 <span class="r-in"><span><span class="op">)</span></span></span>
-<span class="r-err co"><span class="r-pr">#&gt;</span> <span class="error">Error in required_package("coin"):</span> coin package needed to be installed before using this function. Type this in R: install.packages('coin')</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>    DV        IV level1 level2 n1 n2    W        p CI_l CI_u alternative                                            method mean1 mean2   sd1   sd2 sd_pooled      d      r k_squared[bartlett]</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1 sex bp_before   Male Female 60 60 1262 0.004721  -10   -2   two.sided Wilcoxon rank sum test with continuity correction 159.3 153.6 11.41 10.74     11.08 0.5084 0.2582              0.2192</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   df[bartlett] p[bartlett] bonferroni_p significant</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1            1      0.6397         0.05        TRUE</span>
 <span class="r-in"><span><span class="fu">report_wtests</span><span class="op">(</span></span></span>
-<span class="r-in"><span>  df <span class="op">=</span> <span class="va">df_insurance</span>,</span></span>
-<span class="r-in"><span>  dv <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/which.html" class="external-link">which</a></span><span class="op">(</span><span class="st">"charges"</span> <span class="op">==</span> <span class="fu"><a href="https://rdrr.io/r/base/names.html" class="external-link">names</a></span><span class="op">(</span><span class="va">df_insurance</span><span class="op">)</span><span class="op">)</span>,</span></span>
-<span class="r-in"><span>  iv <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">4</span><span class="op">)</span></span></span>
+<span class="r-in"><span>  df <span class="op">=</span> <span class="va">df_blood_pressure</span>,</span></span>
+<span class="r-in"><span>  dv <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/which.html" class="external-link">which</a></span><span class="op">(</span><span class="st">"bp_before"</span> <span class="op">==</span> <span class="fu"><a href="https://rdrr.io/r/base/names.html" class="external-link">names</a></span><span class="op">(</span><span class="va">df_blood_pressure</span><span class="op">)</span><span class="op">)</span>,</span></span>
+<span class="r-in"><span>  iv <span class="op">=</span> <span class="fl">2</span><span class="op">:</span><span class="fl">3</span></span></span>
 <span class="r-in"><span><span class="op">)</span></span></span>
-<span class="r-err co"><span class="r-pr">#&gt;</span> <span class="error">Error in required_package("coin"):</span> coin package needed to be installed before using this function. Type this in R: install.packages('coin')</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>       DV        IV level1 level2 n1 n2      W           p CI_l CI_u alternative                                            method mean1 mean2    sd1   sd2 sd_pooled      d      r k_squared[bartlett]</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1    sex bp_before   Male Female 60 60 1261.5 0.004720545  -10   -2   two.sided Wilcoxon rank sum test with continuity correction 159.3 153.6 11.413 10.74     11.08 0.5084 0.2582              0.2192</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2 agegrp bp_before  30-45  46-59 40 40  667.0 0.202247153   -7    2   two.sided                      Wilcoxon rank sum exact test 151.7 155.1  9.258 11.46     10.42 0.3288 0.1432              1.7393</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 3 agegrp bp_before  30-45    60+ 40 40  355.0 0.000009609  -16   -7   two.sided                      Wilcoxon rank sum exact test 151.7 162.6  9.258 10.73     10.02 1.0879 0.4791              0.8322</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 4 agegrp bp_before  46-59    60+ 40 40  484.5 0.002113691  -13   -3   two.sided                      Wilcoxon rank sum exact test 155.1 162.6 11.460 10.73     11.10 0.6735 0.3397              0.1679</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   df[bartlett] p[bartlett] bonferroni_p significant</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1            1      0.6397       0.0125        TRUE</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2            1      0.1872       0.0125       FALSE</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 3            1      0.3616       0.0125        TRUE</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 4            1      0.6820       0.0125        TRUE</span>
 <span class="r-in"><span><span class="fu">report_wtests</span><span class="op">(</span></span></span>
-<span class="r-in"><span>  df <span class="op">=</span> <span class="va">df_insurance</span>,</span></span>
-<span class="r-in"><span>  dv <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/which.html" class="external-link">which</a></span><span class="op">(</span><span class="st">"charges"</span> <span class="op">==</span> <span class="fu"><a href="https://rdrr.io/r/base/names.html" class="external-link">names</a></span><span class="op">(</span><span class="va">df_insurance</span><span class="op">)</span><span class="op">)</span>,</span></span>
-<span class="r-in"><span>  iv <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">2</span>, <span class="fl">4</span><span class="op">)</span></span></span>
-<span class="r-in"><span><span class="op">)</span></span></span>
-<span class="r-err co"><span class="r-pr">#&gt;</span> <span class="error">Error in required_package("coin"):</span> coin package needed to be installed before using this function. Type this in R: install.packages('coin')</span>
-<span class="r-in"><span><span class="fu">report_wtests</span><span class="op">(</span></span></span>
-<span class="r-in"><span>  df <span class="op">=</span> <span class="va">df_insurance</span>,</span></span>
-<span class="r-in"><span>  dv <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/which.html" class="external-link">which</a></span><span class="op">(</span><span class="st">"charges"</span> <span class="op">==</span> <span class="fu"><a href="https://rdrr.io/r/base/names.html" class="external-link">names</a></span><span class="op">(</span><span class="va">df_insurance</span><span class="op">)</span><span class="op">)</span>,</span></span>
-<span class="r-in"><span>  iv <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">2</span>, <span class="fl">4</span><span class="op">)</span>,</span></span>
+<span class="r-in"><span>  df <span class="op">=</span> <span class="va">df_blood_pressure</span>,</span></span>
+<span class="r-in"><span>  dv <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/which.html" class="external-link">which</a></span><span class="op">(</span><span class="st">"bp_before"</span> <span class="op">==</span> <span class="fu"><a href="https://rdrr.io/r/base/names.html" class="external-link">names</a></span><span class="op">(</span><span class="va">df_blood_pressure</span><span class="op">)</span><span class="op">)</span>,</span></span>
+<span class="r-in"><span>  iv <span class="op">=</span> <span class="fl">2</span><span class="op">:</span><span class="fl">3</span>,</span></span>
 <span class="r-in"><span>  alternative <span class="op">=</span> <span class="st">"two.sided"</span></span></span>
 <span class="r-in"><span><span class="op">)</span></span></span>
-<span class="r-err co"><span class="r-pr">#&gt;</span> <span class="error">Error in required_package("coin"):</span> coin package needed to be installed before using this function. Type this in R: install.packages('coin')</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>       DV        IV level1 level2 n1 n2      W           p CI_l CI_u alternative                                            method mean1 mean2    sd1   sd2 sd_pooled      d      r k_squared[bartlett]</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1    sex bp_before   Male Female 60 60 1261.5 0.004720545  -10   -2   two.sided Wilcoxon rank sum test with continuity correction 159.3 153.6 11.413 10.74     11.08 0.5084 0.2582              0.2192</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2 agegrp bp_before  30-45  46-59 40 40  667.0 0.202247153   -7    2   two.sided                      Wilcoxon rank sum exact test 151.7 155.1  9.258 11.46     10.42 0.3288 0.1432              1.7393</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 3 agegrp bp_before  30-45    60+ 40 40  355.0 0.000009609  -16   -7   two.sided                      Wilcoxon rank sum exact test 151.7 162.6  9.258 10.73     10.02 1.0879 0.4791              0.8322</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 4 agegrp bp_before  46-59    60+ 40 40  484.5 0.002113691  -13   -3   two.sided                      Wilcoxon rank sum exact test 155.1 162.6 11.460 10.73     11.10 0.6735 0.3397              0.1679</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   df[bartlett] p[bartlett] bonferroni_p significant</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1            1      0.6397       0.0125        TRUE</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2            1      0.1872       0.0125       FALSE</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 3            1      0.3616       0.0125        TRUE</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 4            1      0.6820       0.0125        TRUE</span>
 <span class="r-in"><span><span class="fu">report_wtests</span><span class="op">(</span></span></span>
-<span class="r-in"><span>  df <span class="op">=</span> <span class="va">df_insurance</span>,</span></span>
-<span class="r-in"><span>  dv <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/which.html" class="external-link">which</a></span><span class="op">(</span><span class="st">"charges"</span> <span class="op">==</span> <span class="fu"><a href="https://rdrr.io/r/base/names.html" class="external-link">names</a></span><span class="op">(</span><span class="va">df_insurance</span><span class="op">)</span><span class="op">)</span>,</span></span>
-<span class="r-in"><span>  iv <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">2</span>, <span class="fl">4</span><span class="op">)</span>,</span></span>
+<span class="r-in"><span>  df <span class="op">=</span> <span class="va">df_blood_pressure</span>,</span></span>
+<span class="r-in"><span>  dv <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/which.html" class="external-link">which</a></span><span class="op">(</span><span class="st">"bp_before"</span> <span class="op">==</span> <span class="fu"><a href="https://rdrr.io/r/base/names.html" class="external-link">names</a></span><span class="op">(</span><span class="va">df_blood_pressure</span><span class="op">)</span><span class="op">)</span>,</span></span>
+<span class="r-in"><span>  iv <span class="op">=</span> <span class="fl">2</span><span class="op">:</span><span class="fl">3</span>,</span></span>
 <span class="r-in"><span>  alternative <span class="op">=</span> <span class="st">"less"</span></span></span>
 <span class="r-in"><span><span class="op">)</span></span></span>
-<span class="r-err co"><span class="r-pr">#&gt;</span> <span class="error">Error in required_package("coin"):</span> coin package needed to be installed before using this function. Type this in R: install.packages('coin')</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>       DV        IV level1 level2 n1 n2      W           p CI_l CI_u alternative                                            method mean1 mean2    sd1   sd2 sd_pooled      d      r k_squared[bartlett]</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1    sex bp_before   Male Female 60 60 1261.5 0.002360273 -Inf   -2        less Wilcoxon rank sum test with continuity correction 159.3 153.6 11.413 10.74     11.08 0.5084 0.2582              0.2192</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2 agegrp bp_before  30-45  46-59 40 40  667.0 0.101123577 -Inf    1        less                      Wilcoxon rank sum exact test 151.7 155.1  9.258 11.46     10.42 0.3288 0.1432              1.7393</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 3 agegrp bp_before  30-45    60+ 40 40  355.0 0.000004805 -Inf   -7        less                      Wilcoxon rank sum exact test 151.7 162.6  9.258 10.73     10.02 1.0879 0.4791              0.8322</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 4 agegrp bp_before  46-59    60+ 40 40  484.5 0.001056845 -Inf   -4        less                      Wilcoxon rank sum exact test 155.1 162.6 11.460 10.73     11.10 0.6735 0.3397              0.1679</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   df[bartlett] p[bartlett] bonferroni_p significant</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1            1      0.6397       0.0125        TRUE</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2            1      0.1872       0.0125       FALSE</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 3            1      0.3616       0.0125        TRUE</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 4            1      0.6820       0.0125        TRUE</span>
 <span class="r-in"><span><span class="fu">report_wtests</span><span class="op">(</span></span></span>
-<span class="r-in"><span>  df <span class="op">=</span> <span class="va">df_insurance</span>,</span></span>
-<span class="r-in"><span>  dv <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/which.html" class="external-link">which</a></span><span class="op">(</span><span class="st">"charges"</span> <span class="op">==</span> <span class="fu"><a href="https://rdrr.io/r/base/names.html" class="external-link">names</a></span><span class="op">(</span><span class="va">df_insurance</span><span class="op">)</span><span class="op">)</span>,</span></span>
-<span class="r-in"><span>  iv <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">2</span>, <span class="fl">4</span><span class="op">)</span>,</span></span>
+<span class="r-in"><span>  df <span class="op">=</span> <span class="va">df_blood_pressure</span>,</span></span>
+<span class="r-in"><span>  dv <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/which.html" class="external-link">which</a></span><span class="op">(</span><span class="st">"bp_before"</span> <span class="op">==</span> <span class="fu"><a href="https://rdrr.io/r/base/names.html" class="external-link">names</a></span><span class="op">(</span><span class="va">df_blood_pressure</span><span class="op">)</span><span class="op">)</span>,</span></span>
+<span class="r-in"><span>  iv <span class="op">=</span> <span class="fl">2</span><span class="op">:</span><span class="fl">3</span>,</span></span>
 <span class="r-in"><span>  alternative <span class="op">=</span> <span class="st">"greater"</span></span></span>
 <span class="r-in"><span><span class="op">)</span></span></span>
-<span class="r-err co"><span class="r-pr">#&gt;</span> <span class="error">Error in required_package("coin"):</span> coin package needed to be installed before using this function. Type this in R: install.packages('coin')</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>       DV        IV level1 level2 n1 n2      W      p CI_l CI_u alternative                                            method mean1 mean2    sd1   sd2 sd_pooled      d      r k_squared[bartlett]</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1    sex bp_before   Male Female 60 60 1261.5 0.9977   -9  Inf     greater Wilcoxon rank sum test with continuity correction 159.3 153.6 11.413 10.74     11.08 0.5084 0.2582              0.2192</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2 agegrp bp_before  30-45  46-59 40 40  667.0 0.8997   -7  Inf     greater                      Wilcoxon rank sum exact test 151.7 155.1  9.258 11.46     10.42 0.3288 0.1432              1.7393</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 3 agegrp bp_before  30-45    60+ 40 40  355.0 1.0000  -15  Inf     greater                      Wilcoxon rank sum exact test 151.7 162.6  9.258 10.73     10.02 1.0879 0.4791              0.8322</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 4 agegrp bp_before  46-59    60+ 40 40  484.5 0.9990  -13  Inf     greater                      Wilcoxon rank sum exact test 155.1 162.6 11.460 10.73     11.10 0.6735 0.3397              0.1679</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   df[bartlett] p[bartlett] bonferroni_p significant</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1            1      0.6397       0.0125       FALSE</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2            1      0.1872       0.0125       FALSE</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 3            1      0.3616       0.0125       FALSE</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 4            1      0.6820       0.0125       FALSE</span>
 <span class="r-in"><span><span class="fu">report_wtests</span><span class="op">(</span></span></span>
-<span class="r-in"><span>  df <span class="op">=</span> <span class="va">df_insurance</span>,</span></span>
-<span class="r-in"><span>  dv <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/which.html" class="external-link">which</a></span><span class="op">(</span><span class="st">"charges"</span> <span class="op">==</span> <span class="fu"><a href="https://rdrr.io/r/base/names.html" class="external-link">names</a></span><span class="op">(</span><span class="va">df_insurance</span><span class="op">)</span><span class="op">)</span>,</span></span>
-<span class="r-in"><span>  iv <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">2</span>, <span class="fl">4</span><span class="op">)</span>,</span></span>
-<span class="r-in"><span>  var.equal <span class="op">=</span> <span class="cn">TRUE</span></span></span>
-<span class="r-in"><span><span class="op">)</span></span></span>
-<span class="r-err co"><span class="r-pr">#&gt;</span> <span class="error">Error in required_package("coin"):</span> coin package needed to be installed before using this function. Type this in R: install.packages('coin')</span>
-<span class="r-in"><span><span class="fu">report_wtests</span><span class="op">(</span></span></span>
-<span class="r-in"><span>  df <span class="op">=</span> <span class="va">df_insurance</span>,</span></span>
-<span class="r-in"><span>  dv <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/which.html" class="external-link">which</a></span><span class="op">(</span><span class="st">"charges"</span> <span class="op">==</span> <span class="fu"><a href="https://rdrr.io/r/base/names.html" class="external-link">names</a></span><span class="op">(</span><span class="va">df_insurance</span><span class="op">)</span><span class="op">)</span>,</span></span>
-<span class="r-in"><span>  iv <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">2</span>, <span class="fl">4</span><span class="op">)</span>,</span></span>
+<span class="r-in"><span>  df <span class="op">=</span> <span class="va">df_blood_pressure</span>,</span></span>
+<span class="r-in"><span>  dv <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/which.html" class="external-link">which</a></span><span class="op">(</span><span class="st">"bp_before"</span> <span class="op">==</span> <span class="fu"><a href="https://rdrr.io/r/base/names.html" class="external-link">names</a></span><span class="op">(</span><span class="va">df_blood_pressure</span><span class="op">)</span><span class="op">)</span>,</span></span>
+<span class="r-in"><span>  iv <span class="op">=</span> <span class="fl">2</span><span class="op">:</span><span class="fl">3</span>,</span></span>
 <span class="r-in"><span>  var.equal <span class="op">=</span> <span class="cn">TRUE</span>,</span></span>
 <span class="r-in"><span>  file <span class="op">=</span> <span class="st">"wilcoxontest"</span></span></span>
 <span class="r-in"><span><span class="op">)</span></span></span>
-<span class="r-err co"><span class="r-pr">#&gt;</span> <span class="error">Error in required_package("coin"):</span> coin package needed to be installed before using this function. Type this in R: install.packages('coin')</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>       DV        IV level1 level2 n1 n2      W           p CI_l CI_u alternative                                            method mean1 mean2    sd1   sd2 sd_pooled      d      r k_squared[bartlett]</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1    sex bp_before   Male Female 60 60 1261.5 0.004720545  -10   -2   two.sided Wilcoxon rank sum test with continuity correction 159.3 153.6 11.413 10.74     11.08 0.5084 0.2582              0.2192</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2 agegrp bp_before  30-45  46-59 40 40  667.0 0.202247153   -7    2   two.sided                      Wilcoxon rank sum exact test 151.7 155.1  9.258 11.46     10.42 0.3288 0.1432              1.7393</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 3 agegrp bp_before  30-45    60+ 40 40  355.0 0.000009609  -16   -7   two.sided                      Wilcoxon rank sum exact test 151.7 162.6  9.258 10.73     10.02 1.0879 0.4791              0.8322</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 4 agegrp bp_before  46-59    60+ 40 40  484.5 0.002113691  -13   -3   two.sided                      Wilcoxon rank sum exact test 155.1 162.6 11.460 10.73     11.10 0.6735 0.3397              0.1679</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   df[bartlett] p[bartlett] bonferroni_p significant</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1            1      0.6397       0.0125        TRUE</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2            1      0.1872       0.0125       FALSE</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 3            1      0.3616       0.0125        TRUE</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 4            1      0.6820       0.0125        TRUE</span>
 </code></pre></div>
     </div>
   </main><aside class="col-md-3"><nav id="toc" aria-label="Table of contents"><h2>On this page</h2>
