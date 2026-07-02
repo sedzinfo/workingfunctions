@@ -334,8 +334,6 @@
   : Convert a key list to a lavaan CFA model string
 - [`matrix_triangle()`](https://sedzinfo.github.io/rwf/reference/matrix_triangle.md)
   : Extract the upper or lower triangle of a matrix
-- [`compute_mean_sd_alpha()`](https://sedzinfo.github.io/rwf/reference/compute_mean_sd_alpha.md)
-  : Mean and SD of scale scores
 - [`min_max_index()`](https://sedzinfo.github.io/rwf/reference/min_max_index.md)
   : Indices of the minimum and maximum values in a vector
 - [`model_loadings()`](https://sedzinfo.github.io/rwf/reference/model_loadings.md)

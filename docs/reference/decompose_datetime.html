@@ -3,7 +3,7 @@
     <a href="#main" class="visually-hidden-focusable">Skip to contents</a>
 
 
-    <nav class="navbar navbar-expand-lg fixed-top bg-light" data-bs-theme="light" aria-label="Site navigation"><div class="container">
+    <nav class="navbar navbar-expand-lg fixed-top bg-primary" data-bs-theme="dark" aria-label="Site navigation"><div class="container">
 
     <a class="navbar-brand me-2" href="../index.html">rwf</a>
 
@@ -94,13 +94,13 @@ This argument is used if extended=TRUE</p></dd>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 1 2026            07          02 2026-07-02</span>
 <span class="r-in"><span><span class="fu">decompose_datetime</span><span class="op">(</span>x <span class="op">=</span> <span class="va">d2</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   YEAR MONTH_NUMERIC DAY_NUMERIC HOUR MINUTE SECOND MILLISECOND  FULL_DATE FULL_TIME</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 1 2026            07          02   15     16     44      343896 2026-07-02     15:16</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1 2026            07          02   16     33     04      789004 2026-07-02     16:33</span>
 <span class="r-in"><span><span class="fu">decompose_datetime</span><span class="op">(</span>x <span class="op">=</span> <span class="va">d1</span>, extended <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   QUARTER MONTH     JULIAN  WEEKDAY DAY_PERIOD YEAR MONTH_NUMERIC DAY_NUMERIC  FULL_DATE</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 1      Q3  July 20636 days Thursday       &lt;NA&gt; 2026            07          02 2026-07-02</span>
 <span class="r-in"><span><span class="fu">decompose_datetime</span><span class="op">(</span>x <span class="op">=</span> <span class="va">d2</span>, extended <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   QUARTER MONTH        JULIAN  WEEKDAY DAY_PERIOD YEAR MONTH_NUMERIC DAY_NUMERIC HOUR MINUTE SECOND MILLISECOND  FULL_DATE FULL_TIME</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 1      Q3  July 20636.64 days Thursday       Noon 2026            07          02   15     16     44      343896 2026-07-02     15:16</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1      Q3  July 20636.69 days Thursday       Noon 2026            07          02   16     33     04      789004 2026-07-02     16:33</span>
 <span class="r-in"><span><span class="fu">decompose_datetime</span><span class="op">(</span>x <span class="op">=</span> <span class="st">"01/15/1900"</span>, format <span class="op">=</span> <span class="st">"%m/%e/%Y"</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   YEAR MONTH_NUMERIC DAY_NUMERIC  FULL_DATE</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 1 1900            01          15 1900-01-15</span>
