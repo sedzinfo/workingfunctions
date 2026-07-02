@@ -1,4 +1,62 @@
 ##########################################################################################
+# COHEN'S D EFFECT SIZE
+##########################################################################################
+#' @title Compute Cohen's D Effect Size
+#' @description Computes Cohen's d effect size for a two-group comparison as
+#' abs(mean1 - mean2) / sd_pooled, with
+#' sd_pooled = sqrt((sd1^2 + sd2^2) / 2). This is the same formula used
+#' inline by report_ttests, extracted here as a standalone, reusable
+#' function so it can be called on its own.
+#'
+#' @param formula a formula of the form dv ~ group, same as used by
+#' stats::t.test's formula method. The grouping variable must have exactly
+#' two levels. Note: as with stats::t.test's formula method, paired tests
+#' are not supported here; use stats::t.test(x, y, paired = TRUE) directly
+#' for that case.
+#' @param data data frame containing the variables in formula, same as
+#' stats::t.test's data argument.
+#'
+#' @importFrom stats model.frame sd
+#'
+#' @return A single numeric value, Cohen's d effect size.
+#' @keywords cohens-d parametric effect-size
+#' @notes
+#' effect size
+#' \itemize{
+#'   \item Very small    0.01 Sawilowsky (2009)
+#'   \item Small         0.20 Cohen (1988)
+#'   \item Medium        0.50 Cohen (1988)
+#'   \item Large         0.80 Cohen (1988)
+#'   \item Very large    1.20 Sawilowsky (2009)
+#'   \item Huge          12.0 Sawilowsky (2009)
+#' }
+#'  
+#' @export
+#' @examples
+#' compute_cohens_d(
+#'   formula = bp_before ~ agegrp,
+#'   data = df_blood_pressure[df_blood_pressure$agegrp %in% c("30-45", "46-59"), ]
+#' )
+#' effectsize::cohens_d(
+#'   bp_before ~ agegrp,
+#'   data = df_blood_pressure[df_blood_pressure$agegrp %in% c("30-45", "46-59"), ],
+#'   pooled_sd = TRUE
+#' )
+compute_cohens_d <- function(formula, data) {
+  mf <- stats::model.frame(formula, data = data)
+  outcome <- mf[[1]]
+  group <- factor(mf[[2]])
+  if (nlevels(group) != 2) {
+    stop("grouping factor must have exactly 2 levels")
+  }
+  levels_group <- levels(group)
+  x <- outcome[group == levels_group[1]]
+  y <- outcome[group == levels_group[2]]
+  sd_pooled <- sqrt((stats::sd(x)^2 + stats::sd(y)^2) / 2)
+  d <- as.numeric(abs(mean(x) - mean(y)) / sd_pooled)
+  return(d)
+}
+##########################################################################################
 # T TEST
 ##########################################################################################
 #' @title Run Pairwise t-tests and Return a Reporting Table
@@ -13,7 +71,7 @@
 #' @param file output filename
 #' @inheritParams plot_oneway_diagnostics
 #' @inheritDotParams stats::t.test
-#' @importFrom stats t.test formula
+#' @importFrom stats t.test formula bartlett.test
 #'
 #' @return A data frame where each row is one pairwise group comparison for one
 #' dependent-independent variable combination. Returned columns mean:
@@ -104,6 +162,20 @@
 #'   var.equal = TRUE,
 #'   file = "ttest"
 #' )
+#' effectsize::cohens_d(bp_before ~ sex, data = df_blood_pressure, pooled_sd = TRUE)
+#' effectsize::cohens_d(bp_after ~ sex, data = df_blood_pressure, pooled_sd = TRUE)
+#' effectsize::hedges_g(bp_before ~ sex, data = df_blood_pressure, pooled_sd = TRUE)
+#' effectsize::hedges_g(bp_after ~ sex, data = df_blood_pressure, pooled_sd = TRUE)
+#' report_ttests(
+#'   df = df_blood_pressure,
+#'   dv = which("bp_before" == names(df_blood_pressure)),
+#'   iv = 2
+#' )
+#' report_ttests(
+#'   df = df_blood_pressure,
+#'   dv = which("bp_after" == names(df_blood_pressure)),
+#'   iv = 2
+#' )
 report_ttests <- function(df, dv, iv, file = NULL, ...) {
   comment <- list(
     DV = "dependent variable",
@@ -154,8 +226,9 @@ report_ttests <- function(df, dv, iv, file = NULL, ...) {
       f2 <- as.character(combinations_levels$X2[l])
       tempdata <- tempdata_all_levels[tempdata_all_levels[, independent] %in% c(f1, f2), ]
       form <- stats::formula(paste0(dependent, "~", independent))
+      # ttest <- stats::t.test(form, data = tempdata)
       ttest <- stats::t.test(form, data = tempdata, ...)
-      bartlett.test <- bartlett.test(form, data = tempdata)
+      bartlett.test <- stats::bartlett.test(form, data = tempdata)
       mean1 <- mean(tempdata[tempdata[, independent] %in% f1, dependent], na.rm = TRUE)
       mean2 <- mean(tempdata[tempdata[, independent] %in% f2, dependent], na.rm = TRUE)
       sd1 <- stats::sd(tempdata[tempdata[, independent] %in% f1, dependent], na.rm = TRUE)
@@ -205,7 +278,61 @@ report_ttests <- function(df, dv, iv, file = NULL, ...) {
   return(df_ttest)
 }
 ##########################################################################################
-# WILCOXON TEST
+# WILCOXON EFFECT SIZE
+##########################################################################################
+#' @title Compute Wilcoxon Effect Size
+#' @description Computes the Wilcoxon rank-sum/signed-rank effect size
+#' r = abs(Z) / sqrt(N), with Z derived from the p-value of
+#' stats::wilcox.test (Z = qnorm(p / 2, lower.tail = FALSE)). This avoids a
+#' dependency on rstatix/coin, using only stats::wilcox.test under the hood.
+#' The effect size magnitude is computed from the two-sided p-value
+#' regardless of the alternative used for the underlying hypothesis test.
+#'
+#' @param formula a formula of the form dv ~ group, same as used by
+#' stats::wilcox.test's formula method. Note: as with
+#' stats::wilcox.test's formula method, paired tests are not supported here;
+#' use stats::wilcox.test(x, y, paired = TRUE) directly for that case.
+#' @param data data frame containing the variables in formula, same as
+#' stats::wilcox.test's data argument.
+#' @param mu a number specifying an optional shift, same as stats::wilcox.test.
+#' @param exact logical indicating whether an exact p-value should be
+#' computed, same as stats::wilcox.test.
+#' @param correct logical indicating whether to apply the continuity
+#' correction, same as stats::wilcox.test.
+#' @param ... additional arguments passed to stats::wilcox.test.
+#'
+#' @importFrom stats wilcox.test model.frame qnorm
+#'
+#' @return A single numeric value, the Wilcoxon effect size (r).
+#' @keywords wilcoxon nonparametric effect-size
+#' @export
+#' @examples
+#' compute_wilcoxon_effect_size(
+#'   formula = bp_before ~ agegrp,
+#'   data = df_blood_pressure[df_blood_pressure$agegrp %in% c("30-45", "46-59"), ]
+#' )
+#' rstatix::wilcox_effsize(bp_before ~ agegrp,
+#'   data = df_blood_pressure[df_blood_pressure$agegrp %in% c("30-45", "46-59"), ]
+#' )
+compute_wilcoxon_effect_size <- function(formula, data,
+                                          mu = 0,
+                                          exact = NULL,
+                                          correct = TRUE,
+                                          ...) {
+  wtest <- stats::wilcox.test(
+    formula,
+    data = data,
+    alternative = "two.sided",
+    mu = mu,
+    exact = exact,
+    correct = correct,
+    ...
+  )
+  n <- nrow(stats::model.frame(formula, data = data))
+  z <- stats::qnorm(wtest$p.value / 2, lower.tail = FALSE)
+  r <- as.numeric(abs(z) / sqrt(n))
+  return(r)
+}
 ##########################################################################################
 #' @title Run Pairwise Wilcoxon Tests and Return a Reporting Table
 #' @description Performs Wilcoxon rank-sum tests for each selected dependent
@@ -249,7 +376,7 @@ report_ttests <- function(df, dv, iv, file = NULL, ...) {
 #'   \item sd_pooled: Pooled standard deviation,
 #'   sqrt((sd1^2 + sd2^2) / 2).
 #'   \item d: Cohen d effect size, abs(mean2 - mean1) / sd_pooled.
-#'   \item r: Wilcoxon effect size from rstatix::wilcox_effsize.
+#'   \item r: Wilcoxon effect size from compute_wilcoxon_effect_size.
 #'   \item k_squared[bartlett]: Bartlett test statistic for equal variances.
 #'   \item df[bartlett]: Degrees of freedom of Bartlett test.
 #'   \item p[bartlett]: p-value of Bartlett test.
@@ -359,6 +486,7 @@ report_wtests <- function(df, dv, iv, file = NULL, ...) {
       f2 <- as.character(combinations_levels$X2[l])
       tempdata <- tempdata_all_levels[tempdata_all_levels[, independent] %in% c(f1, f2), ]
       form <- stats::formula(paste0(dependent, "~", independent))
+      # wtest <- stats::wilcox.test(form, data = tempdata, conf.int = TRUE)
       wtest <- stats::wilcox.test(form, data = tempdata, conf.int = TRUE, ...)
       bartlett.test <- bartlett.test(form, data = tempdata)
       mean1 <- mean(tempdata[tempdata[, independent] %in% f1, dependent], na.rm = TRUE)
@@ -369,6 +497,9 @@ report_wtests <- function(df, dv, iv, file = NULL, ...) {
       n2 <- length(tempdata[tempdata[, independent] %in% f2, dependent])
       sd_pooled <- sqrt((sd1^2 + sd2^2) / 2)
       cohen_d <- abs(mean2 - mean1) / sd_pooled
+      n <- nrow(stats::model.frame(form, data = tempdata))
+      z <- stats::qnorm(wtest$p.value / 2, lower.tail = FALSE)
+      r <- as.numeric(abs(z) / sqrt(n))
       wtest_r <- data.frame(
         DV = independent,
         IV = dependent,
@@ -388,7 +519,7 @@ report_wtests <- function(df, dv, iv, file = NULL, ...) {
         sd2 = sd2,
         sd_pooled = sd_pooled,
         d = cohen_d,
-        r = as.numeric(rstatix::wilcox_effsize(form, data = tempdata)$effsize),
+        r = r,
         "k_squared[bartlett]" = bartlett.test$statistic,
         "df[bartlett]" = as.numeric(bartlett.test$parameter),
         "p[bartlett]" = bartlett.test$p.value,

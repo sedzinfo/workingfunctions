@@ -27,6 +27,7 @@ reference:
       - compute_aggregate
       - compute_alpha_diagnostics
       - compute_aov_es
+      - compute_cohens_d
       - compute_confidence_inteval
       - compute_crosstable
       - compute_descriptives
@@ -59,6 +60,7 @@ reference:
       - compute_tversky_index
       - compute_unidimensional_ability
       - compute_unidimensional_theta
+      - compute_wilcoxon_effect_size
       - compute_y_logistic
 
   - title: "Excel output"

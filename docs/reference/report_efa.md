@@ -165,7 +165,7 @@ report_efa(model=model,df=mtcars,file="efa")
 #> carb      0.8266 0.6211          NA
 #> 
 #> $loadings
-#>       Matrix variable     MR2     MR1               type row.names.model.Vaccounted.
+#>       Matrix variable     MR1     MR2               type row.names.model.Vaccounted.
 #> 1    Pattern     qsec -0.9200 -0.3500               <NA>                        <NA>
 #> 2    Pattern       hp  0.8900 -0.1200               <NA>                        <NA>
 #> 3    Pattern     carb  0.8500  0.2400               <NA>                        <NA>
@@ -188,7 +188,7 @@ report_efa(model=model,df=mtcars,file="efa")
 #> 20 Structure     drat -0.3900  0.8300               <NA>                        <NA>
 #> 21 Structure       wt  0.6100 -0.8100               <NA>                        <NA>
 #> 22 Structure     disp  0.7500 -0.7700               <NA>                        <NA>
-#> 23      <NA>     <NA>  4.7069  4.1509 variance accounted                 SS loadings
+#> 23      <NA>     <NA>  4.7068  4.1509 variance accounted                 SS loadings
 #> 24      <NA>     <NA>  0.4279  0.3774 variance accounted              Proportion Var
 #> 25      <NA>     <NA>  0.4279  0.8053 variance accounted              Cumulative Var
 #> 26      <NA>     <NA>  0.5314  0.4686 variance accounted        Proportion Explained
@@ -208,10 +208,10 @@ report_efa(model=model,df=mtcars,file="efa")
 #> 10    350             0.30
 #> 
 #> $weights
-#>           MR2      MR1
+#>           MR1      MR2
 #> mpg  -0.12826  0.12270
 #> cyl   0.44703 -0.08595
-#> disp -0.23041 -0.46243
+#> disp -0.23041 -0.46242
 #> hp    0.39184  0.29700
 #> drat  0.10510  0.15093
 #> wt    0.22363  0.11141
@@ -364,7 +364,7 @@ report_efa(model=model,df=mtcars)
 #>          ULS2     ULS1
 #> mpg  -0.12826  0.12270
 #> cyl   0.44703 -0.08595
-#> disp -0.23041 -0.46243
+#> disp -0.23041 -0.46242
 #> hp    0.39184  0.29700
 #> drat  0.10510  0.15093
 #> wt    0.22363  0.11141
@@ -516,15 +516,15 @@ report_efa(model=model,df=mtcars)
 #> $weights
 #>          [,1]     [,2]
 #> mpg  -0.12826  0.12270
-#> cyl   0.44703 -0.08595
+#> cyl   0.44703 -0.08594
 #> disp -0.23041 -0.46243
-#> hp    0.39185  0.29700
-#> drat  0.10510  0.15092
+#> hp    0.39184  0.29700
+#> drat  0.10510  0.15093
 #> wt    0.22363  0.11142
-#> qsec -0.24689 -0.27788
-#> vs   -0.10199 -0.08728
-#> am    0.21179  0.28057
-#> gear  0.29636  0.32215
+#> qsec -0.24689 -0.27789
+#> vs   -0.10199 -0.08729
+#> am    0.21178  0.28057
+#> gear  0.29636  0.32216
 #> carb -0.06294 -0.05850
 #> 
 model<-psych::fa(mtcars,nfactors=2,rotate="oblimin",fm="wls",oblique.scores=TRUE)
@@ -624,7 +624,7 @@ report_efa(model=model,df=mtcars)
 #> carb      0.8266 0.6211          NA
 #> 
 #> $loadings
-#>       Matrix variable    WLS1    WLS2               type row.names.model.Vaccounted.
+#>       Matrix variable    WLS2    WLS1               type row.names.model.Vaccounted.
 #> 1    Pattern     qsec -0.9000 -0.3500               <NA>                        <NA>
 #> 2    Pattern       hp  0.8900 -0.1100               <NA>                        <NA>
 #> 3    Pattern     carb  0.8400  0.2500               <NA>                        <NA>
@@ -647,7 +647,7 @@ report_efa(model=model,df=mtcars)
 #> 20 Structure     gear -0.0600  0.8700               <NA>                        <NA>
 #> 21 Structure     drat -0.4100  0.8300               <NA>                        <NA>
 #> 22 Structure       wt  0.6200 -0.7900               <NA>                        <NA>
-#> 23      <NA>     <NA>  4.7375  4.0438 variance accounted                 SS loadings
+#> 23      <NA>     <NA>  4.7374  4.0438 variance accounted                 SS loadings
 #> 24      <NA>     <NA>  0.4307  0.3676 variance accounted              Proportion Var
 #> 25      <NA>     <NA>  0.4307  0.7983 variance accounted              Cumulative Var
 #> 26      <NA>     <NA>  0.5395  0.4605 variance accounted        Proportion Explained
@@ -667,16 +667,16 @@ report_efa(model=model,df=mtcars)
 #> 10    350             0.30
 #> 
 #> $weights
-#>          WLS1     WLS2
-#> mpg  -0.16930  0.10618
-#> cyl   0.44769 -0.01192
+#>          WLS2     WLS1
+#> mpg  -0.16930  0.10619
+#> cyl   0.44769 -0.01193
 #> disp -0.18245 -0.39136
 #> hp    0.36842  0.25800
 #> drat  0.11254  0.21029
 #> wt    0.14174  0.10278
 #> qsec -0.13074 -0.20271
 #> vs   -0.19067 -0.10342
-#> am    0.22598  0.32521
+#> am    0.22599  0.32521
 #> gear  0.29046  0.32941
 #> carb -0.02599 -0.04586
 #> 
@@ -953,9 +953,9 @@ report_efa(model=model,df=mtcars)
 #> 20 Structure     drat -0.3900  0.8300               <NA>                        <NA>
 #> 21 Structure       wt  0.6100 -0.8100               <NA>                        <NA>
 #> 22 Structure     disp  0.7500 -0.7700               <NA>                        <NA>
-#> 23      <NA>     <NA>  4.7008  4.1570 variance accounted                 SS loadings
-#> 24      <NA>     <NA>  0.4273  0.3779 variance accounted              Proportion Var
-#> 25      <NA>     <NA>  0.4273  0.8053 variance accounted              Cumulative Var
+#> 23      <NA>     <NA>  4.7009  4.1570 variance accounted                 SS loadings
+#> 24      <NA>     <NA>  0.4274  0.3779 variance accounted              Proportion Var
+#> 25      <NA>     <NA>  0.4274  0.8053 variance accounted              Cumulative Var
 #> 26      <NA>     <NA>  0.5307  0.4693 variance accounted        Proportion Explained
 #> 27      <NA>     <NA>  0.5307  1.0000 variance accounted       Cumulative Proportion
 #> 
@@ -975,11 +975,11 @@ report_efa(model=model,df=mtcars)
 #> $weights
 #>           PA2      PA1
 #> mpg  -0.12719  0.12383
-#> cyl   0.44305 -0.08942
-#> disp -0.22261 -0.45697
-#> hp    0.38630  0.29346
+#> cyl   0.44305 -0.08941
+#> disp -0.22260 -0.45697
+#> hp    0.38630  0.29347
 #> drat  0.10438  0.15061
-#> wt    0.21774  0.10592
+#> wt    0.21774  0.10593
 #> qsec -0.24784 -0.27803
 #> vs   -0.10108 -0.08715
 #> am    0.21028  0.27688
@@ -1083,7 +1083,7 @@ report_efa(model=model,df=mtcars)
 #> carb      0.8266 0.6211          NA
 #> 
 #> $loadings
-#>       Matrix variable     ML2     ML1               type row.names.model.Vaccounted.
+#>       Matrix variable     ML1     ML2               type row.names.model.Vaccounted.
 #> 1    Pattern     qsec -0.9600 -0.3200               <NA>                        <NA>
 #> 2    Pattern       hp  0.8500 -0.2000               <NA>                        <NA>
 #> 3    Pattern     carb  0.8100  0.1600               <NA>                        <NA>
@@ -1126,10 +1126,10 @@ report_efa(model=model,df=mtcars)
 #> 10    350             0.30
 #> 
 #> $weights
-#>           ML2      ML1
+#>           ML1      ML2
 #> mpg  -0.04829  0.09421
 #> cyl   0.24216 -0.11404
-#> disp  0.07217 -0.18704
+#> disp  0.07217 -0.18703
 #> hp    0.23861  0.09028
 #> drat  0.05442  0.12138
 #> wt   -0.03544 -0.17393
@@ -1236,7 +1236,7 @@ report_efa(model=model,df=mtcars)
 #> carb      0.8266 0.6211          NA
 #> 
 #> $loadings
-#>       Matrix variable     MC2     MC1               type row.names.model.Vaccounted.
+#>       Matrix variable     MC1     MC2               type row.names.model.Vaccounted.
 #> 1    Pattern     qsec -0.9400 -0.3300               <NA>                        <NA>
 #> 2    Pattern       hp  0.8700 -0.1600               <NA>                        <NA>
 #> 3    Pattern     carb  0.8400  0.2100               <NA>                        <NA>
@@ -1279,16 +1279,16 @@ report_efa(model=model,df=mtcars)
 #> 10    350             0.30
 #> 
 #> $weights
-#>           MC2      MC1
+#>           MC1      MC2
 #> mpg  -0.05811  0.08597
 #> cyl   0.24455 -0.09996
 #> disp  0.08401 -0.18491
 #> hp    0.28482  0.12510
 #> drat  0.05601  0.12733
 #> wt   -0.02271 -0.15460
-#> qsec -0.27061 -0.21888
+#> qsec -0.27060 -0.21888
 #> vs   -0.12571 -0.05534
-#> am    0.19854  0.30023
+#> am    0.19853  0.30023
 #> gear  0.18521  0.26599
 #> carb  0.13757  0.10421
 #> 
@@ -1543,7 +1543,7 @@ report_efa(model=model,df=mtcars)
 #> carb      0.8266 0.6211          NA
 #> 
 #> $loadings
-#>       Matrix variable oldmin2 oldmin1               type row.names.model.Vaccounted.
+#>       Matrix variable oldmin1 oldmin2               type row.names.model.Vaccounted.
 #> 1    Pattern     qsec -0.9300 -0.3400               <NA>                        <NA>
 #> 2    Pattern       hp  0.8900 -0.1400               <NA>                        <NA>
 #> 3    Pattern     carb  0.8500  0.2300               <NA>                        <NA>
@@ -1586,14 +1586,14 @@ report_efa(model=model,df=mtcars)
 #> 10    350             0.30
 #> 
 #> $weights
-#>       oldmin2  oldmin1
+#>       oldmin1  oldmin2
 #> mpg  -0.09760  0.11552
 #> cyl   0.38551 -0.11616
 #> disp -0.24251 -0.45299
-#> hp    0.39093  0.27781
+#> hp    0.39092  0.27782
 #> drat  0.09590  0.13713
 #> wt    0.25525  0.09710
-#> qsec -0.30211 -0.29923
+#> qsec -0.30210 -0.29923
 #> vs   -0.10511 -0.07628
 #> am    0.19842  0.28468
 #> gear  0.27461  0.29736

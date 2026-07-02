@@ -150,6 +150,20 @@ report_ttests(
   var.equal = TRUE,
   file = "ttest"
 )
+effectsize::cohens_d(bp_before ~ sex, data = df_blood_pressure, pooled_sd = TRUE)
+effectsize::cohens_d(bp_after ~ sex, data = df_blood_pressure, pooled_sd = TRUE)
+effectsize::hedges_g(bp_before ~ sex, data = df_blood_pressure, pooled_sd = TRUE)
+effectsize::hedges_g(bp_after ~ sex, data = df_blood_pressure, pooled_sd = TRUE)
+report_ttests(
+  df = df_blood_pressure,
+  dv = which("bp_before" == names(df_blood_pressure)),
+  iv = 2
+)
+report_ttests(
+  df = df_blood_pressure,
+  dv = which("bp_after" == names(df_blood_pressure)),
+  iv = 2
+)
 }
 \keyword{effect-size}
 \keyword{inference}

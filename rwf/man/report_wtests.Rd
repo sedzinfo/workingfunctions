@@ -88,7 +88,7 @@ dependent-independent variable combination. Returned columns mean:
   \item sd_pooled: Pooled standard deviation,
   sqrt((sd1^2 + sd2^2) / 2).
   \item d: Cohen d effect size, abs(mean2 - mean1) / sd_pooled.
-  \item r: Wilcoxon effect size from rstatix::wilcox_effsize.
+  \item r: Wilcoxon effect size from compute_wilcoxon_effect_size.
   \item k_squared[bartlett]: Bartlett test statistic for equal variances.
   \item df[bartlett]: Degrees of freedom of Bartlett test.
   \item p[bartlett]: p-value of Bartlett test.

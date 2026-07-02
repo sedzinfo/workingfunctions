@@ -12,6 +12,8 @@
   : Item-total correlations and alpha-if-item-removed diagnostics
 - [`compute_aov_es()`](https://sedzinfo.github.io/rwf/reference/compute_aov_es.md)
   : Compute eta and omega
+- [`compute_cohens_d()`](https://sedzinfo.github.io/rwf/reference/compute_cohens_d.md)
+  : Compute Cohen's D Effect Size
 - [`compute_confidence_inteval()`](https://sedzinfo.github.io/rwf/reference/compute_confidence_inteval.md)
   : Compute confidence interval
 - [`compute_crosstable()`](https://sedzinfo.github.io/rwf/reference/compute_crosstable.md)
@@ -76,6 +78,8 @@
   : Compute theta for unidimensional models
 - [`compute_unidimensional_theta()`](https://sedzinfo.github.io/rwf/reference/compute_unidimensional_theta.md)
   : Compute theta for unidimensional models
+- [`compute_wilcoxon_effect_size()`](https://sedzinfo.github.io/rwf/reference/compute_wilcoxon_effect_size.md)
+  : Compute Wilcoxon Effect Size
 - [`compute_y_logistic()`](https://sedzinfo.github.io/rwf/reference/compute_y_logistic.md)
   : Compute y for logistic function
 

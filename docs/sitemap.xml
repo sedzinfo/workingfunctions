@@ -18,6 +18,7 @@
 <url><loc>https://sedzinfo.github.io/rwf/reference/compute_aggregate.html</loc></url>
 <url><loc>https://sedzinfo.github.io/rwf/reference/compute_alpha_diagnostics.html</loc></url>
 <url><loc>https://sedzinfo.github.io/rwf/reference/compute_aov_es.html</loc></url>
+<url><loc>https://sedzinfo.github.io/rwf/reference/compute_cohens_d.html</loc></url>
 <url><loc>https://sedzinfo.github.io/rwf/reference/compute_confidence_inteval.html</loc></url>
 <url><loc>https://sedzinfo.github.io/rwf/reference/compute_crosstable.html</loc></url>
 <url><loc>https://sedzinfo.github.io/rwf/reference/compute_descriptives.html</loc></url>
@@ -50,6 +51,7 @@
 <url><loc>https://sedzinfo.github.io/rwf/reference/compute_tversky_index.html</loc></url>
 <url><loc>https://sedzinfo.github.io/rwf/reference/compute_unidimensional_ability.html</loc></url>
 <url><loc>https://sedzinfo.github.io/rwf/reference/compute_unidimensional_theta.html</loc></url>
+<url><loc>https://sedzinfo.github.io/rwf/reference/compute_wilcoxon_effect_size.html</loc></url>
 <url><loc>https://sedzinfo.github.io/rwf/reference/compute_y_logistic.html</loc></url>
 <url><loc>https://sedzinfo.github.io/rwf/reference/confusion.html</loc></url>
 <url><loc>https://sedzinfo.github.io/rwf/reference/confusion_matrix_percent.html</loc></url>

@@ -299,4 +299,46 @@ report_ttests(
 #> 2      0.1872       0.0125       FALSE
 #> 3      0.3616       0.0125        TRUE
 #> 4      0.6820       0.0125        TRUE
+effectsize::cohens_d(bp_before ~ sex, data = df_blood_pressure, pooled_sd = TRUE)
+#> Cohen's d |         95% CI
+#> --------------------------
+#> -0.51     | [-0.87, -0.14]
+#> 
+#> - Estimated using pooled SD.
+effectsize::cohens_d(bp_after ~ sex, data = df_blood_pressure, pooled_sd = TRUE)
+#> Cohen's d |         95% CI
+#> --------------------------
+#> -0.61     | [-0.98, -0.24]
+#> 
+#> - Estimated using pooled SD.
+effectsize::hedges_g(bp_before ~ sex, data = df_blood_pressure, pooled_sd = TRUE)
+#> Hedges' g |         95% CI
+#> --------------------------
+#> -0.51     | [-0.87, -0.14]
+#> 
+#> - Estimated using pooled SD.
+effectsize::hedges_g(bp_after ~ sex, data = df_blood_pressure, pooled_sd = TRUE)
+#> Hedges' g |         95% CI
+#> --------------------------
+#> -0.61     | [-0.97, -0.24]
+#> 
+#> - Estimated using pooled SD.
+report_ttests(
+  df = df_blood_pressure,
+  dv = which("bp_before" == names(df_blood_pressure)),
+  iv = 2
+)
+#>    DV        IV level1 level2 n1 n2      t    df        p   CI_l   CI_u alternative                  method mean1 mean2   sd1   sd2 sd_pooled      d      r k_squared[bartlett] df[bartlett]
+#> 1 sex bp_before   Male Female 60 60 -2.785 117.6 0.006244 -9.639 -1.627   two.sided Welch Two Sample t-test 159.3 153.6 11.41 10.74     11.08 0.5084 0.1128              0.2192            1
+#>   p[bartlett] bonferroni_p significant
+#> 1      0.6397         0.05        TRUE
+report_ttests(
+  df = df_blood_pressure,
+  dv = which("bp_after" == names(df_blood_pressure)),
+  iv = 2
+)
+#>    DV       IV level1 level2 n1 n2      t    df        p   CI_l   CI_u alternative                  method mean1 mean2   sd1   sd2 sd_pooled      d      r k_squared[bartlett] df[bartlett] p[bartlett]
+#> 1 sex bp_after   Male Female 60 60 -3.348 110.8 0.001113 -13.24 -3.394   two.sided Welch Two Sample t-test 155.5 147.2 15.24 11.74     13.61 0.6112 0.1326               3.938            1     0.04721
+#>   bonferroni_p significant
+#> 1         0.05        TRUE
 ```

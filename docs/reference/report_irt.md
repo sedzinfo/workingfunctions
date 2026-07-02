@@ -205,16 +205,16 @@ report_irt(model=irt_twofactor,file="two_factors")
 #> V5 -0.9164  0.00000 -3.933192 0 1
 #> 
 #> $model_coefficients_oblimin
-#>      .id       a1       a2         d  g  u  x     F1     F2
-#> V1 items -0.03056  1.43489  4.499278  0  1 NA     NA     NA
-#> V2 items  0.74520  0.20121  1.925188  0  1 NA     NA     NA
-#> V3 items  1.17287 -0.07846  0.006985  0  1 NA     NA     NA
-#> V4 items  0.45311  0.71882 -2.048156  0  1 NA     NA     NA
-#> V5 items  0.84423  0.09400 -3.933192  0  1 NA     NA     NA
-#> 6  means       NA       NA        NA NA NA  0     NA     NA
-#> 7  means       NA       NA        NA NA NA  0     NA     NA
-#> 8    cov       NA       NA        NA NA NA NA 1.0000 0.7453
-#> 9    cov       NA       NA        NA NA NA NA 0.7453 1.0000
+#>      .id      a1       a2         d  g  u  x     F1     F2
+#> V1 items -0.0306  1.43492  4.499278  0  1 NA     NA     NA
+#> V2 items  0.7452  0.20124  1.925188  0  1 NA     NA     NA
+#> V3 items  1.1728 -0.07842  0.006985  0  1 NA     NA     NA
+#> V4 items  0.4531  0.71885 -2.048156  0  1 NA     NA     NA
+#> V5 items  0.8442  0.09403 -3.933192  0  1 NA     NA     NA
+#> 6  means      NA       NA        NA NA NA  0     NA     NA
+#> 7  means      NA       NA        NA NA NA  0     NA     NA
+#> 8    cov      NA       NA        NA NA NA NA 1.0000 0.7453
+#> 9    cov      NA       NA        NA NA NA NA 0.7453 1.0000
 #> 
 #> $model_options
 #>                       Options
@@ -357,17 +357,17 @@ report_irt(model=irt_threefactor,file="three_factors")
 #> 
 #> $model_coefficients_oblimin
 #>      .id       a1       a2       a3         d  g  u  x     F1     F2     F3
-#> V1 items 0.005708  0.01013  8.14832 16.235542  0  1 NA     NA     NA     NA
-#> V2 items 0.017279  1.12693  0.01714  2.060654  0  1 NA     NA     NA     NA
-#> V3 items 0.979660  0.12596 -0.09644  0.006835  0  1 NA     NA     NA     NA
+#> V1 items 0.005699  0.01011  8.14833 16.235542  0  1 NA     NA     NA     NA
+#> V2 items 0.017266  1.12695  0.01711  2.060654  0  1 NA     NA     NA     NA
+#> V3 items 0.979659  0.12596 -0.09645  0.006835  0  1 NA     NA     NA     NA
 #> V4 items 0.908478  0.04810  0.11014 -1.995141  0  1 NA     NA     NA     NA
-#> V5 items 1.008978 -0.10254  0.02582 -3.952170  0  1 NA     NA     NA     NA
+#> V5 items 1.008980 -0.10254  0.02583 -3.952170  0  1 NA     NA     NA     NA
 #> 6  means       NA       NA       NA        NA NA NA  0     NA     NA     NA
 #> 7  means       NA       NA       NA        NA NA NA  0     NA     NA     NA
 #> 8  means       NA       NA       NA        NA NA NA  0     NA     NA     NA
 #> 9    cov       NA       NA       NA        NA NA NA NA 1.0000 0.8189 0.4831
-#> 10   cov       NA       NA       NA        NA NA NA NA 0.8189 1.0000 0.3829
-#> 11   cov       NA       NA       NA        NA NA NA NA 0.4831 0.3829 1.0000
+#> 10   cov       NA       NA       NA        NA NA NA NA 0.8189 1.0000 0.3830
+#> 11   cov       NA       NA       NA        NA NA NA NA 0.4831 0.3830 1.0000
 #> 
 #> $model_options
 #>                       Options
@@ -426,14 +426,14 @@ report_irt(model=irt_threefactor,file="three_factors")
 #> [1] "NULL"
 #> 
 #> $q3_matrix
-#>          V1      V2     V3    V4   V5     min     max
-#> V1       NA      NA     NA    NA   NA      NA      NA
-#> V2  0.05551      NA     NA    NA   NA 0.05551 0.05551
-#> V3  0.14111 0.26515     NA    NA   NA 0.14111 0.26515
-#> V4  0.12820 0.19850 0.3051    NA   NA 0.12820 0.30513
-#> V5  0.06628 0.09335 0.1466 0.111   NA 0.06628 0.14656
-#> min 0.05551 0.09335 0.1466 0.111  Inf 0.05551 0.05551
-#> max 0.14111 0.26515 0.3051 0.111 -Inf 0.14111 0.30513
+#>          V1      V2     V3    V4   V5     min    max
+#> V1       NA      NA     NA    NA   NA      NA     NA
+#> V2  0.05550      NA     NA    NA   NA 0.05550 0.0555
+#> V3  0.14111 0.26515     NA    NA   NA 0.14111 0.2651
+#> V4  0.12819 0.19850 0.3051    NA   NA 0.12819 0.3051
+#> V5  0.06628 0.09335 0.1466 0.111   NA 0.06628 0.1466
+#> min 0.05550 0.09335 0.1466 0.111  Inf 0.05550 0.0555
+#> max 0.14111 0.26515 0.3051 0.111 -Inf 0.14111 0.3051
 #> 
 #> $exp_residuals
 #>    V1 V2 V3 V4 V5  freq         exp   std.res
