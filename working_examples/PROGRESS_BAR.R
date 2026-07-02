@@ -2,6 +2,7 @@
 # PROGRESS CONSOLE
 ##########################################################################################
 # create progress bar
+total=100
 pb<-txtProgressBar(min=0,max=total,style=3)
 for(i in 1:total){
   Sys.sleep(0.1)

@@ -47,14 +47,9 @@ plot(rtree_iris)
 text(rtree_iris)
 rattle::fancyRpartPlot(rpart::rpart(iris_formula,iris,model=TRUE,x=TRUE,y=TRUE),main="",sub="",caption="",type=4,box.palette=0)
 
-load(file="/mnt/WDRED_REMOTE/Dropbox (Psycholate)/dimitrios/working/data/examples.rda")
-load(file="/mnt/WDRED_REMOTE/Dropbox (Psycholate)/dimitrios/working/data/data.rda")
-
-titanic_formula<-formula(factor(Survived) ~ Pclass + Sex + Age + SibSp)
-rtree_titanic<-tree::tree(titanic_formula,kaggle_csv$titanic.csv,x=TRUE,y=TRUE)
-rattle::fancyRpartPlot(rpart::rpart(titanic_formula,kaggle_csv$titanic.csv,model=TRUE,x=TRUE,y=TRUE),main="",sub="",caption="",type=4,box.palette=0)
-
-
+titanic_formula<-formula(factor(survived) ~ pclass + sex + age + sibsp)
+rtree_titanic<-tree::tree(titanic_formula,df_titanic,x=TRUE,y=TRUE)
+rattle::fancyRpartPlot(rpart::rpart(titanic_formula,df_titanic,model=TRUE,x=TRUE,y=TRUE),main="",sub="",caption="",type=4,box.palette=0)
 
 report_tree_tree<-function(model,validation_data,file="tree",w=10,h=10,base_size=10,fast=TRUE) {
   require(tree)
