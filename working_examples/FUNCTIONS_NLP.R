@@ -29,7 +29,6 @@ text4<-"All the Lorem Ipsum generators on the Internet tend to repeat predefined
 text5<-"It uses a dictionary of over 200 Latin words, combined with a handful of model sentence structures, to generate Lorem Ipsum which looks reasonable."
 text6<-"The generated Lorem Ipsum is therefore always free from repetition, injected humour, or non-characteristic words etc."
 text<-c(text1,text2,text3,text4,text5,text6)
-
 ##########################################################################################
 # REMOVE MISPELLED WORDS
 ##########################################################################################
@@ -63,8 +62,6 @@ remove_misspelled<-function(text) {
     },future.seed=TRUE)
   return(unlist(result))
 }
-# remove_misspelled(text)
-
 ##########################################################################################
 # WORD FREQUENCY
 ##########################################################################################
@@ -108,12 +105,6 @@ word_frequency<-function(text) {
   }
   return(result)
 }
-# words<-clear_text(unlist(strsplit(text," ")))
-# words<-words[words!=""]
-# text_frequency<-as.data.frame(table(words))
-# names(text_frequency)<-c("Var1","Freq")
-# word_frequency(text)
-
 ##########################################################################################
 # PART OF SPEECH TAG COUNTS (PARALLEL)
 ##########################################################################################
@@ -251,21 +242,3 @@ compute_cllsa<-function(df,dimensions=dimcalc_share(),k=9,name) {
   stopCluster(cl)
   return(clmcsdf)
 }
-# docs<-c(
-#   "the dog and cat are friendly household pets",
-#   "our dog and cat sleep together every night",
-#   "the dog and cat chase each other in the yard",
-#   "a dog and cat can be very loyal pets",
-#   "people often keep a dog and a cat as pets",
-#   "the stock market rallied as earnings grew",
-#   "investors watched the stock market close higher",
-#   "the stock market fell after weak earnings",
-#   "analysts expect the stock market to recover",
-#   "the stock market reacted to rising interest rates",
-#   "the chef cooked pasta with a rich tomato sauce",
-#   "fresh pasta was served with garlic and basil",
-#   "the recipe calls for pasta and parmesan cheese",
-#   "grandma always makes pasta on Sunday dinner",
-#   "the restaurant is famous for its homemade pasta")
-# df<-data.frame(text=docs,stringsAsFactors=FALSE)
-# compute_cllsa(df,dimensions=lsa::dimcalc_raw(),k=3,name="demo")
