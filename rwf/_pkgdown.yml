@@ -1,5 +1,12 @@
 url: https://sedzinfo.github.io/rwf/
 
+repo:
+  url:
+    home: https://github.com/sedzinfo/rwf
+    source: https://github.com/sedzinfo/rwf/blob/main/
+    issue: https://github.com/sedzinfo/rwf/issues/
+    user: https://github.com/
+
 template:
   bootstrap: 5
   bootswatch: flatly
