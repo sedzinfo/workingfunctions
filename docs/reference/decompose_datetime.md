@@ -57,16 +57,16 @@ d1 <- Sys.Date()
 d2 <- Sys.time()
 decompose_datetime(x = d1)
 #>   YEAR MONTH_NUMERIC DAY_NUMERIC  FULL_DATE
-#> 1 2026            07          05 2026-07-05
+#> 1 2026            07          08 2026-07-08
 decompose_datetime(x = d2)
 #>   YEAR MONTH_NUMERIC DAY_NUMERIC HOUR MINUTE SECOND MILLISECOND  FULL_DATE FULL_TIME
-#> 1 2026            07          05   19     42     20      710731 2026-07-05     19:42
+#> 1 2026            07          08   15     58     09      560516 2026-07-08     15:58
 decompose_datetime(x = d1, extended = TRUE)
-#>   QUARTER MONTH     JULIAN WEEKDAY DAY_PERIOD YEAR MONTH_NUMERIC DAY_NUMERIC  FULL_DATE
-#> 1      Q3  July 20639 days  Sunday       <NA> 2026            07          05 2026-07-05
+#>   QUARTER MONTH     JULIAN   WEEKDAY DAY_PERIOD YEAR MONTH_NUMERIC DAY_NUMERIC  FULL_DATE
+#> 1      Q3  July 20642 days Wednesday       <NA> 2026            07          08 2026-07-08
 decompose_datetime(x = d2, extended = TRUE)
-#>   QUARTER MONTH        JULIAN WEEKDAY DAY_PERIOD YEAR MONTH_NUMERIC DAY_NUMERIC HOUR MINUTE SECOND MILLISECOND  FULL_DATE FULL_TIME
-#> 1      Q3  July 20639.82 days  Sunday  Afternoon 2026            07          05   19     42     20      710731 2026-07-05     19:42
+#>   QUARTER MONTH        JULIAN   WEEKDAY DAY_PERIOD YEAR MONTH_NUMERIC DAY_NUMERIC HOUR MINUTE SECOND MILLISECOND  FULL_DATE FULL_TIME
+#> 1      Q3  July 20642.67 days Wednesday       Noon 2026            07          08   15     58     09      560516 2026-07-08     15:58
 decompose_datetime(x = "01/15/1900", format = "%m/%e/%Y")
 #>   YEAR MONTH_NUMERIC DAY_NUMERIC  FULL_DATE
 #> 1 1900            01          15 1900-01-15
@@ -81,11 +81,11 @@ decompose_datetime(
   format = "%m/%e/%Y"
 )
 #>   YEAR MONTH_NUMERIC DAY_NUMERIC  FULL_DATE
-#> 1 2026            07          05 2026-07-05
+#> 1 2026            07          08 2026-07-08
 decompose_datetime(
   x = as.Date(as.POSIXct(timestamp2, origin = "1970-01-01")),
   format = "%m/%e/%Y"
 )
 #>   YEAR MONTH_NUMERIC DAY_NUMERIC  FULL_DATE
-#> 1 2026            07          05 2026-07-05
+#> 1 2026            07          08 2026-07-08
 ```
