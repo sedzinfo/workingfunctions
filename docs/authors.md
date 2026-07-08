@@ -7,7 +7,7 @@
 ## Citation
 
 Source:
-[`DESCRIPTION`](https://github.com/sedzinfo/rwf/blob/HEAD/DESCRIPTION)
+[`DESCRIPTION`](https://github.com/sedzinfo/rwf/blob/main/DESCRIPTION)
 
 Zacharatos D (2026). *rwf: Statistical reporting and visualization for
 common methods*. R package version 0.1.0,

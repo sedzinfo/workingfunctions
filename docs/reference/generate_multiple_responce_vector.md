@@ -53,7 +53,7 @@ comma-separated string of sampled response categories.
 
 ``` r
 generate_multiple_responce_vector(responces = 1:4, responded = 1:4, length = 10)
-#>  [1] "4, 3, 2, 1" "3, 1"       "2, 1"       "3, 2, 4"    "3, 2"       "2, 4, 1"    "1, 2, 4, 3" "3, 2, 1, 4" "2"          "3"         
+#>  [1] "1, 2, 3"    "3"          "4, 3"       "2, 3, 1, 4" "1"          "3"          "1"          "3, 4, 2"    "2, 1, 4"    "2, 4"      
 generate_multiple_responce_vector(responces = 1:4, responded = 1:4, length = 10)
-#>  [1] "2, 1, 3, 4" "2, 4, 3, 1" "3, 2, 1"    "1, 3"       "2, 1"       "4, 2"       "2, 3, 1, 4" "1"          "1, 4, 2"    "3, 4"      
+#>  [1] "1, 4, 3, 2" "4"          "2, 3"       "3, 1"       "4, 1, 2"    "2"          "1, 4, 2, 3" "1"          "1, 2, 3"    "2, 4"      
 ```

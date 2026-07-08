@@ -36,7 +36,7 @@ supplied, a random symmetric positive-definite matrix is generated automatically
   <main id="main" class="col-md-9"><div class="page-header">
 
       <h1>Generate a data frame with a predetermined correlation structure</h1>
-      <small class="dont-index">Source: <a href="https://github.com/sedzinfo/rwf/blob/HEAD/R/FUNCTIONS_GENERATEDATA.R" class="external-link"><code>R/FUNCTIONS_GENERATEDATA.R</code></a>, <a href="https://github.com/sedzinfo/rwf/blob/HEAD/R/FUNCTIONS_GENERATE_DATA.R" class="external-link"><code>R/FUNCTIONS_GENERATE_DATA.R</code></a></small>
+      <small class="dont-index">Source: <a href="https://github.com/sedzinfo/rwf/blob/main/R/FUNCTIONS_GENERATEDATA.R" class="external-link"><code>R/FUNCTIONS_GENERATEDATA.R</code></a>, <a href="https://github.com/sedzinfo/rwf/blob/main/R/FUNCTIONS_GENERATE_DATA.R" class="external-link"><code>R/FUNCTIONS_GENERATE_DATA.R</code></a></small>
       <div class="d-none name"><code>generate_correlation_matrix.Rd</code></div>
     </div>
 
@@ -101,16 +101,16 @@ improving as <code>nrows</code> increases.</p>
 <span class="r-in"><span><span class="va">df</span> <span class="op">&lt;-</span> <span class="fu">generate_correlation_matrix</span><span class="op">(</span><span class="va">correlation_martix</span>, nrows <span class="op">=</span> <span class="fl">100</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="fu">stats</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/r/stats/cor.html" class="external-link">cor</a></span><span class="op">(</span><span class="va">df</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>        X1     X2</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> X1 1.0000 0.9993</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> X2 0.9993 1.0000</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> X1 1.0000 0.9989</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> X2 0.9989 1.0000</span>
 <span class="r-in"><span><span class="va">df</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/data.frame.html" class="external-link">data.frame</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/matrix.html" class="external-link">matrix</a></span><span class="op">(</span><span class="fl">.999</span>, ncol <span class="op">=</span> <span class="fl">2</span>, nrow <span class="op">=</span> <span class="fl">2</span><span class="op">)</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="va">correlation_martix</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/matrix.html" class="external-link">as.matrix</a></span><span class="op">(</span><span class="va">df</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/base/diag.html" class="external-link">diag</a></span><span class="op">(</span><span class="va">correlation_martix</span><span class="op">)</span> <span class="op">&lt;-</span> <span class="fl">1</span></span></span>
 <span class="r-in"><span><span class="va">df</span> <span class="op">&lt;-</span> <span class="fu">generate_correlation_matrix</span><span class="op">(</span><span class="va">correlation_martix</span>, nrows <span class="op">=</span> <span class="fl">100</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="fu">stats</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/r/stats/cor.html" class="external-link">cor</a></span><span class="op">(</span><span class="va">df</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>        X1     X2</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> X1 1.0000 0.9993</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> X2 0.9993 1.0000</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> X1 1.0000 0.9989</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> X2 0.9989 1.0000</span>
 </code></pre></div>
     </div>
   </main><aside class="col-md-3"><nav id="toc" aria-label="Table of contents"><h2>On this page</h2>
