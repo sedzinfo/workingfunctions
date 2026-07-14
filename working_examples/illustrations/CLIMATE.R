@@ -1,24 +1,129 @@
 ##########################################################################################
 # ICE
 ##########################################################################################
-remotes::install_github("https://github.com/ropensci/rnoaa")
-install.packages("https://cran.r-project.org/src/contrib/Archive/rgdal/rgdal_1.6-7.tar.gz")
-
-options(noaakey="wmUcxgwckVYpOHZHzeGugclTMpdRyWQW")
-library(rnoaa)
+library(sf)
 library(ggplot2)
-library(plyr)
-library(rgdal)
-ys<-seq(1990,2023,1)
-urls<-lapply(ys,function(x) {
-  data.frame(id=x,sea_ice(year=x,month="Jan",pole="S"))
-})
-out<-do.call(rbind,urls)
-ggplot(out,aes(long,lat,group=group))+
-  geom_polygon(fill="black")+
-  theme_ice()+
-  facet_wrap(~id,ncol=10)+
-  coord_equal()
+library(rnaturalearth)
+library(gifski)
+
+sf::sf_use_s2(FALSE)
+
+# ── helpers ────────────────────────────────────────────────────────────────────
+month_dirs <- c("01_Jan","02_Feb","03_Mar","04_Apr","05_May","06_Jun",
+                "07_Jul","08_Aug","09_Sep","10_Oct","11_Nov","12_Dec")
+
+fetch_ice_extent <- function(year, month = "09", pole = "N",
+                             tmpdir = file.path(tempdir(), "nsidc_ice")) {
+  dir.create(tmpdir, showWarnings = FALSE)
+  mm       <- sprintf("%02d", as.integer(month))
+  yymm     <- paste0(year, mm)
+  pole_dir <- ifelse(pole == "N", "north", "south")
+  mon_dir  <- month_dirs[as.integer(mm)]
+  url <- paste0(
+    "https://noaadata.apps.nsidc.org/NOAA/G02135/",
+    pole_dir, "/monthly/shapefiles/shp_extent/", mon_dir, "/",
+    "extent_", pole, "_", yymm, "_polygon_v4.0.zip"
+  )
+  zip_path <- file.path(tmpdir, paste0("ice_", pole, "_", yymm, ".zip"))
+  if (!file.exists(zip_path) || file.size(zip_path) < 1000)
+    tryCatch(download.file(url, zip_path, quiet = TRUE, mode = "wb"),
+             error = function(e) NULL)
+  if (!file.exists(zip_path) || file.size(zip_path) < 1000) return(NULL)
+  exdir <- file.path(tmpdir, paste0("ice_", pole, "_", yymm))
+  suppressWarnings(unzip(zip_path, exdir = exdir, overwrite = FALSE))
+  shp <- list.files(exdir, "\\.shp$", full.names = TRUE)[1]
+  if (is.na(shp)) return(NULL)
+  tryCatch(sf::st_read(shp, quiet = TRUE), error = function(e) NULL)
+}
+
+# ── base layers (built once) ───────────────────────────────────────────────────
+crs_polar <- "+proj=stere +lat_0=90 +lat_ts=70 +lon_0=0 +datum=WGS84 +units=m"
+
+world_proj <- sf::st_transform(
+  ne_countries(scale = "medium", returnclass = "sf"), crs_polar
+)
+clip_circle <- sf::st_buffer(
+  sf::st_sfc(sf::st_point(c(0, 90)), crs = 4326) |> sf::st_transform(crs_polar),
+  dist = 5.5e6
+)
+world_clip <- sf::st_intersection(sf::st_make_valid(world_proj), clip_circle)
+
+# helper: project + clip a single raw shapefile
+clip_year <- function(shp) {
+  proj <- sf::st_transform(shp, crs_polar) |> sf::st_make_valid()
+  tryCatch(sf::st_intersection(proj, clip_circle), error = function(e) NULL)
+}
+
+# ── 1979 reference (red outline on every frame) ────────────────────────────────
+raw_1979  <- fetch_ice_extent(1979)
+ice_1979  <- if (!is.null(raw_1979)) clip_year(raw_1979) else NULL
+
+# ── real extent values from NSIDC CSV ─────────────────────────────────────────
+areas_csv <- read.csv(
+  "https://noaadata.apps.nsidc.org/NOAA/G02135/north/monthly/data/N_09_extent_v4.0.csv",
+  strip.white = TRUE
+)
+
+# ── frame loop ─────────────────────────────────────────────────────────────────
+years_all  <- 1979:2024
+frames_dir <- file.path(tempdir(), "arctic_frames")
+dir.create(frames_dir, showWarnings = FALSE)
+
+plots <- list()
+
+for (yr in years_all) {
+  raw <- fetch_ice_extent(yr)
+  if (is.null(raw)) { message("skip ", yr); next }
+  
+  ice_yr <- clip_year(raw)
+  if (is.null(ice_yr) || nrow(ice_yr) == 0) { message("skip ", yr, " (clip failed)"); next }
+  
+  area <- areas_csv$extent[trimws(as.character(areas_csv$year)) == as.character(yr)]
+  area_lbl <- if (length(area) && !is.na(area[1])) sprintf("%.2f M km²", area[1]) else ""
+  
+  p <- ggplot() +
+    geom_sf(data = clip_circle, fill = "#1a3a5c", color = NA) +
+    { if (!is.null(ice_1979))
+      geom_sf(data = ice_1979, fill = NA, color = "#FF5252",
+              linewidth = 0.9, alpha = 0.75) } +
+    geom_sf(data = ice_yr,     fill = "#E3F4FF", color = "#90CAF9", linewidth = 0.1) +
+    geom_sf(data = world_clip, fill = "#5D4037", color = "#3E2723", linewidth = 0.2) +
+    labs(
+      title    = paste("Arctic Sea Ice — September", yr),
+      subtitle = paste0(area_lbl, "   |   red outline = 1979 extent"),
+      caption  = "Source: NSIDC Sea Ice Index v4.0"
+    ) +
+    theme_void(base_size = 13) +
+    theme(
+      plot.background = element_rect(fill = "#0D1B2A", color = NA),
+      plot.title      = element_text(color = "white",  face = "bold", size = 18,
+                                     hjust = 0.5, margin = margin(14, 0, 4, 0)),
+      plot.subtitle   = element_text(color = "#90CAF9", size = 10,
+                                     hjust = 0.5, margin = margin(0, 0, 8, 0)),
+      plot.caption    = element_text(color = "#546E7A", size = 7.5,
+                                     hjust = 1,  margin = margin(6, 10, 8, 0)),
+      plot.margin     = margin(10, 10, 10, 10)
+    )
+  
+  plots[[as.character(yr)]] <- p
+  message("frame ", yr, " ready (", length(plots), " so far)")
+}
+
+# ── save each frame as PNG ─────────────────────────────────────────────────────
+message("Saving PNGs...")
+frame_paths <- character(length(plots))
+for (i in seq_along(plots)) {
+  path <- file.path(frames_dir, sprintf("frame_%04d.png", i))
+  ggsave(path, plots[[i]], width = 700/120, height = 750/120,
+         dpi = 120, bg = "#0D1B2A")
+  frame_paths[i] <- path
+}
+
+# ── stitch into GIF ────────────────────────────────────────────────────────────
+message("Stitching GIF...")
+gifski::gifski(frame_paths, gif_file = "arctic_ice_animated.gif",
+               width = 700, height = 750, delay = 0.4)
+message("Done: arctic_ice_animated.gif")
 ##########################################################################################
 # 
 ##########################################################################################
