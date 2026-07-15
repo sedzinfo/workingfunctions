@@ -1,5 +1,5 @@
 ##########################################################################################
-# ICE
+# SEA ICE
 ##########################################################################################
 library(sf)
 library(ggplot2)
@@ -114,7 +114,7 @@ message("Saving PNGs...")
 frame_paths <- character(length(plots))
 for (i in seq_along(plots)) {
   path <- file.path(frames_dir, sprintf("frame_%04d.png", i))
-  ggsave(path, plots[[i]], width = 700/120, height = 750/120,
+  ggsave(path, plots[[i]], width = 2000/120, height = 2000/120,
          dpi = 120, bg = "#0D1B2A")
   frame_paths[i] <- path
 }
@@ -122,7 +122,7 @@ for (i in seq_along(plots)) {
 # ── stitch into GIF ────────────────────────────────────────────────────────────
 message("Stitching GIF...")
 gifski::gifski(frame_paths, gif_file = "arctic_ice_animated.gif",
-               width = 700, height = 750, delay = 0.4)
+               width = 2000, height = 2000, delay = 1)
 message("Done: arctic_ice_animated.gif")
 ##########################################################################################
 # 
@@ -249,99 +249,272 @@ hc5
 ##########################################################################################
 # 
 ##########################################################################################
-options(noaakey="wmUcxgwckVYpOHZHzeGugclTMpdRyWQW")
-st<-rnoaa::isd_stations(refresh=FALSE)
-st$LAT<-st$lat/1000
-st$LON<-st$lon/1000
-st$BEGIN<-as.numeric(substr(st$begin,1,4))
-st$END<-as.numeric(substr(st$end,1,4))
-st<-st[st$icao %in% "LGAV",]
+library(ggplot2)
+library(dplyr)
+library(tidyr)
+library(gifski)
 
-mi.list1<-st[st$ctry=="GR"&(st$BEGIN<=2019&st$END>=2019&!is.na(st$BEGIN)),]
-mi.list2<-st[st$ctry=="UK"&(st$BEGIN<=2019&st$END>=2019&!is.na(st$BEGIN)),]
-mi.list3<-st[st$ctry=="UP"&(st$BEGIN<=2019&st$END>=2019&!is.na(st$BEGIN)),]
-mi.list4<-st[st$ctry=="AU"&(st$BEGIN<=2019&st$END>=2019&!is.na(st$BEGIN)),]
-mi.list5<-rbind(mi.list1,mi.list2)
-mi.list6<-rbind(mi.list3,mi.list4)
-mi.list<-st
+# ── data ───────────────────────────────────────────────────────────────────────
+df_nasa <- read.csv(
+  "https://data.giss.nasa.gov/gistemp/tabledata_v4/GLB.Ts+dSST.csv",
+  header = TRUE, stringsAsFactors = FALSE, na.strings = "***", skip = 1
+)
 
-outputs<-as.data.frame(matrix(NA,dim(mi.list)[1],2))
-names(outputs)<-c("FILE","STATUS")
-for (y in 2000:2022) {
-  y.mi.list<-mi.list[mi.list$BEGIN <= y & mi.list$END >=y,]
-  for (s in 1:dim(y.mi.list)[1]) {
-    outputs[s,1]<-paste(sprintf("%06s",y.mi.list[s,1]),"-",sprintf("%05s",y.mi.list[s,2]),"-",y,".gz",sep="")
-    wget<-paste("wget -P ~/Desktop/raw/ ftp://ftp.ncdc.noaa.gov/pub/data/noaa/",y,"/",outputs[s,1],sep="")
-    outputs[s,2]<-try(system(wget,intern=FALSE,ignore.stderr=TRUE))
-  }
+df_long <- df_nasa[, c("Year", month.abb)] |>
+  pivot_longer(cols = all_of(month.abb), names_to = "month", values_to = "temp") |>
+  mutate(
+    temp      = as.numeric(temp),
+    month_num = match(month, month.abb)
+  ) |>
+  filter(!is.na(temp), Year >= 1880)
+
+years   <- sort(unique(df_long$Year))
+n_years <- length(years)
+
+# ── close the loop per year (Jan repeated as month 13) ────────────────────────
+closed <- df_long |>
+  group_by(Year) |>
+  arrange(month_num) |>
+  group_modify(~ bind_rows(.x, filter(.x, month_num == 1) |> mutate(month_num = 13))) |>
+  ungroup()
+
+# ── reference circles (Paris targets) ─────────────────────────────────────────
+circle_df <- expand.grid(
+  month_num = seq(1, 13, length.out = 200),
+  r         = c(0, 1.5, 2.0)
+)
+
+# ── month labels positioned outside the plot ──────────────────────────────────
+month_labels <- data.frame(
+  month_num = 1:12,
+  label     = month.abb
+)
+
+# ── frame loop ─────────────────────────────────────────────────────────────────
+frames_dir <- file.path(tempdir(), "spiral_frames")
+dir.create(frames_dir, showWarnings = FALSE)
+frame_paths <- c()
+
+temp_lim  <- c(-1.0, 1.6)
+label_r   <- 1.85   # month labels just outside the outer ring
+
+# spokes: one radial line per month
+spokes_df <- data.frame(
+  month_num = rep(1:12, each = 2),
+  temp      = rep(c(temp_lim[1], label_r - 0.05), 12),
+  grp       = rep(1:12, each = 2)
+)
+
+for (i in seq_along(years)) {
+  yr           <- years[i]
+  years_so_far <- years[seq_len(i)]
+  
+  past <- closed |> filter(Year %in% years_so_far, Year != yr)
+  curr <- closed |> filter(Year == yr)
+  
+  past <- past |>
+    mutate(yr_idx = match(Year, years) / n_years)
+  
+  p <- ggplot() +
+    
+    # ── spokes ──────────────────────────────────────────────────────────────
+  geom_path(data = spokes_df,
+            aes(x = month_num, y = temp, group = grp),
+            color = "gray25", linewidth = 0.25) +
+    
+    # ── reference circles ───────────────────────────────────────────────────
+  geom_path(data = circle_df,
+            aes(x = month_num, y = r, group = r),
+            color = "gray30", linewidth = 0.35, linetype = "dashed") +
+    annotate("text", x = 0.5, y = c(0, 1.5, 2.0) + 0.04,
+             label = c("0°C", "1.5°C", "2°C"),
+             color = "gray50", size = 2.8, hjust = 1) +
+    
+    # ── all past years ──────────────────────────────────────────────────────
+  geom_path(data = past,
+            aes(x = month_num, y = temp, group = Year, color = yr_idx),
+            linewidth = 0.4, alpha = 0.7) +
+    scale_color_viridis_c(option = "B", limits = c(0, 1), guide = "none") +
+    
+    # ── current year (white + thick) ────────────────────────────────────────
+  geom_path(data = curr,
+            aes(x = month_num, y = temp),
+            color = "white", linewidth = 1.6, alpha = 0.95) +
+    
+    # ── month labels ────────────────────────────────────────────────────────
+  geom_text(data = month_labels,
+            aes(x = month_num, y = label_r, label = label),
+            inherit.aes = FALSE,
+            color = "gray70", size = 3.5, fontface = "bold") +
+    
+    # ── polar setup ─────────────────────────────────────────────────────────
+  coord_polar(theta = "x", start = -pi / 6, clip = "off") +
+    scale_x_continuous(limits = c(1, 13), breaks = 1:12, labels = NULL) +
+    scale_y_continuous(limits = c(temp_lim[1], label_r + 0.1)) +
+    
+    labs(
+      title   = as.character(yr),
+      caption = "NASA GISS Surface Temperature Analysis v4  |  Anomaly vs 1951-1980 baseline"
+    ) +
+    theme_void(base_size = 12) +
+    theme(
+      plot.background = element_rect(fill = "#050510", color = NA),
+      panel.background = element_rect(fill = "#050510", color = NA),
+      plot.title   = element_text(color = "white", face = "bold", size = 38,
+                                  hjust = 0.5, margin = margin(16, 0, 0, 0)),
+      plot.caption = element_text(color = "gray40", size = 7.5, hjust = 0.5,
+                                  margin = margin(0, 0, 12, 0)),
+      plot.margin  = margin(10, 10, 10, 10)
+    )
+  
+  path <- file.path(frames_dir, sprintf("frame_%04d.png", i))
+  ggsave(path, p, width = 1800/150, height = 1900/150,
+         dpi = 150, bg = "#050510")
+  frame_paths <- c(frame_paths, path)
+  message("frame ", i, "/", n_years, "  (", yr, ")")
 }
-system("gunzip -r ~/Desktop/raw",intern=FALSE,ignore.stderr=TRUE)
-files<-list.files("~/Desktop/raw")
 
-column.widths<-c(4,6,5,4,2,2,2,2,1,6,7,5,5,5,4,3,1,1,4,1,5,1,1,1,6,1,1,1,5,1,5,1,5,1)
-stations<-data.frame(matrix(NA,length(files),6))
-names(stations)<-c("USAFID","WBAN","YR","LAT","LONG","ELEV")
+# ── stitch ─────────────────────────────────────────────────────────────────────
+gifski::gifski(frame_paths,
+               gif_file = "climate_spiral.gif",
+               width = 1800, height = 1900,
+               delay = 0.1)        # 10 fps — slow down to 0.2 if too fast
+message("Done: climate_spiral.gif")
+##########################################################################################
+# 
+##########################################################################################
+# remotes::install_github("ropensci/rnoaa")
+library(rnoaa)
+library(dplyr)
+library(tidyr)
+library(lubridate)
+library(ggplot2)
+library(sf)
+library(rnaturalearth)
 
-for (i in 1:length(files)) {
-  data<-read.fwf(paste("~/Desktop/raw/",files[i],sep=""),column.widths)
-  data<-data[,c(2:8,10:11,13,16,19,29,31,33)]
-  names(data)<-c("USAFID","WBAN","YR","M","D","HR","MIN","LAT","LONG","ELEV","WIND.DIR","WIND.SPD","TEMP","DEW.POINT","ATM.PRES")
-  data$LAT<-data$LAT/1000
-  data$LONG<-data$LONG/1000
-  data$WIND.SPD<-data$WIND.SPD/10
-  data$TEMP<-data$TEMP/10
-  data$DEW.POINT<-data$DEW.POINT/10
-  data$ATM.PRES<-data$ATM.PRES/10
-  write.csv(data,file=paste("~/Desktop/raw/",files[i],".csv",sep=""),row.names=FALSE)
-  print(data)
-  stations[i,1:3]<-data[1,1:3]
-  stations[i,4:6]<-data[1,8:10]
+# ── 1. find the LGAV station ───────────────────────────────────────────────────
+stations <- isd_stations(refresh = FALSE)
+lgav     <- stations[stations$icao %in% "LGAV", ]
+message("Station: ", lgav$station_name, "  USAF=", lgav$usaf, "  WBAN=", lgav$wban)
+
+usaf <- lgav$usaf[1]
+wban <- lgav$wban[1]
+
+# ── 2. download hourly ISD data year by year (cached in tempdir) ───────────────
+years     <- 2004:2026
+data_list <- list()
+
+for (yr in years) {
+  tryCatch({
+    d <- rnoaa::isd(usaf = usaf, wban = wban, year = yr, progress = FALSE)
+    data_list[[as.character(yr)]] <- d
+    message("  downloaded ", yr, " (", nrow(d), " rows)")
+  }, error = function(e) message("  skip ", yr, ": ", conditionMessage(e)))
 }
 
-stations<-stations[complete.cases(stations),]
-mp<-ggmap::get_map(location=c(lon=stations$LONG[1],lat=stations$LAT[1]),maptype="terrain-background",scale=1)
-ggmap::ggmap(mp)+geom_point(data=stations,aes(x=LONG[1],y=LAT[1],fill="red",alpha=0.8),size=.1,shape=1)+guides(fill=FALSE,alpha=FALSE,size=FALSE)
+df_raw <- bind_rows(data_list)
 
-files<-grep(".csv",list.files("~/Desktop/raw/"),value=TRUE)
-df_ev<-data.frame()
-for (i in files) {
-  df_ev<-plyr::rbind.fill(df_ev,read.csv(file=paste("~/Desktop/raw/",i,sep="")))
-}
-df_ev<-remove_nc(df_ev)
-df_ev[df_ev=="999"]<-df_ev[df_ev=="999.9"]<-NA
-df_ev[df_ev=="99999"]<-df_ev[df_ev=="9999.9"]<-NA
-df_ev$date<-paste0(df_ev$YR,"-",
-                   stringr::str_pad(df_ev$M,2,side="left","0"),"-",
-                   stringr::str_pad(df_ev$D,2,side="left","0"))
-df_ev[,c("USAFID","WBAN","YR","M","D","HR","MIN","LAT","LONG","ELEV","ATM.PRES","WIND.DIR")]<-NULL
-df_max<-plyr::ddply(df_ev,"date",plyr::numcolwise(max,na.rm=TRUE))
-df_min<-plyr::ddply(df_ev,"date",plyr::numcolwise(min,na.rm=TRUE))
-rs_max<-reshape2::melt(df_max)
-rs_min<-reshape2::melt(df_min)
+# ── 3. clean & parse ───────────────────────────────────────────────────────────
+# rnoaa::isd() returns temperature in tenths of °C
+df <- df_raw |>
+  mutate(
+    date      = as.Date(date),
+    temp      = as.numeric(temperature) / 10,
+    dew       = as.numeric(temperature_dewpoint) / 10,
+    wind_spd  = as.numeric(wind_speed) / 10,
+    slp       = as.numeric(air_pressure) / 10
+  ) |>
+  # replace NOAA sentinel missing values
+  mutate(across(c(temp, dew, wind_spd, slp), ~ ifelse(. > 900 | . < -200, NA, .))) |>
+  filter(!is.na(date))
 
-rs_max$variable<-paste0(rs_max$variable,"_max")
-rs_min$variable<-paste0(rs_min$variable,"_min")
-da<-rbind(rs_max,rs_min)
-n<-length(unique(da$variable))
-line.colors<-rainbow(n,s=1,v=1,start=0,end=max(1,n-1)/n,alpha=.5)
+# ── 4. daily aggregates ────────────────────────────────────────────────────────
+daily_max <- df |> group_by(date) |>
+  summarise(temp_max = max(temp, na.rm = TRUE),
+            wind_max = max(wind_spd, na.rm = TRUE), .groups = "drop")
 
-library(plotly)
-plotly::plot_ly(y=~round(as.numeric(da$value,2)),
-                x=~as.Date(da$date),
-                color=~da$variable,
-                colors=line.colors,
-                text=da$date,
-                type='scatter',
-                mode='lines') %>%
-  layout(autosize=TRUE,
-         margin=list(l=50,r=50,b=200,t=50,pad=4),
-         title="EL. VENIZELOS AIRPORT SOURCE: NOAA",
-         xaxis=list(title="TIME"),
-         yaxis=list(title=""))
+daily_min <- df |> group_by(date) |>
+  summarise(temp_min = min(temp, na.rm = TRUE), .groups = "drop")
 
-tsmax<-ts(df_max$TEMP,frequency=365,start=c(2004,1))
-fit<-decompose(tsmax)
+daily <- left_join(daily_max, daily_min, by = "date") |>
+  filter(is.finite(temp_max), is.finite(temp_min)) |>
+  mutate(year = year(date))
+
+# ── 5. temperature time series plot ───────────────────────────────────────────
+ggplot(daily, aes(x = date)) +
+  geom_ribbon(aes(ymin = temp_min, ymax = temp_max, fill = temp_max),
+              alpha = 0.7) +
+  scale_fill_gradientn(
+    colours = c("#2166ac", "#74add1", "#fee090", "#f46d43", "#a50026"),
+    name = "Max °C"
+  ) +
+  geom_hline(yintercept = 0, color = "white", linewidth = 0.4, linetype = "dashed") +
+  labs(
+    title    = "Athens — El. Venizelos Airport (LGAV)",
+    subtitle = "Daily temperature range 2004–2022",
+    x = NULL, y = "Temperature (°C)",
+    caption = "Source: NOAA ISD via rnoaa"
+  ) +
+  theme_minimal(base_size = 12) +
+  theme(
+    plot.background  = element_rect(fill = "white", color = NA),
+    panel.grid.minor = element_blank(),
+    legend.position  = "right"
+  )
+
+ggsave("lgav_temperature.png", width = 12, height = 5, dpi = 150)
+
+# ── 6. monthly average temperature heatmap ────────────────────────────────────
+monthly <- df |>
+  mutate(year = year(date), month = month(date, label = TRUE)) |>
+  group_by(year, month) |>
+  summarise(avg_temp = mean(temp, na.rm = TRUE), .groups = "drop")
+
+ggplot(monthly, aes(x = year, y = month, fill = avg_temp)) +
+  geom_tile(color = "white", linewidth = 0.4) +
+  scale_fill_gradientn(
+    colours = c("#2166ac", "#abd9e9", "#ffffbf", "#fdae61", "#d73027"),
+    name = "°C"
+  ) +
+  labs(
+    title    = "Monthly Mean Temperature — LGAV",
+    x = NULL, y = NULL,
+    caption = "Source: NOAA ISD via rnoaa"
+  ) +
+  theme_minimal(base_size = 11) +
+  theme(panel.grid = element_blank())
+
+ggsave("lgav_heatmap.png", width = 10, height = 5, dpi = 150)
+
+# ── 7. simple map (no Google key needed) ──────────────────────────────────────
+greece <- ne_countries(country = "Greece", scale = "medium", returnclass = "sf")
+station_pt <- st_as_sf(lgav[1, ], coords = c("lon", "lat"), crs = 4326)
+
+ggplot() +
+  geom_sf(data = greece, fill = "#e8e0d5", color = "gray60") +
+  geom_sf(data = station_pt, color = "#c0392b", size = 4, shape = 21,
+          fill = "#e74c3c", stroke = 1.2) +
+  annotate("text", x = lgav$lon[1] + 0.4, y = lgav$lat[1],
+           label = "LGAV", color = "#c0392b", fontface = "bold", hjust = 0) +
+  coord_sf(xlim = c(19, 29), ylim = c(34, 42)) +
+  labs(title = "Athens Eleftherios Venizelos Airport",
+       caption = "Source: NOAA ISD station list") +
+  theme_void(base_size = 11) +
+  theme(plot.background = element_rect(fill = "#d6eaf8", color = NA))
+
+ggsave("lgav_map.png", width = 7, height = 6, dpi = 150)
+
+# ── 8. time series decomposition ──────────────────────────────────────────────
+ts_temp <- ts(daily$temp_max, frequency = 365,
+              start = c(year(min(daily$date)), yday(min(daily$date))))
+fit <- decompose(ts_temp)
 autoplot(fit) +
-  ggtitle("X11 decomposition of electrical equipment index")
+  labs(title = "Seasonal decomposition — LGAV daily max temperature") +
+  theme_minimal()
+
+ggsave("lgav_decomposition.png", width = 10, height = 7, dpi = 150)
+
+message("Done. Four PNGs saved.")
+
 
 
