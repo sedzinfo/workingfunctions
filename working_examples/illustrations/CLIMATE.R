@@ -418,7 +418,7 @@ df_raw <- bind_rows(data_list)
 # rnoaa::isd() returns temperature in tenths of °C
 df <- df_raw |>
   mutate(
-    date      = as.Date(date),
+    date      = as.Date(date, format = "%Y%m%d"),
     temp      = as.numeric(temperature) / 10,
     dew       = as.numeric(temperature_dewpoint) / 10,
     wind_spd  = as.numeric(wind_speed) / 10,
