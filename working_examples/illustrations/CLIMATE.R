@@ -283,9 +283,9 @@ hc4 <- hchart(m) %>%
   hc_xAxis(
     title = list(text = NULL),
     labels = list(
-    rotation = -90,
-    style = list(fontSize = "20px")
-  )) %>%
+      rotation = -90,
+      style = list(fontSize = "20px")
+    )) %>%
   hc_yAxis(
     title = list(text = NULL),
     tickPositions = FALSE,
@@ -374,8 +374,7 @@ label_r <- 1.85 # month labels just outside the outer ring
 spokes_df <- data.frame(
   month_num = rep(1:12, each = 2),
   temp      = rep(c(temp_lim[1], label_r - 0.05), 12),
-  grp       = rep(1:12, each = 2)
-)
+  grp       = rep(1:12, each = 2))
 
 for (i in seq_along(years)) {
   yr <- years[i]
@@ -393,44 +392,33 @@ for (i in seq_along(years)) {
   geom_path(
     data = spokes_df,
     aes(x = month_num, y = temp, group = grp),
-    color = "gray25", linewidth = 0.25
-  ) +
-    
+    color = "gray25", linewidth = 0.25) +
     # ── reference circles ───────────────────────────────────────────────────
   geom_path(
     data = circle_df,
     aes(x = month_num, y = r, group = r),
-    color = "gray30", linewidth = 0.35, linetype = "dashed"
-  ) +
+    color = "gray30", linewidth = 0.35, linetype = "dashed") +
     annotate("text",
              x = 0.5, y = c(0, 1.5, 2.0) + 0.04,
              label = c("0°C", "1.5°C", "2°C"),
-             color = "gray50", size = 2.8, hjust = 1
-    ) +
-    
+             color = "gray50", size = 2.8, hjust = 1) +
     # ── all past years ──────────────────────────────────────────────────────
   geom_path(
     data = past,
     aes(x = month_num, y = temp, group = Year, color = yr_idx),
-    linewidth = 0.4, alpha = 0.7
-  ) +
+    linewidth = 0.4, alpha = 0.7) +
     scale_color_viridis_c(option = "B", limits = c(0, 1), guide = "none") +
-    
     # ── current year (white + thick) ────────────────────────────────────────
   geom_path(
     data = curr,
     aes(x = month_num, y = temp),
-    color = "white", linewidth = 1.6, alpha = 0.95
-  ) +
-    
+    color = "white", linewidth = 1.6, alpha = 0.95) +
     # ── month labels ────────────────────────────────────────────────────────
   geom_text(
     data = month_labels,
     aes(x = month_num, y = label_r, label = label),
     inherit.aes = FALSE,
-    color = "gray70", size = 3.5, fontface = "bold"
-  ) +
-    
+    color = "gray70", size = 3.5, fontface = "bold") +
     # ── polar setup ─────────────────────────────────────────────────────────
   coord_polar(theta = "x", start = -pi / 6, clip = "off") +
     scale_x_continuous(limits = c(1, 13), breaks = 1:12, labels = NULL) +
@@ -440,19 +428,15 @@ for (i in seq_along(years)) {
       caption = "NASA GISS Surface Temperature Analysis v4  |  Anomaly vs 1951-1980 baseline"
     ) +
     theme_void(base_size = 12) +
-    theme(
-      plot.background = element_rect(fill = "#050510", color = NA),
-      panel.background = element_rect(fill = "#050510", color = NA),
-      plot.title = element_text(
-        color = "white", face = "bold", size = 38,
-        hjust = 0.5, margin = margin(16, 0, 0, 0)
-      ),
-      plot.caption = element_text(
-        color = "gray40", size = 7.5, hjust = 0.5,
-        margin = margin(0, 0, 12, 0)
-      ),
-      plot.margin = margin(10, 10, 10, 10)
-    )
+    theme(plot.background = element_rect(fill = "#050510", color = NA),
+          panel.background = element_rect(fill = "#050510", color = NA),
+          plot.title = element_text(
+            color = "white", face = "bold", size = 38,
+            hjust = 0.5, margin = margin(16, 0, 0, 0)),
+          plot.caption = element_text(
+            color = "gray40", size = 7.5, hjust = 0.5,
+            margin = margin(0, 0, 12, 0)),
+          plot.margin = margin(10, 10, 10, 10))
   
   path <- file.path(frames_dir, sprintf("frame_%04d.png", i))
   ggsave(path, p,
@@ -469,7 +453,6 @@ gifski::gifski(frame_paths,
                width = 1800, height = 1900,
                delay = 0.1
 ) # 10 fps — slow down to 0.2 if too fast
-message("Done: climate_spiral.gif")
 ##########################################################################################
 #
 ##########################################################################################
@@ -481,17 +464,19 @@ library(lubridate)
 library(ggplot2)
 library(sf)
 library(rnaturalearth)
-
-# ── 1. find the LGAV station ───────────────────────────────────────────────────
+##########################################################################################
+# STATION
+##########################################################################################
 stations <- isd_stations(refresh = FALSE)
+stations[stations$ctry%in%"GR",]
 lgav <- stations[stations$icao %in% "LGAV", ]
-message("Station: ", lgav$station_name, "  USAF=", lgav$usaf, "  WBAN=", lgav$wban)
-
+station<-lgav$station_name
 usaf <- lgav$usaf[1]
 wban <- lgav$wban[1]
-
-# ── 2. download hourly ISD data year by year (cached in tempdir) ───────────────
-years <- 2001:2025
+##########################################################################################
+# 
+##########################################################################################
+years <- 2001:2026
 data_list <- list()
 
 for (yr in years) {
@@ -504,10 +489,7 @@ for (yr in years) {
     error = function(e) message("  skip ", yr, ": ", conditionMessage(e))
   )
 }
-
 df_raw <- bind_rows(data_list)
-
-# ── 3. clean & parse ───────────────────────────────────────────────────────────
 # rnoaa::isd() returns temperature in tenths of °C
 df_data <- df_raw |>
   mutate(
@@ -521,7 +503,6 @@ df_data <- df_raw |>
   mutate(across(c(temp, dew, wind_spd, slp), ~ ifelse(. > 900 | . < -200, NA, .))) |>
   filter(!is.na(date))
 
-# ── 4. daily aggregates ────────────────────────────────────────────────────────
 df_data[df_data==999.9]<-NA
 df_data$month<-sub("-\\d{2}$", "", df_data$date)
 daily_max <- plyr::ddply(df_data, c("date"), plyr::numcolwise(max, na.rm = TRUE))
@@ -530,100 +511,99 @@ month_max <- plyr::ddply(df_data, c("month"), plyr::numcolwise(max, na.rm = TRUE
 month_min <- plyr::ddply(df_data, c("month"), plyr::numcolwise(min, na.rm = TRUE))
 names(daily_max)[2:length(daily_max)]<-paste0(names(daily_max)[2:length(daily_max)],"_max")
 names(daily_min)[2:length(daily_min)]<-paste0(names(daily_min)[2:length(daily_min)],"_min")
-names(month_max)[2:length(month_max)]<-paste0(names(month_max)[2:length(daily_max)],"_max")
-names(month_min)[2:length(month_min)]<-paste0(names(month_min)[2:length(daily_min)],"_min")
+names(month_max)[2:length(month_max)] <- paste0(names(month_max)[2:length(month_max)], "_max")
+names(month_min)[2:length(month_min)] <- paste0(names(month_min)[2:length(month_min)], "_min")
 daily <- merge(daily_max,daily_min)
 month <- merge(month_max,month_min)
-# ── 5. temperature time series plot ───────────────────────────────────────────
 daily$date<-as.Date(daily$date)
-ggplot(daily, aes(x = date)) +
+month$month_date <- as.Date(paste0(month$month, "-01"))
+month <- month[order(month$month_date), ]
+##########################################################################################
+# DAILY AND MONTHLY MAX/MIN TEMPERATURES
+##########################################################################################
+plot_daily<-ggplot(daily, aes(x = date)) +
   geom_ribbon(aes(ymin = temp_min, ymax = temp_max, fill = temp_max), alpha = 0.7) +
-  scale_fill_gradientn(
-    colours = c("#2166ac", "#74add1", "#fee090", "#f46d43", "#a50026"),
-    name = "Max °C") +
+  scale_fill_gradientn(colours = c("#2166ac", "#74add1", "#fee090", "#f46d43", "#a50026"),
+                       name = "Max °C") +
+  scale_x_date(date_breaks = "1 year", date_labels = "%Y") +
   geom_hline(yintercept = 0, color = "white", linewidth = 0.4, linetype = "dashed") +
-  labs(title = "Athens — El. Venizelos Airport (LGAV)",
-       subtitle = "Daily temperature",
+  labs(title = string_aes(station),
+       subtitle = "Daily",
        x = NULL, y = "Temperature (°C)",
        caption = "Source: NOAA ISD via rnoaa") +
-  theme_minimal(base_size = 12) +
+  theme_minimal(base_size = 20) +
   theme(plot.background  = element_rect(fill = "white", color = NA),
-    panel.grid.minor = element_blank(),
-    legend.position  = "right")
-
-month$month_date <- as.Date(paste0(month$month, "-01"))
-ggplot(month, aes(x = month_date)) +
-  geom_ribbon(aes(ymin = temp_min, ymax = temp_max),
-              fill = "#74add1", alpha = 0.45) +
+        axis.text.x = element_text(angle = 90, vjust = 0.5, hjust = 1),
+        panel.grid.minor.x = element_blank())
+plot_monthly<-ggplot(month, aes(x = month_date)) +
+  geom_ribbon(aes(ymin = temp_min, ymax = temp_max),fill = "#74add1", alpha = 0.45) +
   geom_line(aes(y = temp_max, color = temp_max), linewidth = 0.8) +
   geom_line(aes(y = temp_min), color = "white", linewidth = 0.6, alpha = 0.8) +
-  scale_color_gradientn(
-    colours = c("#2166ac", "#74add1", "#fee090", "#f46d43", "#a50026"),
-    name = "Max °C"
-  ) +
+  scale_color_gradientn(colours = c("#2166ac", "#74add1", "#fee090", "#f46d43", "#a50026"),
+                        name = "Max °C") +
+  scale_x_date(date_breaks = "1 year", date_labels = "%Y") +
   geom_hline(yintercept = 0, color = "white", linewidth = 0.4, linetype = "dashed") +
-  labs(
-    title = "Athens - El. Venizelos Airport (LGAV)",
-    subtitle = "Monthly temperature",
-    x = NULL, y = "Temperature (°C)",
-    caption = "Source: NOAA ISD via rnoaa"
-  ) +
-  theme_minimal(base_size = 12) +
-  theme(
-    plot.background = element_rect(fill = "white", color = NA),
-    panel.grid.minor = element_blank(),
-    legend.position = "right"
-  )
-# ── 6. monthly average temperature heatmap ────────────────────────────────────
+  labs(title = string_aes(station),
+       subtitle = "Monthly",
+       x = NULL, y = "Temperature (°C)",
+       caption = "Source: NOAA ISD via rnoaa") +
+  theme_minimal(base_size = 20) +
+  theme(plot.background = element_rect(fill = "white", color = NA),
+        axis.text.x = element_text(angle = 90, vjust = 0.5, hjust = 1),
+        panel.grid.minor.x = element_blank())
+##########################################################################################
+# MONTHLY MAX/MIN TEMPERATURES
+##########################################################################################
 month$year <- substr(month$month, 1, 4)
 month$mon <- substr(month$month, 6, 7)
-ggplot(month, aes(x = year, y = mon, fill = temp_max)) +
+plot_heat_max<-ggplot(month, aes(x = year, y = mon, fill = temp_max)) +
   geom_tile(color = "white", linewidth = 0.4) +
-  scale_fill_gradientn(
-    colours = c("#2166ac", "#abd9e9", "#ffffbf", "#fdae61", "#d73027"),
-    name = "°C"
-  ) +
-  labs(
-    title = "Monthly Max Temperature — LGAV",
-    x = NULL, y = NULL,
-    caption = "Source: NOAA ISD via rnoaa"
-  ) +
-  theme_minimal(base_size = 11) +
-  theme(panel.grid = element_blank())
+  geom_text(aes(label = paste0(round(temp_max, 1), "\u00B0C")), color = "grey20", size = 3)+
+  scale_fill_gradient2(low = "#256abf", mid = "#f0efec", high = "#e34948",
+                       midpoint = median(month$temp_max, na.rm = TRUE),
+                       name = "°C") +
+  labs(title = "Monthly Max Temperature",
+       x = NULL, y = NULL,
+       caption = "Source: NOAA ISD via rnoaa") +
+  theme_minimal(base_size = 20) +
+  theme(panel.grid = element_blank(),
+        axis.text.x = element_text(angle = 90, vjust = 0.5, hjust = 1))
 
-ggplot(month, aes(x = year, y = mon, fill = temp_min)) +
+plot_heat_min<-ggplot(month, aes(x = year, y = mon, fill = temp_min)) +
   geom_tile(color = "white", linewidth = 0.4) +
-  scale_fill_gradientn(
-    colours = c("#2166ac", "#abd9e9", "#ffffbf", "#fdae61", "#d73027"),
-    name = "°C"
-  ) +
-  labs(
-    title = "Monthly Min Temperature — LGAV",
-    x = NULL, y = NULL,
-    caption = "Source: NOAA ISD via rnoaa"
-  ) +
-  theme_minimal(base_size = 11) +
-  theme(panel.grid = element_blank())
-# ── 7. simple map (no Google key needed) ──────────────────────────────────────
-greece <- ne_countries(country = "Greece", scale = "medium", returnclass = "sf")
-station_pt <- st_as_sf(lgav[1, ], coords = c("lon", "lat"), crs = 4326)
-ggplot() +
-  geom_sf(data = greece, fill = "#e8e0d5", color = "gray60") +
-  geom_sf(
-    data = station_pt, color = "#c0392b", size = 4, shape = 21,
-    fill = "#e74c3c", stroke = 1.2
-  ) +
-  annotate("text",
-           x = lgav$lon[1] + 0.4, y = lgav$lat[1],
-           label = "LGAV", color = "#c0392b", fontface = "bold", hjust = 0
-  ) +
-  coord_sf(xlim = c(19, 29), ylim = c(34, 42)) +
-  labs(
-    title = "Athens Eleftherios Venizelos Airport",
-    caption = "Source: NOAA ISD station list"
-  ) +
-  theme_void(base_size = 11) +
-  theme(plot.background = element_rect(fill = "#d6eaf8", color = NA))
+  geom_text(aes(label = paste0(round(temp_min, 1), "\u00B0C")), color = "grey20", size = 3) +
+  scale_fill_gradient2(low = "#256abf", mid = "#f0efec", high = "#e34948",
+                       midpoint = median(month$temp_min, na.rm = TRUE),
+                       name = "°C") +
+  labs(title = "Monthly Min Temperature",
+       x = NULL, y = NULL,
+       caption = "Source: NOAA ISD via rnoaa") +
+  theme_minimal(base_size = 20) +
+  theme(panel.grid = element_blank(),
+        axis.text.x = element_text(angle = 90, vjust = 0.5, hjust = 1))
+plot_multiplot(plotlist=list(plot_daily, plot_monthly, plot_heat_max, plot_heat_min), cols = 2)
+##########################################################################################
+# 
+##########################################################################################
+# greece <- ne_countries(country = "Greece", scale = "medium", returnclass = "sf")
+# station_pt <- st_as_sf(lgav[1, ], coords = c("lon", "lat"), crs = 4326)
+# ggplot() +
+#   geom_sf(data = greece, fill = "#e8e0d5", color = "gray60") +
+#   geom_sf(
+#     data = station_pt, color = "#c0392b", size = 4, shape = 21,
+#     fill = "#e74c3c", stroke = 1.2
+#   ) +
+#   annotate("text",
+#            x = lgav$lon[1] + 0.4, y = lgav$lat[1],
+#            label = "LGAV", color = "#c0392b", fontface = "bold", hjust = 0
+#   ) +
+#   coord_sf(xlim = c(19, 29), ylim = c(34, 42)) +
+#   labs(
+#     title = "Athens Eleftherios Venizelos Airport",
+#     caption = "Source: NOAA ISD station list"
+#   ) +
+#   theme_void(base_size = 11) +
+#   theme(plot.background = element_rect(fill = "#d6eaf8", color = NA))
 # ── 8. time series decomposition ──────────────────────────────────────────────
 ts_temp <- ts(daily$temp_max,
               frequency = 365,
