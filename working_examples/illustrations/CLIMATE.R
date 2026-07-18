@@ -115,15 +115,15 @@ for (yr in years_all) {
     theme(
       plot.background = element_rect(fill = "#0D1B2A", color = NA),
       plot.title = element_text(
-        color = "white", face = "bold", size = 18,
+        color = "white", face = "bold", size = 30,
         hjust = 0.5, margin = margin(14, 0, 4, 0)
       ),
       plot.subtitle = element_text(
-        color = "#90CAF9", size = 10,
+        color = "#90CAF9", size = 20,
         hjust = 0.5, margin = margin(0, 0, 8, 0)
       ),
       plot.caption = element_text(
-        color = "#546E7A", size = 7.5,
+        color = "#546E7A", size = 20,
         hjust = 1, margin = margin(6, 10, 8, 0)
       ),
       plot.margin = margin(10, 10, 10, 10)
@@ -145,11 +145,11 @@ for (i in seq_along(plots)) {
 }
 # ── stitch into GIF ────────────────────────────────────────────────────────────
 gifski::gifski(frame_paths,
-               gif_file = "/home/dimitrios/Desktop/arctic_ice_animated.gif",
+               gif_file = "arctic_ice_animated.gif",
                width = 800, height = 800, delay = 1
 )
 ##########################################################################################
-#
+# LOAD
 ##########################################################################################
 # https://github.com/jbkunst/jbkunst.github.io/blob/master/_posts/2016-06-23-case-study-animation-and-others-vizs.md
 library(highcharter)
@@ -171,8 +171,9 @@ df_nasa <- df_nasa[, c("year_mon", "value", "lower", "upper", "year", "decade", 
 df_nasa$decade <- as.numeric(df_nasa$decade)
 df <- df_nasa[order(df_nasa$year_mon), ]
 # df<-read.csv("https://raw.githubusercontent.com/hrbrmstr/hadcrut/master/data/temps.csv")
+caption_text = "Temperature deviation (°C) from the 1951–1980 baseline, combining land surface and ocean measurements (1880–2026). Negative values indicate cooler periods; positive values indicate warming. Recent years (2023–2024) exceed +1.2°C, approaching the Paris Agreement 1.5°C threshold. Source: NASA GISS Surface Temperature Analysis (GISTEMP v4)."
 ##########################################################################################
-#
+# SPIDER PLOT
 ##########################################################################################
 df <- dplyr::mutate(df,
                     date = lubridate::ymd(year_mon),
@@ -194,33 +195,7 @@ lsseries <- df %>%
   dplyr::do(data = .$value, color = dplyr::first(.$color_y)) %>%
   dplyr::mutate(name = year) %>%
   list_parse()
-hc1 <- highchart() %>%
-  hc_chart(polar = TRUE) %>%
-  hc_plotOptions(series = list(
-    marker = list(enabled = FALSE), animation = TRUE,
-    pointIntervalUnit = "month"
-  )) %>%
-  hc_legend(enabled = FALSE) %>%
-  hc_xAxis(
-    type = "datetime", min = 0, max = 365 * 24 * 36e5,
-    labels = list(format = "{value:%B}")
-  ) %>%
-  hc_tooltip(
-    headerFormat = "{point.key}", xDateFormat = "%B",
-    pointFormat = "{series.name}: {point.y}"
-  ) %>%
-  hc_add_series_list(lsseries)
-
-hc1
-##########################################################################################
-#
-##########################################################################################
-lsseries2 <- df %>%
-  dplyr::group_by(year) %>%
-  dplyr::do(data = .$value, color = "transparent", enableMouseTracking = FALSE, color2 = dplyr::first(.$color_y)) %>%
-  dplyr::mutate(name = year) %>%
-  list_parse()
-hc11 <- highchart() %>%
+hc_spiderplot <- highchart() %>%
   hc_chart(polar = TRUE) %>%
   hc_plotOptions(series = list(
     marker = list(enabled = FALSE), animation = TRUE,
@@ -228,7 +203,39 @@ hc11 <- highchart() %>%
   )) %>%
   hc_legend(enabled = FALSE) %>%
   hc_title(
-    text = "Animated Spiral",
+    text = "Timeseries",
+    style = list(fontSize = "30px", fontWeight = "bold")
+  ) %>%
+  hc_xAxis(
+    type = "datetime", min = 0, max = 365 * 24 * 36e5,
+    labels = list(
+      format = "{value:%B}",
+      style = list(fontSize = "20px")
+    )
+  ) %>%
+  hc_tooltip(
+    headerFormat = "{point.key}", xDateFormat = "%B",
+    pointFormat = " {series.name}: {point.y}"
+  ) %>%
+  hc_add_series_list(lsseries)
+hc_spiderplot
+##########################################################################################
+# SPIDER PLOT ANIMATED
+##########################################################################################
+lsseries2 <- df %>%
+  dplyr::group_by(year) %>%
+  dplyr::do(data = .$value, color = "transparent", enableMouseTracking = FALSE, color2 = dplyr::first(.$color_y)) %>%
+  dplyr::mutate(name = year) %>%
+  list_parse()
+hc_spiderplot_animated <- highchart() %>%
+  hc_chart(polar = TRUE) %>%
+  hc_plotOptions(series = list(
+    marker = list(enabled = FALSE), animation = TRUE,
+    pointIntervalUnit = "month"
+  )) %>%
+  hc_legend(enabled = FALSE) %>%
+  hc_title(
+    text = "Timeseries",
     style = list(fontSize = "30px", fontWeight = "bold")
   ) %>%
   hc_xAxis(
@@ -254,17 +261,21 @@ hc11 <- highchart() %>%
     delay=delay + delta;
   });
 }")))
-hc11
+hc_spiderplot_animated
 ##########################################################################################
-#
+# TIMESERIES
 ##########################################################################################
-hc2 <- hc1 %>%
+hc_timeseries_01 <- hc_spiderplot %>%
   hc_chart(polar = FALSE, type = "spline") %>%
-  hc_xAxis(max = (365 - 1) * 24 * 36e5) %>%
-  hc_yAxis(tickPositions = c(-1.5, 0, 1.5))
-hc2
+  hc_xAxis(max = (365 - 1) * 24 * 36e5,
+           labels = list(
+             rotation = -90,
+             style = list(fontSize = "20px")
+           ))
+  # hc_yAxis(tickPositions = c(-1.5, 0, 1.5))
+hc_timeseries_01
 ##########################################################################################
-#
+# HEATMAP
 ##########################################################################################
 m <- df %>%
   dplyr::select(year, month, value) %>%
@@ -273,13 +284,21 @@ m <- df %>%
   as.matrix()
 rownames(m) <- month.abb
 m <- remove_nc(m, value = -1)
-hc3 <- hchart(m) %>%
+hc_heatmap <- hchart(m) %>%
   hc_colorAxis(stops = color_stops(10, viridis::viridis(10, option = "B")), min = -1, max = 1) %>%
   hc_yAxis(title = list(text = NULL), tickPositions = FALSE, labels = list(format = "{value}", useHTML = TRUE)) %>%
   hc_chart(style = list(fontSize = "20px"))
-hc3
-hc4 <- hchart(m) %>%
+hc_heatmap
+hc_heatmap_large_fonts <- hchart(m) %>%
   hc_colorAxis(stops = color_stops(10, viridis::viridis(10, option = "B")), min = -1, max = 1) %>%
+  hc_title(
+    text = "",
+    style = list(fontSize = "20px", fontWeight = "bold")
+  ) %>%
+  hc_caption(
+    text = caption_text,
+    style = list(fontSize = "12px", color = "#666666")
+  ) %>%
   hc_xAxis(
     title = list(text = NULL),
     labels = list(
@@ -287,39 +306,54 @@ hc4 <- hchart(m) %>%
       style = list(fontSize = "20px")
     )) %>%
   hc_yAxis(
-    title = list(text = NULL),
+    title = list(text = ""),
     tickPositions = FALSE,
     labels = list(
+      enabled = TRUE,
       format = "{value}",
       useHTML = TRUE,
       style = list(fontSize = "20px")
     )
   )
-hc4
+  
+hc_heatmap_large_fonts
 ##########################################################################################
 #
 ##########################################################################################
 dsts <- df %>%
   dplyr::mutate(name = paste(decade, month)) %>%
   dplyr::select(x = tmpstmp, y = value, name)
-hc4 <- highchart() %>%
+hc_timeseries_02 <- highchart() %>%
+  hc_caption(
+    text = caption_text,
+    style = list(fontSize = "12px", color = "#666666")
+  ) %>%
   hc_xAxis(type = "datetime") %>%
   hc_yAxis(tickPositions = c(-1.5, 0, 1.5, 2)) %>%
   hc_add_series(dsts, name = "Global Temperature", type = "line", color = hex_to_rgba(viridis::viridis(10, option = "B")[7]), lineWidth = 1, states = list(hover = list(lineWidth = 1)), shadow = FALSE)
-hc4
+hc_timeseries_02
 ##########################################################################################
 #
 ##########################################################################################
 dscr <- df %>%
   dplyr::mutate(name = paste(decade, month)) %>%
   dplyr::select(x = tmpstmp, low = lower, high = upper, name, color = color_y)
-hc5 <- highchart() %>%
+hc_timeseries_range <- highchart() %>%
+  hc_caption(
+    text = caption_text,
+    style = list(fontSize = "12px", color = "#666666")
+  ) %>%
   hc_yAxis(tickPositions = c(-2, 0, 1.5, 2)) %>%
-  hc_xAxis(type = "datetime") %>%
+  hc_xAxis(type = "datetime",
+           labels = list(
+             rotation = -90,
+             style = list(fontSize = "20px")
+           )
+  ) %>%
   hc_add_series(dscr, name = "Global Temperature", type = "columnrange")
-hc5
+hc_timeseries_range
 ##########################################################################################
-#
+# SPIDER PLOT GGPLOT ANIMATE
 ##########################################################################################
 library(ggplot2)
 library(dplyr)
@@ -465,7 +499,7 @@ library(ggplot2)
 library(sf)
 library(rnaturalearth)
 ##########################################################################################
-# STATION
+# STATION WEATHER
 ##########################################################################################
 stations <- isd_stations(refresh = FALSE)
 stations[stations$ctry%in%"GR",]
