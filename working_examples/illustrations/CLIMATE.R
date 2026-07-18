@@ -203,7 +203,7 @@ hc_spiderplot <- highchart() %>%
   )) %>%
   hc_legend(enabled = FALSE) %>%
   hc_title(
-    text = "Timeseries",
+    text = "",
     style = list(fontSize = "30px", fontWeight = "bold")
   ) %>%
   hc_xAxis(
@@ -265,13 +265,23 @@ hc_spiderplot_animated
 ##########################################################################################
 # TIMESERIES
 ##########################################################################################
+month_days <- c(0, 31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30)
+month_starts <- cumsum(month_days) * 24 * 36e5
 hc_timeseries_01 <- hc_spiderplot %>%
   hc_chart(polar = FALSE, type = "spline") %>%
-  hc_xAxis(max = (365 - 1) * 24 * 36e5,
-           labels = list(
-             rotation = -90,
-             style = list(fontSize = "20px")
-           ))
+  hc_caption(
+    text = caption_text,
+    style = list(fontSize = "12px", color = "#666666")
+  ) %>%
+  hc_xAxis(
+    type = "datetime",
+    tickPositions = as.list(month_starts),
+    labels = list(
+      format = "{value:%B}",
+      rotation = -90,
+      style = list(fontSize = "20px")
+    )
+  )
   # hc_yAxis(tickPositions = c(-1.5, 0, 1.5))
 hc_timeseries_01
 ##########################################################################################
@@ -315,10 +325,9 @@ hc_heatmap_large_fonts <- hchart(m) %>%
       style = list(fontSize = "20px")
     )
   )
-  
 hc_heatmap_large_fonts
 ##########################################################################################
-#
+# TIMESERIES
 ##########################################################################################
 dsts <- df %>%
   dplyr::mutate(name = paste(decade, month)) %>%
@@ -328,12 +337,21 @@ hc_timeseries_02 <- highchart() %>%
     text = caption_text,
     style = list(fontSize = "12px", color = "#666666")
   ) %>%
-  hc_xAxis(type = "datetime") %>%
+  hc_xAxis(type = "datetime",
+           tickInterval = 1,
+           labels = list(
+             rotation = -90,
+             style = list(fontSize = "20px")
+           )) %>%
   hc_yAxis(tickPositions = c(-1.5, 0, 1.5, 2)) %>%
-  hc_add_series(dsts, name = "Global Temperature", type = "line", color = hex_to_rgba(viridis::viridis(10, option = "B")[7]), lineWidth = 1, states = list(hover = list(lineWidth = 1)), shadow = FALSE)
+  hc_add_series(dsts, name = "Global Temperature", type = "line", 
+                color = hex_to_rgba(viridis::viridis(10, option = "B")[7]), 
+                lineWidth = 1, 
+                states = list(hover = list(lineWidth = 1)),
+                shadow = FALSE)
 hc_timeseries_02
 ##########################################################################################
-#
+# TIMESERIES RANGE
 ##########################################################################################
 dscr <- df %>%
   dplyr::mutate(name = paste(decade, month)) %>%
@@ -345,6 +363,7 @@ hc_timeseries_range <- highchart() %>%
   ) %>%
   hc_yAxis(tickPositions = c(-2, 0, 1.5, 2)) %>%
   hc_xAxis(type = "datetime",
+           tickInterval = 1,
            labels = list(
              rotation = -90,
              style = list(fontSize = "20px")
