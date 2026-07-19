@@ -572,10 +572,10 @@ month <- month[order(month$month_date), ]
 ##########################################################################################
 # DAILY AND MONTHLY MAX/MIN TEMPERATURES
 ##########################################################################################
+plot_colours<-c("#2166ac", "#74add1", "#fee090", "#f46d43", "#a50026")
 plot_daily<-ggplot(daily, aes(x = date)) +
   geom_ribbon(aes(ymin = temp_min, ymax = temp_max, fill = temp_max), alpha = 0.7) +
-  scale_fill_gradientn(colours = c("#2166ac", "#74add1", "#fee090", "#f46d43", "#a50026"),
-                       name = "Max °C") +
+  scale_fill_gradientn(colours = plot_colours, name = "Max °C") +
   scale_x_date(date_breaks = "1 year", date_labels = "%Y") +
   geom_hline(yintercept = 0, color = "white", linewidth = 0.4, linetype = "dashed") +
   labs(title = string_aes(station),
@@ -590,8 +590,7 @@ plot_monthly<-ggplot(month, aes(x = month_date)) +
   geom_ribbon(aes(ymin = temp_min, ymax = temp_max),fill = "#74add1", alpha = 0.45) +
   geom_line(aes(y = temp_max, color = temp_max), linewidth = 0.8) +
   geom_line(aes(y = temp_min), color = "white", linewidth = 0.6, alpha = 0.8) +
-  scale_color_gradientn(colours = c("#2166ac", "#74add1", "#fee090", "#f46d43", "#a50026"),
-                        name = "Max °C") +
+  scale_color_gradientn(colours = plot_colours, name = "Max °C") +
   scale_x_date(date_breaks = "1 year", date_labels = "%Y") +
   geom_hline(yintercept = 0, color = "white", linewidth = 0.4, linetype = "dashed") +
   labs(title = string_aes(station),
