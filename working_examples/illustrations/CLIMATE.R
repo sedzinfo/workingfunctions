@@ -149,6 +149,141 @@ gifski::gifski(frame_paths,
                width = 800, height = 800, delay = 1
 )
 ##########################################################################################
+# SPIDER PLOT GGPLOT ANIMATE
+##########################################################################################
+library(ggplot2)
+library(dplyr)
+library(tidyr)
+library(gifski)
+
+# ── data ───────────────────────────────────────────────────────────────────────
+df_nasa <- read.csv(
+  "https://data.giss.nasa.gov/gistemp/tabledata_v4/GLB.Ts+dSST.csv",
+  header = TRUE, stringsAsFactors = FALSE, na.strings = "***", skip = 1
+)
+
+df_long <- df_nasa[, c("Year", month.abb)] |>
+  pivot_longer(cols = all_of(month.abb), names_to = "month", values_to = "temp") |>
+  mutate(
+    temp      = as.numeric(temp),
+    month_num = match(month, month.abb)
+  ) |>
+  filter(!is.na(temp), Year >= 1880)
+
+years <- sort(unique(df_long$Year))
+n_years <- length(years)
+
+# ── close the loop per year (Jan repeated as month 13) ────────────────────────
+closed <- df_long |>
+  group_by(Year) |>
+  arrange(month_num) |>
+  group_modify(~ bind_rows(.x, filter(.x, month_num == 1) |> mutate(month_num = 13))) |>
+  ungroup()
+
+# ── reference circles (Paris targets) ─────────────────────────────────────────
+circle_df <- expand.grid(
+  month_num = seq(1, 13, length.out = 200),
+  r         = c(0, 1.5, 2.0)
+)
+
+# ── month labels positioned outside the plot ──────────────────────────────────
+month_labels <- data.frame(
+  month_num = 1:12,
+  label     = month.abb
+)
+
+# ── frame loop ─────────────────────────────────────────────────────────────────
+frames_dir <- file.path(tempdir(), "spiral_frames")
+dir.create(frames_dir, showWarnings = FALSE)
+frame_paths <- c()
+
+temp_lim <- c(-1.0, 1.6)
+label_r <- 1.85 # month labels just outside the outer ring
+
+# spokes: one radial line per month
+spokes_df <- data.frame(
+  month_num = rep(1:12, each = 2),
+  temp      = rep(c(temp_lim[1], label_r - 0.05), 12),
+  grp       = rep(1:12, each = 2))
+
+for (i in seq_along(years)) {
+  yr <- years[i]
+  years_so_far <- years[seq_len(i)]
+  
+  past <- closed |> filter(Year %in% years_so_far, Year != yr)
+  curr <- closed |> filter(Year == yr)
+  
+  past <- past |>
+    mutate(yr_idx = match(Year, years) / n_years)
+  
+  p <- ggplot() +
+    
+    # ── spokes ──────────────────────────────────────────────────────────────
+  geom_path(
+    data = spokes_df,
+    aes(x = month_num, y = temp, group = grp),
+    color = "gray25", linewidth = 0.25) +
+    # ── reference circles ───────────────────────────────────────────────────
+  geom_path(
+    data = circle_df,
+    aes(x = month_num, y = r, group = r),
+    color = "gray30", linewidth = 0.35, linetype = "dashed") +
+    annotate("text",
+             x = 0.5, y = c(0, 1.5, 2.0) + 0.04,
+             label = c("0°C", "1.5°C", "2°C"),
+             color = "gray50", size = 2.8, hjust = 1) +
+    # ── all past years ──────────────────────────────────────────────────────
+  geom_path(
+    data = past,
+    aes(x = month_num, y = temp, group = Year, color = yr_idx),
+    linewidth = 0.4, alpha = 0.7) +
+    scale_color_viridis_c(option = "B", limits = c(0, 1), guide = "none") +
+    # ── current year (white + thick) ────────────────────────────────────────
+  geom_path(
+    data = curr,
+    aes(x = month_num, y = temp),
+    color = "white", linewidth = 1.6, alpha = 0.95) +
+    # ── month labels ────────────────────────────────────────────────────────
+  geom_text(
+    data = month_labels,
+    aes(x = month_num, y = label_r, label = label),
+    inherit.aes = FALSE,
+    color = "gray70", size = 3.5, fontface = "bold") +
+    # ── polar setup ─────────────────────────────────────────────────────────
+  coord_polar(theta = "x", start = -pi / 6, clip = "off") +
+    scale_x_continuous(limits = c(1, 13), breaks = 1:12, labels = NULL) +
+    scale_y_continuous(limits = c(temp_lim[1], label_r + 0.1)) +
+    labs(
+      title   = as.character(yr),
+      caption = "NASA GISS Surface Temperature Analysis v4  |  Anomaly vs 1951-1980 baseline"
+    ) +
+    theme_void(base_size = 12) +
+    theme(plot.background = element_rect(fill = "#050510", color = NA),
+          panel.background = element_rect(fill = "#050510", color = NA),
+          plot.title = element_text(
+            color = "white", face = "bold", size = 38,
+            hjust = 0.5, margin = margin(16, 0, 0, 0)),
+          plot.caption = element_text(
+            color = "gray40", size = 7.5, hjust = 0.5,
+            margin = margin(0, 0, 12, 0)),
+          plot.margin = margin(10, 10, 10, 10))
+  
+  path <- file.path(frames_dir, sprintf("frame_%04d.png", i))
+  ggsave(path, p,
+         width = 1800 / 150, height = 1900 / 150,
+         dpi = 150, bg = "#050510"
+  )
+  frame_paths <- c(frame_paths, path)
+  message("frame ", i, "/", n_years, "  (", yr, ")")
+}
+
+# ── stitch ─────────────────────────────────────────────────────────────────────
+gifski::gifski(frame_paths,
+               gif_file = "climate_spiral.gif",
+               width = 1800, height = 1900,
+               delay = 0.1
+) # 10 fps — slow down to 0.2 if too fast
+##########################################################################################
 # LOAD
 ##########################################################################################
 # https://github.com/jbkunst/jbkunst.github.io/blob/master/_posts/2016-06-23-case-study-animation-and-others-vizs.md
@@ -371,141 +506,6 @@ hc_timeseries_range <- highchart() %>%
   ) %>%
   hc_add_series(dscr, name = "Global Temperature", type = "columnrange")
 hc_timeseries_range
-##########################################################################################
-# SPIDER PLOT GGPLOT ANIMATE
-##########################################################################################
-library(ggplot2)
-library(dplyr)
-library(tidyr)
-library(gifski)
-
-# ── data ───────────────────────────────────────────────────────────────────────
-df_nasa <- read.csv(
-  "https://data.giss.nasa.gov/gistemp/tabledata_v4/GLB.Ts+dSST.csv",
-  header = TRUE, stringsAsFactors = FALSE, na.strings = "***", skip = 1
-)
-
-df_long <- df_nasa[, c("Year", month.abb)] |>
-  pivot_longer(cols = all_of(month.abb), names_to = "month", values_to = "temp") |>
-  mutate(
-    temp      = as.numeric(temp),
-    month_num = match(month, month.abb)
-  ) |>
-  filter(!is.na(temp), Year >= 1880)
-
-years <- sort(unique(df_long$Year))
-n_years <- length(years)
-
-# ── close the loop per year (Jan repeated as month 13) ────────────────────────
-closed <- df_long |>
-  group_by(Year) |>
-  arrange(month_num) |>
-  group_modify(~ bind_rows(.x, filter(.x, month_num == 1) |> mutate(month_num = 13))) |>
-  ungroup()
-
-# ── reference circles (Paris targets) ─────────────────────────────────────────
-circle_df <- expand.grid(
-  month_num = seq(1, 13, length.out = 200),
-  r         = c(0, 1.5, 2.0)
-)
-
-# ── month labels positioned outside the plot ──────────────────────────────────
-month_labels <- data.frame(
-  month_num = 1:12,
-  label     = month.abb
-)
-
-# ── frame loop ─────────────────────────────────────────────────────────────────
-frames_dir <- file.path(tempdir(), "spiral_frames")
-dir.create(frames_dir, showWarnings = FALSE)
-frame_paths <- c()
-
-temp_lim <- c(-1.0, 1.6)
-label_r <- 1.85 # month labels just outside the outer ring
-
-# spokes: one radial line per month
-spokes_df <- data.frame(
-  month_num = rep(1:12, each = 2),
-  temp      = rep(c(temp_lim[1], label_r - 0.05), 12),
-  grp       = rep(1:12, each = 2))
-
-for (i in seq_along(years)) {
-  yr <- years[i]
-  years_so_far <- years[seq_len(i)]
-  
-  past <- closed |> filter(Year %in% years_so_far, Year != yr)
-  curr <- closed |> filter(Year == yr)
-  
-  past <- past |>
-    mutate(yr_idx = match(Year, years) / n_years)
-  
-  p <- ggplot() +
-    
-    # ── spokes ──────────────────────────────────────────────────────────────
-  geom_path(
-    data = spokes_df,
-    aes(x = month_num, y = temp, group = grp),
-    color = "gray25", linewidth = 0.25) +
-    # ── reference circles ───────────────────────────────────────────────────
-  geom_path(
-    data = circle_df,
-    aes(x = month_num, y = r, group = r),
-    color = "gray30", linewidth = 0.35, linetype = "dashed") +
-    annotate("text",
-             x = 0.5, y = c(0, 1.5, 2.0) + 0.04,
-             label = c("0°C", "1.5°C", "2°C"),
-             color = "gray50", size = 2.8, hjust = 1) +
-    # ── all past years ──────────────────────────────────────────────────────
-  geom_path(
-    data = past,
-    aes(x = month_num, y = temp, group = Year, color = yr_idx),
-    linewidth = 0.4, alpha = 0.7) +
-    scale_color_viridis_c(option = "B", limits = c(0, 1), guide = "none") +
-    # ── current year (white + thick) ────────────────────────────────────────
-  geom_path(
-    data = curr,
-    aes(x = month_num, y = temp),
-    color = "white", linewidth = 1.6, alpha = 0.95) +
-    # ── month labels ────────────────────────────────────────────────────────
-  geom_text(
-    data = month_labels,
-    aes(x = month_num, y = label_r, label = label),
-    inherit.aes = FALSE,
-    color = "gray70", size = 3.5, fontface = "bold") +
-    # ── polar setup ─────────────────────────────────────────────────────────
-  coord_polar(theta = "x", start = -pi / 6, clip = "off") +
-    scale_x_continuous(limits = c(1, 13), breaks = 1:12, labels = NULL) +
-    scale_y_continuous(limits = c(temp_lim[1], label_r + 0.1)) +
-    labs(
-      title   = as.character(yr),
-      caption = "NASA GISS Surface Temperature Analysis v4  |  Anomaly vs 1951-1980 baseline"
-    ) +
-    theme_void(base_size = 12) +
-    theme(plot.background = element_rect(fill = "#050510", color = NA),
-          panel.background = element_rect(fill = "#050510", color = NA),
-          plot.title = element_text(
-            color = "white", face = "bold", size = 38,
-            hjust = 0.5, margin = margin(16, 0, 0, 0)),
-          plot.caption = element_text(
-            color = "gray40", size = 7.5, hjust = 0.5,
-            margin = margin(0, 0, 12, 0)),
-          plot.margin = margin(10, 10, 10, 10))
-  
-  path <- file.path(frames_dir, sprintf("frame_%04d.png", i))
-  ggsave(path, p,
-         width = 1800 / 150, height = 1900 / 150,
-         dpi = 150, bg = "#050510"
-  )
-  frame_paths <- c(frame_paths, path)
-  message("frame ", i, "/", n_years, "  (", yr, ")")
-}
-
-# ── stitch ─────────────────────────────────────────────────────────────────────
-gifski::gifski(frame_paths,
-               gif_file = "climate_spiral.gif",
-               width = 1800, height = 1900,
-               delay = 0.1
-) # 10 fps — slow down to 0.2 if too fast
 ##########################################################################################
 #
 ##########################################################################################
