@@ -417,7 +417,7 @@ hc_timeseries_01 <- hc_spiderplot %>%
       style = list(fontSize = "20px")
     )
   )
-  # hc_yAxis(tickPositions = c(-1.5, 0, 1.5))
+# hc_yAxis(tickPositions = c(-1.5, 0, 1.5))
 hc_timeseries_01
 ##########################################################################################
 # HEATMAP
@@ -531,7 +531,6 @@ wban <- lgav$wban[1]
 ##########################################################################################
 years <- 2001:2026
 data_list <- list()
-
 for (yr in years) {
   tryCatch(
     {
@@ -555,7 +554,6 @@ df_data <- df_raw |>
   # replace NOAA sentinel missing values
   mutate(across(c(temp, dew, wind_spd, slp), ~ ifelse(. > 900 | . < -200, NA, .))) |>
   filter(!is.na(date))
-
 df_data[df_data==999.9]<-NA
 df_data$month<-sub("-\\d{2}$", "", df_data$date)
 daily_max <- plyr::ddply(df_data, c("date"), plyr::numcolwise(max, na.rm = TRUE))
