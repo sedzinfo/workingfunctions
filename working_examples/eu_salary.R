@@ -6,69 +6,42 @@ library(dplyr)
 library(tidyr)
 library(countrycode)
 library(plotly)
+library(eurostat)
+library(gganimate)
+library(gifski)
+library(scales)
 
 directory<-paste0(dirname(rstudioapi::getActiveDocumentContext()$path),"/")
 
-df<-read.csv(paste0(directory,"estat_nama_10_fte_en.csv"))
-df<-df[df$unit%in%"EUR",]
-df<-df[!df$geo%in%c("EU27_2020","EA20"),]
-df<-df[,c("geo","TIME_PERIOD","OBS_VALUE")]
-# df$TIME_PERIOD<-factor(as.numeric(df$TIME_PERIOD),levels=sort(unique(as.numeric(df$TIME_PERIOD))))
-# df$geo<-factor(df$geo,levels=sort(unique(df$geo)))
-df$country_name<-countrycode(df$geo,origin="eurostat",destination="country.name")
-df$iso<-countrycode(df$geo,origin="eurostat",destination="iso2c")
-
-years<-1995:2024
-df_expanded<-df %>%
-  complete(iso,TIME_PERIOD=years,fill=list(OBS_VALUE=0)) %>%
-  group_by(iso) %>%
-  fill(country_name,.direction="downup") %>%
-  ungroup()
-
-df_expanded$flag_url<-paste0("https://flagcdn.com/w40/",tolower(df_expanded$iso),".png")
-df_expanded$geo<-NULL
-names(df_expanded)<-c("iso","year","value","country","flag")
-title<-"Average full-time adjusted salaries per employee in Greece -in red-\ncompared with EU countries (source: Eurostat)"
-##########################################################################################
-# 
-##########################################################################################
+df_eusalary <- get_eurostat("nama_10_fte", filters = list(unit = "EUR"))
+df_eusalary <- df_eusalary[!df_eusalary$geo %in% c("EU27_2020","EA20"), ]
+df_eusalary$year <- lubridate::year(df_eusalary$time)
+df_eusalary$country <- countrycode(df_eusalary$geo, origin="eurostat", destination="country.name")
+df_eusalary$iso <- countrycode(df_eusalary$geo, origin="eurostat", destination="iso2c")
+df_eusalary$flag_url<-paste0("https://flagcdn.com/w40/",tolower(df_eusalary$iso),".png")
+df_eusalary$rank<-df_eusalary$color<-NA
+for(i in unique(df_eusalary$year)) {
+  df_eusalary[df_eusalary$year%in%i,"rank"]<-rank(-df_eusalary[df_eusalary$year%in%i,"values"],ties.method="min")
+}
+df_eusalary[df_eusalary$country%in%"Greece","color"]<-"#E74C3C"
+df_eusalary[!df_eusalary$country%in%"Greece","color"]<-"gray70"
 font_style<-list(size=20,color="gray25",weight="bold")
+title   = "Average full time adjusted salary [nama_10_fte]"
+##########################################################################################
+# TIMESERIES
+##########################################################################################
 colors=c("#e6194b","#3cb44b","#ffe119","#0082c8","#f58231","#911eb4","#46f0f0",
          "#f032e6","#d2f53c","#fabebe","#008080","#e6beff","#aa6e28","#fffac8",
          "#800000","#aaffc3","#808000","#ffd8b1","#000080","#808080","#ffffff",
          "#000000")
-last_points<-df_expanded %>%
-  group_by(iso) %>%
-  filter(year==max(year)) %>%
-  ungroup() %>%
-  mutate(flag=paste0("https://flagcdn.com/w40/",tolower(iso),".png"))
-flag_images<-lapply(1:nrow(last_points),function(i) {
-  list(
-    source=last_points$flag[i],
-    xref="x",
-    yref="y",
-    x=last_points$year[i],
-    y=last_points$value[i],
-    xanchor="center",
-    yanchor="middle",
-    sizex=100,
-    sizey=300,
-    sizing="contain",
-    opacity=1,
-    layer="above"
-  )
-})
-##########################################################################################
-# 
-##########################################################################################
-plot_ly(df_expanded[df_expanded$value>0,],
+plot_ly(df_eusalary[df_eusalary$values>0,],
         x=~year,
-        y=~value,
+        y=~values,
         color=~country,
         mode='lines+markers',
         type='scatter',
         text=~paste("Year:",year,
-                    "<br>Value:",value,
+                    "<br>Value:",values,
                     "<br>Country Name:",country),
         hoverinfo='text',
         colors=colors,
@@ -86,18 +59,15 @@ plot_ly(df_expanded[df_expanded$value>0,],
 ##########################################################################################
 # 
 ##########################################################################################
-dff<-data.frame(df_expanded[df_expanded$year%in%2023,])
-df_expanded$country<-factor(df_expanded$country,levels=as.character(dff[order(-dff$value),"country"]))
-
-p<-plot_ly(df_expanded,
+plot_ly(df_eusalary,
            x=~country,
-           y=~value,
+           y=~values,
            frame=~year,
            ids=~country,
            type='bar',
-           # text=~paste("Year:",year,
-           #             "<br>Value:",value,
-           #             "<br>Country:",country),
+           text=~paste("Year:",year,
+                       "<br>Value:",values,
+                       "<br>Country:",country),
            hoverinfo='text',
            colors=colors,
            showlegend=FALSE) %>%
@@ -115,119 +85,31 @@ p<-plot_ly(df_expanded,
     redraw=FALSE,
     mode="immediate"
   )
-pb<-plotly::plotly_build(p)
-pb
-
-for (i in seq_along(pb$x$frames)) {
-  frame_data<-pb$x$frames[[i]]$data[[1]]
-  df_frame<-df_expanded[df_expanded$year == pb$x$frames[[i]]$name,]
-  images<-lapply(seq_len(nrow(df_frame)),function(j) {
-    list(
-      source=df_frame$flag_url[j],
-      xref="x",
-      yref="paper",
-      x=df_frame$country[j],
-      y=0,
-      xanchor="center",
-      yanchor="bottom",
-      sizex=0.8,
-      sizey=0.05,
-      sizing="stretch",
-      opacity=1,
-      layer="above"
-    )
-  })
-  pb$x$frames[[i]]$layout<-list(images=images)
-}
-
-pb
 ##########################################################################################
 # 
 ##########################################################################################
-for(i in unique(df_expanded$year)) {
-  df_expanded[df_expanded$year%in%i,"rank"]<-rank(df_expanded[df_expanded$year%in%i,"value"],ties.method="max")
-}
-
-df_expanded<-df_expanded[!duplicated(df_expanded),]
-
-# Colors
-unique_countries<-unique(df_expanded$country)
-colors<-setNames(rep("lightgray", length(unique_countries)), unique_countries)
-colors["Greece"]<-"red"
-
-# Plot
-p<-plot_ly(df_expanded,
-           x=~rank,
-           y=~value,
-           frame=~year,
-           ids=~rank,
-           text=~paste("Year:",year,
-                       "<br>Value:",value,
-                       "<br>Country:",country),
-           type="bar",
-           marker=list(color=~colors),
-           hoverinfo="text",
-           showlegend=FALSE
-) %>%
-  layout(
-    xaxis=list(
-      title="Rank",
-      tickmode="array"
-      # tickvals=~rank,
-      # tickangle=-90
-    ),
-    yaxis=list(title="Euro"),
-    title=title,
-    margin=list(l=50, r=50, b=200, t=100),
-    font=font_style
-  ) %>%
-  animation_opts(
-    frame=1000,
-    transition=1000,
-    easing="linear",
-    redraw=TRUE
-  )
-p
-##########################################################################################
-# 
-##########################################################################################
-df_income<-read.csv(paste0(directory,"nama_10_fte__custom_19762430_linear.csv"))
-df_income<-df_income[,c("geo","TIME_PERIOD","OBS_VALUE")]
-df_income$iso<-countrycode(df_income$geo,origin="country.name.en",destination="iso2c")
-df_income$flag_url<-paste0("https://flagcdn.com/w40/",tolower(df_income$iso),".png")
-df_income<-df_income[complete.cases(df_income),]
-df_income$year_rank<-NA
-df_income$colors<-"lightgray"
-df_income[df_income$geo%in%"Greece","colors"]<-"red"
-
-for(i in unique(df_income$TIME_PERIOD)) {
-  df_income[df_income$TIME_PERIOD%in%i,"year_rank"]<-rank(-df_income[df_income$TIME_PERIOD%in%i,"OBS_VALUE"],ties.method="min")
-}
-
-head(df_income)
-
 plot_ly() %>%
   add_bars(
-    data         = df_income[df_income$colors == "lightgray", ],
-    x            = ~year_rank,
-    y            = ~OBS_VALUE,
-    frame        = ~TIME_PERIOD,
-    ids          = ~year_rank,
-    marker       = list(color = "lightgray"),
-    text         = ~geo,
+    data         = df_eusalary[df_eusalary$color == "gray70", ],
+    x            = ~rank,
+    y            = ~values,
+    frame        = ~year,
+    ids          = ~rank,
+    marker       = list(color = "gray70"),
+    text         = ~country,
     hoverinfo    = "text",
     textposition = "outside",
     textangle    = 90,
     showlegend   = FALSE
   ) %>%
   add_bars(
-    data         = df_income[df_income$colors == "red", ],
-    x            = ~year_rank,
-    y            = ~OBS_VALUE,
-    frame        = ~TIME_PERIOD,
-    ids          = ~year_rank,
-    marker       = list(color = "red"),
-    text         = ~geo,
+    data         = df_eusalary[df_eusalary$color %in% "#E74C3C", ],
+    x            = ~rank,
+    y            = ~values,
+    frame        = ~year,
+    ids          = ~rank,
+    marker       = list(color = "#E74C3C"),
+    text         = ~country,
     hoverinfo    = "text",
     textposition = "outside",
     textangle    = 90,
@@ -244,40 +126,14 @@ plot_ly() %>%
 ##########################################################################################
 # 
 ##########################################################################################
-df_eusalary<-openxlsx::read.xlsx(paste0(directory,"nama_10_fte__custom_22122988_spreadsheet.xlsx"),sheet="Data",startRow = 8)
-df_eusalary[df_eusalary==":"]<-NA
-df_eusalary[df_eusalary=="not available"]<-NA
-df_eusalary[df_eusalary=="Special value"]<-NA
-df_eusalary[df_eusalary=="GEO (Labels)"]<-NA
-df_eusalary<-remove_nc(df_eusalary,remove_rows = TRUE)
-df_eusalary[2:length(df_eusalary)]<-change_data_type(df_eusalary[2:length(df_eusalary)],type="numeric")
-df_eusalary<-df_eusalary[!df_eusalary$TIME%in%"European Union - 27 countries (from 2020)",]
-df_eusalary<-reshape2::melt(df_eusalary)
-
-df_eusalary$rank<-df_eusalary$color<-NA
-
-for(i in unique(df_eusalary$variable)) {
-  df_eusalary[df_eusalary$variable%in%i,"rank"]<-rank(-df_eusalary[df_eusalary$variable%in%i,"value"],ties.method="min")
-}
-
-df_eusalary[df_eusalary$TIME%in%"Greece","color"]<-"#E74C3C"
-df_eusalary[!df_eusalary$TIME%in%"Greece","color"]<-"gray70"
-
-head(df_eusalary)
-
-names(df_eusalary)<-c("country","year","value","color","rank")
-
-library(gganimate)
-library(gifski)
-library(scales)
-p <- ggplot(df_eusalary, aes(x = rank, y = value, fill = color, group = country)) +
+p <- ggplot(df_eusalary, aes(x = rank, y = values, fill = color, group = country)) +
   geom_col(width = 0.85, show.legend = FALSE) +
   geom_text(aes(y = 0, label = country, color = color),
             hjust = 1, nudge_y = -400,
             size = 3.8, fontface = "bold", show.legend = FALSE) +
-  # geom_text(aes(label = comma(value, accuracy = 1)),
-  #           hjust = 0, nudge_y = 400,
-  #           color = "gray80", size = 3.2) +
+  geom_text(aes(label = comma(values, accuracy = 1)),
+            hjust = 0, nudge_y = 400,
+            color = "gray80", size = 3.2) +
   scale_fill_identity() +
   scale_color_identity() +
   scale_x_reverse(breaks = NULL) +
@@ -297,10 +153,10 @@ p <- ggplot(df_eusalary, aes(x = rank, y = value, fill = color, group = country)
     fontface = "bold"
   ) +
   coord_flip(clip = "off") +
-  labs(title   = "Average full time adjusted salary [nama_10_fte__custom_22122988]",
+  labs(title   = title,
        # subtitle = "{closest_state}",
        x       = NULL,
-       y       = "Euros per employee per annum",
+       y       = "Euros",
        caption = "Source: Eurostat  |  Greece highlighted in red") +
   theme_minimal(base_size = 20) +
   theme(
@@ -320,14 +176,15 @@ p <- ggplot(df_eusalary, aes(x = rank, y = value, fill = color, group = country)
     plot.caption = element_text(color = "#546E7A", size = 8, hjust = 1,
                                 margin = margin(8, 0, 8, 0)),
     plot.margin  = margin(10, 30, 10, 120)) +
-  transition_states(year, transition_length = 2, state_length = 1) +
+  transition_states(year, transition_length = 0, state_length = 5) +
   ease_aes("cubic-in-out")
 
 p
 
 animate(p,
-        nframes  = 300,
+        nframes  = 100,
         fps      = 10,
+        duration = 20,
         width    = 900,
         height   = 800,
         renderer = gifski_renderer("eu_salary_race.gif"))
