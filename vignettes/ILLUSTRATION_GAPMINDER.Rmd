@@ -185,7 +185,7 @@ ggplot(gapminder_2007,
 
 `gganimate` extends ggplot2 with `transition_*` functions. `transition_time(year)` moves through the `year` variable. `shadow_mark()` leaves a faint ghost trail so you can see where countries have been.
 
-```{r animate, eval=FALSE}
+```{r animate, eval=TRUE, cache=TRUE}
 p <- ggplot(gapminder,
             aes(x = gdpPercap, y = lifeExp, size = pop, color = continent)) +
 
@@ -227,6 +227,8 @@ animate(p,
         fps      = 12,
         width    = 900,
         height   = 650,
+        units    = "px",
+        res      = 96,
         renderer = gifski_renderer("gapminder.gif"))
 ```
 
@@ -236,12 +238,9 @@ animate(p,
 
 ## The result
 
-```{r show_gif, echo=FALSE, out.width="100%"}
-# after running the animate() block above, embed the GIF:
+```{r show_gif, echo=TRUE, out.width="50%"}
 # knitr::include_graphics("gapminder.gif")
 ```
-
-![](gapminder.gif)
 
 ---
 

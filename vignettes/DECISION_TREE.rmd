@@ -10,7 +10,6 @@ output:
     toc_float: true
     code_folding: show
     self_contained: true
----
 vignette: >
   %\VignetteIndexEntry{RPART}
   %\VignetteEngine{knitr::rmarkdown}
