@@ -29,6 +29,7 @@ knitr::opts_chunk$set(
   echo    = TRUE,
   message = FALSE,
   warning = FALSE,
+  error   = FALSE,
   cache   = TRUE
 )
 
@@ -38,31 +39,39 @@ knitr::knit_hooks$set(cex = function(before, options, envir) {
                   cex.lab  = options$cex,
                   cex.axis = options$cex * 0.85)
 })
-knitr::opts_chunk$set(cex = 5)
+knitr::opts_chunk$set(cex = 2)
 ```
 
 
 
 # Simulating a CAT IRT using catR
 
-This document serves an an exercise and illustrates a CAT simulation. CAT is based on IRT and it requires a prior IRT model parameter estimation. A purpose of CAT is to provide short questionnaires to participants tailored to their abilities. In CAT, questions for participants are chosen from an item pool in real time. For example, if a participant answers a difficult question correctly, it seems that there is no need to show him a much easier question to answer, on the contrary, it would make more sense to provide a more difficult question to pinpoint his ability estimate. In that sense, in CAT, participants do not have to respond to the entire questionnaire. In this simulation we will use an item pool of 200 questions in a CAT where the maximum number of questions asked is 40.  
-For the purposes of this simulation we will use catR for the simulation, and foreach and doSNOW for parallel computation.
+This document is a practical exercise illustrating a Computerized Adaptive Testing (CAT) simulation. CAT is grounded in Item Response Theory (IRT) and requires prior estimation of item parameters. Its purpose is to deliver short, tailored questionnaires by selecting items from a pool in real time based on each respondent's estimated ability. For example, if a participant answers a difficult item correctly, the algorithm skips easier items and instead presents a harder one to narrow down the ability estimate more efficiently. As a result, participants do not need to respond to every item in the pool. This simulation uses an item pool of 200 items with a maximum of 40 items administered per respondent.
+The `catR` package handles the simulation, while `foreach` and `doSNOW` are used for parallel computation.
 
-```{r set-options,echo=TRUE,results="hide",warning=FALSE,message=FALSE,error=FALSE}
+```{r set-options,echo=TRUE,results="hide"}
 library(catR)
 library(foreach)
 library(doSNOW)
+library(ggplot2)
+library(patchwork)
 options(width=160)
 ```
 
 ## Simulate item pool
 
-For this simulation we will use a 2PL model, that is a model with 2 parameters for each item, a discrimination parameter, which indicates how good a question discriminates abilities, and a difficulty parameter which indicates how difficult a question is. catR provides the function genDichoMatrix, this function generates parameters for binary items. These items have 2 possible values: question answered correctly (value 1) and question answered incorrectly (value 0). That type of responses could be provided by multiple choice questions or whatever. All we need to know is if a participant answered a question correctly or not and represent this with a 0 or 1.  
-The genDichoMatrix will generate 200 items of a 2PL model with parameter a modeled after a prior distribution with a mean 2 and sd .1. This will hopefully provide positive parameters for a. For parameter b we need both positive and negative difficulty and thus the simulated distribution has a mean of 0 and a relatively large sd. A very low negative difficulty indicates an easy to answer item which can be answered correctly by a participant with low ability. An item with high difficulty is interpreted using the same criteria. In addition, a high a parameter indicates that the item is able to discriminate between abilities, thus in a sense this value indicates how confident we can be that this item measures the difficulty it is supposed to measure without variability.  
-The genDichoMatrix also provides a c and a d parameter which stand for guessing or inattentiveness, however because their values are always 0 and 1, they have no effect in the ability estimation formula. As a result catR may use a 4PL formula internally, however item parameters for c and d, will make the relevant formulas equivalent of a 2PL model.  
-The resulting item bank from the genDichoMatrix, provides relatively good discrimination for items that measure a relatively wide ability levels.  
+This simulation uses the **2PL (two-parameter logistic) model**, which assigns two parameters to each item: a **discrimination parameter** (*a*), reflecting how well the item distinguishes between ability levels, and a **difficulty parameter** (*b*), reflecting how hard the item is. The `genDichoMatrix` function from `catR` generates item parameters for dichotomous (binary) items — items scored as either correct (1) or incorrect (0), such as multiple-choice questions.
 
-```{r bank,echo=TRUE,cache=TRUE}
+The 200-item bank is generated with the following priors:
+
+- **Parameter *a*** follows a normal distribution with mean 2 and SD 0.1, ensuring all discrimination values are positive.
+- **Parameter *b*** follows a normal distribution with mean 0 and SD 4, producing items that span a wide range of difficulty — from very easy (large negative *b*) to very hard (large positive *b*).
+
+A high *a* value means the item sharply differentiates between respondents near its difficulty level; a high *b* value means only respondents with high ability are likely to answer correctly.
+
+`genDichoMatrix` also includes *c* (pseudo-guessing) and *d* (inattention) parameters. Since their values default to 0 and 1 respectively, they have no practical effect and the model reduces to a standard 2PL formulation.
+
+```{r bank,echo=TRUE}
 itemBank<-genDichoMatrix(items=200,model="2PL",aPrior=c("norm",2,.1),bPrior=c("norm",0,4))
 head(itemBank)
 summary(itemBank)
@@ -70,30 +79,31 @@ summary(itemBank)
 
 ## Simulate item responses
 
-In addition, catR provides the genPattern function witch allows to generate item responses or participant responses for that matter, given an itemBank provided by genDichoMatrix or other means. For illustration purposes the code generates descriptive statistics for the first 9 columns of the generated data.  
+`catR` provides the `genPattern` function, which generates simulated item responses for a given set of ability values and an item bank. Here, 1,000 respondents with abilities uniformly spaced between −10 and +10 are simulated. Descriptive statistics are shown for the first 9 items to verify the generated response patterns.
 
-```{r simulate_responses,echo=TRUE,cache=TRUE}
+```{r simulate_responses,echo=TRUE}
 data<-genPattern(th=seq(-10,10,length=1000),it=itemBank,model=NULL,seed=1)
 summary(data[,1:9])
 ```
 
-## Estimate parameters using a 3rd application
+## Estimate parameters using a third package
 
-Assuming that the generated data are participant responses with each row representing a single participant, we can use a third package, the mirt package, to estimate item parameters, the overall model and participant scores, assuming participants answered all questions.  
+Treating the simulated response matrix as real participant data (one row per respondent), the `mirt` package is used to estimate item parameters and respondent ability scores under the assumption that all items were administered. These **full-information scores** serve as a benchmark against the CAT estimates produced in the next step.
 
-```{r estimation,echo=TRUE,out.width=1000,results="hide",warning=FALSE,message=FALSE,error=FALSE,cache=TRUE}
+```{r estimation,echo=TRUE,out.width=1000,results="hide"}
 mirt_model<-mirt::mirt(data=data.frame(data),model=1,itemtype="2PL",technical=list(theta_lim=c(-6,6),NCYCLES=10000))
 ```
 
 ## Simulate CAT administration and scoring
 
-Here we will simulate a CAT scenario where participants fill in a CAT questionnaire with a maximum of 40 selected questions out of a 200 questionnaire item pool.
-* The start list defines the parameters for first item selection. In this case the start list selects one item which has a difficulty level as close as the ability level of 0. The difficulty and the ability level in this case are the same. This selection method is signified by the "bOpt".  
-* The test list defines how to choose the next question, provided the first or more questions are already answered, and theta scores, and other values -when necessary- are already estimated. The test list uses the Bayesian modal estimation (Birnbaum, 1969) in order to estimate scores. The EAP method is usually the recommended method for theta estimation of unidimensional IRT models, however, "BM" in this case seems to provide highly correlated CAT estimated scores and mirt EAP estimated scores. The test list here uses "bOpt" for the selection of next item, however there is a randomization parameter allowing it to randomly choose 5 items around the most efficient "bOpt" choice. In addition, the range of theta estimation will be between -20, 20. This is a rather extreme range and its purpose is to avoid any extreme scores accumulating at the ends of the distributions.  
-* The final list defines the options for the final ability estimation.  
-* The stop list defines the conditions where the test will stop. In this case, the test stops when 40 items out of 200 are asked and when the precision criterion falls bellow .3. The precision criterion is estimated using the SE of the provisional ability estimate.  
+Each respondent is administered a CAT drawn from the 200-item pool, with a maximum of 40 items. The simulation is configured through four control lists:
 
-```{r simulation,echo=TRUE,warning=FALSE,message=FALSE,error=FALSE,fig.align="center",cache=TRUE}
+- **`start`** — defines first-item selection. The initial item is chosen to have a difficulty closest to θ = 0 (`startSelect = "bOpt"`), a neutral starting point before any ability information is available.
+- **`test`** — controls item selection and scoring during the adaptive phase. Ability is estimated using Bayesian Modal (BM) estimation (Birnbaum, 1969). Although EAP is generally the recommended estimator for unidimensional IRT, BM was found to yield scores highly correlated with the `mirt` EAP benchmark in this setup. Items are selected by `bOpt`, with a `randomesque = 5` parameter introducing slight randomisation by sampling from the 5 most informative candidates. The estimation range is set to [−20, 20] to prevent ability estimates from collapsing at the boundaries.
+- **`final`** — specifies the scoring method applied at test termination (BM, same range).
+- **`stop`** — defines termination criteria. The test ends when either 40 items have been administered or the standard error of the provisional ability estimate drops below 0.3 — whichever occurs first.
+
+```{r simulation,echo=TRUE,fig.align="center"}
 start<-list(theta=0,nrItems=1,startSelect="bOpt")
 test<-list(method="BM",itemSelect="bOpt",randomesque=5,range=c(-20,20))
 final<-list(method="BM",range=c(-20,20))
@@ -101,8 +111,16 @@ stop<-list(rule=c("length","precision"),thr=c(40,0.3))
 cl<-makeCluster(parallel::detectCores())
 registerDoSNOW(cl)
 result<-foreach(participant=1:nrow(data),.combine=rbind,.packages=c("catR")) %dopar% {
-  rc_result<-randomCAT(itemBank=itemBank,model=NULL,responses=data[participant,],start=start,test=test,stop=stop,final=final)
-  data.frame(questions=length(rc_result$thetaProv),est_theta=rc_result$thFinal,se=rc_result$seFinal)
+  rc_result<-randomCAT(itemBank=itemBank,
+                       model=NULL,
+                       responses=data[participant,],
+                       start=start,
+                       test=test,
+                       stop=stop,
+                       final=final)
+  data.frame(questions=length(rc_result$thetaProv),
+             est_theta=rc_result$thFinal,
+             se=rc_result$seFinal)
   
 }
 stopCluster(cl)
@@ -111,34 +129,64 @@ result<-data.frame(result,mirt_scores=as.numeric(mirt::fscores(mirt_model)))
 
 ## Results
 
-A summary of the results is best provided graphically. Here we will summarize what each graph represents.  
+The results are summarised graphically across six panels:
 
-* Graph 1: Correlations between CAT scores and mirt scores. For CAT scores participants did not answer all questions. On the contrary mirt scores were estimated using all item responses.  
-* Graph 2: Number of questions asked before the test terminated in relation to CAT estimated scores. This graph indicates that thetas away from 0 needed more questions to minimize error, since the test information is lower in the extreme scores.  
-* Graph 3: Number of questions asked before the test terminated in relation to standard error of theta. In this case we may have an increased SE in 40 questions for 2 main reasons the test was forced to terminate on 40 questions, and 40 questions were probably not enough to * minimize SE. Another explanation may be that since higher questions are correlated with extreme scores, and extreme scores have higher SE, then we could expect at some point an elevated SE for more questions. Of course these are possible interpretations and further analyses are required in order to determine which interpretation is more relevant and to what extent.  
-* Graph 4: CAT score estimations in relation to standard error. This simply indicates that error increases in the extremities. It may be helpful to mention that the test standard error is the inverse of the information function.  
-* Graph 5: The distribution of CAT estimated scores.  
-* Graph 6: The distribution of mirt estimated scores.  
+- **Plot 1 — CAT vs. mirt scores:** Scatter plot of CAT ability estimates against `mirt` EAP scores. CAT respondents answered at most 40 items, while `mirt` scores are based on all 200 responses. High agreement between the two validates the adaptive procedure.
+- **Plot 2 — Items administered vs. CAT theta:** Respondents with ability estimates far from 0 (extreme thetas) tend to require more items before the precision criterion is met, because test information is lower in the tails of the ability distribution.
+- **Plot 3 — Items administered vs. SE:** Higher item counts are associated with elevated SE for two reasons: (1) the test was forced to stop at 40 items regardless of precision, and (2) extreme ability levels inherently have higher measurement error. Because extreme scores also require more items, both effects compound.
+- **Plot 4 — CAT theta vs. SE:** Standard error increases at the extremes of the ability scale — a direct consequence of lower test information in the tails. Recall that SE is approximately the inverse square root of the information function.
+- **Plot 5 — Distribution of CAT estimated scores.**
+- **Plot 6 — Distribution of mirt estimated scores.**
 
-```{r results0,echo=TRUE,fig.width=20,fig.height=15,out.width=1000,warning=FALSE,message=FALSE,error=FALSE,fig.align="center",cache=TRUE,dev='png',fig.retina=2}
-par(mfrow=c(3,2),mai=c(.5,.5,.2,.2))
-plot(result$est_theta,result$mirt_scores,xlab="CAT Theta",ylab="mirt Theta",main=paste("Pearson r",round(cor(result$est_theta,result$mirt_scores),4)))
-plot(result$questions,result$est_theta,xlab="Questions asked",ylab="CAT Theta")
-plot(result$questions,result$se,xlab="Questions asked",ylab="SE")
-plot(result$est_theta,result$se,xlab="CAT Theta",ylab="SE")
-plot(table(round(result$est_theta,0)),xlab="CAT Theta",ylab="Frequency",main="")
-plot(table(round(result$mirt_scores,0)),xlab="mirt Theta",ylab="Frequency",main="")
+```{r results0,echo=TRUE,fig.width=20,fig.height=15,out.width=1000,fig.align="center",dev='png',fig.retina=2}
+p1 <- ggplot(result, aes(x = est_theta, y = mirt_scores)) +
+  geom_point(alpha = 0.5) +
+  geom_smooth(method = "lm", se = FALSE, linewidth = 0.7) +
+  labs(x     = "CAT Theta",
+       y     = "mirt Theta",
+       title = paste("Pearson r", round(cor(result$est_theta, result$mirt_scores), 4))
+  ) +
+  theme_bw(base_size=20)
+
+p2 <- ggplot(result, aes(x = questions, y = est_theta)) +
+  geom_point(alpha = 0.5) +
+  labs(x = "Questions asked", y = "CAT Theta") +
+  theme_bw(base_size=20)
+
+p3 <- ggplot(result, aes(x = questions, y = se)) +
+  geom_point(alpha = 0.5) +
+  labs(x = "Questions asked", y = "SE") +
+  theme_bw(base_size=20)
+
+p4 <- ggplot(result, aes(x = est_theta, y = se)) +
+  geom_point(alpha = 0.5) +
+  labs(x = "CAT Theta", y = "SE") +
+  theme_bw(base_size=20)
+
+p5 <- ggplot(result, aes(x = round(est_theta, 0))) +
+  geom_bar() +
+  labs(x = "CAT Theta", y = "Frequency") +
+  theme_bw(base_size=20)
+
+p6 <- ggplot(result, aes(x = round(mirt_scores, 0))) +
+  geom_bar() +
+  labs(x = "mirt Theta", y = "Frequency") +
+  theme_bw(base_size=20)
+
+(p1 | p2) / (p3 | p4) / (p5 | p6) +
+  plot_annotation(theme = theme(plot.background = element_rect(fill = "white")))
 ```
 
 ## Conclusion
 
-It seems that the distribution of scores is uniform. The function which generated responses, produced responses from all thetas in about the same proportion. This does not seem to be worrying since in a real life scenario we would expect thetas with near normal distribution where the most responses and ability levels would fall on the highest test information areas.  
+The distribution of estimated scores is approximately uniform, which is expected: the response-generation function sampled ability values evenly across the theta range, so all levels are equally represented. In a real-world scenario, ability scores tend to follow a roughly normal distribution, with most respondents clustered near the region of highest test information.
 
-In additions to the simulation used above, catR also provides the simulateRespondents which can provide an interesting summary.
+`catR` also provides `simulateRespondents`, a convenience function that runs a complete CAT simulation and computes summary diagnostics — bias, RMSE, and mean SE — as a function of true ability.
 
-```{r results1,echo=TRUE,fig.width=20,fig.height=15,results="hide",out.width=1000,warning=FALSE,message=FALSE,error=FALSE,fig.align="center",cache=TRUE,dev='png',fig.retina=2}
-result_simulate_respondents<-simulateRespondents(thetas=seq(-6,6,.001),itemBank=itemBank,genSeed=NULL,start=start,test=test,stop=stop,final=final)
+```{r results1,echo=TRUE,fig.width=20,fig.height=15,results="hide",out.width=1000,fig.align="center",dev='png',fig.retina=2}
+result_simulate_respondents<-simulateRespondents(thetas=seq(-6,6,.01),itemBank=itemBank,genSeed=NULL,start=start,test=test,stop=stop,final=final)
 result_simulate_respondents
-plot(result_simulate_respondents,cex.main=5,cex.lab=5,cex.axis=5)
+plot(result_simulate_respondents)
+
 ```
 
