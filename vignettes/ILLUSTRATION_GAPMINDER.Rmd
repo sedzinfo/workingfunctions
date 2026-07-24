@@ -1,14 +1,15 @@
 ---
 title: "Recreating Hans Rosling's Bubble Chart in R"
 author: ""
-date: "`r Sys.Date()`"
 output:
   html_document:
+    css: styles.css
     theme: flatly
     highlight: tango
     toc: true
     toc_float: true
     code_folding: show
+    self_contained: true
 ---
 
 ```{r setup, include=FALSE}
@@ -38,6 +39,8 @@ library(ggplot2)     # plotting
 library(gganimate)   # animation
 library(gifski)      # GIF renderer
 library(scales)      # axis formatting
+
+data(gapminder)
 ```
 
 ---
@@ -47,7 +50,9 @@ library(scales)      # axis formatting
 The `gapminder` package ships with a clean, ready-to-use dataset. No downloading required.
 
 ```{r data}
+
 head(gapminder, 12)
+
 ```
 
 It covers **`r length(unique(gapminder$country))`** countries across **`r length(unique(gapminder$continent))`** continents, with observations every 5 years from **`r min(gapminder$year)`** to **`r max(gapminder$year)`**.
@@ -268,7 +273,6 @@ animate(p, nframes = 240, fps = 24, ...) # smoother
 
 ```{r custom_continent, eval=FALSE}
 gapminder_asia <- gapminder[gapminder$continent == "Asia", ]
-
 # then replace gapminder with gapminder_asia in the ggplot() call
 ```
 

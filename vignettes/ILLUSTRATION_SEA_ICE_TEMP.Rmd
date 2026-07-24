@@ -1,15 +1,15 @@
 ---
 title: "Climate Data Visualisation in R"
 author: ""
-date: "`r Sys.Date()`"
 output:
   html_document:
+    css: styles.css
     theme: flatly
     highlight: tango
     toc: true
     toc_float: true
-    toc_depth: 3
     code_folding: show
+    self_contained: true
 ---
 
 ```{r setup, include=FALSE}

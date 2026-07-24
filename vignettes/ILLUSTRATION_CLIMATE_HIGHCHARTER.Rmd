@@ -1,13 +1,15 @@
 ---
 title: "NASA GISS Global Temperature Anomaly"
 author: ""
-date: "`r Sys.Date()`"
 output:
   html_document:
-    self_contained: true
+    css: styles.css
+    theme: flatly
+    highlight: tango
     toc: true
     toc_float: true
-    theme: flatly
+    code_folding: show
+    self_contained: true
 ---
 
 > **Attribution:** This document is a modification of original work by

@@ -1,9 +1,5 @@
-/catR_simulation_cache
-/catR_simulation_files
-/rsconnect
-/MNIST_cache
-/MNIST_files
-/MULTITRAIT_MULTIMETHOD_cache
-/MULTITRAIT_MULTIMETHOD_files
-/OCEAN_files
+/*/
 *.html
+*.gif
+*.jpg
+*.png

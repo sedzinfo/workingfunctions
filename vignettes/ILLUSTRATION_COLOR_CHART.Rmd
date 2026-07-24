@@ -1,12 +1,15 @@
 ---
 title: "R Colors: Names, RGB/HSV, and Building a Color Chart"
 author: "efg, Stowers Institute for Medical Research (original script); annotated version"
-date: "`r Sys.Date()`"
 output:
   html_document:
+    css: styles.css
+    theme: flatly
+    highlight: tango
     toc: true
     toc_float: true
-    number_sections: true
+    code_folding: show
+    self_contained: true
 ---
 
 ```{r setup, include=FALSE}

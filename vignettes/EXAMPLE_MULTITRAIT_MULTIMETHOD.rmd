@@ -4,15 +4,12 @@ author: ""
 output:
   html_document:
     css: styles.css
+    theme: flatly
+    highlight: tango
     toc: true
-    toc_depth: 2
-    toc_float:
-      collapsed: false
-      smooth_scroll: true
-    theme: readable
-  pdf_document:
-    toc: true
-    toc_depth: '2'
+    toc_float: true
+    code_folding: show
+    self_contained: true
 vignette: >
   %\VignetteIndexEntry{Multitrait Multimethod}
   %\VignetteEngine{knitr::rmarkdown}

@@ -4,12 +4,12 @@ author: ""
 output:
   html_document:
     css: styles.css
+    theme: flatly
+    highlight: tango
     toc: true
-    toc_depth: 3
-    theme: readable
-  pdf_document:
-    toc: true
-    toc_depth: '3'
+    toc_float: true
+    code_folding: show
+    self_contained: true
 vignette: "%\\VignetteIndexEntry{Generalized Linear Models} %\\VignetteEngine{knitr::rmarkdown} %\\VignetteEncoding{UTF-8}\n"
 ---
 

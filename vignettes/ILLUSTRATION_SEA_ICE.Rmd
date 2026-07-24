@@ -2,9 +2,9 @@
 title: "Arctic Sea Ice Is Melting"
 subtitle: "Visualising 45 years of decline with real NSIDC data"
 author: ""
-date: "`r format(Sys.Date(), '%B %Y')`"
 output:
   html_document:
+    css: styles.css
     theme: flatly
     highlight: tango
     toc: true

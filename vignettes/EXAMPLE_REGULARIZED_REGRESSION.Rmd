@@ -1,12 +1,15 @@
 ---
 title: "Regularized Regression: Ridge, Heteroscedastic Ridge, Lasso, and Elastic Net"
-author: "Annotated walkthrough of ridge_regression.R"
-date: "`r Sys.Date()`"
+author: ""
 output:
   html_document:
+    css: styles.css
+    theme: flatly
+    highlight: tango
     toc: true
     toc_float: true
-    number_sections: true
+    code_folding: show
+    self_contained: true
 ---
 
 ```{r setup, include=FALSE}

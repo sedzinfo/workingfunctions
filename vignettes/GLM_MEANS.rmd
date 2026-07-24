@@ -1,15 +1,15 @@
 ---
 title: "GLM_MEANS"
-author: "Dimitrios Zacharatos"
+author: ""
 output:
   html_document:
     css: styles.css
+    theme: flatly
+    highlight: tango
     toc: true
-    toc_depth: 2
-    toc_float:
-      collapsed: false
-      smooth_scroll: true
-    theme: readable
+    toc_float: true
+    code_folding: show
+    self_contained: true
 vignette: >
   %\VignetteIndexEntry{GLM_MEANS}
   %\VignetteEngine{knitr::rmarkdown}

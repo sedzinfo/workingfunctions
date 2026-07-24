@@ -1,11 +1,16 @@
 ---
 title: "A Gallery of Statistical Paradoxes"
 subtitle: "Counterintuitive results in probability, statistics, and networks — explained simply"
+author: ""
 output:
   html_document:
+    css: styles.css
+    theme: flatly
+    highlight: tango
     toc: true
     toc_float: true
-    number_sections: true
+    code_folding: show
+    self_contained: true
 ---
 
 ```{r setup, include=FALSE}
