@@ -24,6 +24,21 @@ hook_output <- function(x, options) {
 knitr::knit_hooks$set(output = hook_output)
 knitr::opts_chunk$set(echo=TRUE)
 options(future.show.progress = FALSE)
+
+knitr::opts_chunk$set(
+  echo    = TRUE,
+  message = FALSE,
+  warning = FALSE,
+  cache   = TRUE
+)
+
+knitr::knit_hooks$set(cex = function(before, options, envir) {
+  if (before) par(cex      = options$cex,
+                  cex.main = options$cex,
+                  cex.lab  = options$cex,
+                  cex.axis = options$cex * 0.85)
+})
+knitr::opts_chunk$set(cex = 5)
 ```
 
 
