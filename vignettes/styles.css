@@ -52,18 +52,25 @@ pre.r-output {
 
 /* Wider floating TOC */
 #TOC {
-  width: 280px !important;
+  width: 380px !important;
 }
 
-.tocify {
-  width: 280px !important;
+.tocify, div.tocify {
+  width: 380px !important;
+  max-width: 380px !important;
+  white-space: normal;
+}
+
+.tocify-item > a {
+  white-space: normal;
+  word-wrap: break-word;
 }
 
 .col-xs-12.col-sm-4.col-md-3 {
-  width: 280px !important;
+  width: 380px !important;
 }
 
 .col-xs-12.col-sm-8.col-md-9 {
-  margin-left: 290px;
+  margin-left: 390px;
 }
 </style>
