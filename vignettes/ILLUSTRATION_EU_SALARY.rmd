@@ -35,7 +35,7 @@ Eurostat publishes yearly **average full-time adjusted salaries** (`nama_10_fte`
 
 ```{r packages}
 # install.packages(c("dplyr", "tidyr", "countrycode", "plotly",
-#                     "eurostat", "gganimate", "gifski", "scales"))
+#                     "eurostat", "gganimate", "gifski", "scales", "ragg"))
 
 library(dplyr)
 library(tidyr)
@@ -259,6 +259,8 @@ animate(p,
         duration = 20,
         width    = 900,
         height   = 800,
+        units    = "px",
+        device   = "ragg_png",
         renderer = gifski_renderer("eu_salary_race.gif"))
 ```
 
