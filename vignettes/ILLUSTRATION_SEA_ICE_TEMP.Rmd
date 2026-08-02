@@ -13,17 +13,8 @@ output:
 ---
 
 ```{r setup, include=FALSE}
-library(rwf)
-knitr::opts_chunk$set(
-  echo       = TRUE,
-  message    = FALSE,
-  warning    = FALSE,
-  cache      = TRUE,
-  eval       = TRUE,
-  fig.width  = 14,
-  fig.height = 8,
-  dpi        = 150
-)
+directory<-paste0(dirname(rstudioapi::getActiveDocumentContext()$path),"/")
+source(paste0(directory, "code_options.R"))
 ```
 
 ## Overview
@@ -317,7 +308,7 @@ For each year, two data subsets are drawn:
 
 The `yr_idx` column (year index / total years) maps each past year to a position in the 0–1 colour range, ensuring consistent colouring across all frames.
 
-```{r spiral_loop}
+```{r spiral_loop, fig.width=6, fig.height=6}
 frames_dir  <- file.path(tempdir(), "spiral_frames")
 dir.create(frames_dir, showWarnings = FALSE, recursive = TRUE)
 frame_paths <- c()

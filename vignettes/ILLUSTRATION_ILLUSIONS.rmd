@@ -1,5 +1,5 @@
 ---
-title: "Illusions"
+title: "Illusions in R"
 author: ""
 output:
   html_document:
@@ -13,18 +13,24 @@ output:
 ---
 
 ```{r setup, include=FALSE}
-knitr::opts_chunk$set(echo = TRUE)
+directory<-paste0(dirname(rstudioapi::getActiveDocumentContext()$path),"/")
+source(paste0(directory, "code_options.R"))
 ```
 
+# Illusions
 These are not written by me. I am trying to find the original authors without much success, but I just like these illustrations and I wish to share them.
+
+```{r load}
+library(grid)
+library(plyr)
+```
+
 
 ## Café Wall Illusion
 
 The horizontal mortar lines between the alternating dark and light tiles appear to slope or diverge, even though they are perfectly parallel and straight. The effect — named after a café in Bristol, England, where the pattern was spotted on the tiled wall — is produced by the offset rows of tiles disrupting the visual system's ability to track the true orientation of the dividing lines.
 
-```{r cafe-wall,fig.retina=2}
-library(grid)
-library(plyr)
+```{r cafe-wall}
 rs<-expand.grid(x=seq(0,1,1/10),y=seq(0,1,1/10))
 grid.rect(rs$x,rs$y,1/10/2,1/10/2,gp=gpar(fill="black",col=NA))
 grid.rect(rs$x+1/10/4,rs$y+1/10/2,1/10/2,1/10/2,gp=gpar(fill="black",col=NA))
@@ -36,7 +42,7 @@ grid.polyline(ls$x,ls$y,id=gl(nrow(ls)/2,2),gp=gpar(col="grey50",lwd=1))
 
 Phantom dark spots appear at the intersections of the white grid lines, but they vanish the moment you look directly at them. The effect is caused by lateral inhibition: retinal ganglion cells at intersections receive more inhibitory input from all four surrounding bright bars than cells along a single bar, making the intersections appear slightly darker.
 
-```{r hermann-grid,fig.retina=2}
+```{r hermann-grid}
 nx<-6; ny<-6; lwd<-10
 grid.newpage()
 grid.rect(0.5,0.5,1,1,gp=gpar(fill="black"))
@@ -50,7 +56,7 @@ grid.polyline(ls$x,ls$y,id=gl(nrow(ls)/2,2),gp=gpar(col="white",lwd=lwd))
 
 A variation of the Hermann Grid: white discs are placed at each intersection of a grey grid on a black background. As the eyes move, the discs appear to scintillate — flickering between white and a dark phantom spot. The white circles partially counteract the lateral inhibition that causes the original Hermann effect, yet the remaining mismatch produces the characteristic flickering.
 
-```{r scintillating-grid,fig.retina=2}
+```{r scintillating-grid}
 nx<-6; ny<-6; lwd<-10; cr<-1/100
 grid.newpage()
 grid.rect(0.5,0.5,1,1,gp=gpar(fill="black"))
@@ -66,7 +72,7 @@ grid.circle(ls$x,ls$y,r= cr,gp=gpar(col=NA,fill="white"))
 
 The central patch appears to float or slide independently from the surrounding checkerboard when the image is moved or when the eyes drift. The effect arises because the two regions have differently oriented texture elements — the visual system struggles to bind them into a single coherent surface and interprets the mismatch as relative motion.
 
-```{r ouchi,fig.retina=2}
+```{r ouchi}
 grid.newpage()
 nx<-10; ny<-30
 rs<-expand.grid(x=seq(0,1,1/nx/2),y=seq(0,1,1/ny/2))
@@ -79,7 +85,7 @@ grid.rect(rs$y,rs$x,1/ny/2,1/nx/2,gp=gpar(col=NA,fill=c("black","white")))
 
 All four small central squares are identical shades of grey, yet they look progressively lighter as the surrounding square darkens. The visual system judges brightness not in absolute terms but relative to the local context: a lighter surround makes the same grey appear darker, and a darker surround makes it appear lighter.
 
-```{r brightness-contrast,fig.retina=2}
+```{r brightness-contrast}
 grid.newpage()
 grid.rect(c(1,3,1,3)/4,c(3,3,1,1)/4,1/2,1/2,gp=gpar(col=NA,fill=gray(1:4/5)))
 grid.rect(c(1,3,1,3)/4,c(3,3,1,1)/4,1/6,1/6,gp=gpar(col=NA,fill=gray(0.5)))
@@ -89,7 +95,7 @@ grid.rect(c(1,3,1,3)/4,c(3,3,1,1)/4,1/6,1/6,gp=gpar(col=NA,fill=gray(0.5)))
 
 The green patches in the two quadrants are physically identical in colour, as are the red patches, yet they appear to take on different hues depending on whether they sit against a blue or a yellow checkerboard. The surrounding colour biases the perceived hue of the embedded patch toward its complement — a chromatic equivalent of brightness contrast.
 
-```{r chromatic-contrast,fig.retina=2}
+```{r chromatic-contrast}
 grid.newpage()
 rs<-expand.grid(x=0:100,y=0:100)
 rs$c<-ifelse(rs$x%%2 == rs$y%%2,"blue","yellow")
@@ -108,7 +114,7 @@ grid.rect(r$x/100,r$y/100,1/100,1/100,gp=gpar(col=NA,fill="red"))
 
 Grey bars of identical luminance appear lighter when embedded in a black-stripe region and darker when embedded in a white-stripe region — the opposite of what simple lateral inhibition would predict. This makes White's Illusion particularly puzzling: it is thought to involve higher-level processes such as grouping and figure-ground segmentation rather than low-level retinal contrast alone.
 
-```{r whites-illusion,fig.retina=2}
+```{r whites-illusion}
 grid.newpage()
 n<-36
 grid.rect(c(1,3)/4,1/2,1/2,1,gp=gpar(col=NA,fill=c("yellow","blue")))
@@ -121,7 +127,7 @@ grid.rect(c(n/2+1:(n/2-1))/n,1/2,1/n/2,1,gp=gpar(col=NA,fill=c("yellow")))
 
 The pattern of tilted light-and-dark squares on a checkerboard background creates a compelling sense of movement or rotation, especially when viewed in peripheral vision or when the eyes move across the image. Motion-sensitive neurons respond asymmetrically to the luminance edges depending on their orientation, which the brain misinterprets as directional movement.
 
-```{r peripheral-drift-1,fig.retina=2}
+```{r peripheral-drift-1}
 grid.newpage()
 nx<-6; ny<-6
 an<-c(1,-1,1,1,-1,1,-1,-1,1,-1,1,1)
@@ -140,7 +146,7 @@ l_ply(1:nrow(rs),function(i) {
 
 The concentric pinwheel rings appear to rotate continuously even though the image is completely static. The illusion is driven by the sequential ordering of luminance steps around each ring — black, dark colour, white, light colour — which the visual system's motion-detection machinery misreads as directed movement. Fixating steadily on one point causes the rotation to slow or stop.
 
-```{r rotating-snakes,fig.retina=2}
+```{r rotating-snakes}
 nt<-41; nr<-15; br<-0.8
 col1<-c("black","white")
 col2<-c("aquamarine4","gold2")
@@ -176,7 +182,7 @@ for (x0 in 1:2) for (y0 in 1:2) f(x0,y0)
 
 Two line segments of equal length appear to differ because of the direction of the angle markers at their ends: lines with outward-facing arrows look longer than lines with inward-facing arrows. One influential explanation is that the brain interprets the figures as perspective cues — outward arrows suggest a far corner (like the outside edge of a building), while inward arrows suggest a near corner (like an inside room corner), prompting a size-distance rescaling. The upper panel shows a circular variant of the same principle.
 
-```{r muller-lyer,fig.retina=2}
+```{r muller-lyer}
 grid.newpage()
 pushViewport(viewport(0.5,0.75,1,0.5,clip=TRUE))
 n<-25; t<-seq(0,pi,length=n)[2:(n-1)]
@@ -198,7 +204,7 @@ grid.polyline(c(0,1,0,1),c(3,3,7,7)/10,id=c(1,1,2,2))
 
 Rows of diamond shapes with subtly offset dark and light edges create the impression that the horizontal rows are tilted or converging, even though they are perfectly parallel. The small luminance asymmetries at the edges of each diamond fool orientation-sensitive neurons into registering a slight tilt, and the visual system integrates these local signals into a global perception of slanted lines.
 
-```{r twisted-cord,fig.retina=2}
+```{r twisted-cord}
 grid.newpage()
 n<-10; ny<-8; L<-0.01; c<-seq(0,1,length=n); d<-1.2*diff(c)[1]/2
 col<-c("black","white")
@@ -224,7 +230,7 @@ l_ply(1:ny,function(i) {
 
 Rings divided into alternating black and white sectors give rise to an impression of a glowing, brighter disc at the centre of each ring, even though no luminance difference exists there. The visual system interprets the abrupt termination of the high-contrast sectors as evidence of an occluding bright surface and fills in the centre accordingly — an instance of illusory contour and brightness completion.
 
-```{r ehrenstein,fig.retina=2}
+```{r ehrenstein}
 nt<-41; br<-0.2
 col1<-c("black","white")
 
@@ -248,7 +254,7 @@ for (x0 in 0.5+0:2) for (y0 in 0.5+0:2) f(x0,y0)
 
 Unlike simultaneous contrast — where surrounding colours push perception apart — assimilation causes the perceived colour of a patch to be pulled toward the colour of its surround. Here the small inner squares shift in appearance depending on whether neighbouring areas are green or red, demonstrating that the spatial scale of the surrounding pattern determines whether contrast or assimilation dominates.
 
-```{r color-assimilation,fig.retina=2}
+```{r color-assimilation}
 grid.newpage()
 grid.rect(c(1,3,1,3)/4,c(3,3,1,1)/4,1/2,1/2,gp=gpar(col=NA,fill=c("green","red")))
 grid.rect(c(1,3,1,3)/4,c(3,3,1,1)/4,1/6,1/6,gp=gpar(col=NA,fill=c("blue","blue","yellow","yellow")))
@@ -258,7 +264,7 @@ grid.rect(c(1,3,1,3)/4,c(3,3,1,1)/4,1/6,1/6,gp=gpar(col=NA,fill=c("blue","blue",
 
 What appears to be a tightly wound inward spiral is actually a set of perfectly concentric circles — you can verify this by tracing any ring with your finger. The twisted-cord pattern along each ring (alternating light and dark segments at a slight angle) confounds the visual system's edge-orientation detectors, causing each closed circle to be misperceived as an arc of a continuous spiral.
 
-```{r fraser-spiral,fig.retina=2}
+```{r fraser-spiral}
 grid.newpage()
 pushViewport(viewport(layout=grid.layout(3,3)))
 for (vx in 1:3) {
@@ -287,7 +293,7 @@ for (vx in 1:3) {
 
 Rows of coffee-bean-shaped ovals — each outlined with a black arc on one side and a white arc on the other — create a vivid impression of upward drift or undulation across the whole pattern, most strongly felt in peripheral vision. The sequential luminance gradient around each oval (dark edge → fill → light edge) is processed by motion-sensitive neurons as evidence of directional movement, even though nothing in the image actually moves.
 
-```{r peripheral-drift-2,fig.retina=2}
+```{r peripheral-drift-2}
 grid.newpage()
 No<-3
 wo<-1/3/2

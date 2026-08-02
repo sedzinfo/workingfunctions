@@ -14,12 +14,8 @@ vignette: "%\\VignetteIndexEntry{BFI-44 Validation} %\\VignetteEngine{knitr::rma
 ---
 
 ```{r options, echo=FALSE, warning=FALSE, message=FALSE}
-options(width=1000)
-hook_output <- function(x, options) {
-  paste0('<pre class="r-output">', knitr::knit_print(x), '</pre>')
-}
-knitr::knit_hooks$set(output = hook_output)
-knitr::opts_chunk$set(echo=TRUE)
+directory<-paste0(dirname(rstudioapi::getActiveDocumentContext()$path),"/")
+source(paste0(directory, "code_options.R"))
 ```
 
 ```{r load, include=FALSE}

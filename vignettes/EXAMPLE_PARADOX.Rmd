@@ -14,11 +14,9 @@ output:
 ---
 
 ```{r setup, include=FALSE}
-knitr::opts_chunk$set(
-  echo = TRUE, message = FALSE, warning = FALSE,
-  fig.align = "center", fig.width = 7, fig.height = 5
-)
-if (!requireNamespace("patchwork", quietly = TRUE)) install.packages("patchwork")
+directory<-paste0(dirname(rstudioapi::getActiveDocumentContext()$path),"/")
+source(paste0(directory, "code_options.R"))
+
 library(ggplot2)
 library(patchwork)
 ```
@@ -203,7 +201,7 @@ a curve, one has a single outlier bending an otherwise perfect line, and one
 is a vertical cluster distorted by a single extreme point. The lesson: summary
 statistics can hide very different realities. Always plot your data.
 
-```{r anscombe, fig.height=6}
+```{r anscombe}
 t <- theme_bw(base_size = 13) +
   theme(
     plot.title    = element_text(face = "bold", size = 12),

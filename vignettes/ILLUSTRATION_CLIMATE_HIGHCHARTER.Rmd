@@ -18,7 +18,8 @@ output:
 > surface temperature data and adapted with additional chart types.
 
 ```{r setup, include=FALSE}
-knitr::opts_chunk$set(echo = TRUE, message = FALSE, warning = FALSE)
+directory<-paste0(dirname(rstudioapi::getActiveDocumentContext()$path),"/")
+source(paste0(directory, "code_options.R"))
 ```
 
 ## Load Data

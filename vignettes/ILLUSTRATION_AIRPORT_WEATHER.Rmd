@@ -13,16 +13,8 @@ output:
 ---
 
 ```{r setup, include=FALSE}
-library(rwf)
-knitr::opts_chunk$set(
-  echo       = TRUE,
-  message    = FALSE,
-  warning    = FALSE,
-  cache      = TRUE,
-  fig.width  = 14,
-  fig.height = 8,
-  dpi        = 150
-)
+directory<-paste0(dirname(rstudioapi::getActiveDocumentContext()$path),"/")
+source(paste0(directory, "code_options.R"))
 ```
 
 ## Overview
@@ -46,7 +38,6 @@ The example uses **Athens Eleftherios Venizelos (LGAV)**, but every step works f
 ## Packages
 
 ```{r packages}
-library(rwf)
 library(rnoaa)
 library(dplyr)
 library(lubridate)
@@ -55,7 +46,7 @@ library(ggplot2)
 
 ```{r install, eval=FALSE}
 # remotes::install_github("ropensci/rnoaa")   # use the GitHub version
-install.packages(c("dplyr", "lubridate", "ggplot2"))
+# install.packages(c("dplyr", "lubridate", "ggplot2"))
 ```
 
 ---
@@ -72,7 +63,7 @@ stations[stations$ctry %in% "GR", c("station_name","icao","usaf","wban","lat","l
 ```
 
 ```{r lgav}
-lgav   <- stations[stations$icao %in% "LGAV", ]
+lgav    <- stations[stations$icao %in% "LGAV", ]
 station <- lgav$station_name
 usaf    <- lgav$usaf[1]
 wban    <- lgav$wban[1]
@@ -235,7 +226,7 @@ plot_monthly
 
 A calendar heatmap puts **year on the x-axis** and **month on the y-axis**, with temperature encoded as fill colour. This format is ideal for spotting anomalies — an unusually hot August or a cold February stands out immediately.
 
-```{r heatmaps, fig.height=10}
+```{r heatmaps}
 month$year <- substr(month$month, 1, 4)
 month$mon  <- substr(month$month, 6, 7)
 
@@ -275,10 +266,10 @@ plot_heat_min
 
 ### All four together
 
-```{r multiplot, fig.height=16}
+```{r multiplot,fig.height = 20}
 plot_multiplot(
   plotlist = list(plot_daily, plot_monthly, plot_heat_max, plot_heat_min),
-  cols = 2
+  cols = 1
 )
 ```
 
@@ -294,7 +285,7 @@ plot_multiplot(
 
 The `frequency = 365` tells R the series repeats annually. `yday()` sets the correct starting position within the first year.
 
-```{r decomp, fig.height=12}
+```{r decomp}
 ts_temp <- ts(
   daily$temp_max,
   frequency = 365,

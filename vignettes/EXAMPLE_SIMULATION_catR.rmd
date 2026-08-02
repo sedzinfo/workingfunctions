@@ -17,21 +17,9 @@ vignette: >
 ---
 
 ```{r options, echo=FALSE, warning=FALSE, message=FALSE}
-options(width=1000)
-hook_output <- function(x, options) {
-  paste0('<pre class="r-output">', knitr::knit_print(x), '</pre>')
-}
-knitr::knit_hooks$set(output = hook_output)
-knitr::opts_chunk$set(echo=TRUE)
-options(future.show.progress = FALSE)
 
-knitr::opts_chunk$set(
-  echo    = TRUE,
-  message = FALSE,
-  warning = FALSE,
-  error   = FALSE,
-  cache   = TRUE
-)
+directory<-paste0(dirname(rstudioapi::getActiveDocumentContext()$path),"/")
+source(paste0(directory, "code_options.R"))
 
 knitr::knit_hooks$set(cex = function(before, options, envir) {
   if (before) par(cex      = options$cex,
@@ -40,6 +28,7 @@ knitr::knit_hooks$set(cex = function(before, options, envir) {
                   cex.axis = options$cex * 0.85)
 })
 knitr::opts_chunk$set(cex = 2)
+
 ```
 
 
@@ -50,12 +39,13 @@ This document is a practical exercise illustrating a Computerized Adaptive Testi
 The `catR` package handles the simulation, while `foreach` and `doSNOW` are used for parallel computation.
 
 ```{r set-options,echo=TRUE,results="hide"}
+
 library(catR)
 library(foreach)
 library(doSNOW)
 library(ggplot2)
 library(patchwork)
-options(width=160)
+
 ```
 
 ## Simulate item pool

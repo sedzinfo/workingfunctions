@@ -14,13 +14,8 @@ output:
 ---
 
 ```{r setup, include=FALSE}
-knitr::opts_chunk$set(
-  echo    = TRUE,
-  message = FALSE,
-  warning = FALSE,
-  cache   = TRUE,
-  fig.align = "center"
-)
+directory<-paste0(dirname(rstudioapi::getActiveDocumentContext()$path),"/")
+source(paste0(directory, "code_options.R"))
 ```
 
 ## Background
@@ -63,7 +58,7 @@ head(arctic)
 
 ### Plot
 
-```{r timeseries, fig.width=10, fig.height=5.5}
+```{r timeseries}
 avg_baseline <- arctic |> filter(year <= 1990) |> pull(extent) |> mean()
 loss_pct     <- round((1 - min(arctic$extent) / avg_baseline) * 100)
 
@@ -178,7 +173,7 @@ ice_all  <- do.call(rbind, ice_list)
 
 ### Build the map
 
-```{r map-overview, fig.width=12, fig.height=7}
+```{r map-overview}
 world     <- ne_countries(scale = "medium", returnclass = "sf")
 crs_polar <- "+proj=stere +lat_0=90 +lat_ts=70 +lon_0=0 +datum=WGS84 +units=m"
 

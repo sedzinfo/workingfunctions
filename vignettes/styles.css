@@ -73,4 +73,11 @@ pre.r-output {
 .col-xs-12.col-sm-8.col-md-9 {
   margin-left: 390px;
 }
+
+/* Center htmlwidgets (plotly, leaflet, DT, etc.) - fig.align only affects
+   R-graphics-device output, not knit_print.htmlwidget output */
+.html-widget {
+  margin-left: auto !important;
+  margin-right: auto !important;
+}
 </style>
