@@ -139,7 +139,7 @@ knitr::kable(
 
 ## Inter-Item Correlation Matrix
 
-```{r corrmatrix, fig.width=10, fig.height=9, echo=TRUE, message=FALSE, warning=FALSE, results='show', dev='png', fig.retina=2}
+```{r corrmatrix, message=FALSE, warning=FALSE, results='show', dev='png'}
 cor_mat  <- cor(df[, factor_order], use="pairwise.complete.obs")
 cor_long <- melt(cor_mat)
 cor_long$Var1 <- factor(cor_long$Var1, levels=factor_order)
@@ -159,7 +159,7 @@ ggplot(cor_long, aes(x=Var1, y=Var2, fill=value)) +
 
 ## Subscale Correlations
 
-```{r subscalecor, fig.width=6, fig.height=5, echo=TRUE, message=FALSE, warning=FALSE, results='show', dev='png', fig.retina=2}
+```{r subscalecor, message=FALSE, warning=FALSE, dev='png', results='show'}
 subscale_scores <- as.data.frame(sapply(names(factors), function(f) {
   cols <- item_name_map[sprintf("pers%02d", factors[[f]])]
   rowMeans(df[, cols], na.rm=TRUE)
@@ -185,7 +185,7 @@ ggplot(sub_long, aes(x=Var1, y=Var2, fill=value)) +
 
 ## Exploratory Factor Analysis (5 Factors)
 
-```{r efa, fig.width=7, fig.height=10, echo=TRUE, message=FALSE, warning=FALSE, results='show', dev='png', fig.retina=2}
+```{r efa, message=FALSE, warning=FALSE, results='show', dev='png'}
 set.seed(42)
 efa <- fa(df, nfactors=5, rotate="oblimin", fm="ml", scores="regression")
 
@@ -216,7 +216,7 @@ ggplot(load_long, aes(x=factor, y=item, fill=loading)) +
 
 ## Parallel Analysis
 
-```{r parallel, fig.width=8, fig.height=5, echo=TRUE, message=FALSE, warning=FALSE, results='show', dev='png', fig.retina=2}
+```{r parallel, message=FALSE, warning=FALSE, results='show', dev='png'}
 fa.parallel(df, fm="ml", fa="fa",
             main="Parallel analysis scree plot (BFI-44)")
 ```

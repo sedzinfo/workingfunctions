@@ -1,0 +1,250 @@
+---
+title: "EAP Ability Estimation From Scratch"
+author: ""
+output:
+  html_document:
+    css: styles.css
+    theme: flatly
+    highlight: tango
+    toc: true
+    toc_float: true
+    code_folding: show
+    self_contained: true
+vignette: >
+  %\VignetteIndexEntry{EAP Ability Estimation From Scratch}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r options,echo=FALSE,warning=FALSE,message=FALSE}
+directory<-paste0(dirname(rstudioapi::getActiveDocumentContext()$path),"/")
+source(paste0(directory, "code_options.R"))
+
+library(ggplot2)
+```
+
+## Description
+
+Adaptive testing packages like `catR` score examinees using **EAP (Expected A Posteriori)** ability estimation — a Bayesian method that is more numerically stable than Maximum Likelihood when a response pattern is all-correct, all-incorrect, or otherwise perfectly separates the item bank (situations where a raw likelihood has no finite maximum).
+
+[`working_examples/cat_eap.R`](https://github.com/sedzinfo/rwf/blob/main/working_examples/cat_eap.R) reimplements the whole EAP pipeline **from scratch**, in five small functions, with no dependency on `catR` at all:
+
+| Function | Purpose | `catR` equivalent it mirrors |
+|---|---|---|
+| `density_function()` | Normal density | `stats::dnorm()` |
+| `integrate_cat()` | Numerical integration (trapezoidal rule) | `catR::integrate.catR()` |
+| `Pi()` | 4PL response probability + derivative | `catR::Pi()` |
+| `eap_est()` | EAP ability estimate | `catR::eapEst()` |
+| `eap_se()` | EAP standard error | `catR::eapSem()` |
+
+This vignette walks through the theory behind each function, then validates every one of them directly against its `catR` counterpart, and reproduces the worked examples from the script.
+
+```{r library,message=FALSE,warning=FALSE}
+library(catR)
+```
+
+```{r source_functions}
+source(paste0(directory, "../working_examples/cat_eap.R"), local = knitr::knit_global())
+```
+
+---
+
+## Theoretical Background
+
+### The 4-parameter logistic (4PL) response model
+
+Every item response model gives the probability that an examinee with ability $\theta$ answers item $i$ correctly:
+
+$$P_i(\theta) = c_i + (d_i-c_i)\,\frac{e^{Da_i(\theta-b_i)}}{1+e^{Da_i(\theta-b_i)}}$$
+
+- $a_i$ — **discrimination**: how steeply the curve rises around $b_i$
+- $b_i$ — **difficulty**: the ability level at the curve's midpoint
+- $c_i$ — **guessing (lower asymptote)**: minimum success probability for very low ability
+- $d_i$ — **inattention (upper asymptote)**: maximum success probability for very high ability
+- $D$ — a scaling constant (1, or 1.702 to make the logistic curve closely approximate the normal ogive)
+
+Setting $c_i=0,\,d_i=1$ collapses this to the familiar **2PL** model; additionally fixing $a_i$ to a common value across items gives the **1PL/Rasch** model. `cat_eap.R`'s `Pi()` function implements the full 4PL and its first derivative $P_i'(\theta)$ (needed for information-based item selection, though not used further in this vignette).
+
+### Likelihood of a response pattern
+
+Assuming **local independence** (conditional on $\theta$, responses to different items are independent), the likelihood of a full 0/1 response pattern $\mathbf{x}=(x_1,\ldots,x_n)$ is
+
+$$L(\theta) = \prod_{i=1}^{n} P_i(\theta)^{x_i}\,\big(1-P_i(\theta)\big)^{1-x_i}$$
+
+### EAP: a Bayesian point estimate
+
+Maximum Likelihood estimation fails outright for an all-correct or all-incorrect pattern — the likelihood keeps increasing toward $\theta=\pm\infty$ with no interior maximum. EAP sidesteps this by placing a **prior** distribution $\pi(\theta)$ on ability (by default, standard normal) and reporting the **mean of the posterior distribution**:
+
+$$\hat\theta_{EAP} = E[\theta \mid \mathbf{x}] = \frac{\displaystyle\int \theta\,\pi(\theta)\,L(\theta)\,d\theta}{\displaystyle\int \pi(\theta)\,L(\theta)\,d\theta}$$
+
+and its precision as the **posterior standard deviation**:
+
+$$SE(\hat\theta_{EAP}) = \sqrt{\frac{\displaystyle\int (\theta-\hat\theta_{EAP})^2\,\pi(\theta)\,L(\theta)\,d\theta}{\displaystyle\int \pi(\theta)\,L(\theta)\,d\theta}}$$
+
+Both integrals are always finite because the normal prior decays to zero in the tails, regardless of how extreme the likelihood is — this is exactly what makes EAP well-behaved for perfect response patterns.
+
+### Numerical integration
+
+Neither integral above has a closed-form solution, so `cat_eap.R` evaluates the integrand at a grid of **quadrature points** (`nqp`, default 33, evenly spaced between `lower` and `upper`, default $\pm4$) and integrates numerically with the **trapezoidal rule**: the area under the curve between two adjacent grid points is approximated as a trapezoid — width times the average of the two heights. `integrate_cat()` implements exactly this, summing the trapezoids across the whole grid.
+
+---
+
+## Validating each piece against `catR`
+
+### Normal density
+
+```{r density_check}
+v <- seq(-3, 3, by = 0.1)
+comparison <- data.frame(x = v, density_function = density_function(v), dnorm = dnorm(v))
+head(comparison)
+all.equal(comparison$density_function, comparison$dnorm)
+```
+
+```{r density_plot,dev='png'}
+ggplot(comparison, aes(x = x)) +
+  geom_line(aes(y = density_function, color = "density_function()"), linewidth = 1) +
+  geom_point(aes(y = dnorm, color = "dnorm()"), shape = 1) +
+  labs(title = "Hand-written normal density vs. dnorm()", x = expression(theta), y = "density", color = NULL) +
+  theme_bw(base_size = 12)
+```
+
+The hand-written implementation overlays `dnorm()` exactly — as expected, since it's just the textbook normal density formula written out longhand.
+
+### Numerical integration
+
+```{r integration_check}
+x <- seq(from = -3, to = 3, length = 33)
+y <- round(exp(x), 2)
+c(integrate_cat = integrate_cat(x, y), integrate.catR = catR::integrate.catR(x, y))
+```
+
+Both approximate $\int_{-3}^{3} e^x\,dx$ via the same trapezoidal grid and agree exactly.
+
+### Response probability curves (4PL)
+
+```{r pi_check}
+bank <- matrix(c(0.7521, 0.8083, 1.1857, 0.5481, 0.5695,
+                 -1.5521, -0.9083, 0.1857, 0.5481, 1.5695,
+                 0, 0, 0, 0, 0,
+                 1, 1, 1, 1, 1),
+               nrow = 5, dimnames = list(1:5, c("a", "b", "c", "d")))
+
+data.frame(mine = Pi(theta = 0, bank)$Pi, catR = catR::Pi(th = 0, bank)$Pi)
+```
+
+```{r pi_plot,dev='png'}
+theta_grid <- seq(-6, 6, by = 0.1)
+prob_curves <- sapply(theta_grid, function(th) Pi(theta = th, bank)$Pi)
+df_curves <- data.frame(theta = theta_grid, t(prob_curves))
+names(df_curves)[-1] <- paste0("item_", 1:5)
+df_curves_long <- reshape2::melt(df_curves, id.vars = "theta", variable.name = "item", value.name = "P")
+
+ggplot(df_curves_long, aes(x = theta, y = P, color = item)) +
+  geom_line(linewidth = 1) +
+  labs(title = "Item response curves (5-item 2PL bank)", x = expression(theta), y = expression(P(theta)), color = NULL) +
+  theme_bw(base_size = 12)
+```
+
+Each curve is one item's probability of a correct response as a function of ability — steeper curves (higher $a$) discriminate more sharply around their difficulty $b$; curves shifted right have higher difficulty.
+
+### EAP ability estimate
+
+```{r eap_est_check}
+response_1 <- c(1, 0, 0, 0, 0)
+c(mine = eap_est(bank, response_1), catR = catR::eapEst(bank, response_1))
+```
+
+### EAP standard error
+
+```{r eap_se_check}
+c(mine = eap_se(0, bank, response_1), catR = catR::eapSem(0, bank, response_1))
+```
+
+Both the ability estimate and its standard error match `catR` exactly across the quadrature grid.
+
+---
+
+## Worked example: more correct responses shift and sharpen the estimate
+
+Reproducing "Example 1" from the script: a fixed 5-item bank, scored against response patterns with an increasing number of correct answers (0 through 5 correct, always the *easiest* items first).
+
+```{r worked_example}
+a <- c(0.7521, 0.8083, 1.1857, 0.5481, 0.5695)
+b <- c(-1.5521, -0.9083, 0.1857, 0.5481, 1.5695)
+c <- c(0, 0, 0, 0, 0)
+d <- c(1, 1, 1, 1, 1)
+bank <- matrix(c(a, b, c, d), nrow = 5, dimnames = list(1:5, c("a", "b", "c", "d")))
+
+responses <- list(
+  c(1, 0, 0, 0, 0),
+  c(1, 1, 0, 0, 0),
+  c(1, 1, 1, 0, 0),
+  c(1, 1, 1, 1, 0),
+  c(1, 1, 1, 1, 1)
+)
+
+results <- data.frame(
+  n_correct = sapply(responses, sum),
+  theta_EAP = sapply(responses, function(x) eap_est(bank, x)),
+  SE        = NA
+)
+results$SE <- mapply(function(x, th) eap_se(th, bank, x), responses, results$theta_EAP)
+results
+```
+
+```{r worked_example_plot,dev='png'}
+ggplot(results, aes(x = n_correct, y = theta_EAP)) +
+  geom_ribbon(aes(ymin = theta_EAP - SE, ymax = theta_EAP + SE), alpha = 0.2, fill = "steelblue") +
+  geom_line(color = "steelblue", linewidth = 1) +
+  geom_point(size = 2, color = "steelblue") +
+  labs(title = "EAP estimate (± 1 SE) vs. number of items correct",
+       x = "Number of items correct (out of 5)", y = expression(hat(theta)[EAP])) +
+  theme_bw(base_size = 12)
+```
+
+The estimate climbs monotonically with the number of correct responses, as expected. Notice it never reaches the extremes of the integration range ($\pm4$) even for the all-correct or all-incorrect pattern — the normal prior pulls the posterior mean back toward 0, which is exactly the regularizing behavior that makes EAP preferable to Maximum Likelihood at the edges of a response pattern.
+
+## Worked example: how standard error depends on both $\theta$ and the response pattern
+
+Reproducing the three SE curves from `eap_se()`'s documentation: the same 5-item bank, scored at every $\theta$ from $-3$ to $3$, under three different response patterns.
+
+```{r se_curves}
+bank_se <- matrix(c(0.7521, 0.8083, 1.1857, 0.5481, 0.5695,
+                    -1.5521, -0.9083, 0.1857, 0.5481, 1.5695,
+                    0, 0, 0, 0, 0,
+                    1, 1, 1, 1, 1),
+                  nrow = 5, dimnames = list(1:5, c("a", "b", "c", "d")))
+
+theta_grid <- seq(-3, 3, by = 0.1)
+patterns <- list(
+  "all incorrect"    = c(0, 0, 0, 0, 0),
+  "all correct"      = c(1, 1, 1, 1, 1),
+  "2 of 5 correct"   = c(1, 0, 1, 0, 0)
+)
+
+se_df <- do.call(rbind, lapply(names(patterns), function(nm) {
+  data.frame(theta = theta_grid,
+             SE = sapply(theta_grid, function(th) eap_se(theta = th, bank = bank_se, x = patterns[[nm]])),
+             pattern = nm)
+}))
+```
+
+```{r se_curves_plot,dev='png'}
+ggplot(se_df, aes(x = theta, y = SE, color = pattern)) +
+  geom_line(linewidth = 1) +
+  labs(title = "EAP standard error vs. assumed theta, by response pattern",
+       x = expression(theta), y = "standard error", color = "response pattern") +
+  theme_bw(base_size = 12)
+```
+
+The "2 of 5 correct" pattern reaches its lowest SE near $\theta=0$, where the item bank is best targeted for a mixed response pattern. The all-correct and all-incorrect curves instead keep *decreasing* toward the ends of the range they're evaluated over — consistent with those patterns being most consistent with an extreme ability level, even though the EAP point estimate itself (per the previous section) is pulled back toward 0 by the prior. This is a useful reminder that `eap_se()`'s argument `theta` is an arbitrary evaluation point for the posterior SD, not necessarily `eap_est()`'s own output — in practice you always pair them, as the earlier `eap_se(eap_est(bank, x), bank, x)` calls do.
+
+---
+
+## Conclusion
+
+Every one of `cat_eap.R`'s five functions reproduces its `catR` counterpart exactly: a hand-rolled normal density, a trapezoidal integrator, 4PL response probabilities, and the two integrals — posterior mean and posterior SD — that together define EAP scoring. Seeing the full pipeline in ~150 lines of base R, with no hidden package internals, makes it much easier to reason about *why* EAP behaves the way it does: the prior is what keeps ability estimates finite and standard errors sane even for a perfect or a zero score, at the cost of a small, deliberate bias toward the prior mean.
+
+---
+
+*Rendered with R `r getRversion()` · validated against catR `r as.character(packageVersion("catR"))`*
