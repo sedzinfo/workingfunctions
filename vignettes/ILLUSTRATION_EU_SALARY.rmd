@@ -1,5 +1,5 @@
 ---
-title: "EU Salary Race: Average Full-Time Adjusted Wages Across Europe"
+title: "EU Salary Race: Average Full-Time Adjusted Wages"
 author: ""
 output:
   html_document:
@@ -256,7 +256,6 @@ animate(p,
         width    = 900,
         height   = 800,
         units    = "px",
-        res      = 100,
         renderer = gifski_renderer("eu_salary_race.gif"))
 ```
 
