@@ -204,6 +204,7 @@ report_logistic<-function(model,validation_data=NULL,file=NULL,title="",w=10,h=1
                result_R2_logistic=pseudor2,
                result_X2_logistic=chisquare,
                coefficients=data.frame(model_summary$coefficients,
+                                       "Odds Ratio"=exp(coef(result_glm)),
                                        #  confidence_intervals=confint(model),
                                        check.names=FALSE),
                logistic_output=data.frame(AIC=model$aic,
@@ -223,7 +224,7 @@ report_logistic<-function(model,validation_data=NULL,file=NULL,title="",w=10,h=1
                                           trace=model$control$trace),
                scores=scores,
                score_descriptives=compute_descriptives(scores[,sapply(scores,is.numeric)]),
-               VIF=data.frame(VIF=VIF),
+               VIF=data.frame(VIF=VIF,check.names=FALSE),
                model_call=model_call)
   
   if(is.null(validation_data)) {

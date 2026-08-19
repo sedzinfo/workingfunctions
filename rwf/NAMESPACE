@@ -101,6 +101,7 @@ export(plot_boxplot)
 export(plot_cfa)
 export(plot_cfa_gg)
 export(plot_confusion)
+export(plot_confusion_extended)
 export(plot_corrplot)
 export(plot_crosstable)
 export(plot_duplicate_y_axis)
@@ -191,179 +192,227 @@ import(ggplot2)
 import(grid)
 import(gtable)
 import(openxlsx)
-importFrom(DescTools,AndersonDarlingTest)
-importFrom(DescTools,CramerVonMisesTest)
-importFrom(DescTools,JarqueBeraTest)
-importFrom(DescTools,LillieTest)
-importFrom(DescTools,PearsonTest)
-importFrom(DescTools,ShapiroFranciaTest)
+importFrom(DescTools,
+  AndersonDarlingTest,
+  CramerVonMisesTest,
+  JarqueBeraTest,
+  LillieTest,
+  PearsonTest,
+  ShapiroFranciaTest
+)
 importFrom(MASS,mvrnorm)
-importFrom(NLP,Annotation)
-importFrom(NLP,as.String)
+importFrom(NLP,
+  Annotation,
+  as.String
+)
 importFrom(QuantPsyc,lm.beta)
-importFrom(Rmisc,CI)
-importFrom(Rmisc,summarySE)
-importFrom(car,Anova)
-importFrom(car,leveneTest)
-importFrom(car,vif)
+importFrom(Rmisc,
+  CI,
+  summarySE
+)
+importFrom(car,
+  Anova,
+  leveneTest,
+  vif
+)
 importFrom(ez,ezANOVA)
-importFrom(future,availableCores)
-importFrom(future,multisession)
-importFrom(future,plan)
-importFrom(future,sequential)
-importFrom(future.apply,future_lapply)
-importFrom(future.apply,future_sapply)
+importFrom(future,
+  availableCores,
+  multisession,
+  plan,
+  sequential
+)
+importFrom(future.apply,
+  future_lapply,
+  future_sapply
+)
 importFrom(ggExtra,ggMarginal)
-importFrom(ggplot2,aes)
-importFrom(ggplot2,annotate)
-importFrom(ggplot2,coord_fixed)
-importFrom(ggplot2,geom_curve)
-importFrom(ggplot2,geom_rect)
-importFrom(ggplot2,geom_segment)
-importFrom(ggplot2,geom_text)
-importFrom(ggplot2,ggplot)
-importFrom(ggplot2,ggplotGrob)
-importFrom(ggplot2,labs)
-importFrom(ggplot2,scale_x_continuous)
-importFrom(ggplot2,scale_y_continuous)
-importFrom(ggplot2,theme)
-importFrom(ggplot2,theme_void)
-importFrom(ggpubr,as_ggplot)
-importFrom(ggpubr,ggarrange)
+importFrom(ggplot2,
+  aes,
+  annotate,
+  coord_fixed,
+  geom_curve,
+  geom_rect,
+  geom_segment,
+  geom_text,
+  ggplot,
+  ggplotGrob,
+  labs,
+  scale_x_continuous,
+  scale_y_continuous,
+  theme,
+  theme_void
+)
+importFrom(ggpubr,
+  as_ggplot,
+  ggarrange
+)
 importFrom(ggrepel,geom_text_repel)
-importFrom(grDevices,cairo_pdf)
-importFrom(grDevices,colorRampPalette)
-importFrom(grDevices,dev.off)
-importFrom(grDevices,pdf)
-importFrom(grDevices,rainbow)
-importFrom(grDevices,recordPlot)
-importFrom(graphics,abline)
-importFrom(graphics,boxplot)
-importFrom(graphics,hist)
-importFrom(graphics,lines)
-importFrom(graphics,par)
-importFrom(graphics,plot)
-importFrom(graphics,title)
-importFrom(grid,grid.draw)
-importFrom(grid,grid.layout)
-importFrom(grid,grid.newpage)
-importFrom(grid,pushViewport)
-importFrom(grid,unit)
-importFrom(grid,viewport)
+importFrom(grDevices,
+  cairo_pdf,
+  colorRampPalette,
+  dev.off,
+  pdf,
+  rainbow,
+  recordPlot
+)
+importFrom(graphics,
+  abline,
+  boxplot,
+  hist,
+  lines,
+  par,
+  plot,
+  title
+)
+importFrom(grid,
+  grid.draw,
+  grid.layout,
+  grid.newpage,
+  pushViewport,
+  unit,
+  viewport
+)
 importFrom(gridExtra,arrangeGrob)
-importFrom(gtable,gtable_add_cols)
-importFrom(gtable,gtable_add_grob)
+importFrom(gtable,
+  gtable_add_cols,
+  gtable_add_grob
+)
 importFrom(gtools,mixedsort)
-importFrom(igraph,graph_from_data_frame)
-importFrom(igraph,layout_as_tree)
-importFrom(igraph,layout_in_circle)
-importFrom(igraph,layout_with_fr)
+importFrom(igraph,
+  graph_from_data_frame,
+  layout_as_tree,
+  layout_in_circle,
+  layout_with_fr
+)
 importFrom(irr,kappa2)
-importFrom(lavaan,inspect)
-importFrom(lavaan,lavNames)
-importFrom(lavaan,modificationIndices)
-importFrom(lavaan,parameterEstimates)
-importFrom(mirt,M2)
-importFrom(mirt,coef)
-importFrom(mirt,expected.test)
-importFrom(mirt,extract.mirt)
-importFrom(mirt,itemfit)
-importFrom(mirt,residuals)
-importFrom(mirt,testinfo)
-importFrom(nlme,gls)
-importFrom(nlme,lme)
+importFrom(lavaan,
+  inspect,
+  lavNames,
+  modificationIndices,
+  parameterEstimates
+)
+importFrom(mirt,
+  M2,
+  coef,
+  expected.test,
+  extract.mirt,
+  itemfit,
+  residuals,
+  testinfo
+)
+importFrom(nlme,
+  gls,
+  lme
+)
 importFrom(openNLP,Maxent_Word_Token_Annotator)
-importFrom(openxlsx,addStyle)
-importFrom(openxlsx,addWorksheet)
-importFrom(openxlsx,conditionalFormatting)
-importFrom(openxlsx,createComment)
-importFrom(openxlsx,createStyle)
-importFrom(openxlsx,createWorkbook)
-importFrom(openxlsx,freezePane)
-importFrom(openxlsx,modifyBaseFont)
-importFrom(openxlsx,removeColWidths)
-importFrom(openxlsx,saveWorkbook)
-importFrom(openxlsx,setColWidths)
-importFrom(openxlsx,writeComment)
-importFrom(openxlsx,writeData)
-importFrom(pROC,ggroc)
-importFrom(pROC,roc)
+importFrom(openxlsx,
+  addStyle,
+  addWorksheet,
+  conditionalFormatting,
+  createComment,
+  createStyle,
+  createWorkbook,
+  freezePane,
+  modifyBaseFont,
+  removeColWidths,
+  saveWorkbook,
+  setColWidths,
+  writeComment,
+  writeData
+)
+importFrom(pROC,
+  ggroc,
+  roc
+)
 importFrom(parallel,detectCores)
-importFrom(plyr,ddply)
-importFrom(plyr,ldply)
-importFrom(plyr,numcolwise)
-importFrom(plyr,rbind.fill)
-importFrom(psych,corr.test)
-importFrom(psych,describe)
-importFrom(psych,dummy.code)
-importFrom(psych,fa.sort)
-importFrom(psych,polyserial)
-importFrom(psych,tetrachoric)
+importFrom(plyr,
+  ddply,
+  ldply,
+  numcolwise,
+  rbind.fill
+)
+importFrom(psych,
+  corr.test,
+  describe,
+  dummy.code,
+  fa.sort,
+  polyserial,
+  tetrachoric
+)
 importFrom(purrr,walk)
 importFrom(pwr,pwr.r.test)
 importFrom(reshape2,melt)
 importFrom(scales,wrap_format)
 importFrom(spelling,spell_check_text)
-importFrom(stats,IQR)
-importFrom(stats,acf)
-importFrom(stats,bartlett.test)
-importFrom(stats,complete.cases)
-importFrom(stats,confint)
-importFrom(stats,cor)
-importFrom(stats,cov)
-importFrom(stats,density)
-importFrom(stats,deviance)
-importFrom(stats,filter)
-importFrom(stats,fitted)
-importFrom(stats,formula)
-importFrom(stats,get_all_vars)
-importFrom(stats,ks.test)
-importFrom(stats,ksmooth)
-importFrom(stats,lm)
-importFrom(stats,lowess)
-importFrom(stats,mad)
-importFrom(stats,median)
-importFrom(stats,model.frame)
-importFrom(stats,na.exclude)
-importFrom(stats,na.omit)
-importFrom(stats,optim)
-importFrom(stats,pchisq)
-importFrom(stats,pf)
-importFrom(stats,pnorm)
-importFrom(stats,predict)
-importFrom(stats,ptukey)
-importFrom(stats,qnorm)
-importFrom(stats,qqline)
-importFrom(stats,qqnorm)
-importFrom(stats,quantile)
-importFrom(stats,reorder)
-importFrom(stats,rnorm)
-importFrom(stats,sd)
-importFrom(stats,setNames)
-importFrom(stats,shapiro.test)
-importFrom(stats,smooth.spline)
-importFrom(stats,supsmu)
-importFrom(stats,t.test)
-importFrom(stats,time)
-importFrom(stats,var)
-importFrom(stats,wilcox.test)
-importFrom(stringr,fixed)
-importFrom(stringr,str_count)
-importFrom(stringr,str_pad)
-importFrom(stringr,str_replace)
-importFrom(stringr,str_replace_all)
-importFrom(stringr,str_split_fixed)
+importFrom(stats,
+  IQR,
+  acf,
+  bartlett.test,
+  complete.cases,
+  confint,
+  cor,
+  cov,
+  density,
+  deviance,
+  filter,
+  fitted,
+  formula,
+  get_all_vars,
+  ks.test,
+  ksmooth,
+  lm,
+  lowess,
+  mad,
+  median,
+  model.frame,
+  na.exclude,
+  na.omit,
+  optim,
+  pchisq,
+  pf,
+  pnorm,
+  predict,
+  ptukey,
+  qnorm,
+  qqline,
+  qqnorm,
+  quantile,
+  reorder,
+  rnorm,
+  sd,
+  setNames,
+  shapiro.test,
+  smooth.spline,
+  supsmu,
+  t.test,
+  time,
+  var,
+  wilcox.test
+)
+importFrom(stringr,
+  fixed,
+  str_count,
+  str_pad,
+  str_replace,
+  str_replace_all,
+  str_split_fixed
+)
 importFrom(tm,stopwords)
-importFrom(utils,available.packages)
-importFrom(utils,combn)
-importFrom(utils,install.packages)
-importFrom(utils,installed.packages)
-importFrom(utils,modifyList)
-importFrom(utils,remove.packages)
-importFrom(utils,setTxtProgressBar)
-importFrom(utils,txtProgressBar)
-importFrom(xgboost,xgb.DMatrix)
-importFrom(xgboost,xgb.ggplot.importance)
-importFrom(xgboost,xgb.importance)
-importFrom(xgboost,xgb.plot.deepness)
-importFrom(xgboost,xgb.plot.multi.trees)
+importFrom(utils,
+  available.packages,
+  combn,
+  install.packages,
+  installed.packages,
+  modifyList,
+  remove.packages,
+  setTxtProgressBar,
+  txtProgressBar
+)
+importFrom(xgboost,
+  xgb.DMatrix,
+  xgb.ggplot.importance,
+  xgb.importance,
+  xgb.plot.deepness,
+  xgb.plot.multi.trees
+)

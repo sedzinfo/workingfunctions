@@ -591,5 +591,106 @@ confusion_matrix_percent<-function(observed,predicted) {
   result<-format(round(result,2),nsmall=2)
   return(result)
 }
-
+##########################################################################################
+# EXTENDED CONFUSION MATRIX PLOT (binary)
+##########################################################################################
+#' Plot a confusion matrix with the full set of derived measures
+#'
+#' Draws a 2x2 confusion matrix (raw counts, sequential-blue by magnitude)
+#' alongside the row/column/overall measures:
+#' \describe{
+#'   \item{Total measures}{Accuracy, Prevalence, Proportion Incorrectly Classified}
+#'   \item{Horizontal measures}{Sensitivity/Miss Rate (observed positive column),
+#'     Specificity/Fall-out (observed negative column)}
+#'   \item{Vertical measures}{Precision/False Discovery Rate (predicted positive row),
+#'     Negative Predictive Value/False Omission Rate (predicted negative row)}
+#' }
+#'
+#' @param observed  Vector of true class labels (2 unique values).
+#' @param predicted Vector of predicted class labels (2 unique values, same domain).
+#' @param positive  Value treated as the positive class. Defaults to the second
+#'   sorted level (matches rwf's \code{confusion()} convention).
+#' @param base_size Base font size. Default 12.
+#' @param title     Plot title suffix.
+#' @export
+#' @examples
+#' plot_confusion_extended(observed=c(1,1,1,2,2,2),predicted=c(1,1,1,2,2,2))
+plot_confusion_extended <- function(observed, predicted, positive = NULL, base_size = 12, title = "") {
+  observed  <- as.character(observed)
+  predicted <- as.character(predicted)
+  lvls <- sort(unique(c(observed, predicted)))
+  if (length(lvls) != 2) stop("plot_confusion_extended() only supports a binary (2-class) confusion matrix")
+  if (is.null(positive)) positive <- lvls[2]
+  negative <- setdiff(lvls, positive)
+  
+  TP <- sum(predicted == positive & observed == positive)
+  TN <- sum(predicted == negative & observed == negative)
+  FP <- sum(predicted == positive & observed == negative)
+  FN <- sum(predicted == negative & observed == positive)
+  total <- TP + TN + FP + FN
+  
+  accuracy    <- (TP + TN) / total
+  prevalence  <- (TP + FN) / total
+  picc        <- (FN + FP) / total
+  sensitivity <- TP / (TP + FN)
+  specificity <- TN / (FP + TN)
+  miss_rate   <- FN / (TP + FN)
+  fallout     <- FP / (FP + TN)
+  precision   <- TP / (TP + FP)
+  npv         <- TN / (FN + TN)
+  for_rate    <- FN / (FN + TN)
+  fdr         <- FP / (TP + FP)
+  
+  pct <- function(x) paste0(sprintf("%.1f", x * 100), "%")
+  
+  seq_ramp <- grDevices::colorRampPalette(c("#cde2fb", "#0d366b"))(100)
+  fill_for <- function(n) seq_ramp[pmax(1, pmin(100, round(n / total * 99) + 1))]
+  
+  ink_primary   <- "#0b0b0b"
+  ink_secondary <- "#52514e"
+  margin_fill   <- "#f0efec"
+  
+  cells <- data.frame(
+    col   = c(1, 2, 3, 1, 2, 3, 1, 2, 3),
+    row   = c(3, 3, 3, 2, 2, 2, 1, 1, 1),
+    kind  = c("main", "main", "margin", "main", "main", "margin", "margin", "margin", "corner"),
+    n     = c(TP, FP, NA, FN, TN, NA, NA, NA, NA),
+    label = c(
+      paste0("TP\n", TP, "\n(", pct(TP / total), ")"),
+      paste0("FP\n", FP, "\n(", pct(FP / total), ")"),
+      paste0("Precision\n", pct(precision), "\nFDR ", pct(fdr)),
+      paste0("FN\n", FN, "\n(", pct(FN / total), ")"),
+      paste0("TN\n", TN, "\n(", pct(TN / total), ")"),
+      paste0("NPV\n", pct(npv), "\nFOR ", pct(for_rate)),
+      paste0("Sensitivity\n", pct(sensitivity), "\nMiss Rate ", pct(miss_rate)),
+      paste0("Specificity\n", pct(specificity), "\nFall-out ", pct(fallout)),
+      paste0("Accuracy ", pct(accuracy), "\nPrevalence ", pct(prevalence), "\nIncorrect ", pct(picc))
+    ),
+    stringsAsFactors = FALSE
+  )
+  cells$fill       <- ifelse(cells$kind == "main", fill_for(cells$n), margin_fill)
+  cells$text_color <- ifelse(cells$kind == "main" & !is.na(cells$n) & cells$n / total > 0.5, "#ffffff", ink_primary)
+  
+  col_label_vec <- c(paste0("Observed: ", positive), paste0("Observed: ", negative), "")
+  row_label_vec <- c("", paste0("Predicted: ", negative), paste0("Predicted: ", positive))
+  
+  ggplot2::ggplot(cells, ggplot2::aes(x = col, y = row)) +
+    ggplot2::geom_tile(ggplot2::aes(fill = fill), color = "#fcfcfb", linewidth = 2, width = 0.96, height = 0.96) +
+    ggplot2::geom_text(ggplot2::aes(label = label, color = text_color), size = base_size / 3, lineheight = 0.95, fontface = "bold") +
+    ggplot2::scale_fill_identity() +
+    ggplot2::scale_color_identity() +
+    ggplot2::scale_x_continuous(breaks = 1:3, labels = col_label_vec, position = "top", expand = c(0.02, 0.02)) +
+    ggplot2::scale_y_continuous(breaks = 1:3, labels = row_label_vec, expand = c(0.02, 0.02)) +
+    ggplot2::coord_fixed() +
+    ggplot2::labs(title = paste("Confusion Matrix", title), x = NULL, y = NULL,
+                  caption = paste0("Observations: ", total)) +
+    ggplot2::theme_minimal(base_size = base_size) +
+    ggplot2::theme(
+      axis.text    = ggplot2::element_text(color = ink_secondary, face = "bold"),
+      axis.ticks   = ggplot2::element_blank(),
+      panel.grid   = ggplot2::element_blank(),
+      plot.title   = ggplot2::element_text(color = ink_primary, face = "bold"),
+      plot.caption = ggplot2::element_text(color = ink_secondary)
+    )
+}
 
