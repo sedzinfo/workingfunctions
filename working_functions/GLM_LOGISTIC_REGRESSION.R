@@ -204,7 +204,7 @@ report_logistic<-function(model,validation_data=NULL,file=NULL,title="",w=10,h=1
                result_R2_logistic=pseudor2,
                result_X2_logistic=chisquare,
                coefficients=data.frame(model_summary$coefficients,
-                                       "Odds Ratio"=exp(coef(result_glm)),
+                                       "Odds Ratio"=exp(coef(model)),
                                        #  confidence_intervals=confint(model),
                                        check.names=FALSE),
                logistic_output=data.frame(AIC=model$aic,
