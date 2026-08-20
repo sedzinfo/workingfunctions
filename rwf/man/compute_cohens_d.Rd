@@ -26,6 +26,17 @@ sd_pooled = sqrt((sd1^2 + sd2^2) / 2). This is the same formula used
 inline by report_ttests, extracted here as a standalone, reusable
 function so it can be called on its own.
 }
+\note{
+effect size
+\itemize{
+  \item Very small    0.01 Sawilowsky (2009)
+  \item Small         0.20 Cohen (1988)
+  \item Medium        0.50 Cohen (1988)
+  \item Large         0.80 Cohen (1988)
+  \item Very large    1.20 Sawilowsky (2009)
+  \item Huge          12.0 Sawilowsky (2009)
+}
+}
 \examples{
 compute_cohens_d(
   formula = bp_before ~ agegrp,

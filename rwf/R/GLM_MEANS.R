@@ -20,7 +20,7 @@
 #'
 #' @return A single numeric value, Cohen's d effect size.
 #' @keywords cohens-d parametric effect-size
-#' @notes
+#' @note
 #' effect size
 #' \itemize{
 #'   \item Very small    0.01 Sawilowsky (2009)
