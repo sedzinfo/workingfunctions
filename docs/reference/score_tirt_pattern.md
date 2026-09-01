@@ -78,9 +78,7 @@ gradient.
 
 ``` r
 library(thurstonianIRT)
-#> Error in library(thurstonianIRT): there is no package called 'thurstonianIRT'
 data("triplets")
-#> Warning: data set 'triplets' not found
 # define the blocks of items
 blocks <-
   set_block(c("i1", "i2", "i3"), traits = c("t1", "t2", "t3"),
@@ -91,22 +89,18 @@ blocks <-
             signs = c(1, 1, -1)) +
   set_block(c("i10", "i11", "i12"), traits = c("t1", "t2", "t3"),
             signs = c(1, -1, 1))
-#> Error in set_block(c("i1", "i2", "i3"), traits = c("t1", "t2", "t3"),     signs = c(1, 1, 1)): could not find function "set_block"
 # generate the data to be understood by 'thurstonianIRT'
 triplets_long <- make_TIRT_data(
   data = triplets, blocks = blocks, direction = "larger",
   format = "pairwise", family = "bernoulli", range = c(0, 1)
 )
-#> Error in make_TIRT_data(data = triplets, blocks = blocks, direction = "larger",     format = "pairwise", family = "bernoulli", range = c(0, 1)): could not find function "make_TIRT_data"
 # fit the data using lavaan
 fit <- fit_TIRT_lavaan(triplets_long)
-#> Error in fit_TIRT_lavaan(triplets_long): could not find function "fit_TIRT_lavaan"
 pars <- extract_tirt_params(fit)
-#> Error: object 'fit' not found
 pattern<-as.numeric(triplets[1,])
-#> Error: object 'triplets' not found
 score_tirt_pattern(pattern,lambda=pars$lambda,theta_diag=pars$theta_diag,
                    tau=pars$tau,Psi=pars$Psi,nu=NULL,init=NULL,
                    control=list())
-#> Error: object 'pars' not found
+#>   trait1   trait2   trait3 
+#> -0.25847  0.09162 -0.65732 
 ```

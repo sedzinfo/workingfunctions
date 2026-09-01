@@ -60,13 +60,13 @@ decompose_datetime(x = d1)
 #> 1 2026            09          01 2026-09-01
 decompose_datetime(x = d2)
 #>   YEAR MONTH_NUMERIC DAY_NUMERIC HOUR MINUTE SECOND MILLISECOND  FULL_DATE FULL_TIME
-#> 1 2026            09          01   11     52     27      204405 2026-09-01     11:52
+#> 1 2026            09          01   12     56     00      748112 2026-09-01     12:56
 decompose_datetime(x = d1, extended = TRUE)
 #>   QUARTER     MONTH     JULIAN WEEKDAY DAY_PERIOD YEAR MONTH_NUMERIC DAY_NUMERIC  FULL_DATE
 #> 1      Q3 September 20697 days Tuesday       <NA> 2026            09          01 2026-09-01
 decompose_datetime(x = d2, extended = TRUE)
 #>   QUARTER     MONTH        JULIAN WEEKDAY DAY_PERIOD YEAR MONTH_NUMERIC DAY_NUMERIC HOUR MINUTE SECOND MILLISECOND  FULL_DATE FULL_TIME
-#> 1      Q3 September 20697.49 days Tuesday    Morning 2026            09          01   11     52     27      204405 2026-09-01     11:52
+#> 1      Q3 September 20697.54 days Tuesday    Morning 2026            09          01   12     56     00      748112 2026-09-01     12:56
 decompose_datetime(x = "01/15/1900", format = "%m/%e/%Y")
 #>   YEAR MONTH_NUMERIC DAY_NUMERIC  FULL_DATE
 #> 1 1900            01          15 1900-01-15

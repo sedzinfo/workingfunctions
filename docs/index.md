@@ -24,12 +24,14 @@ complexity.
 
 ## Installation
 
-> **Note on Git LFS:** `remotes::install_github()` downloads a ZIP
-> archive which does **not** include Git LFS files — large assets will
-> appear as broken pointer files. If the package functions that depend
-> on those files are critical to you, use the **Clone & Install** path
-> below. If you only need the R code (functions, no bundled datasets),
-> the standard `remotes` install is sufficient.
+> **Note on Git LFS:**
+> [`remotes::install_github()`](https://remotes.r-lib.org/reference/install_github.html)
+> downloads a ZIP archive which does **not** include Git LFS files —
+> large assets will appear as broken pointer files. If the package
+> functions that depend on those files are critical to you, use the
+> **Clone & Install** path below. If you only need the R code
+> (functions, no bundled datasets), the standard `remotes` install is
+> sufficient.
 
 ### Option A — Standard install
 

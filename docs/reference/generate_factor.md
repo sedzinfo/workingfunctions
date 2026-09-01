@@ -57,16 +57,16 @@ single factor vector when `ncols = 1`.
 ``` r
 generate_factor(vector = LETTERS[1:5], ncols = 5, nrows = 10, type = "random")
 #>    X1 X2 X3 X4 X5
-#> 1   D  C  D  C  E
-#> 2   A  A  B  D  E
-#> 3   C  C  A  D  B
-#> 4   D  E  C  C  A
-#> 5   C  A  C  D  A
-#> 6   D  A  D  B  A
-#> 7   D  E  D  A  B
-#> 8   A  E  E  E  A
-#> 9   A  D  C  E  B
-#> 10  A  C  C  A  D
+#> 1   D  C  C  B  A
+#> 2   E  A  D  B  B
+#> 3   E  A  E  E  B
+#> 4   D  E  C  D  D
+#> 5   D  E  B  A  B
+#> 6   A  A  A  B  E
+#> 7   C  A  E  A  D
+#> 8   E  A  B  C  B
+#> 9   A  B  B  D  B
+#> 10  C  B  D  B  E
 generate_factor(vector = LETTERS[1:5], ncols = 5, nrows = 10, type = "balanced")
 #>    X1 X2 X3 X4 X5
 #> 1   A  A  A  A  A
@@ -83,20 +83,20 @@ generate_factor(vector = LETTERS[1:5], ncols = 1, nrows = 10, type = "balanced")
 #>  [1] A A B B C C D D E E
 #> Levels: A B C D E
 generate_factor(vector = LETTERS[1:5], ncols = 1, nrows = 10, type = "random")
-#>  [1] A E D D B D E D D A
+#>  [1] C D D B D A D C A E
 #> Levels: A B C D E
 generate_factor(vector = LETTERS[1:5], ncols = 5, nrows = 10, type = "random")
 #>    X1 X2 X3 X4 X5
-#> 1   E  E  D  E  D
-#> 2   B  B  B  C  C
-#> 3   B  A  C  B  B
-#> 4   E  A  C  C  A
-#> 5   E  A  D  E  D
-#> 6   E  B  D  B  B
-#> 7   E  D  E  A  B
-#> 8   C  D  B  E  B
-#> 9   A  B  C  D  E
-#> 10  C  B  B  D  E
+#> 1   C  D  A  D  B
+#> 2   D  D  E  D  A
+#> 3   D  A  E  E  E
+#> 4   A  A  D  C  E
+#> 5   A  A  C  C  A
+#> 6   D  C  D  C  E
+#> 7   A  A  B  D  E
+#> 8   C  C  A  D  B
+#> 9   D  E  C  C  A
+#> 10  C  A  C  D  A
 generate_factor(vector = LETTERS[1:5], ncols = 5, nrows = 10, type = "balanced")
 #>    X1 X2 X3 X4 X5
 #> 1   A  A  A  A  A
@@ -113,6 +113,6 @@ generate_factor(vector = LETTERS[1:5], ncols = 1, nrows = 10, type = "balanced")
 #>  [1] A A B B C C D D E E
 #> Levels: A B C D E
 generate_factor(vector = LETTERS[1:5], ncols = 1, nrows = 10, type = "random")
-#>  [1] D A A B A A C A C D
+#>  [1] A B A B D A E D D B
 #> Levels: A B C D E
 ```

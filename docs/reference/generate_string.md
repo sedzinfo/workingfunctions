@@ -47,11 +47,11 @@ A character vector of length `vector_length`.
 
 ``` r
 generate_string(nchar = 10)
-#> [1] "T51fqSuRoI"
+#> [1] "Qpbiq0V3gy"
 generate_string(nchar = 10, vector_length = 10)
-#>  [1] "tpCrKOQAHD" "80ATj8fCOU" "6mhFSjr5y0" "Ldv3TFkxSd" "kDCpDXXMwS" "qbYdxJtYPZ" "nGY00Ilcn0" "rWrKJowe9e" "3PoQe0YRgc" "qzDnXoeJCY"
+#>  [1] "BDKtiMfokM" "e88uujSJKN" "8t9x17soEE" "w3R1T6xuEu" "zM1MlY0n8Y" "K4dlxt5T51" "fqSuRoItpC" "rKOQAHD80A" "Tj8fCOU6mh" "FSjr5y0Ldv"
 generate_string(nchar = 10)
-#> [1] "yljC3nSxNk"
+#> [1] "3TFkxSdkDC"
 generate_string(nchar = 10, vector_length = 10)
-#>  [1] "Zr4vWHInBN" "KUkVhbg0iG" "tzs70jlhOz" "W6NvIMeXRP" "gdFQce2f1n" "NTzy4XyQUm" "LAOxLj9rrC" "7nE2936r4H" "4lhotTEKCR" "iL9citi0xR"
+#>  [1] "pDXXMwSqbY" "dxJtYPZnGY" "00Ilcn0rWr" "KJowe9e3Po" "Qe0YRgcqzD" "nXoeJCYylj" "C3nSxNkZr4" "vWHInBNKUk" "Vhbg0iGtzs" "70jlhOzW6N"
 ```

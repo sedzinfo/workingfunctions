@@ -39,31 +39,31 @@ same type as the input (vector or data frame).
 
 ``` r
 generate_missing(rnorm(10), missing = 5)
-#>  [1]     NA     NA     NA -2.582  1.923  1.691  1.622     NA  0.368     NA
-generate_missing(generate_data(nrow = 10, ncol = 2), missing = 5)
-#>          X1       X2
-#> 1   0.21332       NA
-#> 2        NA       NA
-#> 3        NA -0.33764
-#> 4   0.28134       NA
-#> 5   0.16287 -0.07383
-#> 6        NA       NA
-#> 7        NA       NA
-#> 8        NA  0.46596
-#> 9  -0.01284 -0.90834
-#> 10  0.76875  0.89846
-generate_missing(rnorm(10), missing = 5)
-#>  [1] -0.63339       NA       NA       NA       NA -0.70332 -0.33182  0.01996  0.80527       NA
+#>  [1]  0.090207        NA -0.561522  0.683311        NA -0.645514        NA        NA        NA  0.008565
 generate_missing(generate_data(nrow = 10, ncol = 2), missing = 5)
 #>         X1      X2
 #> 1       NA      NA
-#> 2   0.9935      NA
-#> 3  -0.9332      NA
+#> 2       NA      NA
+#> 3  -1.1520  0.2694
 #> 4       NA      NA
-#> 5       NA -0.8902
-#> 6   0.6013      NA
-#> 7       NA -0.4856
-#> 8  -0.5206  1.3180
-#> 9       NA  0.7152
-#> 10  2.0209 -1.1239
+#> 5   1.6673      NA
+#> 6   0.0589      NA
+#> 7  -1.0617 -1.2569
+#> 8   1.6567  0.5571
+#> 9       NA  0.5223
+#> 10      NA  1.4599
+generate_missing(rnorm(10), missing = 5)
+#>  [1]  0.77274       NA       NA       NA       NA       NA  1.13411  1.43307 -0.07661 -0.15840
+generate_missing(generate_data(nrow = 10, ncol = 2), missing = 5)
+#>         X1      X2
+#> 1       NA  0.9592
+#> 2       NA      NA
+#> 3   0.2522      NA
+#> 4  -2.5484  1.5866
+#> 5  -1.9926  0.3509
+#> 6       NA      NA
+#> 7   2.6308      NA
+#> 8       NA -0.2920
+#> 9   2.1364 -0.4831
+#> 10      NA      NA
 ```

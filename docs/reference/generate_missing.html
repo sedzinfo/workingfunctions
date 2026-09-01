@@ -76,33 +76,33 @@ Default is <code>5</code>.</p></dd>
     <div class="section level2">
     <h2 id="ref-examples">Examples<a class="anchor" aria-label="anchor" href="#ref-examples"></a></h2>
     <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="fu">generate_missing</span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/stats/Normal.html" class="external-link">rnorm</a></span><span class="op">(</span><span class="fl">10</span><span class="op">)</span>, missing <span class="op">=</span> <span class="fl">5</span><span class="op">)</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  [1]     NA     NA     NA -2.582  1.923  1.691  1.622     NA  0.368     NA</span>
-<span class="r-in"><span><span class="fu">generate_missing</span><span class="op">(</span><span class="fu"><a href="generate_data.html">generate_data</a></span><span class="op">(</span>nrow <span class="op">=</span> <span class="fl">10</span>, ncol <span class="op">=</span> <span class="fl">2</span><span class="op">)</span>, missing <span class="op">=</span> <span class="fl">5</span><span class="op">)</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>          X1       X2</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 1   0.21332       NA</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 2        NA       NA</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 3        NA -0.33764</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 4   0.28134       NA</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 5   0.16287 -0.07383</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 6        NA       NA</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 7        NA       NA</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 8        NA  0.46596</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 9  -0.01284 -0.90834</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 10  0.76875  0.89846</span>
-<span class="r-in"><span><span class="fu">generate_missing</span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/stats/Normal.html" class="external-link">rnorm</a></span><span class="op">(</span><span class="fl">10</span><span class="op">)</span>, missing <span class="op">=</span> <span class="fl">5</span><span class="op">)</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  [1] -0.63339       NA       NA       NA       NA -0.70332 -0.33182  0.01996  0.80527       NA</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [1]  0.090207        NA -0.561522  0.683311        NA -0.645514        NA        NA        NA  0.008565</span>
 <span class="r-in"><span><span class="fu">generate_missing</span><span class="op">(</span><span class="fu"><a href="generate_data.html">generate_data</a></span><span class="op">(</span>nrow <span class="op">=</span> <span class="fl">10</span>, ncol <span class="op">=</span> <span class="fl">2</span><span class="op">)</span>, missing <span class="op">=</span> <span class="fl">5</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>         X1      X2</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 1       NA      NA</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 2   0.9935      NA</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 3  -0.9332      NA</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2       NA      NA</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 3  -1.1520  0.2694</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 4       NA      NA</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 5       NA -0.8902</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 6   0.6013      NA</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 7       NA -0.4856</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 8  -0.5206  1.3180</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 9       NA  0.7152</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 10  2.0209 -1.1239</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 5   1.6673      NA</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 6   0.0589      NA</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 7  -1.0617 -1.2569</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 8   1.6567  0.5571</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 9       NA  0.5223</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 10      NA  1.4599</span>
+<span class="r-in"><span><span class="fu">generate_missing</span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/stats/Normal.html" class="external-link">rnorm</a></span><span class="op">(</span><span class="fl">10</span><span class="op">)</span>, missing <span class="op">=</span> <span class="fl">5</span><span class="op">)</span></span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [1]  0.77274       NA       NA       NA       NA       NA  1.13411  1.43307 -0.07661 -0.15840</span>
+<span class="r-in"><span><span class="fu">generate_missing</span><span class="op">(</span><span class="fu"><a href="generate_data.html">generate_data</a></span><span class="op">(</span>nrow <span class="op">=</span> <span class="fl">10</span>, ncol <span class="op">=</span> <span class="fl">2</span><span class="op">)</span>, missing <span class="op">=</span> <span class="fl">5</span><span class="op">)</span></span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>         X1      X2</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1       NA  0.9592</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2       NA      NA</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 3   0.2522      NA</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 4  -2.5484  1.5866</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 5  -1.9926  0.3509</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 6       NA      NA</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 7   2.6308      NA</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 8       NA -0.2920</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 9   2.1364 -0.4831</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 10      NA      NA</span>
 </code></pre></div>
     </div>
   </main><aside class="col-md-3"><nav id="toc" aria-label="Table of contents"><h2>On this page</h2>
