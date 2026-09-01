@@ -270,6 +270,8 @@ Status](https://img.shields.io/github/actions/workflow/status/sedzinfo/rwf/main.
   : Plot CFA model (semPlot-free)
 - [`plot_confusion()`](https://sedzinfo.github.io/rwf/reference/plot_confusion.md)
   : Plot confusion matrix
+- [`plot_confusion_extended()`](https://sedzinfo.github.io/rwf/reference/plot_confusion_extended.md)
+  : Plot a confusion matrix with the full set of derived measures
 - [`plot_corrplot()`](https://sedzinfo.github.io/rwf/reference/plot_corrplot.md)
   : Correlation matrix plots
 - [`plot_crosstable()`](https://sedzinfo.github.io/rwf/reference/plot_crosstable.md)

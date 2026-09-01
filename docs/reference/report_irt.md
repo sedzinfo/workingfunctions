@@ -182,14 +182,14 @@ report_irt(model=irt_onefactor,file="one_factor")
 report_irt(model=irt_twofactor,file="two_factors")
 #> Q3 summary statistics:
 #>    Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
-#>   0.039   0.091   0.108   0.141   0.176   0.292 
+#>   0.049   0.099   0.125   0.163   0.211   0.335 
 #> 
 #>       V1    V2    V3    V4    V5
-#> V1 1.000 0.089 0.119 0.068 0.039
-#> V2 0.089 1.000 0.292 0.188 0.094
-#> V3 0.119 0.292 1.000 0.286 0.141
-#> V4 0.068 0.188 0.286 1.000 0.098
-#> V5 0.039 0.094 0.141 0.098 1.000
+#> V1 1.000 0.096 0.130 0.072 0.049
+#> V2 0.096 1.000 0.335 0.226 0.121
+#> V3 0.130 0.335 1.000 0.325 0.163
+#> V4 0.072 0.226 0.325 1.000 0.111
+#> V5 0.049 0.121 0.163 0.111 1.000
 #> Warning: no non-missing arguments to min; returning Inf
 #> Warning: no non-missing arguments to max; returning -Inf
 #> Warning: no non-missing arguments to min; returning Inf
@@ -205,16 +205,16 @@ report_irt(model=irt_twofactor,file="two_factors")
 #> V5 -0.9164  0.00000 -3.933192 0 1
 #> 
 #> $model_coefficients_oblimin
-#>      .id       a1       a2         d  g  u  x     F1     F2
-#> V1 items -0.03056  1.43489  4.499278  0  1 NA     NA     NA
-#> V2 items  0.74520  0.20121  1.925188  0  1 NA     NA     NA
-#> V3 items  1.17287 -0.07846  0.006985  0  1 NA     NA     NA
-#> V4 items  0.45311  0.71882 -2.048156  0  1 NA     NA     NA
-#> V5 items  0.84423  0.09400 -3.933192  0  1 NA     NA     NA
-#> 6  means       NA       NA        NA NA NA  0     NA     NA
-#> 7  means       NA       NA        NA NA NA  0     NA     NA
-#> 8    cov       NA       NA        NA NA NA NA 1.0000 0.7453
-#> 9    cov       NA       NA        NA NA NA NA 0.7453 1.0000
+#>      .id      a1       a2         d  g  u  x     F1     F2
+#> V1 items -0.0306  1.43492  4.499278  0  1 NA     NA     NA
+#> V2 items  0.7452  0.20124  1.925188  0  1 NA     NA     NA
+#> V3 items  1.1728 -0.07842  0.006985  0  1 NA     NA     NA
+#> V4 items  0.4531  0.71885 -2.048156  0  1 NA     NA     NA
+#> V5 items  0.8442  0.09403 -3.933192  0  1 NA     NA     NA
+#> 6  means      NA       NA        NA NA NA  0     NA     NA
+#> 7  means      NA       NA        NA NA NA  0     NA     NA
+#> 8    cov      NA       NA        NA NA NA NA 1.0000 0.7453
+#> 9    cov      NA       NA        NA NA NA NA 0.7453 1.0000
 #> 
 #> $model_options
 #>                       Options
@@ -273,14 +273,14 @@ report_irt(model=irt_twofactor,file="two_factors")
 #> [1] "NULL"
 #> 
 #> $q3_matrix
-#>          V1      V2     V3      V4   V5     min     max
-#> V1       NA      NA     NA      NA   NA      NA      NA
-#> V2  0.08943      NA     NA      NA   NA 0.08943 0.08943
-#> V3  0.11888 0.29202     NA      NA   NA 0.11888 0.29202
-#> V4  0.06799 0.18817 0.2857      NA   NA 0.06799 0.28572
-#> V5  0.03909 0.09404 0.1411 0.09764   NA 0.03909 0.14112
-#> min 0.03909 0.09404 0.1411 0.09764  Inf 0.03909 0.08943
-#> max 0.11888 0.29202 0.2857 0.09764 -Inf 0.11888 0.29202
+#>          V1     V2     V3     V4   V5     min     max
+#> V1       NA     NA     NA     NA   NA      NA      NA
+#> V2  0.09556     NA     NA     NA   NA 0.09556 0.09556
+#> V3  0.12957 0.3347     NA     NA   NA 0.12957 0.33469
+#> V4  0.07209 0.2264 0.3248     NA   NA 0.07209 0.32477
+#> V5  0.04891 0.1212 0.1634 0.1107   NA 0.04891 0.16340
+#> min 0.04891 0.1212 0.1634 0.1107  Inf 0.04891 0.09556
+#> max 0.12957 0.3347 0.3248 0.1107 -Inf 0.12957 0.33469
 #> 
 #> $exp_residuals
 #>    V1 V2 V3 V4 V5  freq         exp  std.res
@@ -333,14 +333,14 @@ report_irt(model=irt_twofactor,file="two_factors")
 report_irt(model=irt_threefactor,file="three_factors")
 #> Q3 summary statistics:
 #>    Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
-#>   0.056   0.098   0.135   0.151   0.186   0.305 
+#>   0.050   0.106   0.126   0.164   0.214   0.339 
 #> 
 #>       V1    V2    V3    V4    V5
-#> V1 1.000 0.056 0.141 0.128 0.066
-#> V2 0.056 1.000 0.265 0.198 0.093
-#> V3 0.141 0.265 1.000 0.305 0.147
-#> V4 0.128 0.198 0.305 1.000 0.111
-#> V5 0.066 0.093 0.147 0.111 1.000
+#> V1 1.000 0.099 0.132 0.104 0.050
+#> V2 0.099 1.000 0.295 0.232 0.112
+#> V3 0.132 0.295 1.000 0.339 0.162
+#> V4 0.104 0.232 0.339 1.000 0.119
+#> V5 0.050 0.112 0.162 0.119 1.000
 #> Warning: no non-missing arguments to min; returning Inf
 #> Warning: no non-missing arguments to max; returning -Inf
 #> Warning: no non-missing arguments to min; returning Inf
@@ -357,17 +357,17 @@ report_irt(model=irt_threefactor,file="three_factors")
 #> 
 #> $model_coefficients_oblimin
 #>      .id       a1       a2       a3         d  g  u  x     F1     F2     F3
-#> V1 items 0.005708  0.01013  8.14832 16.235542  0  1 NA     NA     NA     NA
-#> V2 items 0.017279  1.12693  0.01714  2.060654  0  1 NA     NA     NA     NA
-#> V3 items 0.979660  0.12596 -0.09644  0.006835  0  1 NA     NA     NA     NA
+#> V1 items 0.005699  0.01011  8.14833 16.235542  0  1 NA     NA     NA     NA
+#> V2 items 0.017266  1.12695  0.01710  2.060654  0  1 NA     NA     NA     NA
+#> V3 items 0.979659  0.12596 -0.09645  0.006835  0  1 NA     NA     NA     NA
 #> V4 items 0.908478  0.04810  0.11014 -1.995141  0  1 NA     NA     NA     NA
-#> V5 items 1.008978 -0.10254  0.02582 -3.952170  0  1 NA     NA     NA     NA
+#> V5 items 1.008980 -0.10254  0.02583 -3.952170  0  1 NA     NA     NA     NA
 #> 6  means       NA       NA       NA        NA NA NA  0     NA     NA     NA
 #> 7  means       NA       NA       NA        NA NA NA  0     NA     NA     NA
 #> 8  means       NA       NA       NA        NA NA NA  0     NA     NA     NA
 #> 9    cov       NA       NA       NA        NA NA NA NA 1.0000 0.8189 0.4831
-#> 10   cov       NA       NA       NA        NA NA NA NA 0.8189 1.0000 0.3829
-#> 11   cov       NA       NA       NA        NA NA NA NA 0.4831 0.3829 1.0000
+#> 10   cov       NA       NA       NA        NA NA NA NA 0.8189 1.0000 0.3830
+#> 11   cov       NA       NA       NA        NA NA NA NA 0.4831 0.3830 1.0000
 #> 
 #> $model_options
 #>                       Options
@@ -426,14 +426,14 @@ report_irt(model=irt_threefactor,file="three_factors")
 #> [1] "NULL"
 #> 
 #> $q3_matrix
-#>          V1      V2     V3    V4   V5     min     max
-#> V1       NA      NA     NA    NA   NA      NA      NA
-#> V2  0.05551      NA     NA    NA   NA 0.05551 0.05551
-#> V3  0.14111 0.26515     NA    NA   NA 0.14111 0.26515
-#> V4  0.12820 0.19850 0.3051    NA   NA 0.12820 0.30513
-#> V5  0.06628 0.09335 0.1466 0.111   NA 0.06628 0.14656
-#> min 0.05551 0.09335 0.1466 0.111  Inf 0.05551 0.05551
-#> max 0.14111 0.26515 0.3051 0.111 -Inf 0.14111 0.30513
+#>          V1     V2     V3     V4   V5     min     max
+#> V1       NA     NA     NA     NA   NA      NA      NA
+#> V2  0.09922     NA     NA     NA   NA 0.09922 0.09922
+#> V3  0.13232 0.2949     NA     NA   NA 0.13232 0.29486
+#> V4  0.10438 0.2316 0.3391     NA   NA 0.10438 0.33907
+#> V5  0.04996 0.1122 0.1619 0.1187   NA 0.04996 0.16186
+#> min 0.04996 0.1122 0.1619 0.1187  Inf 0.04996 0.09922
+#> max 0.13232 0.2949 0.3391 0.1187 -Inf 0.13232 0.33907
 #> 
 #> $exp_residuals
 #>    V1 V2 V3 V4 V5  freq         exp   std.res
