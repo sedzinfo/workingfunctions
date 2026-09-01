@@ -1,7 +1,7 @@
 [1] "####################################################################################################"
 [1] "SUMMARY"
 [1] "####################################################################################################"
-lavaan 0.6-21 ended normally after 23 iterations
+lavaan 0.7-2 ended normally after 23 iterations
 
   Estimator                                         ML
   Optimization method                           NLMINB
@@ -56,6 +56,16 @@ Root Mean Square Error of Approximation:
 Standardized Root Mean Square Residual:
 
   SRMR                                           0.011
+
+Goodness of Fit Index:
+
+  Goodness of Fit Index (GFI)                    1.000
+  90 Percent confidence interval - lower         0.995
+  90 Percent confidence interval - upper         1.000
+                                                      
+  Robust GFI                                     1.000
+  90 Percent confidence interval - lower         0.995
+  90 Percent confidence interval - upper         1.000
 
 Parameter Estimates:
 
@@ -158,10 +168,17 @@ crmr                            0.01284
 crmr_nomean                     0.01570
 srmr_mplus                      0.01115
 srmr_mplus_nomean               0.01285
+gfi                             1.00000
+gfi.ci.lower                    0.99529
+gfi.ci.upper                    1.00000
+gfi.ci.level                    0.90000
+gfi.robust                      1.00000
+gfi.ci.lower.robust             0.99457
+gfi.ci.upper.robust             1.00000
 cn_05                         767.62724
 cn_01                        1045.71794
-gfi                             0.98261
-agfi                            0.93043
+gfi_lisrel                      0.98261
+agfi_lisrel                     0.93043
 pgfi                            0.24565
 mfi                             1.01794
 ecvi                            0.31444
@@ -176,15 +193,15 @@ ecvi                            0.31444
 5  LATENT =~  ITEM5   0  1.13646 0.1397  8.1329 0.0000000000000004441   0.8626  1.41034  1.29570  0.796234
 6   ITEM1 ~~  ITEM1   0  0.75591 0.1434  5.2710 0.0000001356631531557   0.4748  1.03699  0.75591  0.367699
 7   ITEM2 ~~  ITEM2   0  0.83237 0.1506  5.5276 0.0000000324550872843   0.5372  1.12751  0.83237  0.400516
-8   ITEM3 ~~  ITEM3   0  0.93905 0.1717  5.4695 0.0000000451253361344   0.6026  1.27556  0.93905  0.395847
-9   ITEM4 ~~  ITEM4   0  0.94304 0.1730  5.4514 0.0000000499656347408   0.6040  1.28210  0.94304  0.398673
+8   ITEM3 ~~  ITEM3   0  0.93905 0.1717  5.4695 0.0000000451253359124   0.6026  1.27556  0.93905  0.395847
+9   ITEM4 ~~  ITEM4   0  0.94304 0.1730  5.4514 0.0000000499656345188   0.6040  1.28210  0.94304  0.398673
 10  ITEM5 ~~  ITEM5   0  0.96922 0.1848  5.2453 0.0000001559956859243   0.6071  1.33138  0.96922  0.366011
-11 LATENT ~~ LATENT   0  1.29988 0.2901  4.4812 0.0000074222706800686   0.7313  1.86841  1.00000  1.000000
-12  ITEM1 ~1          0  0.07839 0.1451  0.5402 0.5890267286013932679  -0.2060  0.36278  0.07839  0.054672
-13  ITEM2 ~1          0 -0.19368 0.1460 -1.3266 0.1846250653901897465  -0.4798  0.09246 -0.19368 -0.134351
-14  ITEM3 ~1          0 -0.17870 0.1560 -1.1454 0.2520441596436355791  -0.4845  0.12709 -0.17870 -0.116023
-15  ITEM4 ~1          0 -0.03428 0.1558 -0.2201 0.8257840965461507032  -0.3396  0.27099 -0.03428 -0.022291
-16  ITEM5 ~1          0  0.01537 0.1647  0.0933 0.9256638379521202609  -0.3074  0.33814  0.01537  0.009442
+11 LATENT ~~ LATENT   0  1.29988 0.2901  4.4812 0.0000074222706858418   0.7313  1.86841  1.00000  1.000000
+12  ITEM1 ~1          0  0.07839 0.1451  0.5402 0.5890267286129460267  -0.2060  0.36278  0.07839  0.054672
+13  ITEM2 ~1          0 -0.19368 0.1460 -1.3266 0.1846250653790726393  -0.4798  0.09246 -0.19368 -0.134351
+14  ITEM3 ~1          0 -0.17870 0.1560 -1.1454 0.2520441596297475773  -0.4845  0.12709 -0.17870 -0.116023
+15  ITEM4 ~1          0 -0.03428 0.1558 -0.2201 0.8257840965289942048  -0.3396  0.27099 -0.03428 -0.022291
+16  ITEM5 ~1          0  0.01537 0.1647  0.0933 0.9256638379686097373  -0.3074  0.33814  0.01537  0.009442
 17 LATENT ~1          0  0.00000 0.0000      NA                    NA   0.0000  0.00000  0.00000  0.000000
 18  ITEM1 r2  ITEM1   0  0.63230     NA      NA                    NA       NA       NA       NA        NA
 19  ITEM2 r2  ITEM2   0  0.59948     NA      NA                    NA       NA       NA       NA        NA
@@ -273,7 +290,7 @@ LATENT      0
 [1] "####################################################################################################"
 [1] "CALL"
 [1] "####################################################################################################"
-[1] "lavaan::lavaan(model=model,data=df,missing=\"ML\",model.type=\"cfa\"," "int.ov.free=TRUE,int.lv.free=FALSE,auto.fix.first=TRUE,"              
+[1] "lavaan::lavaan(model=model,data=df,missing=\"ML\",model.type=\"cfa\"," "cmd=\"cfa\",int.ov.free=TRUE,int.lv.free=FALSE,auto.fix.first=TRUE,"  
 [3] "auto.fix.single=TRUE,auto.var=TRUE,auto.cov.lv.x=TRUE,"                "auto.cov.y=TRUE,auto.th=TRUE,auto.delta=TRUE,auto.efa=TRUE)"          
-[1] "lavaan::lavaan(model=model,data=df,missing=\"ML\",model.type=\"cfa\"," "int.ov.free=TRUE,int.lv.free=FALSE,auto.fix.first=TRUE,"              
+[1] "lavaan::lavaan(model=model,data=df,missing=\"ML\",model.type=\"cfa\"," "cmd=\"cfa\",int.ov.free=TRUE,int.lv.free=FALSE,auto.fix.first=TRUE,"  
 [3] "auto.fix.single=TRUE,auto.var=TRUE,auto.cov.lv.x=TRUE,"                "auto.cov.y=TRUE,auto.th=TRUE,auto.delta=TRUE,auto.efa=TRUE)"          
