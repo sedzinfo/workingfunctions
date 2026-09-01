@@ -62,11 +62,6 @@ result <- plot_oneway_diagnostics(df = df, dv = 11:15, iv = 1:10)
 #> ℹ Please use `broom::augment(<lm>)` instead.
 #> ℹ The deprecated feature was likely used in the ggfortify package.
 #>   Please report the issue at <https://github.com/sinhrks/ggfortify/issues>.
-#> Warning: `aes_string()` was deprecated in ggplot2 3.0.0.
-#> ℹ Please use tidy evaluation idioms with `aes()`.
-#> ℹ See also `vignette("ggplot2-in-packages")` for more information.
-#> ℹ The deprecated feature was likely used in the ggfortify package.
-#>   Please report the issue at <https://github.com/sinhrks/ggfortify/issues>.
 
 # Single DV, multiple IVs
 plot_oneway_diagnostics(df = mtcars, dv = 1, iv = 9:10)
