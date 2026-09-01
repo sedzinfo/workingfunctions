@@ -85,6 +85,7 @@ reference:
       - plot_cfa
       - plot_cfa_gg
       - plot_confusion
+      - plot_confusion_extended
       - plot_corrplot
       - plot_crosstable
       - plot_duplicate_y_axis
