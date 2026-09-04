@@ -19,7 +19,7 @@ knitr::opts_chunk$set(echo = TRUE, message = FALSE, warning = FALSE)
 
 ---
 
-# Επιστημονική Εξήγηση
+# Εξήγηση
 
 ## Το μοντέλο Thurstonian IRT
 
@@ -93,7 +93,7 @@ $$[\boldsymbol{\Psi} \mid \mathbf{I}] \xrightarrow{\text{Gauss-Jordan}} [\mathbf
 
 ---
 
-# Απλή Εξήγηση (για μη ειδικούς)
+# Απλή Εξήγηση
 
 ## Τι μετράμε;
 
